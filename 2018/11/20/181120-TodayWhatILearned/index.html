@@ -1,0 +1,494 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Emjay&#39;s DailyCommit Blog">
+    <title>181120-TodayWhatILearned - Emjay&#39;s DailyCommit Blog</title>
+    <meta name="author" content="EmjayAhn(Minjae Ahn)">
+    
+        <meta name="keywords" content="hexo,datascience,datascientist,">
+    
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"EmjayAhn(Minjae Ahn)","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae"]},"articleBody":"181120 TWIL\n오늘 한 일은 무엇인가\n시계열 공부(SARIMA)\nBST 공부\n\n\n내일 할 일은 무엇인가\nA* 알고리즘 공부\n회기분석 리뷰\n\n\n무엇을 느꼈는가\n오늘 시계열을 강의가 마무리 되면서, 가장 중요한 교훈은 ‘세상의 모든 시계열 데이터를 현재 배운 모델로구현할 수 없다’인 것 같다. 회기 분석보다 훨씬더 어려웠던, 수식 전개들이 많았는데 모델링 할 수 있는 실제데이터가 많이 없다는 것이 안타까웠다.\n그럼에도 불구하고 이전 프로젝트에서 다루었던 데이터를 ARIMA 등을 적용할 수 있을지 다시한번 프로젝트파일을 열어봐야겠다.\n내일은 Projectmini 에서 하기로한 A* 알고리즘을 구현하는 것을 고민해 봐야한다. 프로젝트 기간동안미뤄두었던 것을 하는 것이라, 의지는 충만하지만, 이전에 막혔던 부분에서 다시 어디서부터 봐야할지 복기 하는시간이 오래 걸릴 것 같다.\n\n\n","dateCreated":"2018-11-20T23:03:55+09:00","dateModified":"2018-11-20T23:13:14+09:00","datePublished":"2018-11-20T23:03:55+09:00","description":"","headline":"181120-TodayWhatILearned","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://emjayahn.github.io/2018/11/20/181120-TodayWhatILearned/"},"publisher":{"@type":"Organization","name":"EmjayAhn(Minjae Ahn)","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae"]},"url":"https://emjayahn.github.io/2018/11/20/181120-TodayWhatILearned/"}</script>
+    <meta name="description" content="181120 TWIL 오늘 한 일은 무엇인가 시계열 공부(SARIMA) BST 공부   내일 할 일은 무엇인가 A* 알고리즘 공부 회기분석 리뷰   무엇을 느꼈는가 오늘 시계열을 강의가 마무리 되면서, 가장 중요한 교훈은 ‘세상의 모든 시계열 데이터를 현재 배운 모델로구현할 수 없다’인 것 같다. 회기 분석보다 훨씬더 어려웠던, 수식 전개들이 많았는데 모델">
+<meta name="keywords" content="hexo,datascience,datascientist">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="181120-TodayWhatILearned">
+<meta property="og:url" content="https://emjayahn.github.io/2018/11/20/181120-TodayWhatILearned/index.html">
+<meta property="og:site_name" content="Emjay&#39;s DailyCommit Blog">
+<meta property="og:description" content="181120 TWIL 오늘 한 일은 무엇인가 시계열 공부(SARIMA) BST 공부   내일 할 일은 무엇인가 A* 알고리즘 공부 회기분석 리뷰   무엇을 느꼈는가 오늘 시계열을 강의가 마무리 되면서, 가장 중요한 교훈은 ‘세상의 모든 시계열 데이터를 현재 배운 모델로구현할 수 없다’인 것 같다. 회기 분석보다 훨씬더 어려웠던, 수식 전개들이 많았는데 모델">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-11-20T14:13:14.388Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="181120-TodayWhatILearned">
+<meta name="twitter:description" content="181120 TWIL 오늘 한 일은 무엇인가 시계열 공부(SARIMA) BST 공부   내일 할 일은 무엇인가 A* 알고리즘 공부 회기분석 리뷰   무엇을 느꼈는가 오늘 시계열을 강의가 마무리 되면서, 가장 중요한 교훈은 ‘세상의 모든 시계열 데이터를 현재 배운 모델로구현할 수 없다’인 것 같다. 회기 분석보다 훨씬더 어려웠던, 수식 전개들이 많았는데 모델">
+    
+    
+        
+    
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-c4ozcsklz4kht2pebhp44xorvyverh23toayhn7i6ubrpyedak24hv1v0hyd.min.css">
+    <!--STYLES END--><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    
+
+    
+</head>
+
+    <body>
+        <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">Emjay&#39;s DailyCommit Blog</a>
+    </div>
+    
+        
+            <a class="header-right-picture " href="#about">
+        
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/ " title="Home">
+                    
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/all-categories" title="Categories">
+                    
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/all-tags" title="Tags">
+                    
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/all-archives" title="Archives">
+                    
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link open-algolia-search" href="#search" title="Search">
+                    
+                        <i class="sidebar-button-icon fa fa-search" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="#about" title="About">
+                    
+                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="https://github.com/emjayahn" target="_blank" rel="noopener" title="GitHub">
+                    
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="https://facebook.com/jjminjae" target="_blank" rel="noopener" title="Facebook">
+                    
+                        <i class="sidebar-button-icon fab fa-facebook" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Facebook</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/atom.xml" title="RSS">
+                    
+                        <i class="sidebar-button-icon fa fa-rss" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            181120-TodayWhatILearned
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2018-11-20T23:03:55+09:00">
+	
+		    Nov 20, 2018
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/Diary/">Diary</a>
+
+
+    
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <h1 id="181120-TWIL"><a href="#181120-TWIL" class="headerlink" title="181120 TWIL"></a>181120 TWIL</h1><hr>
+<h2 id="오늘-한-일은-무엇인가"><a href="#오늘-한-일은-무엇인가" class="headerlink" title="오늘 한 일은 무엇인가"></a>오늘 한 일은 무엇인가</h2><ol>
+<li>시계열 공부(SARIMA)</li>
+<li>BST 공부</li>
+</ol>
+<hr>
+<h2 id="내일-할-일은-무엇인가"><a href="#내일-할-일은-무엇인가" class="headerlink" title="내일 할 일은 무엇인가"></a>내일 할 일은 무엇인가</h2><ol>
+<li>A* 알고리즘 공부</li>
+<li>회기분석 리뷰<br><br></li>
+</ol>
+<hr>
+<h2 id="무엇을-느꼈는가"><a href="#무엇을-느꼈는가" class="headerlink" title="무엇을 느꼈는가"></a>무엇을 느꼈는가</h2><ul>
+<li>오늘 시계열을 강의가 마무리 되면서, 가장 중요한 교훈은 ‘세상의 모든 시계열 데이터를 현재 배운 모델로<br>구현할 수 없다’인 것 같다. 회기 분석보다 훨씬더 어려웠던, 수식 전개들이 많았는데 모델링 할 수 있는 실제<br>데이터가 많이 없다는 것이 안타까웠다.</li>
+<li>그럼에도 불구하고 이전 프로젝트에서 다루었던 데이터를 ARIMA 등을 적용할 수 있을지 다시한번 프로젝트<br>파일을 열어봐야겠다.</li>
+<li>내일은 Projectmini 에서 하기로한 A* 알고리즘을 구현하는 것을 고민해 봐야한다. 프로젝트 기간동안<br>미뤄두었던 것을 하는 것이라, 의지는 충만하지만, 이전에 막혔던 부분에서 다시 어디서부터 봐야할지 복기 하는<br>시간이 오래 걸릴 것 같다.</li>
+</ul>
+<hr>
+
+            
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/11/21/181121-TodayWhatILearned/" data-tooltip="181121-TodayWhatILearned" aria-label="PREVIOUS: 181121-TodayWhatILearned">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/11/19/181119-TodayWhatILearned/" data-tooltip="181119-TodayWhatILearned" aria-label="NEXT: 181119-TodayWhatILearned">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://emjayahn.github.io/2018/11/20/181120-TodayWhatILearned/" title="Share on Facebook">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://emjayahn.github.io/2018/11/20/181120-TodayWhatILearned/" title="Share on Twitter">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://emjayahn.github.io/2018/11/20/181120-TodayWhatILearned/" title="Share on Google+">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+                <li class="post-action">
+                    <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                        <i class="fa fa-comment"></i>
+                    </a>
+                </li>
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+                <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2019 EmjayAhn(Minjae Ahn). All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/11/21/181121-TodayWhatILearned/" data-tooltip="181121-TodayWhatILearned" aria-label="PREVIOUS: 181121-TodayWhatILearned">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/11/19/181119-TodayWhatILearned/" data-tooltip="181119-TodayWhatILearned" aria-label="NEXT: 181119-TodayWhatILearned">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://emjayahn.github.io/2018/11/20/181120-TodayWhatILearned/" title="Share on Facebook">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://emjayahn.github.io/2018/11/20/181120-TodayWhatILearned/" title="Share on Twitter">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://emjayahn.github.io/2018/11/20/181120-TodayWhatILearned/" title="Share on Google+">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+                <li class="post-action">
+                    <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                        <i class="fa fa-comment"></i>
+                    </a>
+                </li>
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                
+    <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+        <i id="btn-close-shareoptions" class="fa fa-times"></i>
+        <ul class="share-options">
+            
+                
+                
+                <li class="share-option">
+                    <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://emjayahn.github.io/2018/11/20/181120-TodayWhatILearned/">
+                        <i class="fab fa-facebook" aria-hidden="true"></i><span>Share on Facebook</span>
+                    </a>
+                </li>
+            
+                
+                
+                <li class="share-option">
+                    <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https://emjayahn.github.io/2018/11/20/181120-TodayWhatILearned/">
+                        <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+                    </a>
+                </li>
+            
+                
+                
+                <li class="share-option">
+                    <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https://emjayahn.github.io/2018/11/20/181120-TodayWhatILearned/">
+                        <i class="fab fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>
+                    </a>
+                </li>
+            
+        </ul>
+    </div>
+
+
+            
+        </div>
+        
+
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <h4 id="about-card-name">EmjayAhn(Minjae Ahn)</h4>
+        
+            <div id="about-card-bio"><p>author.bio</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br>
+                <p>author.job</p>
+
+            </div>
+        
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/script-dbd16rvloemmuxdzniplmnxxvwoz24eya9wol0b7vvmlokgqsjivmb8dnscy.min.js"></script>
+<!--SCRIPTS END-->
+
+    
+        <script>
+             var disqus_config = function () {
+                 this.page.url = 'https://emjayahn.github.io/2018/11/20/181120-TodayWhatILearned/';
+                 
+                    this.page.identifier = '2018/11/20/181120-TodayWhatILearned/';
+                 
+             };
+            (function() {
+                var d = document, s = d.createElement('script');
+                var disqus_shortname = 'emjaygithubpage';
+                s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    
+
+
+
+    </body>
+</html>

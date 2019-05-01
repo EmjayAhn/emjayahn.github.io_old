@@ -1,0 +1,580 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Emjay&#39;s DailyCommit Blog">
+    <title>Selenium - Emjay&#39;s DailyCommit Blog</title>
+    <meta name="author" content="EmjayAhn(Minjae Ahn)">
+    
+        <meta name="keywords" content="hexo,datascience,datascientist,">
+    
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"EmjayAhn(Minjae Ahn)","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae"]},"articleBody":"Selenium\n공부한 내용을 스스로 보기 쉽게 정리한 글입니다.\n\n자동화 할 수 있는 프로그램\n\n\n[ Install Selenium ]\nchrome driver 다운로드\n1$ mv ~/Download/chromedriver /usr/local/bin\n\nSelenium Python Package 설치\n1$ sudo pip3 install selenium\n\n\n1. 셀레니움 사용해보기\nimport\n1from selenium import webdriver\n\nOpen Browser (Chrome Driver)\n1driver = webdriver.Chrome()\n\n페이지 이동\n1driver.get(url)\n\n브라우져 상에서 자바 스크립트 실행\n1driver.execute_script(\"window.scrollTo(300, 400)\")\n\n지금 control하고 있는 window 객체 확인\n123main_window = driver.current_window_handlemain_window#현재 control 하고 있는 window 의 객체를 리턴한다.\n\n열려 있는 전체 window 탭 모두 확인\n123windows = driver.window_handleswindows#현재 열려있는 모든 탭의 객체를 리스트 형태로 리턴한다.\n\n열려있는 window 탭 중, control 대상 window 로 바꾸기\n123driver.switch_to_window(windows[0])#다시 원래 열었던 창으로 돌아가기driver.switch_to_window(main_window)\n\n\n2. Alert 와 Confirm 다루기\n웹을 자동화해서 다니다보면, Alert 창이나 Confirm 창이 의도치 않게 나올 수 있다. 이를 다루는 방법은 다음과 같다.\nAlert와 Confirm 창의 차이는, Alert 는 확인 창 하나만 있고, Confirm은 확인과 취소가 같이 있는 창이다.\n\n(1) Alert\nAlert 띄우기\n12drive.switch_to_window(main_window)drive.execute_script(\"alert('이게 alert 로 뜰겁니다.');\")\n\nAlert 확인 누르기\n12alert = driver.switch_to.alertalert.accept()\n\nAlert 창이 있으면 확인을 누르고, 없으면 없다고 리턴하기 (예외처리)\n12345try:  alert = driver.switch_to.alert  alert.accept()except:  print(\"alert 가 없습니다.\")\n\n\n(2) Confirm\nConfirm 띄우기\n1driver.execute_script(\"confirm('이게 Confirm 창입니다.');\")\n\nConfirm 창 확인 누르기 or 취소 누르기\n12345confirm = driver.switch_to.alert# 확인# confirm.accept()# 취소confirm.dismiss()\n\n\n3. 입력창에 글씨 입력하기\n이제부터 Selenium을 통해 특정 html 의 element 에 액션을 주려면,각종 Selector 를 사용하여 html 상의 element을 셀렉팅 하고, 해당 element 에게 액션을 주어야한다.\n\n1driver.find_element_by_css_selector(nameof cssselector).send_keys(\"입력할 내용\")\n\n.find_element_by_css_selector 와 .find_elements_by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 반면, elements 는 여러가지 element 를 셀렉팅 해서, 리스트 형식으로 Return 한다.\n따라서 이렇게 리스트 형식으로 Return 이 된 경우, List[0] 등과 같이 그 엘리먼트를 뒤에 지정해줘야된다. 즉,1234driver.find_element_by_css_selector(nameof cssselector)#위는 바로 selecting 이 된것이지만,driver.find_elements_by_css_selector(nameof cssselector)[0]#위는 뒤에 selecting 위해 list 의 요소를 선택 해주어야한다.\n\n\n4. 버튼 클릭하기12# 위의 방법처럼, element 를 선택해준다.driver.find_element_by_css_selector(\"name of css selector\").click()\n5. id, class, 그 외의 attribute 값을 selecting 하는 법1234driver.find_element_by_css_selector(\"name of css selector.\").click()# id 의 경우 : #idname# class 의 경우 : .classname# 다른 attribute 의 경우 : [attribute = 'value']\n6. selecting 한 element 의 attribute value 를 얻는 방법\nCSS로 선택한 element에 html 태그에는 다양한 attribute 들이 있을 수 있다. 이 중attribute의 value에 접근 하고 싶을 때는 .get_attribute()메소드를 사용할 수 있다.1driver.find_element_by_css_selector(\"name of css selector\").get_attribute(\"attribute_name\")\n\n\n7. element 의 위치와, 사이즈 구하기\n스크롤을 내리거나, 엘리먼트의 위치와 크기를 알고 싶을 때 사용할 수 있다.12345element = driver.find_element_by_css_selector(\"name of css selector\")element.location#element 의 좌측 상단의 위치가 pixel 단위로 x, y 값의 dictionary로 보여준다.element.size#element 의 size 를 height, width를 pixel 단위로 dictionary로 보여준다.\n\n\n","dateCreated":"2018-10-24T12:02:50+09:00","dateModified":"2018-11-29T23:03:05+09:00","datePublished":"2018-10-24T12:02:50+09:00","description":"","headline":"Selenium","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://emjayahn.github.io/2018/10/24/Selenium/"},"publisher":{"@type":"Organization","name":"EmjayAhn(Minjae Ahn)","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae"]},"url":"https://emjayahn.github.io/2018/10/24/Selenium/","keywords":"자동화, selenium, webdriver"}</script>
+    <meta name="description" content="Selenium 공부한 내용을 스스로 보기 쉽게 정리한 글입니다.  자동화 할 수 있는 프로그램   [ Install Selenium ] chrome driver 다운로드 1$ mv ~/Download/chromedriver /usr/local/bin  Selenium Python Package 설치 1$ sudo pip3 install selenium">
+<meta name="keywords" content="자동화, selenium, webdriver">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Selenium">
+<meta property="og:url" content="https://emjayahn.github.io/2018/10/24/Selenium/index.html">
+<meta property="og:site_name" content="Emjay&#39;s DailyCommit Blog">
+<meta property="og:description" content="Selenium 공부한 내용을 스스로 보기 쉽게 정리한 글입니다.  자동화 할 수 있는 프로그램   [ Install Selenium ] chrome driver 다운로드 1$ mv ~/Download/chromedriver /usr/local/bin  Selenium Python Package 설치 1$ sudo pip3 install selenium">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-11-29T14:03:05.332Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Selenium">
+<meta name="twitter:description" content="Selenium 공부한 내용을 스스로 보기 쉽게 정리한 글입니다.  자동화 할 수 있는 프로그램   [ Install Selenium ] chrome driver 다운로드 1$ mv ~/Download/chromedriver /usr/local/bin  Selenium Python Package 설치 1$ sudo pip3 install selenium">
+    
+    
+        
+    
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-c4ozcsklz4kht2pebhp44xorvyverh23toayhn7i6ubrpyedak24hv1v0hyd.min.css">
+    <!--STYLES END--><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    
+
+    
+</head>
+
+    <body>
+        <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">Emjay&#39;s DailyCommit Blog</a>
+    </div>
+    
+        
+            <a class="header-right-picture " href="#about">
+        
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/ " title="Home">
+                    
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/all-categories" title="Categories">
+                    
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/all-tags" title="Tags">
+                    
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/all-archives" title="Archives">
+                    
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link open-algolia-search" href="#search" title="Search">
+                    
+                        <i class="sidebar-button-icon fa fa-search" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="#about" title="About">
+                    
+                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="https://github.com/emjayahn" target="_blank" rel="noopener" title="GitHub">
+                    
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="https://facebook.com/jjminjae" target="_blank" rel="noopener" title="Facebook">
+                    
+                        <i class="sidebar-button-icon fab fa-facebook" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Facebook</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/atom.xml" title="RSS">
+                    
+                        <i class="sidebar-button-icon fa fa-rss" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            Selenium
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2018-10-24T12:02:50+09:00">
+	
+		    Oct 24, 2018
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/wiki/">wiki</a>, <a class="category-link" href="/categories/wiki/Selenium/">Selenium</a>
+
+
+    
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <h1 id="Selenium"><a href="#Selenium" class="headerlink" title="Selenium"></a>Selenium</h1><blockquote>
+<p>공부한 내용을 스스로 보기 쉽게 정리한 글입니다.</p>
+<ul>
+<li>자동화 할 수 있는 프로그램</li>
+</ul>
+</blockquote>
+<h2 id="Install-Selenium"><a href="#Install-Selenium" class="headerlink" title="[ Install Selenium ]"></a>[ Install Selenium ]</h2><ol>
+<li><p>chrome driver 다운로드</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> mv ~/Download/chromedriver /usr/<span class="built_in">local</span>/bin</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Selenium Python Package 설치</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo pip3 install selenium</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="1-셀레니움-사용해보기"><a href="#1-셀레니움-사용해보기" class="headerlink" title="1. 셀레니움 사용해보기"></a>1. 셀레니움 사용해보기</h2><ul>
+<li><p>import</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Open Browser (Chrome Driver)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver = webdriver.Chrome()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>페이지 이동</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.get(url)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>브라우져 상에서 자바 스크립트 실행</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.execute_script(<span class="string">"window.scrollTo(300, 400)"</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>지금 control하고 있는 window 객체 확인</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">main_window = driver.current_window_handle</span><br><span class="line">main_window</span><br><span class="line"><span class="comment">#현재 control 하고 있는 window 의 객체를 리턴한다.</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>열려 있는 전체 window 탭 모두 확인</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">windows = driver.window_handles</span><br><span class="line">windows</span><br><span class="line"><span class="comment">#현재 열려있는 모든 탭의 객체를 리스트 형태로 리턴한다.</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>열려있는 window 탭 중, control 대상 window 로 바꾸기</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">driver.switch_to_window(windows[<span class="number">0</span>])</span><br><span class="line"><span class="comment">#다시 원래 열었던 창으로 돌아가기</span></span><br><span class="line">driver.switch_to_window(main_window)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="2-Alert-와-Confirm-다루기"><a href="#2-Alert-와-Confirm-다루기" class="headerlink" title="2. Alert 와 Confirm 다루기"></a>2. Alert 와 Confirm 다루기</h2><ul>
+<li>웹을 자동화해서 다니다보면, Alert 창이나 Confirm 창이 의도치 않게 나올 수 있다. 이를 다루는 방법은 다음과 같다.</li>
+<li>Alert와 Confirm 창의 차이는, <br><br>Alert 는 확인 창 하나만 있고, Confirm은 확인과 취소가 같이 있는 창이다.</li>
+</ul>
+<h3 id="1-Alert"><a href="#1-Alert" class="headerlink" title="(1) Alert"></a>(1) Alert</h3><ul>
+<li><p>Alert 띄우기</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">drive.switch_to_window(main_window)</span><br><span class="line">drive.execute_script(<span class="string">"alert('이게 alert 로 뜰겁니다.');"</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Alert 확인 누르기</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">alert = driver.switch_to.alert</span><br><span class="line">alert.accept()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Alert 창이 있으면 확인을 누르고, 없으면 없다고 리턴하기 (예외처리)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">  alert = driver.switch_to.alert</span><br><span class="line">  alert.accept()</span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">  print(<span class="string">"alert 가 없습니다."</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="2-Confirm"><a href="#2-Confirm" class="headerlink" title="(2) Confirm"></a>(2) Confirm</h3><ul>
+<li><p>Confirm 띄우기</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.execute_script(<span class="string">"confirm('이게 Confirm 창입니다.');"</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Confirm 창 확인 누르기 or 취소 누르기</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">confirm = driver.switch_to.alert</span><br><span class="line"><span class="comment"># 확인</span></span><br><span class="line"><span class="comment"># confirm.accept()</span></span><br><span class="line"><span class="comment"># 취소</span></span><br><span class="line">confirm.dismiss()</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="3-입력창에-글씨-입력하기"><a href="#3-입력창에-글씨-입력하기" class="headerlink" title="3. 입력창에 글씨 입력하기"></a>3. 입력창에 글씨 입력하기</h2><ul>
+<li>이제부터 Selenium을 통해 특정 html 의 element 에 액션을 주려면,<br>각종 Selector 를 사용하여 html 상의 element을 셀렉팅 하고, 해당 element 에게 액션을 주어야한다.</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.find_element_by_css_selector(nameof cssselector).send_keys(<span class="string">"입력할 내용"</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>.find_element_by_css_selector 와 <br><br>.find_<b>elements</b>_<br>by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 반면, elements 는 여러가지 element 를 셀렉팅 해서, 리스트 형식으로 Return 한다.</li>
+<li>따라서 이렇게 리스트 형식으로 Return 이 된 경우, List[0] 등과 같이 그 엘리먼트를 뒤에 지정해줘야된다. 즉,<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">driver.find_element_by_css_selector(nameof cssselector)</span><br><span class="line"><span class="comment">#위는 바로 selecting 이 된것이지만,</span></span><br><span class="line">driver.find_elements_by_css_selector(nameof cssselector)[<span class="number">0</span>]</span><br><span class="line"><span class="comment">#위는 뒤에 selecting 위해 list 의 요소를 선택 해주어야한다.</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="4-버튼-클릭하기"><a href="#4-버튼-클릭하기" class="headerlink" title="4. 버튼 클릭하기"></a>4. 버튼 클릭하기</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 위의 방법처럼, element 를 선택해준다.</span></span><br><span class="line">driver.find_element_by_css_selector(<span class="string">"name of css selector"</span>).click()</span><br></pre></td></tr></table></figure>
+<h2 id="5-id-class-그-외의-attribute-값을-selecting-하는-법"><a href="#5-id-class-그-외의-attribute-값을-selecting-하는-법" class="headerlink" title="5. id, class, 그 외의 attribute 값을 selecting 하는 법"></a>5. id, class, 그 외의 attribute 값을 selecting 하는 법</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">driver.find_element_by_css_selector(<span class="string">"name of css selector."</span>).click()</span><br><span class="line"><span class="comment"># id 의 경우 : #idname</span></span><br><span class="line"><span class="comment"># class 의 경우 : .classname</span></span><br><span class="line"><span class="comment"># 다른 attribute 의 경우 : [attribute = 'value']</span></span><br></pre></td></tr></table></figure>
+<h2 id="6-selecting-한-element-의-attribute-value-를-얻는-방법"><a href="#6-selecting-한-element-의-attribute-value-를-얻는-방법" class="headerlink" title="6. selecting 한 element 의 attribute value 를 얻는 방법"></a>6. selecting 한 element 의 attribute value 를 얻는 방법</h2><ul>
+<li>CSS로 선택한 element에 html 태그에는 다양한 attribute 들이 있을 수 있다. 이 중<br>attribute의 value에 접근 하고 싶을 때는 .get_attribute()메소드를 사용할 수 있다.<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.find_element_by_css_selector(<span class="string">"name of css selector"</span>).get_attribute(<span class="string">"attribute_name"</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="7-element-의-위치와-사이즈-구하기"><a href="#7-element-의-위치와-사이즈-구하기" class="headerlink" title="7. element 의 위치와, 사이즈 구하기"></a>7. element 의 위치와, 사이즈 구하기</h2><ul>
+<li>스크롤을 내리거나, 엘리먼트의 위치와 크기를 알고 싶을 때 사용할 수 있다.<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">element = driver.find_element_by_css_selector(<span class="string">"name of css selector"</span>)</span><br><span class="line">element.location</span><br><span class="line"><span class="comment">#element 의 좌측 상단의 위치가 pixel 단위로 x, y 값의 dictionary로 보여준다.</span></span><br><span class="line">element.size</span><br><span class="line"><span class="comment">#element 의 size 를 height, width를 pixel 단위로 dictionary로 보여준다.</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+            
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/자동화-selenium-webdriver/">자동화, selenium, webdriver</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/10/24/Thread/" data-tooltip="Thread" aria-label="PREVIOUS: Thread">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/10/24/181024-TodayWhatILearned/" data-tooltip="181024 TodayWhatILearned" aria-label="NEXT: 181024 TodayWhatILearned">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://emjayahn.github.io/2018/10/24/Selenium/" title="Share on Facebook">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://emjayahn.github.io/2018/10/24/Selenium/" title="Share on Twitter">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://emjayahn.github.io/2018/10/24/Selenium/" title="Share on Google+">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+                <li class="post-action">
+                    <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                        <i class="fa fa-comment"></i>
+                    </a>
+                </li>
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+                <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2019 EmjayAhn(Minjae Ahn). All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/10/24/Thread/" data-tooltip="Thread" aria-label="PREVIOUS: Thread">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/10/24/181024-TodayWhatILearned/" data-tooltip="181024 TodayWhatILearned" aria-label="NEXT: 181024 TodayWhatILearned">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://emjayahn.github.io/2018/10/24/Selenium/" title="Share on Facebook">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://emjayahn.github.io/2018/10/24/Selenium/" title="Share on Twitter">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://emjayahn.github.io/2018/10/24/Selenium/" title="Share on Google+">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+                <li class="post-action">
+                    <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                        <i class="fa fa-comment"></i>
+                    </a>
+                </li>
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                
+    <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+        <i id="btn-close-shareoptions" class="fa fa-times"></i>
+        <ul class="share-options">
+            
+                
+                
+                <li class="share-option">
+                    <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://emjayahn.github.io/2018/10/24/Selenium/">
+                        <i class="fab fa-facebook" aria-hidden="true"></i><span>Share on Facebook</span>
+                    </a>
+                </li>
+            
+                
+                
+                <li class="share-option">
+                    <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https://emjayahn.github.io/2018/10/24/Selenium/">
+                        <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+                    </a>
+                </li>
+            
+                
+                
+                <li class="share-option">
+                    <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https://emjayahn.github.io/2018/10/24/Selenium/">
+                        <i class="fab fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>
+                    </a>
+                </li>
+            
+        </ul>
+    </div>
+
+
+            
+        </div>
+        
+
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <h4 id="about-card-name">EmjayAhn(Minjae Ahn)</h4>
+        
+            <div id="about-card-bio"><p>author.bio</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br>
+                <p>author.job</p>
+
+            </div>
+        
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/script-dbd16rvloemmuxdzniplmnxxvwoz24eya9wol0b7vvmlokgqsjivmb8dnscy.min.js"></script>
+<!--SCRIPTS END-->
+
+    
+        <script>
+             var disqus_config = function () {
+                 this.page.url = 'https://emjayahn.github.io/2018/10/24/Selenium/';
+                 
+                    this.page.identifier = '2018/10/24/Selenium/';
+                 
+             };
+            (function() {
+                var d = document, s = d.createElement('script');
+                var disqus_shortname = 'emjaygithubpage';
+                s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+    
+
+
+
+    </body>
+</html>

@@ -1,0 +1,526 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Emjay&#39;s DailyCommit Blog">
+    <title>math_cheatsheet - Emjay&#39;s DailyCommit Blog</title>
+    <meta name="author" content="EmjayAhn(Minjae Ahn)">
+    
+        <meta name="keywords" content="hexo,datascience,datascientist,">
+    
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"EmjayAhn(Minjae Ahn)","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae"]},"articleBody":"이산확률분포베르누이 분포 (bernoulli distribution)\n동전 생각하기\n결과가 두가지 중 하나\n\n확률변수를 1 or 0 으루 주었을 때,$$\\text{Bern}(x;\\mu) = \\mu^x(1-\\mu)^{(1-x)}$$\n\n확률변수를 1 or -1 로 주었을 때,$$\\text{Bern}(x; \\mu) = \\mu^{(1+x)/2} (1-\\mu)^{(1-x)/2}$$\n\n\n1234#예제코드#베르누이 분포 SciPy#100개 samplingsp.stats.bernoulli(mu).rvs(100, random_state=0)\n이항분포 (binomial distribution)\n동전을 N번 던졌다\n성공확률이 $\\mu$ 인 베르누이 시도를 $N$ 번 반복 할 때, 성공 횟수를 $X$ 라 하면,\n\n$$ X \\sim \\text{Bin}(x;N,\\mu)  $$ \n$$ \\text{Bin}(x;N,\\mu) = \\binom N x  \\mu^x(1-\\mu)^{N-x} $$ \n1sp.stats.binom(N, mu).rvs(100, random_state=0)\n카테고리 분포 (Categorical distribution)\n주사위 생각해!\n$K$ 개의 카테고리가 있을 때,$$ x = (x_1, x_2, x_3, x_4, … , x_k)  $$ \n\n각 원소 x_i 가 1이 나올 수 있는 확률 ($i$번쨰 원소의 성공확률)을 $\\mu_i$ 라 하면, \n$$ \\text{Cat}(x;\\mu) = \\mu_1^{x_1} \\mu_2^{x_2}  \\cdots \\mu_K^{x_K}  =  \\prod_{k=1}^K \\mu_k^{x_k} $$ \n이 표현은 One-Hot-Encoding 으로 카테고리 분포를 표현 했기에 가능하다. \n단, $$ 0 \\leq \\mu_i \\leq 1 $$ \n$$ \\sum_{k=1}^K \\mu_k = 1 $$ \n123#카테고리 분포는 SciPy 의 메소드가 없으므로, 다항분포의 N을 1로 준다.#mu 는 각 term 이 나올 수 있는 확률 vectorsp.stats.multinomial(1, mu)\n다항 분포 (Multinomial distribution)\n주사위를 여러번 던졌다.\n카테고리 시도를 $N$ 번 반복하여 $k$ $(k=1,…,K)$ 가 $x_k$ 번 나올 확률분포.\n\n123#N : number of trial#mu 는 각 term 이 나올 수 있는 확률 vectorsp.stats.multinomial(N, mu)\n","dateCreated":"2018-11-23T22:14:19+09:00","dateModified":"2018-11-29T23:04:01+09:00","datePublished":"2018-11-23T22:14:19+09:00","description":"","headline":"math_cheatsheet","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://emjayahn.github.io/2018/11/23/math-cheatsheet/"},"publisher":{"@type":"Organization","name":"EmjayAhn(Minjae Ahn)","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae"]},"url":"https://emjayahn.github.io/2018/11/23/math-cheatsheet/"}</script>
+    <meta name="description" content="이산확률분포베르누이 분포 (bernoulli distribution) 동전 생각하기 결과가 두가지 중 하나  확률변수를 1 or 0 으루 주었을 때,$$\text{Bern}(x;\mu) = \mu^x(1-\mu)^{(1-x)}$$  확률변수를 1 or -1 로 주었을 때,$$\text{Bern}(x; \mu) = \mu^{(1+x)/2} (1-\mu)^{(">
+<meta name="keywords" content="hexo,datascience,datascientist">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="math_cheatsheet">
+<meta property="og:url" content="https://emjayahn.github.io/2018/11/23/math-cheatsheet/index.html">
+<meta property="og:site_name" content="Emjay&#39;s DailyCommit Blog">
+<meta property="og:description" content="이산확률분포베르누이 분포 (bernoulli distribution) 동전 생각하기 결과가 두가지 중 하나  확률변수를 1 or 0 으루 주었을 때,$$\text{Bern}(x;\mu) = \mu^x(1-\mu)^{(1-x)}$$  확률변수를 1 or -1 로 주었을 때,$$\text{Bern}(x; \mu) = \mu^{(1+x)/2} (1-\mu)^{(">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-11-29T14:04:01.940Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="math_cheatsheet">
+<meta name="twitter:description" content="이산확률분포베르누이 분포 (bernoulli distribution) 동전 생각하기 결과가 두가지 중 하나  확률변수를 1 or 0 으루 주었을 때,$$\text{Bern}(x;\mu) = \mu^x(1-\mu)^{(1-x)}$$  확률변수를 1 or -1 로 주었을 때,$$\text{Bern}(x; \mu) = \mu^{(1+x)/2} (1-\mu)^{(">
+    
+    
+        
+    
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-c4ozcsklz4kht2pebhp44xorvyverh23toayhn7i6ubrpyedak24hv1v0hyd.min.css">
+    <!--STYLES END--><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    
+
+    
+</head>
+
+    <body>
+        <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">Emjay&#39;s DailyCommit Blog</a>
+    </div>
+    
+        
+            <a class="header-right-picture " href="#about">
+        
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/ " title="Home">
+                    
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/all-categories" title="Categories">
+                    
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/all-tags" title="Tags">
+                    
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/all-archives" title="Archives">
+                    
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link open-algolia-search" href="#search" title="Search">
+                    
+                        <i class="sidebar-button-icon fa fa-search" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="#about" title="About">
+                    
+                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="https://github.com/emjayahn" target="_blank" rel="noopener" title="GitHub">
+                    
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="https://facebook.com/jjminjae" target="_blank" rel="noopener" title="Facebook">
+                    
+                        <i class="sidebar-button-icon fab fa-facebook" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Facebook</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a class="sidebar-button-link " href="/atom.xml" title="RSS">
+                    
+                        <i class="sidebar-button-icon fa fa-rss" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            math_cheatsheet
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2018-11-23T22:14:19+09:00">
+	
+		    Nov 23, 2018
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/Math/">Math</a>
+
+
+    
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <h1 id="이산확률분포"><a href="#이산확률분포" class="headerlink" title="이산확률분포"></a>이산확률분포</h1><h2 id="베르누이-분포-bernoulli-distribution"><a href="#베르누이-분포-bernoulli-distribution" class="headerlink" title="베르누이 분포 (bernoulli distribution)"></a>베르누이 분포 (bernoulli distribution)</h2><ul>
+<li>동전 생각하기</li>
+<li><p>결과가 두가지 중 하나</p>
+</li>
+<li><p>확률변수를 1 or 0 으루 주었을 때,<br>$$<br>\text{Bern}(x;\mu) = \mu^x(1-\mu)^{(1-x)}<br>$$</p>
+</li>
+<li><p>확률변수를 1 or -1 로 주었을 때,<br>$$<br>\text{Bern}(x; \mu) = \mu^{(1+x)/2} (1-\mu)^{(1-x)/2}<br>$$</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#예제코드</span></span><br><span class="line"><span class="comment">#베르누이 분포 SciPy</span></span><br><span class="line"><span class="comment">#100개 sampling</span></span><br><span class="line">sp.stats.bernoulli(mu).rvs(<span class="number">100</span>, random_state=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="이항분포-binomial-distribution"><a href="#이항분포-binomial-distribution" class="headerlink" title="이항분포 (binomial distribution)"></a>이항분포 (binomial distribution)</h2><ul>
+<li>동전을 N번 던졌다</li>
+<li>성공확률이 $\mu$ 인 베르누이 시도를 $N$ 번 반복 할 때, 성공 횟수를 $X$ 라 하면,</li>
+</ul>
+<p>$$ X \sim \text{Bin}(x;N,\mu)  $$ <br></p>
+<p>$$ \text{Bin}(x;N,\mu) = \binom N x  \mu^x(1-\mu)^{N-x} $$ <br></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sp.stats.binom(N, mu).rvs(<span class="number">100</span>, random_state=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="카테고리-분포-Categorical-distribution"><a href="#카테고리-분포-Categorical-distribution" class="headerlink" title="카테고리 분포 (Categorical distribution)"></a>카테고리 분포 (Categorical distribution)</h2><ul>
+<li>주사위 생각해!</li>
+<li>$K$ 개의 카테고리가 있을 때,<br>$$ x = (x_1, x_2, x_3, x_4, … , x_k)  $$ <br></li>
+</ul>
+<p>각 원소 x_i 가 1이 나올 수 있는 확률 ($i$번쨰 원소의 성공확률)을 $\mu_i$ 라 하면, <br></p>
+<p>$$ \text{Cat}(x;\mu) = \mu_1^{x_1} \mu_2^{x_2}  \cdots \mu_K^{x_K}  =  \prod_{k=1}^K \mu_k^{x_k} $$ <br></p>
+<p>이 표현은 One-Hot-Encoding 으로 카테고리 분포를 표현 했기에 가능하다. <br></p>
+<p>단, <br><br>$$ 0 \leq \mu_i \leq 1 $$ <br></p>
+<p>$$ \sum_{k=1}^K \mu_k = 1 $$ <br></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#카테고리 분포는 SciPy 의 메소드가 없으므로, 다항분포의 N을 1로 준다.</span></span><br><span class="line"><span class="comment">#mu 는 각 term 이 나올 수 있는 확률 vector</span></span><br><span class="line">sp.stats.multinomial(<span class="number">1</span>, mu)</span><br></pre></td></tr></table></figure>
+<h2 id="다항-분포-Multinomial-distribution"><a href="#다항-분포-Multinomial-distribution" class="headerlink" title="다항 분포 (Multinomial distribution)"></a>다항 분포 (Multinomial distribution)</h2><ul>
+<li>주사위를 여러번 던졌다.</li>
+<li>카테고리 시도를 $N$ 번 반복하여 $k$ $(k=1,…,K)$ 가 $x_k$ 번 나올 확률분포.</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#N : number of trial</span></span><br><span class="line"><span class="comment">#mu 는 각 term 이 나올 수 있는 확률 vector</span></span><br><span class="line">sp.stats.multinomial(N, mu)</span><br></pre></td></tr></table></figure>
+
+            
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/11/25/181125-TodayWhatILearned/" data-tooltip="181125-TodayWhatILearned" aria-label="PREVIOUS: 181125-TodayWhatILearned">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/11/23/numpy-cheatsheet/" data-tooltip="numpy_cheatsheet" aria-label="NEXT: numpy_cheatsheet">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://emjayahn.github.io/2018/11/23/math-cheatsheet/" title="Share on Facebook">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://emjayahn.github.io/2018/11/23/math-cheatsheet/" title="Share on Twitter">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://emjayahn.github.io/2018/11/23/math-cheatsheet/" title="Share on Google+">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+                <li class="post-action">
+                    <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                        <i class="fa fa-comment"></i>
+                    </a>
+                </li>
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+                <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2019 EmjayAhn(Minjae Ahn). All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/11/25/181125-TodayWhatILearned/" data-tooltip="181125-TodayWhatILearned" aria-label="PREVIOUS: 181125-TodayWhatILearned">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/11/23/numpy-cheatsheet/" data-tooltip="numpy_cheatsheet" aria-label="NEXT: numpy_cheatsheet">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://emjayahn.github.io/2018/11/23/math-cheatsheet/" title="Share on Facebook">
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://emjayahn.github.io/2018/11/23/math-cheatsheet/" title="Share on Twitter">
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://emjayahn.github.io/2018/11/23/math-cheatsheet/" title="Share on Google+">
+                    <i class="fab fa-google-plus" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+                <li class="post-action">
+                    <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                        <i class="fa fa-comment"></i>
+                    </a>
+                </li>
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                
+    <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+        <i id="btn-close-shareoptions" class="fa fa-times"></i>
+        <ul class="share-options">
+            
+                
+                
+                <li class="share-option">
+                    <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://emjayahn.github.io/2018/11/23/math-cheatsheet/">
+                        <i class="fab fa-facebook" aria-hidden="true"></i><span>Share on Facebook</span>
+                    </a>
+                </li>
+            
+                
+                
+                <li class="share-option">
+                    <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https://emjayahn.github.io/2018/11/23/math-cheatsheet/">
+                        <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+                    </a>
+                </li>
+            
+                
+                
+                <li class="share-option">
+                    <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https://emjayahn.github.io/2018/11/23/math-cheatsheet/">
+                        <i class="fab fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>
+                    </a>
+                </li>
+            
+        </ul>
+    </div>
+
+
+            
+        </div>
+        
+
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <h4 id="about-card-name">EmjayAhn(Minjae Ahn)</h4>
+        
+            <div id="about-card-bio"><p>author.bio</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br>
+                <p>author.job</p>
+
+            </div>
+        
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/script-dbd16rvloemmuxdzniplmnxxvwoz24eya9wol0b7vvmlokgqsjivmb8dnscy.min.js"></script>
+<!--SCRIPTS END-->
+
+    
+        <script>
+             var disqus_config = function () {
+                 this.page.url = 'https://emjayahn.github.io/2018/11/23/math-cheatsheet/';
+                 
+                    this.page.identifier = '2018/11/23/math-cheatsheet/';
+                 
+             };
+            (function() {
+                var d = document, s = d.createElement('script');
+                var disqus_shortname = 'emjaygithubpage';
+                s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+    
+
+
+
+    </body>
+</html>
