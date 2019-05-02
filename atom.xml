@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Emjay&#39;s DailyCommit Blog</title>
+  <title>Emjay&#39;s DailyBlog</title>
   
   <subtitle>Emjay&#39;s DataScience &amp; Development</subtitle>
   <link href="/atom.xml" rel="self"/>

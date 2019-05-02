@@ -1,211 +1,138 @@
-
 <!DOCTYPE html>
-<html lang="en">
-    
-<head>
-    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Emjay&#39;s DailyCommit Blog">
-    <title>Mysql - Emjay&#39;s DailyCommit Blog</title>
-    <meta name="author" content="EmjayAhn(Minjae Ahn)">
-    
-        <meta name="keywords" content="hexo,datascience,datascientist,">
-    
-    
-    
-        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
-    
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"EmjayAhn(Minjae Ahn)","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae"]},"articleBody":"MySQL1. Install MySQL\nhttps://dev.mysql.com/downloads/mysql/5.7.html#downloads 에서DMG 파일 다운로드\n\n시스템 환경설정에서 MySQL -&gt; Start MySQL Server : server 시작\n\n\n1$ cd usr/local/mysql/bin\n위 경로에서\n\nMySQL 서버에 접속1$ sudo ./mysql -p\n\n\n1mysql &gt;\n\n패스워드 변경123mysql&gt;ALTER USER 'root'@'localhost' IDENTIFIED BY '바꾸고싶은 비밀번호';mysql&gt;FLUSH PRIVILEGES;mysql&gt;quit;\n\n\n2. MySQL Shell Command(1) DATABASE 생성, 접속, 삭제\n현재 상태 보기\n1mysql&gt; STATUS\n\nDB 목록 보기\n1mysql&gt; SHOW DATABASES;\n\nDB 만들기\n1mysql&gt; CREATE DATABASE DBNAME\n\nDB 접속하기\n1mysql&gt; USE DBNAME;\n\n현재 접속중인 DB 확인하기\n1mysql&gt; SELECT DATABASE();\n\nDB 지우기\n1mysql&gt; DROP DATABASE DBNAME;\n\n\n(2) TABLE 생성, 추가, 삭제\ntable 만들기\n1234567CREATE TABLE table_name(  column_name_1 column_data_type_1 column_constraint_1,  column_name_2 column_data_type_2 column_constraint_2,  .  .  .)\n\ncolumn_constraint 는 Optional 이다. (unique 와 같은 제약조건)\n\n\nuser 라는 table에 name, email, age 컬럼 생성\nexample1 : constraint 가 없을 떄,\n12345mysql&gt; CREATE TABLE user(  name CHAR(20),  email CHAR(40),  age INT(3))\n\nexample2 : constraint가 있을 때,\n1234567mysql&gt; CREATE TABLE user2(  user_id INT PRIMARY KEY AUTO_INCREMENT,  name VARCHAR(20) NOT NULL,  email VARCHAR(30) UNIQUE NOT NULL,  age INT(3) DEFAULT'30',  rdate TIMESTAMP)\n\n\n\n(3) 수정(3)-1. DATABASE 수정\nDATABASE 의 encoding 수정\n현재 문자열 encoding 확인\n1mysql&gt; SHOW VARIABLES LIKE \"CHARACTER_SET_DATABASE\";\n\nmydb 데이터베이스의 문자열 인코딩을 utf8 로 변경\n1mysql&gt; ALTER DATABASE mydb CHARACTER_SET = utf8;\n\nuser 데이터베이스의 문자열 인코딩을 ascii 로 변경\n1mysql&gt; ALTER DATABASE user CHARACTER_SET=ascii\n\n\n(3)-2. TABLE 수정\nuser 테이블에 tmp라는 컬럼명, TEXT 데이터 타입 컬럼을 추가1mysql&gt; ALTER TABLE user ADD tmp TEXT;\n\n\n","dateCreated":"2018-11-01T12:20:44+09:00","dateModified":"2018-11-29T23:01:03+09:00","datePublished":"2018-11-01T12:20:44+09:00","description":"","headline":"Mysql","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://emjayahn.github.io/2018/11/01/MySQL/"},"publisher":{"@type":"Organization","name":"EmjayAhn(Minjae Ahn)","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae"]},"url":"https://emjayahn.github.io/2018/11/01/MySQL/","keywords":"mysql, MYSQL, database"}</script>
-    <meta name="description" content="MySQL1. Install MySQL https://dev.mysql.com/downloads/mysql/5.7.html#downloads 에서DMG 파일 다운로드  시스템 환경설정에서 MySQL -&amp;gt; Start MySQL Server : server 시작   1$ cd usr/local/mysql/bin 위 경로에서  MySQL 서버에 접속1$ s">
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <title>Mysql | Emjay&#39;s DailyBlog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="mysql, MYSQL, database">
+  
+  
+  
+  
+  <meta name="description" content="MySQL1. Install MySQL https://dev.mysql.com/downloads/mysql/5.7.html#downloads 에서DMG 파일 다운로드  시스템 환경설정에서 MySQL -&amp;gt; Start MySQL Server : server 시작   1$ cd usr/local/mysql/bin 위 경로에서  MySQL 서버에 접속1$ s">
 <meta name="keywords" content="mysql, MYSQL, database">
-<meta property="og:type" content="blog">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Mysql">
 <meta property="og:url" content="https://emjayahn.github.io/2018/11/01/MySQL/index.html">
-<meta property="og:site_name" content="Emjay&#39;s DailyCommit Blog">
+<meta property="og:site_name" content="Emjay&#39;s DailyBlog">
 <meta property="og:description" content="MySQL1. Install MySQL https://dev.mysql.com/downloads/mysql/5.7.html#downloads 에서DMG 파일 다운로드  시스템 환경설정에서 MySQL -&amp;gt; Start MySQL Server : server 시작   1$ cd usr/local/mysql/bin 위 경로에서  MySQL 서버에 접속1$ s">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2018-11-29T14:01:03.954Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mysql">
 <meta name="twitter:description" content="MySQL1. Install MySQL https://dev.mysql.com/downloads/mysql/5.7.html#downloads 에서DMG 파일 다운로드  시스템 환경설정에서 MySQL -&amp;gt; Start MySQL Server : server 시작   1$ cd usr/local/mysql/bin 위 경로에서  MySQL 서버에 접속1$ s">
+  
+    <link rel="alternate" href="/atom.xml" title="Emjay&#39;s DailyBlog" type="application/atom+xml">
+  
+  <link rel="icon" href="/css/images/favicon.ico">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
     
-    
-        
-    
-    
-    
-    
-    
-    <!--STYLES-->
-    <link rel="stylesheet" href="/assets/css/style-c4ozcsklz4kht2pebhp44xorvyverh23toayhn7i6ubrpyedak24hv1v0hyd.min.css">
-    <!--STYLES END--><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-    
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Yanone+Kaffeesatz%3A200%2C300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
 
-    
+  <link rel="stylesheet" id="athemes-headings-fonts-css" href="//fonts.googleapis.com/css?family=Oswald%3A300%2C400%2C700&amp;ver=4.6.1" type="text/css" media="all">
+  <link rel="stylesheet" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.css">	
+  <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css">
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+  <link rel="stylesheet" href="/css/fashion.css">
+  <link rel="stylesheet" href="/css/glyphs.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
 </head>
-
-    <body>
-        <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="blog">
-            <!-- Define author's picture -->
+</html>
 
 
-    
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
 
-<header id="header" data-behavior="4">
-    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
-    <div class="header-title">
-        <a class="header-title-link" href="/ ">Emjay&#39;s DailyCommit Blog</a>
-    </div>
-    
-        
-            <a class="header-right-picture " href="#about">
-        
-        
-        </a>
-    
+
+  
+
+
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><header id="allheader" class="site-header" role="banner">
+  <div class="clearfix container">
+      <div class="site-branding">
+
+          <h1 class="site-title">
+            
+              <a href="/" title="Emjay&#39;s DailyBlog" rel="home"> Emjay&#39;s DailyBlog </a>
+            
+          </h1>
+          
+          
+            <div class="site-description">공부한 것, 알게된 것을 기록하는 블로그입니다.</div>
+          
+            
+          <nav id="main-navigation" class="main-navigation" role="navigation">
+            <a class="nav-open">Menu</a>
+            <a class="nav-close">Close</a>
+
+            <div class="clearfix sf-menu">
+              <ul id="main-nav" class="menu sf-js-enabled sf-arrows" style="touch-action: pan-y;">
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/">Home</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/archives">Archives</a> </li>
+                    
+                      <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-1663"> <a class="" href="/categories">Categories</a> </li>
+                    
+              </ul>
+            </div>
+          </nav>
+
+      </div>
+  </div>
 </header>
 
-            <!-- Define author's picture -->
 
+  <div id="container">
+    <div id="wrap">
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-MySQL" style="width: 66%; float:left;" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div id="articleInner" class="clearfix post-1016 post type-post status-publish format-standard has-post-thumbnail hentry category-template-2 category-uncategorized tag-codex tag-edge-case tag-featured-image tag-image tag-template">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      Mysql
+    </h1>
+  
 
-<nav id="sidebar" data-behavior="4">
-    <div class="sidebar-container">
-        
-        
-            <ul class="sidebar-buttons">
-            
-                <li class="sidebar-button">
-                    
-                        <a class="sidebar-button-link " href="/ " title="Home">
-                    
-                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Home</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a class="sidebar-button-link " href="/all-categories" title="Categories">
-                    
-                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Categories</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a class="sidebar-button-link " href="/all-tags" title="Tags">
-                    
-                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Tags</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a class="sidebar-button-link " href="/all-archives" title="Archives">
-                    
-                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Archives</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a class="sidebar-button-link open-algolia-search" href="#search" title="Search">
-                    
-                        <i class="sidebar-button-icon fa fa-search" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Search</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a class="sidebar-button-link " href="#about" title="About">
-                    
-                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">About</span>
-                    </a>
-            </li>
-            
-        </ul>
-        
-            <ul class="sidebar-buttons">
-            
-                <li class="sidebar-button">
-                    
-                        <a class="sidebar-button-link " href="https://github.com/emjayahn" target="_blank" rel="noopener" title="GitHub">
-                    
-                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">GitHub</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a class="sidebar-button-link " href="https://facebook.com/jjminjae" target="_blank" rel="noopener" title="Facebook">
-                    
-                        <i class="sidebar-button-icon fab fa-facebook" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Facebook</span>
-                    </a>
-            </li>
-            
-        </ul>
-        
-            <ul class="sidebar-buttons">
-            
-                <li class="sidebar-button">
-                    
-                        <a class="sidebar-button-link " href="/atom.xml" title="RSS">
-                    
-                        <i class="sidebar-button-icon fa fa-rss" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">RSS</span>
-                    </a>
-            </li>
-            
-        </ul>
-        
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2018/11/01/MySQL/" class="article-date">
+	  <time datetime="2018-11-01T03:20:44.000Z" itemprop="datePublished">November 1, 2018</time>
+	</a>
+
+      
+	<span class="ico-folder"></span>
+    <a class="article-category-link" href="/categories/wiki/">wiki</a>, <a class="article-category-link" href="/categories/wiki/MySQL/">MySQL</a>
+ 
+      
     </div>
-</nav>
-
-            
-            <div id="main" data-behavior="4"
-                 class="
-                        hasCoverMetaIn
-                        ">
-                
-<article class="post">
-    
-    
-        <div class="post-header main-content-wrap text-left">
-    
-        <h1 class="post-title">
-            Mysql
-        </h1>
-    
-    
-        <div class="post-meta">
-    <time datetime="2018-11-01T12:20:44+09:00">
-	
-		    Nov 01, 2018
-    	
-    </time>
-    
-        <span>in </span>
-        
-    <a class="category-link" href="/categories/wiki/">wiki</a>, <a class="category-link" href="/categories/wiki/MySQL/">MySQL</a>
-
-
-    
-</div>
-
-    
-</div>
-
-    
-    <div class="post-content markdown">
-        <div class="main-content-wrap">
-            <h1 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h1><h2 id="1-Install-MySQL"><a href="#1-Install-MySQL" class="headerlink" title="1. Install MySQL"></a>1. Install MySQL</h2><ul>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h1><h2 id="1-Install-MySQL"><a href="#1-Install-MySQL" class="headerlink" title="1. Install MySQL"></a>1. Install MySQL</h2><ul>
 <li><p><a href="https://dev.mysql.com/downloads/mysql/5.7.html#downloads" target="_blank" rel="noopener">https://dev.mysql.com/downloads/mysql/5.7.html#downloads</a> 에서<br>DMG 파일 다운로드</p>
 </li>
 <li><p>시스템 환경설정에서 MySQL -&gt; Start MySQL Server : server 시작</p>
@@ -275,276 +202,192 @@
 </li>
 </ul>
 
-            
-
-        </div>
+      
     </div>
-    <div id="post-footer" class="post-footer main-content-wrap">
-        
-            <div class="post-footer-tags">
-                <span class="text-color-light text-small">TAGGED IN</span><br>
-                
-    <a class="tag tag--primary tag--small t-link" href="/tags/mysql-MYSQL-database/">mysql, MYSQL, database</a>
+    <footer class="entry-meta entry-footer">
+      
+	<span class="ico-folder"></span>
+    <a class="article-category-link" href="/categories/wiki/">wiki</a>, <a class="article-category-link" href="/categories/wiki/MySQL/">MySQL</a>
 
-            </div>
+      
+  <span class="ico-tags"></span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql-MYSQL-database/">mysql, MYSQL, database</a></li></ul>
+
+      
         
-        
-            <div class="post-actions-wrap">
-    <nav>
-        <ul class="post-actions post-action-nav">
-            <li class="post-action">
-                
-                    
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/11/01/181101-TodayWhatILearned/" data-tooltip="181101-TodayWhatILearned" aria-label="PREVIOUS: 181101-TodayWhatILearned">
-                
-                    <i class="fa fa-angle-left" aria-hidden="true"></i>
-                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
-                </a>
-            </li>
-            <li class="post-action">
-                
-                    
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/10/31/181031-TodayWhatILearned/" data-tooltip="181031-TodayWhatILearned" aria-label="NEXT: 181031-TodayWhatILearned">
-                
-                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
-                    <i class="fa fa-angle-right" aria-hidden="true"></i>
-                </a>
-            </li>
-        </ul>
-    </nav>
-    <ul class="post-actions post-action-share">
-        <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
-                <i class="fa fa-share-alt" aria-hidden="true"></i>
-            </a>
-        </li>
-        
-            
-            
-            <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://emjayahn.github.io/2018/11/01/MySQL/" title="Share on Facebook">
-                    <i class="fab fa-facebook" aria-hidden="true"></i>
-                </a>
-            </li>
-        
-            
-            
-            <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://emjayahn.github.io/2018/11/01/MySQL/" title="Share on Twitter">
-                    <i class="fab fa-twitter" aria-hidden="true"></i>
-                </a>
-            </li>
-        
-            
-            
-            <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://emjayahn.github.io/2018/11/01/MySQL/" title="Share on Google+">
-                    <i class="fab fa-google-plus" aria-hidden="true"></i>
-                </a>
-            </li>
-        
-        
-            
-                <li class="post-action">
-                    <a class="post-action-btn btn btn--default" href="#disqus_thread">
-                        <i class="fa fa-comment"></i>
-                    </a>
-                </li>
-            
-        
-        <li class="post-action">
-            
-                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
-            
-                <i class="fa fa-list" aria-hidden="true"></i>
-            </a>
-        </li>
-    </ul>
-</div>
+	<section id="comments" class="comment">
+	  <div id="disqus_thread">
+	  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+	  </div>
+	</section>
+
+	<script type="text/javascript">
+	var disqus_shortname = 'emjaygithubpage';
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	(function(){
+	  var dsq = document.createElement('script');
+	  dsq.type = 'text/javascript';
+	  dsq.async = true;
+	  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+	  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	}());
+	</script>
 
 
+
+      
+    </footer>
+    <hr class="entry-footer-hr">
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/11/01/181101-TodayWhatILearned/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
         
+          181101-TodayWhatILearned
         
-            
-                <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-            
-        
-    </div>
+      </div>
+    </a>
+  
+  
+    <a href="/2018/10/31/181031-TodayWhatILearned/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">181031-TodayWhatILearned</div>
+    </a>
+  
+</nav>
+
+  
 </article>
 
+<!-- Table of Contents -->
 
+  <aside id="sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">Contents</strong>
+    
+      <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL"><span class="nav-number">1.</span> <span class="nav-text">MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Install-MySQL"><span class="nav-number">1.1.</span> <span class="nav-text">1. Install MySQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-MySQL-Shell-Command"><span class="nav-number">1.2.</span> <span class="nav-text">2. MySQL Shell Command</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-DATABASE-생성-접속-삭제"><span class="nav-number">1.2.1.</span> <span class="nav-text">(1) DATABASE 생성, 접속, 삭제</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-TABLE-생성-추가-삭제"><span class="nav-number">1.2.2.</span> <span class="nav-text">(2) TABLE 생성, 추가, 삭제</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#user-라는-table에-name-email-age-컬럼-생성"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">user 라는 table에 name, email, age 컬럼 생성</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-수정"><span class="nav-number">1.3.</span> <span class="nav-text">(3) 수정</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-DATABASE-수정"><span class="nav-number">1.3.1.</span> <span class="nav-text">(3)-1. DATABASE 수정</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-TABLE-수정"><span class="nav-number">1.3.2.</span> <span class="nav-text">(3)-2. TABLE 수정</span></a></li></ol></li></ol></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
 
-                <footer id="footer" class="main-content-wrap">
-    <span class="copyrights">
-        Copyrights &copy; 2019 EmjayAhn(Minjae Ahn). All Rights Reserved.
-    </span>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+</nav> -->
+    <footer id="footer" class="site-footer">
+  
+
+  <div class="clearfix container">
+      <div class="site-info">
+	      &copy; 2019 Emjay&#39;s DailyBlog All Rights Reserved.
+        
+      </div>
+      <div class="site-credit">
+        Theme by <a href="https://github.com/iTimeTraveler/hexo-theme-hipaper" target="_blank">hipaper</a>
+      </div>
+  </div>
 </footer>
 
-            </div>
-            
-                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
-                    <div class="post-actions-wrap">
-    <nav>
-        <ul class="post-actions post-action-nav">
-            <li class="post-action">
-                
-                    
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/11/01/181101-TodayWhatILearned/" data-tooltip="181101-TodayWhatILearned" aria-label="PREVIOUS: 181101-TodayWhatILearned">
-                
-                    <i class="fa fa-angle-left" aria-hidden="true"></i>
-                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
-                </a>
-            </li>
-            <li class="post-action">
-                
-                    
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/10/31/181031-TodayWhatILearned/" data-tooltip="181031-TodayWhatILearned" aria-label="NEXT: 181031-TodayWhatILearned">
-                
-                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
-                    <i class="fa fa-angle-right" aria-hidden="true"></i>
-                </a>
-            </li>
-        </ul>
-    </nav>
-    <ul class="post-actions post-action-share">
-        <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
-                <i class="fa fa-share-alt" aria-hidden="true"></i>
-            </a>
-        </li>
-        
-            
-            
-            <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://emjayahn.github.io/2018/11/01/MySQL/" title="Share on Facebook">
-                    <i class="fab fa-facebook" aria-hidden="true"></i>
-                </a>
-            </li>
-        
-            
-            
-            <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://emjayahn.github.io/2018/11/01/MySQL/" title="Share on Twitter">
-                    <i class="fab fa-twitter" aria-hidden="true"></i>
-                </a>
-            </li>
-        
-            
-            
-            <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://emjayahn.github.io/2018/11/01/MySQL/" title="Share on Google+">
-                    <i class="fab fa-google-plus" aria-hidden="true"></i>
-                </a>
-            </li>
-        
-        
-            
-                <li class="post-action">
-                    <a class="post-action-btn btn btn--default" href="#disqus_thread">
-                        <i class="fa fa-comment"></i>
-                    </a>
-                </li>
-            
-        
-        <li class="post-action">
-            
-                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
-            
-                <i class="fa fa-list" aria-hidden="true"></i>
-            </a>
-        </li>
-    </ul>
-</div>
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("allheader").offsetHeight - document.getElementById("footer").offsetHeight + "px";
 
 
-                </div>
-                
-    <div id="share-options-bar" class="share-options-bar" data-behavior="4">
-        <i id="btn-close-shareoptions" class="fa fa-times"></i>
-        <ul class="share-options">
-            
-                
-                
-                <li class="share-option">
-                    <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://emjayahn.github.io/2018/11/01/MySQL/">
-                        <i class="fab fa-facebook" aria-hidden="true"></i><span>Share on Facebook</span>
-                    </a>
-                </li>
-            
-                
-                
-                <li class="share-option">
-                    <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https://emjayahn.github.io/2018/11/01/MySQL/">
-                        <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
-                    </a>
-                </li>
-            
-                
-                
-                <li class="share-option">
-                    <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https://emjayahn.github.io/2018/11/01/MySQL/">
-                        <i class="fab fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>
-                    </a>
-                </li>
-            
-        </ul>
-    </div>
-
-
-            
-        </div>
-        
-
-
-<div id="about">
-    <div id="about-card">
-        <div id="about-btn-close">
-            <i class="fa fa-times"></i>
-        </div>
-        
-            <h4 id="about-card-name">EmjayAhn(Minjae Ahn)</h4>
-        
-            <div id="about-card-bio"><p>author.bio</p>
-</div>
-        
-        
-            <div id="about-card-job">
-                <i class="fa fa-briefcase"></i>
-                <br>
-                <p>author.job</p>
-
-            </div>
-        
-        
-    </div>
-</div>
-
-        
-        
-<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
-        <!--SCRIPTS-->
-<script src="/assets/js/script-dbd16rvloemmuxdzniplmnxxvwoz24eya9wol0b7vvmlokgqsjivmb8dnscy.min.js"></script>
-<!--SCRIPTS END-->
-
+    <!-- headerblur min height -->
     
-        <script>
-             var disqus_config = function () {
-                 this.page.url = 'https://emjayahn.github.io/2018/11/01/MySQL/';
-                 
-                    this.page.identifier = '2018/11/01/MySQL/';
-                 
-             };
-            (function() {
-                var d = document, s = d.createElement('script');
-                var disqus_shortname = 'emjaygithubpage';
-                s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    
+</script>
+    
+<div style="display: none;">
+  <script src="https://s11.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+</div>
 
-                s.setAttribute('data-timestamp', +new Date());
-                (d.head || d.body).appendChild(s);
-            })();
-        </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+<script src="/js/bootstrap.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+
+
+
+
+
+  </div>
+
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js" async=""></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
 </script>
@@ -562,9 +405,5 @@
 </script>
 <!-- End: Injected MathJax -->
 <!-- hexo-inject:end -->
-    
-
-
-
-    </body>
+</body>
 </html>
