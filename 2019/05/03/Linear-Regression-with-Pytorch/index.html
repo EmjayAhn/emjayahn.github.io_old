@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+
+    
+
+    
+    <title>Linear Regression with Pytorch | Emjay&#39;s DailyBlog</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="">
+    
+    <meta name="description" content="Linear Regression through Pytorch 이번 포스트의 목적은 Linear Model을 Pytorch을 통해 구현해보며, 개인적으로 Pytorch의 사용을 연습하며 적응력을 높여보는 것입니다.  Import Library12345678910import torchimport torch.optim as optimimport matplotli">
+<meta name="keywords" content="hexo,datascience,datascientist">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linear Regression with Pytorch">
+<meta property="og:url" content="https://emjayahn.github.io/2019/05/03/Linear-Regression-with-Pytorch/index.html">
+<meta property="og:site_name" content="Emjay&#39;s DailyBlog">
+<meta property="og:description" content="Linear Regression through Pytorch 이번 포스트의 목적은 Linear Model을 Pytorch을 통해 구현해보며, 개인적으로 Pytorch의 사용을 연습하며 적응력을 높여보는 것입니다.  Import Library12345678910import torchimport torch.optim as optimimport matplotli">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://emjayahn.github.io/2019/05/03/Linear-Regression-with-Pytorch/output_5_0.png">
+<meta property="og:updated_time" content="2019-05-03T09:23:54.852Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linear Regression with Pytorch">
+<meta name="twitter:description" content="Linear Regression through Pytorch 이번 포스트의 목적은 Linear Model을 Pytorch을 통해 구현해보며, 개인적으로 Pytorch의 사용을 연습하며 적응력을 높여보는 것입니다.  Import Library12345678910import torchimport torch.optim as optimimport matplotli">
+<meta name="twitter:image" content="https://emjayahn.github.io/2019/05/03/Linear-Regression-with-Pytorch/output_5_0.png">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="Emjay&#39;s DailyBlog" type="application/atom+xml">
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-128251719-1', 'auto');
+ga('send', 'pageview');
+
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    
+    
+
+
+</head>
+</html>
+<body>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">Emjay&#39;s DataScience &amp; Development</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DataStructure/">DataStructure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Diary/">Diary</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Lecture/">Lecture</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Lecture/딥러닝을-이용한-자연어-처리/">딥러닝을 이용한 자연어 처리</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/MachineLearning/">MachineLearning</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/MachineLearning/Pytorch/">Pytorch</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Math/">Math</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/">wiki</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/MySQL/">MySQL</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/NGINX/">NGINX</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/Pillow/">Pillow</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/Provision/">Provision</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/Python/">Python</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/Requests/">Requests</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/Scrapy/">Scrapy</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/Selenium/">Selenium</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/Xpath/">Xpath</a></li></ul></li></ul>
+                                    
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/MachineLearning/">MachineLearning</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/MachineLearning/Pytorch/">Pytorch</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-Linear-Regression-with-Pytorch" class="article article-single article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        Linear Regression with Pytorch
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/05/03/Linear-Regression-with-Pytorch/" class="article-date">
+            <time datetime="2019-05-03T09:19:59.000Z" itemprop="datePublished">2019-05-03</time>
+        </a>
+    </div>
+
+		
+
+                
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h1 id="Linear-Regression-through-Pytorch"><a href="#Linear-Regression-through-Pytorch" class="headerlink" title="Linear Regression through Pytorch"></a>Linear Regression through Pytorch</h1><ul>
+<li>이번 포스트의 목적은 Linear Model을 Pytorch을 통해 구현해보며, 개인적으로 Pytorch의 사용을 연습하며 적응력을 높여보는 것입니다.</li>
+</ul>
+<h2 id="Import-Library"><a href="#Import-Library" class="headerlink" title="Import Library"></a>Import Library</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.optim <span class="keyword">as</span> optim</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> warnings</span><br><span class="line">warnings.filterwarnings(<span class="string">"ignore"</span>)</span><br><span class="line">%config InlineBackend.figure_format = <span class="string">'retina'</span></span><br><span class="line">%matplotlib inline</span><br></pre></td></tr></table></figure>
+<h2 id="Generate-Toy-Data"><a href="#Generate-Toy-Data" class="headerlink" title="Generate Toy Data"></a>Generate Toy Data</h2><p>$ y = \frac{1}{3} x + 5 $ 와 약간의 noise 를 합쳐 100 개의 toy data를 만들겠습니다.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Target Function</span></span><br><span class="line">f = <span class="keyword">lambda</span> x: <span class="number">1.0</span>/<span class="number">3.0</span> * x + <span class="number">5.0</span></span><br><span class="line"></span><br><span class="line">x = np.linspace(<span class="number">-40</span>, <span class="number">60</span>, <span class="number">100</span>)</span><br><span class="line">fx = f(x)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(x, fx)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="output_5_0.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># y_train data with little noise</span></span><br><span class="line">y = fx + <span class="number">10</span> * np.random.rand(len(x))</span><br><span class="line"></span><br><span class="line">plt.plot(x, y, <span class="string">'o'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="output_6_0.png" alt="png"></p>
+<h2 id="1-Gradient-Descent"><a href="#1-Gradient-Descent" class="headerlink" title="1. Gradient Descent"></a>1. Gradient Descent</h2><ol>
+<li>Model (hypothesis) 를 설정합니다.<br>(여기선, Linear Regression 이므로, $y = Wx + b$ 형태를 사용합니다.)</li>
+<li>Loss Function 을 정의합니다. (여기선, MSE loss 를 사용하겠습니다.)</li>
+<li>gradient 를 계산합니다.<br>(여기선, Gradient Descent 방법으로 optimize 를 할 것이므로, optim.SGD() 를 사용합니다.)</li>
+<li>parameter 를 update 합니다.</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x_train = torch.FloatTensor(x)</span><br><span class="line">y_train = torch.FloatTensor(y)</span><br><span class="line">print(<span class="string">"x_train Tensor shape: "</span>, x_train.shape)</span><br><span class="line">print(<span class="string">"y_train Tensor shape: "</span>, y_train.shape)</span><br></pre></td></tr></table></figure>
+<pre><code>x_train Tensor shape:  torch.Size([100])
+y_train Tensor shape:  torch.Size([100])
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># train code</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># parameter setting &amp; initialize</span></span><br><span class="line">W = torch.zeros(<span class="number">1</span>, requires_grad=<span class="keyword">True</span>)</span><br><span class="line">b = torch.zeros(<span class="number">1</span>, requires_grad=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># optimizer setting</span></span><br><span class="line">optimizer = optim.SGD([W, b], lr=<span class="number">0.001</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># total epochs</span></span><br><span class="line">epochs = <span class="number">3000</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> range(<span class="number">1</span>, epochs + <span class="number">1</span>):</span><br><span class="line">    <span class="comment"># decide model(hypothesis)</span></span><br><span class="line">    model = W * x_train + b</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># loss function -&gt; MSE</span></span><br><span class="line">    loss = torch.mean((model - y_train)**<span class="number">2</span>)</span><br><span class="line">    </span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    loss.backward()</span><br><span class="line">    optimizer.step()</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 10 epoch 마다 train loss 를 출력합니다.</span></span><br><span class="line">    <span class="keyword">if</span> epoch % <span class="number">500</span> == <span class="number">0</span>:</span><br><span class="line">        print(<span class="string">"epoch: &#123;&#125; -- Parameters: W: &#123;&#125; b: &#123;&#125; -- loss &#123;&#125;"</span>.format(epoch, W.data, b.data, loss.data))</span><br></pre></td></tr></table></figure>
+<pre><code>epoch: 500 -- Parameters: W: tensor([0.3709]) b: tensor([5.6408]) -- loss 22.728315353393555
+epoch: 1000 -- Parameters: W: tensor([0.3467]) b: tensor([7.9427]) -- loss 11.399767875671387
+epoch: 1500 -- Parameters: W: tensor([0.3368]) b: tensor([8.8829]) -- loss 9.51008415222168
+epoch: 2000 -- Parameters: W: tensor([0.3327]) b: tensor([9.2669]) -- loss 9.194862365722656
+epoch: 2500 -- Parameters: W: tensor([0.3311]) b: tensor([9.4237]) -- loss 9.142287254333496
+epoch: 3000 -- Parameters: W: tensor([0.3304]) b: tensor([9.4878]) -- loss 9.133516311645508
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(x, y, <span class="string">'o'</span>, label=<span class="string">"train data"</span>)</span><br><span class="line">plt.plot(x_train.data.numpy(), W.data.numpy()*x + b.data.numpy(), label=<span class="string">'fitted'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="output_10_0.png" alt="png"></p>
+<h2 id="2-Stochastic-Gradient-Descent"><a href="#2-Stochastic-Gradient-Descent" class="headerlink" title="2. Stochastic Gradient Descent"></a>2. Stochastic Gradient Descent</h2><ol>
+<li>Model (hypothesis) Setting</li>
+<li>Loss Function Setting</li>
+<li>최적화 알고리즘 선택</li>
+<li>shuffle train data</li>
+<li>mini-batch 마다 W, b 업데이트</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># batch 를 generate 해주는 함수</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">generate_batch</span><span class="params">(batch_size, x_train, y_train)</span>:</span></span><br><span class="line">    <span class="keyword">assert</span> len(x_train) == len(y_train)</span><br><span class="line">    result_batches = []</span><br><span class="line">    x_size = len(x_train)</span><br><span class="line">    </span><br><span class="line">    shuffled_id = np.arange(x_size)</span><br><span class="line">    np.random.shuffle(shuffled_id)</span><br><span class="line">    shuffled_x_train = x_train[shuffled_id]</span><br><span class="line">    shuffled_y_train = y_train[shuffled_id]</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> start_idx <span class="keyword">in</span> range(<span class="number">0</span>, x_size, batch_size):</span><br><span class="line">        end_idx = start_idx + batch_size</span><br><span class="line">        batch = [shuffled_x_train[start_idx:end_idx], shuffled_y_train[start_idx:end_idx]]</span><br><span class="line">        result_batches.append(batch)</span><br><span class="line">    <span class="keyword">return</span> result_batches</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># train</span></span><br><span class="line">W = torch.zeros(<span class="number">1</span>, requires_grad=<span class="keyword">True</span>)</span><br><span class="line">b = torch.zeros(<span class="number">1</span>, requires_grad=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">optimizer = optim.SGD([W, b], lr=<span class="number">0.001</span>)</span><br><span class="line"></span><br><span class="line">epochs = <span class="number">10000</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> range(<span class="number">1</span>, epochs + <span class="number">1</span>):</span><br><span class="line">    <span class="keyword">for</span> x_batch, y_batch <span class="keyword">in</span> generate_batch(<span class="number">10</span>, x_train, y_train):</span><br><span class="line">        model = W * x_batch + b</span><br><span class="line">        loss = torch.mean((model - y_batch)**<span class="number">2</span>)</span><br><span class="line">        </span><br><span class="line">        optimizer.zero_grad()</span><br><span class="line">        loss.backward()</span><br><span class="line">        optimizer.step()</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">if</span> epoch % <span class="number">500</span> == <span class="number">0</span>:</span><br><span class="line">        print(<span class="string">"epoch: &#123;&#125; -- Parameters: W: &#123;&#125; b: &#123;&#125; -- loss &#123;&#125;"</span>.format(epoch, W.data, b.data, loss.data))</span><br></pre></td></tr></table></figure>
+<pre><code>epoch: 500 -- Parameters: W: tensor([0.0890]) b: tensor([9.5399]) -- loss 162.1055450439453
+epoch: 1000 -- Parameters: W: tensor([0.3672]) b: tensor([9.5366]) -- loss 12.424881935119629
+epoch: 1500 -- Parameters: W: tensor([0.3560]) b: tensor([9.5097]) -- loss 7.826609134674072
+epoch: 2000 -- Parameters: W: tensor([0.3375]) b: tensor([9.5556]) -- loss 13.15934944152832
+epoch: 2500 -- Parameters: W: tensor([0.2462]) b: tensor([9.5157]) -- loss 11.582895278930664
+epoch: 3000 -- Parameters: W: tensor([0.3097]) b: tensor([9.5111]) -- loss 9.991677284240723
+epoch: 3500 -- Parameters: W: tensor([0.2497]) b: tensor([9.5532]) -- loss 20.481367111206055
+epoch: 4000 -- Parameters: W: tensor([0.4388]) b: tensor([9.5390]) -- loss 20.827198028564453
+epoch: 4500 -- Parameters: W: tensor([0.1080]) b: tensor([9.4959]) -- loss 140.0277862548828
+epoch: 5000 -- Parameters: W: tensor([0.3188]) b: tensor([9.4829]) -- loss 6.635367393493652
+epoch: 5500 -- Parameters: W: tensor([0.2553]) b: tensor([9.5017]) -- loss 25.45773696899414
+epoch: 6000 -- Parameters: W: tensor([0.2490]) b: tensor([9.5489]) -- loss 9.580666542053223
+epoch: 6500 -- Parameters: W: tensor([0.3189]) b: tensor([9.5347]) -- loss 12.585128784179688
+epoch: 7000 -- Parameters: W: tensor([0.3026]) b: tensor([9.4874]) -- loss 8.298829078674316
+epoch: 7500 -- Parameters: W: tensor([0.3507]) b: tensor([9.6815]) -- loss 13.348054885864258
+epoch: 8000 -- Parameters: W: tensor([0.1423]) b: tensor([9.5220]) -- loss 32.567440032958984
+epoch: 8500 -- Parameters: W: tensor([0.7147]) b: tensor([9.5182]) -- loss 75.97190856933594
+epoch: 9000 -- Parameters: W: tensor([0.5170]) b: tensor([9.5289]) -- loss 39.07848358154297
+epoch: 9500 -- Parameters: W: tensor([0.3748]) b: tensor([9.5590]) -- loss 10.358983993530273
+epoch: 10000 -- Parameters: W: tensor([0.2958]) b: tensor([9.6088]) -- loss 7.410649299621582
+</code></pre><ul>
+<li>Stochasitic 하게 loss의 gradient 를 계산하여, parameter update를 하므로, loss 가 굉장히 oscilation 이 나타나며 감소하는 것을 볼 수 있다.</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(x, y, <span class="string">'o'</span>, label=<span class="string">"train data"</span>)</span><br><span class="line">plt.plot(x_train.data.numpy(), W.data.numpy()*x + b.data.numpy(), label=<span class="string">'fitted'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="output_15_0.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+    <div class="a2a_kit a2a_default_style">
+    <a class="a2a_dd" href="https://www.addtoany.com/share">Share</a>
+    <span class="a2a_divider"></span>
+    <a class="a2a_button_facebook"></a>
+    <a class="a2a_button_twitter"></a>
+    <a class="a2a_button_google_plus"></a>
+    <a class="a2a_button_pinterest"></a>
+    <a class="a2a_button_tumblr"></a>
+</div>
+<script type="text/javascript" src="//static.addtoany.com/menu/page.js"></script>
+<style>
+    .a2a_menu {
+        border-radius: 4px;
+    }
+    .a2a_menu a {
+        margin: 2px 0;
+        font-size: 14px;
+        line-height: 16px;
+        border-radius: 4px;
+        color: inherit !important;
+        font-family: 'Microsoft Yahei';
+    }
+    #a2apage_dropdown {
+        margin: 10px 0;
+    }
+    .a2a_mini_services {
+        padding: 10px;
+    }
+    a.a2a_i,
+    i.a2a_i {
+        width: 122px;
+        line-height: 16px;
+    }
+    a.a2a_i .a2a_svg,
+    a.a2a_more .a2a_svg {
+        width: 16px;
+        height: 16px;
+        line-height: 16px;
+        vertical-align: top;
+        background-size: 16px;
+    }
+    a.a2a_i {
+        border: none !important;
+    }
+    a.a2a_menu_show_more_less {
+        margin: 0;
+        padding: 10px 0;
+        line-height: 16px;
+    }
+    .a2a_mini_services:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+    .a2a_mini_services{*+height:1%;}
+</style>
+
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/emjayahn" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="/atom.xml" target="_blank" rel="noopener">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2019/05/03/Lecture-딥러닝을-이용한-자연어-처리-Section-A-B/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">[Lecture] 딥러닝을 이용한 자연어 처리 Section A, B</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DataStructure/">DataStructure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Diary/">Diary</a><span class="category-list-count">42</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Lecture/">Lecture</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Lecture/딥러닝을-이용한-자연어-처리/">딥러닝을 이용한 자연어 처리</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/MachineLearning/">MachineLearning</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/MachineLearning/Pytorch/">Pytorch</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/">Math</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/">wiki</a><span class="category-list-count">10</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/MySQL/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/NGINX/">NGINX</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/Pillow/">Pillow</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/Provision/">Provision</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/Python/">Python</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/Requests/">Requests</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/Scrapy/">Scrapy</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/Selenium/">Selenium</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/Xpath/">Xpath</a><span class="category-list-count">1</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">25</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a><span class="archive-list-count">20</span></li></ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 EmjayAhn(Minjae Ahn)</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'emjaygithubpage';
+    
+    
+    var disqus_url = 'https://emjayahn.github.io/2019/05/03/Linear-Regression-with-Pytorch/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>
