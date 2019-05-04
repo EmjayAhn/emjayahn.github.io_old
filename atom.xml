@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://emjayahn.github.io/"/>
-  <updated>2019-05-03T09:23:54.852Z</updated>
+  <updated>2019-05-04T14:57:50.611Z</updated>
   <id>https://emjayahn.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Linear Model with Pytorch</title>
+    <link href="https://emjayahn.github.io/2019/05/04/Linear-Model-with-Pytorch/"/>
+    <id>https://emjayahn.github.io/2019/05/04/Linear-Model-with-Pytorch/</id>
+    <published>2019-05-04T14:54:06.000Z</published>
+    <updated>2019-05-04T14:57:50.611Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Linear-Model-with-Pytorch"><a href="#Linear-Model-with-Pytorch" class="headerlink" title="Linear Model with Pytorch"></a>Linear Model with Pytorch</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.optim <span class="keyword">as</span> optim</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> warnings</span><br><span class="line">warnings.filterwarnings(<span class="string">"ignore"</span>)</span><br><span class="line">%config InlineBackend.figure_format = <span class="string">'retina'</span></span><br><span class="line">%matplotlib inline</span><br></pre></td></tr></table></figure><h2 id="1-Quadratic-Regression-Model"><a href="#1-Quadratic-Regression-Model" class="headerlink" title="1. Quadratic Regression Model"></a>1. Quadratic Regression Model</h2><p>$$<br>f(x) = w_0 + w_1x + w_2x^2<br>$$</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">x = np.linspace(<span class="number">-10</span>, <span class="number">10</span>, <span class="number">100</span>)</span><br><span class="line">y = x**<span class="number">2</span> + <span class="number">0.7</span> * x + <span class="number">3.0</span> + <span class="number">20</span> * np.random.rand(len(x))</span><br><span class="line"></span><br><span class="line">plt.plot(x, y, <span class="string">'o'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.xlabel(<span class="string">'x'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'y'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure><p><img src="output_3_0.png" alt="png"></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">x_train = torch.FloatTensor([[each_x**<span class="number">2</span>, each_x, <span class="number">1</span>] <span class="keyword">for</span> each_x <span class="keyword">in</span> x])</span><br><span class="line">y_train = torch.FloatTensor(y)</span><br><span class="line"></span><br><span class="line">print(<span class="string">"x_train shape: "</span>, x_train.shape)</span><br><span class="line">print(<span class="string">"y_train shape: "</span>, y_train.shape)</span><br></pre></td></tr></table></figure><pre><code>x_train shape:  torch.Size([100, 3])y_train shape:  torch.Size([100])</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">W = torch.zeros(<span class="number">3</span>, requires_grad=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">optimizer = optim.SGD([W], lr=<span class="number">0.0001</span>)</span><br><span class="line"></span><br><span class="line">epochs = <span class="number">10000</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> range(<span class="number">1</span>, epochs + <span class="number">1</span>):</span><br><span class="line">    hypothesis = x_train.matmul(W)</span><br><span class="line">    </span><br><span class="line">    loss = torch.mean((hypothesis - y_train) ** <span class="number">2</span>)</span><br><span class="line">    </span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    loss.backward()</span><br><span class="line">    optimizer.step()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> epoch % <span class="number">1000</span> == <span class="number">0</span>:</span><br><span class="line">        print(<span class="string">"epoch: &#123;&#125; -- Parameters: W: &#123;&#125; -- loss &#123;&#125;"</span>.format(epoch, W.data, loss.data))</span><br></pre></td></tr></table></figure><pre><code>epoch: 1000 -- Parameters: W: tensor([1.1812, 0.6252, 1.1738]) -- loss 99.02932739257812epoch: 2000 -- Parameters: W: tensor([1.1640, 0.6259, 2.2299]) -- loss 87.8645248413086epoch: 3000 -- Parameters: W: tensor([1.1482, 0.6259, 3.1962]) -- loss 78.51750946044922epoch: 4000 -- Parameters: W: tensor([1.1337, 0.6259, 4.0803]) -- loss 70.69230651855469epoch: 5000 -- Parameters: W: tensor([1.1205, 0.6259, 4.8893]) -- loss 64.14116668701172epoch: 6000 -- Parameters: W: tensor([1.1084, 0.6259, 5.6295]) -- loss 58.65663146972656epoch: 7000 -- Parameters: W: tensor([1.0973, 0.6259, 6.3067]) -- loss 54.0650634765625epoch: 8000 -- Parameters: W: tensor([1.0872, 0.6259, 6.9264]) -- loss 50.221073150634766epoch: 9000 -- Parameters: W: tensor([1.0779, 0.6259, 7.4934]) -- loss 47.0029182434082epoch: 10000 -- Parameters: W: tensor([1.0695, 0.6259, 8.0122]) -- loss 44.3087158203125</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(x, y, <span class="string">'o'</span>, label=<span class="string">'train data'</span>)</span><br><span class="line">plt.plot(x, (x_train.data.matmul(W.data).numpy()), <span class="string">'-'</span>, label=<span class="string">'fitted'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure><p><img src="output_6_0.png" alt="png"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;Linear-Model-with-Pytorch&quot;&gt;&lt;a href=&quot;#Linear-Model-with-Pytorch&quot; class=&quot;headerlink&quot; title=&quot;Linear Model with Pytorch&quot;&gt;&lt;/a&gt;Linear Mode
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>Linear Regression with Pytorch</title>
@@ -470,30 +491,6 @@
       
     
     </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>181128-TodayWhatILearned</title>
-    <link href="https://emjayahn.github.io/2018/11/28/181128-TodayWhatILearned/"/>
-    <id>https://emjayahn.github.io/2018/11/28/181128-TodayWhatILearned/</id>
-    <published>2018-11-28T12:24:06.000Z</published>
-    <updated>2018-11-28T14:35:26.989Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="181128-TWIL"><a href="#181128-TWIL" class="headerlink" title="181128 TWIL"></a>181128 TWIL</h1><hr><h2 id="To-do-list-오늘-할일"><a href="#To-do-list-오늘-할일" class="headerlink" title="To-do-list : 오늘 할일"></a>To-do-list : 오늘 할일</h2><ol><li>~ Classification 성능평가</li><li>수학 9장 2절</li><li>Pandas ~ 100pages</li></ol><h2 id="오늘-한-일은-무엇인가"><a href="#오늘-한-일은-무엇인가" class="headerlink" title="오늘 한 일은 무엇인가"></a>오늘 한 일은 무엇인가</h2><ol><li>~ Classification 성능평가</li><li>수학 9장 2절</li></ol><hr><h2 id="내일-할-일은-무엇인가"><a href="#내일-할-일은-무엇인가" class="headerlink" title="내일 할 일은 무엇인가"></a>내일 할 일은 무엇인가</h2><ol><li>Pandas 100page<br><br></li></ol><hr><h2 id="무엇을-느꼈는가"><a href="#무엇을-느꼈는가" class="headerlink" title="무엇을 느꼈는가"></a>무엇을 느꼈는가</h2><ul><li>프로젝트를 한번 해서 그런지, 지금 공부하는 내용도 앞으로 프로젝트에서 어떻게 활용해야할지 염두? 걱정?<br>하며 공부를 하게 되는 것 같다. 메소드를 정리할 필요가 있고, 배우는 각 개념들이 어떤 판단을 바탕으로 사용해야<br>하는지 생각하며 공부하게 되는 것 같다.</li><li>시간이 부족하여, 메소드들을 좀더 디테일하게 보지 못하는 아쉬움이 있지만, 이런 것들을 주말 등을 통하여<br>보충할 필요가 있다.</li></ul><hr>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;181128-TWIL&quot;&gt;&lt;a href=&quot;#181128-TWIL&quot; class=&quot;headerlink&quot; title=&quot;181128 TWIL&quot;&gt;&lt;/a&gt;181128 TWIL&lt;/h1&gt;&lt;hr&gt;
-&lt;h2 id=&quot;To-do-list-오늘-할일&quot;&gt;&lt;a hre
-      
-    
-    </summary>
-    
-      <category term="Diary" scheme="https://emjayahn.github.io/categories/Diary/"/>
     
     
   </entry>

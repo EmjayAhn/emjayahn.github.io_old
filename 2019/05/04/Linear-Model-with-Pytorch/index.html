@@ -6,21 +6,26 @@
     
 
     
-    <title>Archive: 2018 | Emjay&#39;s DailyBlog</title>
+    <title>Linear Model with Pytorch | Emjay&#39;s DailyBlog</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-    <meta name="description" content="공부한 것, 알게된 것을 기록하는 블로그입니다.">
+        <meta name="keywords" content="">
+    
+    <meta name="description" content="Linear Model with Pytorch12345678import torchimport torch.optim as optimimport numpy as npimport warningswarnings.filterwarnings(&quot;ignore&quot;)%config InlineBackend.figure_format = &apos;retina&apos;%matplotlib inli">
 <meta name="keywords" content="hexo,datascience,datascientist">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Emjay&#39;s DailyBlog">
-<meta property="og:url" content="https://emjayahn.github.io/archives/2018/page/4/index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linear Model with Pytorch">
+<meta property="og:url" content="https://emjayahn.github.io/2019/05/04/Linear-Model-with-Pytorch/index.html">
 <meta property="og:site_name" content="Emjay&#39;s DailyBlog">
-<meta property="og:description" content="공부한 것, 알게된 것을 기록하는 블로그입니다.">
+<meta property="og:description" content="Linear Model with Pytorch12345678import torchimport torch.optim as optimimport numpy as npimport warningswarnings.filterwarnings(&quot;ignore&quot;)%config InlineBackend.figure_format = &apos;retina&apos;%matplotlib inli">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="https://emjayahn.github.io/2019/05/04/Linear-Model-with-Pytorch/output_3_0.png">
+<meta property="og:updated_time" content="2019-05-04T14:57:50.611Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Emjay&#39;s DailyBlog">
-<meta name="twitter:description" content="공부한 것, 알게된 것을 기록하는 블로그입니다.">
+<meta name="twitter:title" content="Linear Model with Pytorch">
+<meta name="twitter:description" content="Linear Model with Pytorch12345678import torchimport torch.optim as optimimport numpy as npimport warningswarnings.filterwarnings(&quot;ignore&quot;)%config InlineBackend.figure_format = &apos;retina&apos;%matplotlib inli">
+<meta name="twitter:image" content="https://emjayahn.github.io/2019/05/04/Linear-Model-with-Pytorch/output_3_0.png">
     
 
     
@@ -144,453 +149,134 @@ ga('send', 'pageview');
                         <div class="main-body-header">
     <h1 class="header">
     
-    <i class="icon fa fa-archive"></i>Archive: 2018
+    uncategorized
     </h1>
 </div>
 
                         <div class="main-body-content">
-                            
-
-    
-    
+                            <article id="post-Linear-Model-with-Pytorch" class="article article-single article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
         
-        
-        <section class="archives-wrap">
-            <div class="archive-year-wrap">
-                <a href="/archives/2018" class="archive-year"><i class="icon fa fa-calendar-o"></i>2018</a>
-            </div>
-            <div class="archives">
-    
-    
-    
-        <div class="article-row">
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Diary/">Diary</a>
-            </div>
-            <div class="date"><time datetime="2018-11-07T10:42:45.000Z" itemprop="datePublished">2018-11-07</time></div>
-        </div>
-        
+            <header class="article-header">
+                
     
         <h1 class="article-title" itemprop="name">
-        <a href="/2018/11/07/181107-TodayWhatILearned/">181107-TodayWhatILearned</a>
+        Linear Model with Pytorch
         </h1>
     
 
-        <p class="article-excerpt">
-            181107 TWIL
-오늘 한 일은 무엇인가
-Crawling Project 정리 및 제출
-
-
-내일 할 일은 무엇인가
-Prediction Project
-
-
-
-        </p>
-    </div>
-</article>
-    
-
-    
-    
-    
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
+            </header>
         
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Diary/">Diary</a>
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/05/04/Linear-Model-with-Pytorch/" class="article-date">
+            <time datetime="2019-05-04T14:54:06.000Z" itemprop="datePublished">2019-05-04</time>
+        </a>
+    </div>
+
+		
+
+                
             </div>
-            <div class="date"><time datetime="2018-11-05T03:15:36.000Z" itemprop="datePublished">2018-11-05</time></div>
-        </div>
         
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2018/11/05/181105-TodayWhatILearned/">181105-TodayWhatILearned</a>
-        </h1>
-    
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h1 id="Linear-Model-with-Pytorch"><a href="#Linear-Model-with-Pytorch" class="headerlink" title="Linear Model with Pytorch"></a>Linear Model with Pytorch</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.optim <span class="keyword">as</span> optim</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> warnings</span><br><span class="line">warnings.filterwarnings(<span class="string">"ignore"</span>)</span><br><span class="line">%config InlineBackend.figure_format = <span class="string">'retina'</span></span><br><span class="line">%matplotlib inline</span><br></pre></td></tr></table></figure>
+<h2 id="1-Quadratic-Regression-Model"><a href="#1-Quadratic-Regression-Model" class="headerlink" title="1. Quadratic Regression Model"></a>1. Quadratic Regression Model</h2><p>$$<br>f(x) = w_0 + w_1x + w_2x^2<br>$$</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">x = np.linspace(<span class="number">-10</span>, <span class="number">10</span>, <span class="number">100</span>)</span><br><span class="line">y = x**<span class="number">2</span> + <span class="number">0.7</span> * x + <span class="number">3.0</span> + <span class="number">20</span> * np.random.rand(len(x))</span><br><span class="line"></span><br><span class="line">plt.plot(x, y, <span class="string">'o'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.xlabel(<span class="string">'x'</span>)</span><br><span class="line">plt.ylabel(<span class="string">'y'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="output_3_0.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">x_train = torch.FloatTensor([[each_x**<span class="number">2</span>, each_x, <span class="number">1</span>] <span class="keyword">for</span> each_x <span class="keyword">in</span> x])</span><br><span class="line">y_train = torch.FloatTensor(y)</span><br><span class="line"></span><br><span class="line">print(<span class="string">"x_train shape: "</span>, x_train.shape)</span><br><span class="line">print(<span class="string">"y_train shape: "</span>, y_train.shape)</span><br></pre></td></tr></table></figure>
+<pre><code>x_train shape:  torch.Size([100, 3])
+y_train shape:  torch.Size([100])
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">W = torch.zeros(<span class="number">3</span>, requires_grad=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">optimizer = optim.SGD([W], lr=<span class="number">0.0001</span>)</span><br><span class="line"></span><br><span class="line">epochs = <span class="number">10000</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> range(<span class="number">1</span>, epochs + <span class="number">1</span>):</span><br><span class="line">    hypothesis = x_train.matmul(W)</span><br><span class="line">    </span><br><span class="line">    loss = torch.mean((hypothesis - y_train) ** <span class="number">2</span>)</span><br><span class="line">    </span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    loss.backward()</span><br><span class="line">    optimizer.step()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> epoch % <span class="number">1000</span> == <span class="number">0</span>:</span><br><span class="line">        print(<span class="string">"epoch: &#123;&#125; -- Parameters: W: &#123;&#125; -- loss &#123;&#125;"</span>.format(epoch, W.data, loss.data))</span><br></pre></td></tr></table></figure>
+<pre><code>epoch: 1000 -- Parameters: W: tensor([1.1812, 0.6252, 1.1738]) -- loss 99.02932739257812
+epoch: 2000 -- Parameters: W: tensor([1.1640, 0.6259, 2.2299]) -- loss 87.8645248413086
+epoch: 3000 -- Parameters: W: tensor([1.1482, 0.6259, 3.1962]) -- loss 78.51750946044922
+epoch: 4000 -- Parameters: W: tensor([1.1337, 0.6259, 4.0803]) -- loss 70.69230651855469
+epoch: 5000 -- Parameters: W: tensor([1.1205, 0.6259, 4.8893]) -- loss 64.14116668701172
+epoch: 6000 -- Parameters: W: tensor([1.1084, 0.6259, 5.6295]) -- loss 58.65663146972656
+epoch: 7000 -- Parameters: W: tensor([1.0973, 0.6259, 6.3067]) -- loss 54.0650634765625
+epoch: 8000 -- Parameters: W: tensor([1.0872, 0.6259, 6.9264]) -- loss 50.221073150634766
+epoch: 9000 -- Parameters: W: tensor([1.0779, 0.6259, 7.4934]) -- loss 47.0029182434082
+epoch: 10000 -- Parameters: W: tensor([1.0695, 0.6259, 8.0122]) -- loss 44.3087158203125
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(x, y, <span class="string">'o'</span>, label=<span class="string">'train data'</span>)</span><br><span class="line">plt.plot(x, (x_train.data.matmul(W.data).numpy()), <span class="string">'-'</span>, label=<span class="string">'fitted'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="output_6_0.png" alt="png"></p>
 
-        <p class="article-excerpt">
-            181105 TWIL
-프로젝트 STEP
-전처리 Nan 값 처리 해결
-Partial Regression Plot 그려보기
-
-오늘 한 일은 무엇인가
-프로젝트 모임
-Crawling miniProject 와 mainProject 진행
+        </div>
+        <footer class="article-footer">
+            
 
 
-내일 할 일은 무엇인가
-프로젝트, 오늘까지 진행사항 코드 정리
-수학 회기 전체 정리
-프로젝트 생각하기
+    <div class="a2a_kit a2a_default_style">
+    <a class="a2a_dd" href="https://www.addtoany.com/share">Share</a>
+    <span class="a2a_divider"></span>
+    <a class="a2a_button_facebook"></a>
+    <a class="a2a_button_twitter"></a>
+    <a class="a2a_button_google_plus"></a>
+    <a class="a2a_button_pinterest"></a>
+    <a class="a2a_button_tumblr"></a>
+</div>
+<script type="text/javascript" src="//static.addtoany.com/menu/page.js"></script>
+<style>
+    .a2a_menu {
+        border-radius: 4px;
+    }
+    .a2a_menu a {
+        margin: 2px 0;
+        font-size: 14px;
+        line-height: 16px;
+        border-radius: 4px;
+        color: inherit !important;
+        font-family: 'Microsoft Yahei';
+    }
+    #a2apage_dropdown {
+        margin: 10px 0;
+    }
+    .a2a_mini_services {
+        padding: 10px;
+    }
+    a.a2a_i,
+    i.a2a_i {
+        width: 122px;
+        line-height: 16px;
+    }
+    a.a2a_i .a2a_svg,
+    a.a2a_more .a2a_svg {
+        width: 16px;
+        height: 16px;
+        line-height: 16px;
+        vertical-align: top;
+        background-size: 16px;
+    }
+    a.a2a_i {
+        border: none !important;
+    }
+    a.a2a_menu_show_more_less {
+        margin: 0;
+        padding: 10px 0;
+        line-height: 16px;
+    }
+    .a2a_mini_services:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+    .a2a_mini_services{*+height:1%;}
+</style>
 
 
-무엇을 느꼈는가
-오늘은
-        </p>
+        </footer>
     </div>
 </article>
-    
-        </div>
-    
 
+    <section id="comments">
     
-    
-    
-    
-        <div class="article-row">
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
         
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Diary/">Diary</a>
-            </div>
-            <div class="date"><time datetime="2018-11-04T14:07:51.000Z" itemprop="datePublished">2018-11-04</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2018/11/04/181104-TodayWhatILearned/">181104-TodayWhatILearned</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            181104 TWIL
-오늘 한 일은 무엇인가
-회기 부분 공부
-Project Data 회기 돌려보기
-
-
-내일 할 일은 무엇인가
-Project 모임
-회기 부분 정리
-크롤링 프로젝트 개선 사항 고민
-(시간이 되면) A* 알고리즘 코드 짜보기
-
-
-무엇을 느꼈는가
-다리를 다치고 통증으로 인해 집중해서 코드를 짜기 힘들었다. 수학 이론을 공부하면서 내일 있을 프로젝트
-        </p>
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
     </div>
-</article>
-    
 
     
-    
-    
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Diary/">Diary</a>
-            </div>
-            <div class="date"><time datetime="2018-11-03T13:27:46.000Z" itemprop="datePublished">2018-11-03</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2018/11/03/181103-TodayWhatILearned/">181103-TodayWhatILearned</a>
-        </h1>
-    
+    </section>
 
-        <p class="article-excerpt">
-            181103 TWIL
-오늘 한 일은 무엇인가
-Crawling miniProject 코드 작성
-Pandas 라이브러리 정리
-Project 주말동안 할일 정하기
-
-
-내일 할 일은 무엇인가
-Project Data 회기 돌려보기
-회기 부분 공부
-크롤링 프로젝트 개선 사항 고민
-(시간이 되면) A* 알고리즘 코드 짜보기
-
-
-무엇을 느꼈는가
-whoscored 사이트의
-        </p>
-    </div>
-</article>
-    
-        </div>
-    
-
-    
-    
-    
-    
-        <div class="article-row">
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Diary/">Diary</a>
-            </div>
-            <div class="date"><time datetime="2018-11-02T12:48:52.000Z" itemprop="datePublished">2018-11-02</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2018/11/02/181102-TodayWhatILearned/">181102-TodayWhatILearned</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            181102 TWIL
-오늘 한 일은 무엇인가
-Database - MySQL 공부
-A * 알고리즘 스터디
-NaN 값 처리에관한 자료 서칭
-
-
-내일 할 일은 무엇인가
-Project 모임
-Pandas 라이브러리 정리
-miniProject Crawling 코드짜기
-A * 알고리즘 짜기
-
-
-무엇을 느꼈는가
-오늘 스터디에서 A* 알고리즘를 주제로 얘기를 좀더 나누었다
-        </p>
-    </div>
-</article>
-    
-
-    
-    
-    
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Diary/">Diary</a>
-            </div>
-            <div class="date"><time datetime="2018-11-01T14:10:02.000Z" itemprop="datePublished">2018-11-01</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2018/11/01/181101-TodayWhatILearned/">181101-TodayWhatILearned</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            181101 TWIL
-오늘 한 일은 무엇인가
-Project 모임
-Data 일부 전처리
-Crawling 공부
-
-
-내일 할 일은 무엇인가
-Database - MySQL 공부
-Pandas 라이브러리 살펴보기
-miniProject Crawling 주제 선정, 코드짜기
-
-
-무엇을 느꼈는가
-프로젝트 모임에서 우리가 예측할 Data (Departure Delay)를 정
-        </p>
-    </div>
-</article>
-    
-        </div>
-    
-
-    
-    
-    
-    
-        <div class="article-row">
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/wiki/">wiki</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/wiki/MySQL/">MySQL</a>
-            </div>
-            <div class="date"><time datetime="2018-11-01T03:20:44.000Z" itemprop="datePublished">2018-11-01</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2018/11/01/MySQL/">Mysql</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            MySQL1. Install MySQL
-https://dev.mysql.com/downloads/mysql/5.7.html#downloads 에서DMG 파일 다운로드
-
-시스템 환경설정에서 MySQL -&gt; Start MySQL Server : server 시작
-
-
-1$ cd usr/local/mysql/bin
-위 경로에서
-
-MySQL 서버에 접속1$ s
-        </p>
-    </div>
-</article>
-    
-
-    
-    
-    
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Diary/">Diary</a>
-            </div>
-            <div class="date"><time datetime="2018-10-31T14:17:59.000Z" itemprop="datePublished">2018-10-31</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2018/10/31/181031-TodayWhatILearned/">181031-TodayWhatILearned</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            181031 TWIL
-오늘 한 일은 무엇인가
-선형회귀분석 공부
-행렬의 미분 공부
-(PROJECTmini)A star Algorithm 개념 정리
-(PROJECT)프로젝트 진행 data 탐구
-데이터 전처리 공부
-
-
-내일 할 일은 무엇인가
-Project 모임
-데이터 전처리, 데이터들의 의미 파악, 예측할 delay 부분 정의하기
-
-
-무엇을 느꼈는가
-오늘은 아침
-        </p>
-    </div>
-</article>
-    
-        </div>
-    
-
-    
-    
-    
-    
-        <div class="article-row">
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Diary/">Diary</a>
-            </div>
-            <div class="date"><time datetime="2018-10-30T14:20:31.000Z" itemprop="datePublished">2018-10-30</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2018/10/30/181030-TodayWhatILearned/">181030-TodayWhatILearned</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            181030 TWIL
-오늘 한 일은 무엇인가
-검정, 추정 부분 수식 꼼꼼히 다시 보기
-A star(A*) Algorithm 개념 읽기
-
-
-내일 할 일은 무엇인가
-선형회귀분석 정리 (패키지 별로 특징, 메서드 파라미터 위주)
-데이터 전처리 부분 공부
-Test data 처리는 어떻게 하는 건지 공부해보기
-
-
-무엇을 느꼈는가
-추정부분 수식을 공부하면서 eigen
-        </p>
-    </div>
-</article>
-    
-
-    
-    
-    
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Diary/">Diary</a>
-            </div>
-            <div class="date"><time datetime="2018-10-29T14:24:56.000Z" itemprop="datePublished">2018-10-29</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2018/10/29/181029-TodayWhatILearned/">181029-TodayWhatILearned</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            181029 TWIL
-오늘 한 일은 무엇인가
-자료구조 Binary Tree, Stack 으로 Queue구현, Stack 응용
-추정 부분 복습
-스터디 나갈 방향 이야기
-A star algorithm search
-
-
-내일 할 일은 무엇인가
-‘추정’에서 수식 부분 다시 보기
-
-
-무엇을 느꼈는가
-스터디 첫 모임을 가졌다. 프로그래밍에 관해 알고있는 것들을 활용하고
-        </p>
-    </div>
-</article>
-    
-        </div>
-    
-
-
-    </div></section>
-
-
-    <nav id="page-nav">
-        <span class="pages">Page 4 of 6</span>
-        <a class="extend prev" rel="prev" href="/archives/2018/page/3/">&laquo;</a><a class="page-number" href="/archives/2018/">1</a><a class="page-number" href="/archives/2018/page/2/">2</a><a class="page-number" href="/archives/2018/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/archives/2018/page/5/">5</a><a class="page-number" href="/archives/2018/page/6/">6</a><a class="extend next" rel="next" href="/archives/2018/page/5/">&raquo;</a>
-    </nav>
 
 
                         </div>
@@ -619,6 +305,19 @@ A star algorithm search
             
         </ul>
     </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2019/05/03/Linear-Regression-with-Pytorch/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">Linear Regression with Pytorch</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
     
     <div class="widgets-container">
         
@@ -677,11 +376,13 @@ A star algorithm search
     var disqus_shortname = 'emjaygithubpage';
     
     
+    var disqus_url = 'https://emjayahn.github.io/2019/05/04/Linear-Model-with-Pytorch/';
+    
     (function() {
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
     </script>
