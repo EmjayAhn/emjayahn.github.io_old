@@ -21,7 +21,7 @@
 <meta property="og:description" content="Linear Model with Pytorch 이 글의 목적은, 지난 Linear Regression 에서 좀더 나아가서, 다양한 Regression 예제들을 Linear Model (WX) 형태로 pytorch 를 이용해 풀어 보는 것입니다. Pytorch 를 사용하여 Modeling 과 loss function 등을 class 형태, 내장 loss 함수">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://emjayahn.github.io/2019/05/04/Linear-Model-with-Pytorch/output_4_0.png">
-<meta property="og:updated_time" content="2019-05-05T13:07:20.425Z">
+<meta property="og:updated_time" content="2019-05-05T13:12:31.853Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linear Model with Pytorch">
 <meta name="twitter:description" content="Linear Model with Pytorch 이 글의 목적은, 지난 Linear Regression 에서 좀더 나아가서, 다양한 Regression 예제들을 Linear Model (WX) 형태로 pytorch 를 이용해 풀어 보는 것입니다. Pytorch 를 사용하여 Modeling 과 loss function 등을 class 형태, 내장 loss 함수">
@@ -240,7 +240,8 @@ epoch: 13500 -- loss 0.05964164435863495
 epoch: 15000 -- loss 0.055785566568374634
 </code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(x, y, <span class="string">'o'</span>, label=<span class="string">'train data'</span>)</span><br><span class="line">plt.plot(x, model(x_train).data.numpy(), <span class="string">'-r'</span>, linewidth=<span class="number">3</span>, label=<span class="string">'fitted'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
 <p><img src="output_19_0.png" alt="png"></p>
-<h2 id="3-Exponential-Regression-Model"><a href="#3-Exponential-Regression-Model" class="headerlink" title="3. Exponential Regression Model"></a>3. Exponential Regression Model</h2><p>\begin{align}<br>f(x) &amp;= e^{w_0x}\<br>g(x) &amp;= \ln f(x) = w_0x<br>\end{align}</p>
+<h2 id="3-Exponential-Regression-Model"><a href="#3-Exponential-Regression-Model" class="headerlink" title="3. Exponential Regression Model"></a>3. Exponential Regression Model</h2><p>$$<br>f(x) = e^{w_0x}<br>$$</p>
+<p>$$<br>g(x) = \ln f(x) = w_0x<br>$$</p>
 <ul>
 <li>Exponential 의 경우, Linear Model 형태를 만들어 주기 위해, log 를 씌워 주워 train 을 시킨후, 다시 exponential 을 양변에 취해주는 형태로 modeling 을 하여야 한다.</li>
 </ul>
