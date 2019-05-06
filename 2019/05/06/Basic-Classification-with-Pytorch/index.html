@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+
+    
+
+    
+    <title>Basic Classification with Pytorch | Emjay&#39;s DailyBlog</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="">
+    
+    <meta name="description" content="Basic Classification with Pytorch 이번 post 는 pytorch 를 활용해 기초적인 분류 모델링을 해보면서, pytorch에 익숙함을 높이는 것이 목적입니다.  123456789101112import torchimport torch.nn as nnimport torch.nn.functional as Fimport torch.op">
+<meta name="keywords" content="hexo,datascience,datascientist">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Basic Classification with Pytorch">
+<meta property="og:url" content="https://emjayahn.github.io/2019/05/06/Basic-Classification-with-Pytorch/index.html">
+<meta property="og:site_name" content="Emjay&#39;s DailyBlog">
+<meta property="og:description" content="Basic Classification with Pytorch 이번 post 는 pytorch 를 활용해 기초적인 분류 모델링을 해보면서, pytorch에 익숙함을 높이는 것이 목적입니다.  123456789101112import torchimport torch.nn as nnimport torch.nn.functional as Fimport torch.op">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://emjayahn.github.io/2019/05/06/Basic-Classification-with-Pytorch/output_6_0.png">
+<meta property="og:updated_time" content="2019-05-06T03:40:52.489Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Basic Classification with Pytorch">
+<meta name="twitter:description" content="Basic Classification with Pytorch 이번 post 는 pytorch 를 활용해 기초적인 분류 모델링을 해보면서, pytorch에 익숙함을 높이는 것이 목적입니다.  123456789101112import torchimport torch.nn as nnimport torch.nn.functional as Fimport torch.op">
+<meta name="twitter:image" content="https://emjayahn.github.io/2019/05/06/Basic-Classification-with-Pytorch/output_6_0.png">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="Emjay&#39;s DailyBlog" type="application/atom+xml">
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-128251719-1', 'auto');
+ga('send', 'pageview');
+
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    
+    
+
+
+</head>
+</html>
+<body>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">Emjay&#39;s DataScience &amp; Development</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DataStructure/">DataStructure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Diary/">Diary</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Lecture/">Lecture</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Lecture/딥러닝을-이용한-자연어-처리/">딥러닝을 이용한 자연어 처리</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/MachineLearning/">MachineLearning</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/MachineLearning/Pytorch/">Pytorch</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Math/">Math</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/">wiki</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/MySQL/">MySQL</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/NGINX/">NGINX</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/Pillow/">Pillow</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/Provision/">Provision</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/Python/">Python</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/Requests/">Requests</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/Scrapy/">Scrapy</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/Selenium/">Selenium</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/Xpath/">Xpath</a></li></ul></li></ul>
+                                    
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/MachineLearning/">MachineLearning</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/MachineLearning/Pytorch/">Pytorch</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-Basic-Classification-with-Pytorch" class="article article-single article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        Basic Classification with Pytorch
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/05/06/Basic-Classification-with-Pytorch/" class="article-date">
+            <time datetime="2019-05-06T03:39:33.000Z" itemprop="datePublished">2019-05-06</time>
+        </a>
+    </div>
+
+		
+
+                
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h1 id="Basic-Classification-with-Pytorch"><a href="#Basic-Classification-with-Pytorch" class="headerlink" title="Basic Classification with Pytorch"></a>Basic Classification with Pytorch</h1><ul>
+<li>이번 post 는 pytorch 를 활용해 기초적인 분류 모델링을 해보면서, pytorch에 익숙함을 높이는 것이 목적입니다.</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">import</span> torch.nn.functional <span class="keyword">as</span> F</span><br><span class="line"><span class="keyword">import</span> torch.optim <span class="keyword">as</span> optim</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> warnings</span><br><span class="line">warnings.filterwarnings(<span class="string">"ignore"</span>)</span><br><span class="line">%matplotlib inline</span><br><span class="line">%config InlineBackend.figure_format = <span class="string">'retina'</span></span><br></pre></td></tr></table></figure>
+<h2 id="1-Binary-Classification"><a href="#1-Binary-Classification" class="headerlink" title="1. Binary Classification"></a>1. Binary Classification</h2><ol>
+<li>Modeling</li>
+<li>Sigmoid</li>
+<li>Loss : Binary Cross Entropy</li>
+</ol>
+<h3 id="1-1-Generate-Data"><a href="#1-1-Generate-Data" class="headerlink" title="1.1 Generate Data"></a>1.1 Generate Data</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># plotting function</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">plot_scatter</span><span class="params">(W_, xy, labels)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> k, color <span class="keyword">in</span> [(<span class="number">0</span>, <span class="string">'b'</span>), (<span class="number">1</span>, <span class="string">'r'</span>)]:</span><br><span class="line">        idx = labels.flatten() == k</span><br><span class="line">        plt.scatter(xy[idx, <span class="number">0</span>], xy[idx, <span class="number">1</span>], c=color)</span><br><span class="line">        </span><br><span class="line">    x1 = np.linspace(<span class="number">-0.1</span>, <span class="number">1.1</span>)</span><br><span class="line">    x2 = -W_[<span class="number">1</span>] / W_[<span class="number">2</span>] * x1 - W_[<span class="number">0</span>] / W_[<span class="number">2</span>]</span><br><span class="line">    plt.plot(x1, x2, <span class="string">'--k'</span>)</span><br><span class="line">    </span><br><span class="line">    plt.grid()</span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Generate data</span></span><br><span class="line"></span><br><span class="line">W = np.array([<span class="number">-4.</span>/<span class="number">5</span>, <span class="number">3.</span>/<span class="number">4.</span>, <span class="number">1.0</span>])</span><br><span class="line"></span><br><span class="line">xy = np.random.rand(<span class="number">30</span>, <span class="number">2</span>)</span><br><span class="line">labels = np.zeros(len(xy))</span><br><span class="line">labels[W[<span class="number">0</span>] + W[<span class="number">1</span>] * xy[:, <span class="number">0</span>] + W[<span class="number">2</span>] * xy[:, <span class="number">1</span>] &gt; <span class="number">0</span>] = <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plot_scatter(W, xy, labels)</span><br></pre></td></tr></table></figure>
+<p><img src="output_6_0.png" alt="png"></p>
+<h3 id="1-2-Train-data"><a href="#1-2-Train-data" class="headerlink" title="1.2 Train data"></a>1.2 Train data</h3><ul>
+<li>Generate 한 data 로 부터, x 축 값, y 축 값, augmented term 으로 3가지 column 을 만들어 train data 로 만들어 줍니다.</li>
+<li>또한 대응 되는 label 도 model 에 적합한 모양으로 바꾸어 줍니다.</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x_train = torch.FloatTensor([[<span class="number">1.0</span>, xval, yval] <span class="keyword">for</span> xval, yval <span class="keyword">in</span> xy])</span><br><span class="line">y_train = torch.FloatTensor(labels).view(<span class="number">-1</span>, <span class="number">1</span>)</span><br><span class="line">print(x_train[:<span class="number">5</span>])</span><br><span class="line">print(y_train[:<span class="number">5</span>])</span><br></pre></td></tr></table></figure>
+<pre><code>tensor([[1.0000, 0.0192, 0.6049],
+        [1.0000, 0.0485, 0.2529],
+        [1.0000, 0.2412, 0.9115],
+        [1.0000, 0.9764, 0.1665],
+        [1.0000, 0.9021, 0.5825]])
+tensor([[0.],
+        [0.],
+        [1.],
+        [1.],
+        [1.]])
+</code></pre><h3 id="1-3-Modeling"><a href="#1-3-Modeling" class="headerlink" title="1.3 Modeling"></a>1.3 Modeling</h3><ul>
+<li>Linear Model 형태와 Sigmoid 함수, Loss function 은 cross entropy 를 활용해 모델링을 합니다.</li>
+<li>여기선, 내장되어있는 함수들을 되도록 사용하지 않고, Low level 로 코드를 작성해 보겠습니다.</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Low level modeling</span></span><br><span class="line">parameter_W = torch.FloatTensor([[<span class="number">-0.5</span>, <span class="number">0.7</span>, <span class="number">1.8</span>]]).view(<span class="number">-1</span>, <span class="number">1</span>)</span><br><span class="line">parameter_W.requires_grad_(<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">optimizer = optim.SGD([parameter_W], lr=<span class="number">0.01</span>)</span><br><span class="line"></span><br><span class="line">epochs = <span class="number">10000</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> range(<span class="number">1</span>, epochs + <span class="number">1</span>):</span><br><span class="line">    <span class="comment"># Prediction</span></span><br><span class="line">    y_hat = F.sigmoid(torch.matmul(x_train, parameter_W))</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Loss function</span></span><br><span class="line">    loss = (-y_train * torch.log(y_hat) - (<span class="number">1</span> - y_train) * torch.log((<span class="number">1</span> - y_hat))).sum().mean()</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Backprop &amp; update</span></span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    loss.backward()</span><br><span class="line">    optimizer.step()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> epoch % <span class="number">1000</span> == <span class="number">0</span>:</span><br><span class="line">        print(<span class="string">"epoch &#123;&#125; -- loss &#123;&#125;"</span>.format(epoch, loss.data))</span><br></pre></td></tr></table></figure>
+<pre><code>epoch 1000 -- loss 6.368619441986084
+epoch 2000 -- loss 4.5249152183532715
+epoch 3000 -- loss 3.654862403869629
+epoch 4000 -- loss 3.122910261154175
+epoch 5000 -- loss 2.7545464038848877
+epoch 6000 -- loss 2.4800000190734863
+epoch 7000 -- loss 2.2651939392089844
+epoch 8000 -- loss 2.091233253479004
+epoch 9000 -- loss 1.9466761350631714
+epoch 10000 -- loss 1.8241318464279175
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">parameter_W.data.numpy()</span><br></pre></td></tr></table></figure>
+<pre><code>array([[-16.748823],
+       [ 16.618748],
+       [ 17.622692]], dtype=float32)
+</code></pre><ul>
+<li>아래 그림을 보면, Train이 잘 된 것을 알 수 있습니다.</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plot_scatter(parameter_W.data.numpy(), xy, labels)</span><br></pre></td></tr></table></figure>
+<p><img src="output_13_0.png" alt="png"></p>
+<h2 id="2-Multiclass-Classification"><a href="#2-Multiclass-Classification" class="headerlink" title="2. Multiclass Classification"></a>2. Multiclass Classification</h2><h3 id="2-1-Generate-Data"><a href="#2-1-Generate-Data" class="headerlink" title="2.1 Generate Data"></a>2.1 Generate Data</h3><ul>
+<li>이번에는 3개의 label 을 가지고 있는 classification 을 Modeling 해 보겠습니다.</li>
+<li>또한, High Level 로 pytorch 의 추상 클래스를 이용해 모델링 해보겠습니다.</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">plot_scatter</span><span class="params">(W1, W2, xy, labels)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> k, color <span class="keyword">in</span> [(<span class="number">0</span>, <span class="string">'b'</span>), (<span class="number">1</span>, <span class="string">'r'</span>), (<span class="number">2</span>, <span class="string">'y'</span>)]:</span><br><span class="line">        idx = labels.flatten() == k</span><br><span class="line">        plt.scatter(xy[idx, <span class="number">0</span>], xy[idx, <span class="number">1</span>], c=color)</span><br><span class="line">        </span><br><span class="line">    x1 = np.linspace(<span class="number">-0.6</span>, <span class="number">1.6</span>)</span><br><span class="line">    x2 = -W1[<span class="number">1</span>] / W1[<span class="number">2</span>] * x1 - W1[<span class="number">0</span>] / W1[<span class="number">2</span>]</span><br><span class="line">    x3 = -W2[<span class="number">1</span>] / W2[<span class="number">2</span>] * x1 - W2[<span class="number">0</span>] / W2[<span class="number">2</span>]</span><br><span class="line">    plt.plot(x1, x2, <span class="string">'--k'</span>)</span><br><span class="line">    plt.plot(x1, x3, <span class="string">'--k'</span>)</span><br><span class="line">    </span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Generate data</span></span><br><span class="line"></span><br><span class="line">W1 = np.array([<span class="number">-1</span>, <span class="number">3.</span>/<span class="number">4.</span>, <span class="number">1.0</span>])</span><br><span class="line">W2 = np.array([<span class="number">-1.</span>/<span class="number">5</span>, <span class="number">3.</span>/<span class="number">4.</span>, <span class="number">1.0</span>])</span><br><span class="line"></span><br><span class="line">xy = <span class="number">2</span> * np.random.rand(<span class="number">100</span>, <span class="number">2</span>) - <span class="number">0.5</span></span><br><span class="line">labels = np.zeros(len(xy))</span><br><span class="line">labels[(W1[<span class="number">0</span>] + W1[<span class="number">1</span>] * xy[:, <span class="number">0</span>] + W1[<span class="number">2</span>] * xy[:, <span class="number">1</span>] &gt; <span class="number">0</span>)] = <span class="number">1</span></span><br><span class="line">labels[(W2[<span class="number">0</span>] + W2[<span class="number">1</span>] * xy[:, <span class="number">0</span>] + W2[<span class="number">2</span>] * xy[:, <span class="number">1</span>] &lt; <span class="number">0</span>)] = <span class="number">2</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plot_scatter(W1, W2, xy, labels)</span><br></pre></td></tr></table></figure>
+<p><img src="output_18_0.png" alt="png"></p>
+<h3 id="2-2-Train-data"><a href="#2-2-Train-data" class="headerlink" title="2.2 Train data"></a>2.2 Train data</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x_train = torch.FloatTensor([[<span class="number">1.0</span>, xval, yval] <span class="keyword">for</span> xval, yval <span class="keyword">in</span> xy])</span><br><span class="line">y_train = torch.LongTensor(labels)</span><br><span class="line">print(x_train[<span class="number">-5</span>:])</span><br><span class="line">print(y_train[<span class="number">-5</span>:])</span><br></pre></td></tr></table></figure>
+<pre><code>tensor([[ 1.0000,  0.9641,  1.3851],
+        [ 1.0000, -0.4445,  1.0595],
+        [ 1.0000,  1.0854, -0.1216],
+        [ 1.0000,  0.8707,  0.1640],
+        [ 1.0000,  0.7043,  1.3483]])
+tensor([1, 0, 0, 0, 1])
+</code></pre><h3 id="2-3-Modeling"><a href="#2-3-Modeling" class="headerlink" title="2.3 Modeling"></a>2.3 Modeling</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MultiModel</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        super().__init__()</span><br><span class="line">        self.linear = nn.Linear(<span class="number">3</span>, <span class="number">3</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.linear(x)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">model = MultiModel()</span><br><span class="line"></span><br><span class="line">optimizer = optim.SGD(model.parameters(), lr=<span class="number">0.01</span>)</span><br><span class="line"></span><br><span class="line">epochs = <span class="number">10000</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> range(<span class="number">1</span>, epochs + <span class="number">1</span>):</span><br><span class="line">    y_hat = model(x_train)</span><br><span class="line">    </span><br><span class="line">    loss = F.cross_entropy(y_hat, y_train)</span><br><span class="line">    </span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    loss.backward()</span><br><span class="line">    optimizer.step()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> epoch % <span class="number">1000</span> == <span class="number">0</span>:</span><br><span class="line">        print(<span class="string">"epoch &#123;&#125; -- loss &#123;&#125;"</span>.format(epoch, loss.data))</span><br></pre></td></tr></table></figure>
+<pre><code>epoch 1000 -- loss 0.6635385155677795
+epoch 2000 -- loss 0.5513403415679932
+epoch 3000 -- loss 0.4890784025192261
+epoch 4000 -- loss 0.44675758481025696
+epoch 5000 -- loss 0.4151267111301422
+epoch 6000 -- loss 0.39017024636268616
+epoch 7000 -- loss 0.369760125875473
+epoch 8000 -- loss 0.35262930393218994
+epoch 9000 -- loss 0.3379631042480469
+epoch 10000 -- loss 0.3252090811729431
+</code></pre><h3 id="2-4-Accuracy-계산"><a href="#2-4-Accuracy-계산" class="headerlink" title="2.4 Accuracy 계산"></a>2.4 Accuracy 계산</h3><ul>
+<li>Accuracy 가 96 % 로 비교적 잘 분류 된 것을 확인 할 수 있습니다.</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">accuracy = (torch.ByteTensor(model(x_train).max(dim=<span class="number">1</span>)[<span class="number">1</span>] == y_train)).sum().item() / len(y_train)</span><br><span class="line">print(<span class="string">"Accuracy: &#123;&#125;"</span>.format(accuracy))</span><br></pre></td></tr></table></figure>
+<pre><code>Accuracy: 0.96
+</code></pre>
+        </div>
+        <footer class="article-footer">
+            
+
+
+    <div class="a2a_kit a2a_default_style">
+    <a class="a2a_dd" href="https://www.addtoany.com/share">Share</a>
+    <span class="a2a_divider"></span>
+    <a class="a2a_button_facebook"></a>
+    <a class="a2a_button_twitter"></a>
+    <a class="a2a_button_google_plus"></a>
+    <a class="a2a_button_pinterest"></a>
+    <a class="a2a_button_tumblr"></a>
+</div>
+<script type="text/javascript" src="//static.addtoany.com/menu/page.js"></script>
+<style>
+    .a2a_menu {
+        border-radius: 4px;
+    }
+    .a2a_menu a {
+        margin: 2px 0;
+        font-size: 14px;
+        line-height: 16px;
+        border-radius: 4px;
+        color: inherit !important;
+        font-family: 'Microsoft Yahei';
+    }
+    #a2apage_dropdown {
+        margin: 10px 0;
+    }
+    .a2a_mini_services {
+        padding: 10px;
+    }
+    a.a2a_i,
+    i.a2a_i {
+        width: 122px;
+        line-height: 16px;
+    }
+    a.a2a_i .a2a_svg,
+    a.a2a_more .a2a_svg {
+        width: 16px;
+        height: 16px;
+        line-height: 16px;
+        vertical-align: top;
+        background-size: 16px;
+    }
+    a.a2a_i {
+        border: none !important;
+    }
+    a.a2a_menu_show_more_less {
+        margin: 0;
+        padding: 10px 0;
+        line-height: 16px;
+    }
+    .a2a_mini_services:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+    .a2a_mini_services{*+height:1%;}
+</style>
+
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/emjayahn" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="/atom.xml" target="_blank" rel="noopener">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2019/05/04/Linear-Model-with-Pytorch/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">Linear Model with Pytorch</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DataStructure/">DataStructure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Diary/">Diary</a><span class="category-list-count">42</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Lecture/">Lecture</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Lecture/딥러닝을-이용한-자연어-처리/">딥러닝을 이용한 자연어 처리</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/MachineLearning/">MachineLearning</a><span class="category-list-count">3</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/MachineLearning/Pytorch/">Pytorch</a><span class="category-list-count">3</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/">Math</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/">wiki</a><span class="category-list-count">10</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/MySQL/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/NGINX/">NGINX</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/Pillow/">Pillow</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/Provision/">Provision</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/Python/">Python</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/Requests/">Requests</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/Scrapy/">Scrapy</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/Selenium/">Selenium</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/Xpath/">Xpath</a><span class="category-list-count">1</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">25</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a><span class="archive-list-count">20</span></li></ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 EmjayAhn(Minjae Ahn)</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'emjaygithubpage';
+    
+    
+    var disqus_url = 'https://emjayahn.github.io/2019/05/06/Basic-Classification-with-Pytorch/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>
