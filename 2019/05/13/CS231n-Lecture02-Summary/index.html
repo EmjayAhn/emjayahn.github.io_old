@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+
+    
+
+    
+    <title>[CS231n]Lecture02-Summary | Emjay&#39;s DailyBlog</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="">
+    
+    <meta name="description" content="Lecture 02: Image Classification Pipeline 이 글은, Standford University 의 CS231n 강의를 듣고 스스로 정리 목적을 위해 적은 글입니다.  1. Image Classification 의 기본 TASK  위 사진을 보고, → ‘CAT’ 혹은 ‘고양이’ 라고 classification 자연스럽게 따라오는">
+<meta name="keywords" content="hexo,datascience,datascientist">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[CS231n]Lecture02-Summary">
+<meta property="og:url" content="https://emjayahn.github.io/2019/05/13/CS231n-Lecture02-Summary/index.html">
+<meta property="og:site_name" content="Emjay&#39;s DailyBlog">
+<meta property="og:description" content="Lecture 02: Image Classification Pipeline 이 글은, Standford University 의 CS231n 강의를 듣고 스스로 정리 목적을 위해 적은 글입니다.  1. Image Classification 의 기본 TASK  위 사진을 보고, → ‘CAT’ 혹은 ‘고양이’ 라고 classification 자연스럽게 따라오는">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://emjayahn.github.io/2019/05/13/CS231n-Lecture02-Summary/Untitled-dfb244ee-00d4-4801-9db3-2247269d65db.png">
+<meta property="og:updated_time" content="2019-05-13T03:47:36.259Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[CS231n]Lecture02-Summary">
+<meta name="twitter:description" content="Lecture 02: Image Classification Pipeline 이 글은, Standford University 의 CS231n 강의를 듣고 스스로 정리 목적을 위해 적은 글입니다.  1. Image Classification 의 기본 TASK  위 사진을 보고, → ‘CAT’ 혹은 ‘고양이’ 라고 classification 자연스럽게 따라오는">
+<meta name="twitter:image" content="https://emjayahn.github.io/2019/05/13/CS231n-Lecture02-Summary/Untitled-dfb244ee-00d4-4801-9db3-2247269d65db.png">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="Emjay&#39;s DailyBlog" type="application/atom+xml">
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-128251719-1', 'auto');
+ga('send', 'pageview');
+
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    
+    
+
+
+</head>
+</html>
+<body>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">Emjay&#39;s DataScience &amp; Development</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DataStructure/">DataStructure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Diary/">Diary</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Lecture/">Lecture</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Lecture/CS231n/">CS231n</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Lecture/딥러닝을-이용한-자연어-처리/">딥러닝을 이용한 자연어 처리</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/MachineLearning/">MachineLearning</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/MachineLearning/Pytorch/">Pytorch</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Math/">Math</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/">wiki</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/MySQL/">MySQL</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/NGINX/">NGINX</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/Pillow/">Pillow</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/Provision/">Provision</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/Python/">Python</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/Requests/">Requests</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/Scrapy/">Scrapy</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/Selenium/">Selenium</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/Xpath/">Xpath</a></li></ul></li></ul>
+                                    
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/Lecture/">Lecture</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/Lecture/CS231n/">CS231n</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-CS231n-Lecture02-Summary" class="article article-single article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        [CS231n]Lecture02-Summary
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/05/13/CS231n-Lecture02-Summary/" class="article-date">
+            <time datetime="2019-05-13T03:46:04.000Z" itemprop="datePublished">2019-05-13</time>
+        </a>
+    </div>
+
+		
+
+                
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h1 id="Lecture-02-Image-Classification-Pipeline"><a href="#Lecture-02-Image-Classification-Pipeline" class="headerlink" title="Lecture 02: Image Classification Pipeline"></a>Lecture 02: Image Classification Pipeline</h1><ul>
+<li>이 글은, Standford University 의 CS231n 강의를 듣고 스스로 정리 목적을 위해 적은 글입니다.</li>
+</ul>
+<h2 id="1-Image-Classification-의-기본-TASK"><a href="#1-Image-Classification-의-기본-TASK" class="headerlink" title="1. Image Classification 의 기본 TASK"></a>1. Image Classification 의 기본 TASK</h2><p><img src="Untitled-dfb244ee-00d4-4801-9db3-2247269d65db.png" alt=""></p>
+<ul>
+<li>위 사진을 보고, → ‘CAT’ 혹은 ‘고양이’ 라고 classification</li>
+<li>자연스럽게 따라오는 문제는 <strong>“Sementic Gap”</strong> : 우리가 준 data (pixel 값  [0, 255]) 와 Label 간의  gap</li>
+<li>또한, 이 과정에서 극복해야 하는 Challenges<ul>
+<li>Viewpoint Variation ( 같은 객체에 대해 시점이 이동해도 robust)</li>
+<li>Illumination ( 빛, 밝기, 명암 등에도 robust)</li>
+<li>Deformation ( 다양한 Position, 형태의 변형에도 robust)</li>
+<li>Occlusion ( 다른 물체나 환경에 의해 가려지는 data 에도 robust)</li>
+<li>Background Clutter ( 배경과 비슷하게 보이는 객체에도 robust)</li>
+<li>Intraclass Variation ( 한 종류의 클랫스에도 다양한 색과 모습의 객체가 있을 수 있다.)</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-기존의-시도와-New-Era"><a href="#2-기존의-시도와-New-Era" class="headerlink" title="2. 기존의 시도와 New Era"></a>2. 기존의 시도와 New Era</h2><ul>
+<li>Hard Coded Algorithm 과 여러 규칙 (rule-based로 해석된다) 들을 통해서 Image를 Classify 하는 노력들이 있어왔다. 이들의 문제는, (1) 위에 언급한 문제들이 Robust  하지 않다. (2) 객체가 달라지면, (고양이, 호랑이, 비행기 등) 객체마다 다 다른 규칙을 성립해줘야 한다. 즉 한마디로 요약하자면, Algorithm의 확장성이 없다.</li>
+<li>이런 문제에 좀더 강한 방법이 지금 우리가 공부하고 있는, <strong>Data-Driven Approach</strong><ol>
+<li>Image 와 Label pair 의 dataset 을 모은다.</li>
+<li>Machine Learning 알고리즘을 이용해 classifier 를 학습시킨다.</li>
+<li>Classifier 를 new images 에 테스트에 평가한다.</li>
+</ol>
+</li>
+</ul>
+<h2 id="3-First-Classifier-Nearest-Neighbor"><a href="#3-First-Classifier-Nearest-Neighbor" class="headerlink" title="3. First Classifier : Nearest Neighbor"></a>3. First Classifier : Nearest Neighbor</h2><h3 id="3-1-Nearest-Neighbor-의-기본-알고리즘"><a href="#3-1-Nearest-Neighbor-의-기본-알고리즘" class="headerlink" title="3-1. Nearest Neighbor 의 기본 알고리즘"></a>3-1. Nearest Neighbor 의 기본 알고리즘</h3><ol>
+<li>train set 에서의 모든 data 와 label 을 기억한다.</li>
+<li>test Image 와 <strong>가장 가까운</strong> train Image 의 label로 test image를 predict 한다.<ul>
+<li>이 때 ‘<strong>가장 가까운’</strong> 을 계산 할 때<strong>, L1 distance</strong> 와 <strong>L2 distance</strong> 가 쓰일 수 있다. 이 외에도, 다양한 distance 지표가 쓰일 수 있다.</li>
+</ul>
+</li>
+</ol>
+<h3 id="3-2-Nearest-Neighbor-Classifier-의-문제"><a href="#3-2-Nearest-Neighbor-Classifier-의-문제" class="headerlink" title="3-2. Nearest Neighbor Classifier 의 문제"></a>3-2. Nearest Neighbor Classifier 의 문제</h3><ul>
+<li>이미지 classification 에는 잘 사용되지 않는다.</li>
+<li>train 보다 predict 하는데 훨씬 오래 걸린다.<ul>
+<li>train 은 train data set 의 기억만 하면 되지만, predict 할 때는 전체 train data 에 대해 거리를 측정해야하고, sorting 해야하는 문제가 발생한다.</li>
+<li>Time Complexity - train O(1), predict O(N) (N은 train data 수)</li>
+</ul>
+</li>
+</ul>
+<p><img src="Untitled-2fdb78f0-11b7-49cf-99f8-164d6b79fc2c.png" alt=""></p>
+<p>위 그림을 보면, 연두색 공간에 노란색  class 가 포함 되어 있는 것을 볼 수 있다. 이는 generalize 면에서 부족한 모델이라고 볼 수 있다. 같은 알고리즘 이지만, 이를 해결 하는 방법은 K 개의 가까운 neighbor 로 부터 majority voting 을 받은 것으로 classify 를 하는 것이다.</p>
+<h3 id="3-3-K-Nearest-Neightbors"><a href="#3-3-K-Nearest-Neightbors" class="headerlink" title="3-3. K-Nearest Neightbors"></a>3-3. K-Nearest Neightbors</h3><p>Single Nearest 만 보는 것이 아니라, K 개의 가까운 point 의 투표를 통해 해당 test data  의 label 을 예측한다.</p>
+<ul>
+<li>이 때, Voting 하는 방법에는 majority voting ( 다수결 ) 과 weighted voting ( 가중치를 주어 투표: distance 가 가까운 것에 가중치를 준다.)</li>
+<li>가중치를 주는 방법에는 distance 가 커지면 곱해지는 weight 을 줄이는 방법으로 1 / (1+distance) 등을 weight 을 곱해준다.</li>
+</ul>
+<p><img src="Untitled-469c81dd-01a3-4934-8fec-429c34285d0e.png" alt=""></p>
+<h3 id="3-4-k-Nearest-Neighbor-on-images-NEVER-USED"><a href="#3-4-k-Nearest-Neighbor-on-images-NEVER-USED" class="headerlink" title="3-4. k-Nearest Neighbor on images NEVER USED"></a>3-4. k-Nearest Neighbor on images NEVER USED</h3><ul>
+<li>차원의 저주 문제</li>
+<li>knn 이 잘 동작하기 위해서는 dataset 공간을 조밀하게 커버할 만큼의 충분한 training space 가 필요하다. 하지만, data 의 차원이 늘어날 수록 그 충분한 data 의 수가 exponential 하게 늘어난다.</li>
+</ul>
+<h2 id="4-Setting-Hyperparameters"><a href="#4-Setting-Hyperparameters" class="headerlink" title="4. Setting Hyperparameters"></a>4. Setting Hyperparameters</h2><p>Model 최적의 hyperparameter 를 찾기 위해서는 data set 을 구분하여, unseened data 를 사용하여 성능 검증을 하고, model selection 을 해야한다. 이는 단순이 hyperparameter 를 찾는 용도 뿐만 아니라 우리가 세운 가설을 서로 비교 할 때는 data set 을 정확히 구분하고, test set 을 통해 비교하고, 선택해야한다. 그 방법에는 train, validation, test set 으로 dataset 을 나누는 방법과 cross validation 방법이 있다.</p>
+<ul>
+<li>첫 번째 방법으로는, Validation set 을 통해 hyperparameter(가설)를 검증하고 선택하여, Test set 을 사용하여 Evaluate 과 Reporting 등을 한다. 딥러닝 모델링에서는 이 방법으로 많이 사용한다.</li>
+</ul>
+<p><img src="Untitled-7d99fc52-7613-4bbf-8cfc-5e036f905602.png" alt=""></p>
+<ul>
+<li>두 번째 방법은, data set 의 크기가 크지 않을 때, Train set 안에서 folds 들을 나누어 각 fold 가 돌아가며 validation set 이 되며, 이들의 평균값으로 가설을 비교한다. 이는 딥러닝 모델에서는 적합하지 않은 형태이다. 모델 자체의 연산이 많은데다가, 같은 모델에 대해 많은 validation 이 효율적이지 않기 때문이다. 또한 data가 많지 않은 상태에서 딥러닝 모델을 선택하는 것은 옳지 않다.</li>
+</ul>
+<p><img src="Untitled-1e7d1cc8-fcee-4215-a721-345c8f25e8f5.png" alt=""></p>
+<h2 id="5-Second-Classifier-Linear-Classifier"><a href="#5-Second-Classifier-Linear-Classifier" class="headerlink" title="5. Second Classifier : Linear Classifier"></a>5. Second Classifier : Linear Classifier</h2><p>Linear Classifier 는 Neural Network 의 기본 골격이다. (1) image data 와 W (parameters or weights) 을 통해 연산을 해주고, (2) function 을 통과해 Classification 을 해준다.</p>
+<p>특히 Linear Classifier 의 경우 아래 와 같이, (1) image data 와 W 를 dot product 를 해주고 (2) linear function f 를 통과한다.</p>
+<p>$$f(x, W) = Wx$$</p>
+<p><img src="Untitled-c15a20fd-b906-44ce-af25-6810bc57751a.png" alt=""></p>
+<h2 id="6-Reference"><a href="#6-Reference" class="headerlink" title="6. Reference"></a>6. Reference</h2><p><a href="https://www.youtube.com/watch?v=OoUX-nOEjG0&amp;list=PL3FW7Lu3i5JvHM8ljYj-zLfQRF3EO8sYv&amp;index=2" target="_blank" rel="noopener">Lecture 2 | Image Classification</a></p>
+<p><a href="http://cs231n.stanford.edu/syllabus.html" target="_blank" rel="noopener">Syllabus | CS 231N</a></p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+    <div class="a2a_kit a2a_default_style">
+    <a class="a2a_dd" href="https://www.addtoany.com/share">Share</a>
+    <span class="a2a_divider"></span>
+    <a class="a2a_button_facebook"></a>
+    <a class="a2a_button_twitter"></a>
+    <a class="a2a_button_google_plus"></a>
+    <a class="a2a_button_pinterest"></a>
+    <a class="a2a_button_tumblr"></a>
+</div>
+<script type="text/javascript" src="//static.addtoany.com/menu/page.js"></script>
+<style>
+    .a2a_menu {
+        border-radius: 4px;
+    }
+    .a2a_menu a {
+        margin: 2px 0;
+        font-size: 14px;
+        line-height: 16px;
+        border-radius: 4px;
+        color: inherit !important;
+        font-family: 'Microsoft Yahei';
+    }
+    #a2apage_dropdown {
+        margin: 10px 0;
+    }
+    .a2a_mini_services {
+        padding: 10px;
+    }
+    a.a2a_i,
+    i.a2a_i {
+        width: 122px;
+        line-height: 16px;
+    }
+    a.a2a_i .a2a_svg,
+    a.a2a_more .a2a_svg {
+        width: 16px;
+        height: 16px;
+        line-height: 16px;
+        vertical-align: top;
+        background-size: 16px;
+    }
+    a.a2a_i {
+        border: none !important;
+    }
+    a.a2a_menu_show_more_less {
+        margin: 0;
+        padding: 10px 0;
+        line-height: 16px;
+    }
+    .a2a_mini_services:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+    .a2a_mini_services{*+height:1%;}
+</style>
+
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/emjayahn" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="/atom.xml" target="_blank" rel="noopener">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2019/05/06/Basic-Classification-with-Pytorch/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">Basic Classification with Pytorch</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DataStructure/">DataStructure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Diary/">Diary</a><span class="category-list-count">42</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Lecture/">Lecture</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Lecture/CS231n/">CS231n</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Lecture/딥러닝을-이용한-자연어-처리/">딥러닝을 이용한 자연어 처리</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/MachineLearning/">MachineLearning</a><span class="category-list-count">3</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/MachineLearning/Pytorch/">Pytorch</a><span class="category-list-count">3</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/">Math</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/">wiki</a><span class="category-list-count">10</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/MySQL/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/NGINX/">NGINX</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/Pillow/">Pillow</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/Provision/">Provision</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/Python/">Python</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/Requests/">Requests</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/Scrapy/">Scrapy</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/Selenium/">Selenium</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/Xpath/">Xpath</a><span class="category-list-count">1</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">25</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a><span class="archive-list-count">20</span></li></ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 EmjayAhn(Minjae Ahn)</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'emjaygithubpage';
+    
+    
+    var disqus_url = 'https://emjayahn.github.io/2019/05/13/CS231n-Lecture02-Summary/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>

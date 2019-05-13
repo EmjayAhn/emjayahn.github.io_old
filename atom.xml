@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://emjayahn.github.io/"/>
-  <updated>2019-05-06T03:40:52.489Z</updated>
+  <updated>2019-05-13T03:47:36.259Z</updated>
   <id>https://emjayahn.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>[CS231n]Lecture02-Summary</title>
+    <link href="https://emjayahn.github.io/2019/05/13/CS231n-Lecture02-Summary/"/>
+    <id>https://emjayahn.github.io/2019/05/13/CS231n-Lecture02-Summary/</id>
+    <published>2019-05-13T03:46:04.000Z</published>
+    <updated>2019-05-13T03:47:36.259Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Lecture-02-Image-Classification-Pipeline"><a href="#Lecture-02-Image-Classification-Pipeline" class="headerlink" title="Lecture 02: Image Classification Pipeline"></a>Lecture 02: Image Classification Pipeline</h1><ul><li>이 글은, Standford University 의 CS231n 강의를 듣고 스스로 정리 목적을 위해 적은 글입니다.</li></ul><h2 id="1-Image-Classification-의-기본-TASK"><a href="#1-Image-Classification-의-기본-TASK" class="headerlink" title="1. Image Classification 의 기본 TASK"></a>1. Image Classification 의 기본 TASK</h2><p><img src="Untitled-dfb244ee-00d4-4801-9db3-2247269d65db.png" alt=""></p><ul><li>위 사진을 보고, → ‘CAT’ 혹은 ‘고양이’ 라고 classification</li><li>자연스럽게 따라오는 문제는 <strong>“Sementic Gap”</strong> : 우리가 준 data (pixel 값  [0, 255]) 와 Label 간의  gap</li><li>또한, 이 과정에서 극복해야 하는 Challenges<ul><li>Viewpoint Variation ( 같은 객체에 대해 시점이 이동해도 robust)</li><li>Illumination ( 빛, 밝기, 명암 등에도 robust)</li><li>Deformation ( 다양한 Position, 형태의 변형에도 robust)</li><li>Occlusion ( 다른 물체나 환경에 의해 가려지는 data 에도 robust)</li><li>Background Clutter ( 배경과 비슷하게 보이는 객체에도 robust)</li><li>Intraclass Variation ( 한 종류의 클랫스에도 다양한 색과 모습의 객체가 있을 수 있다.)</li></ul></li></ul><h2 id="2-기존의-시도와-New-Era"><a href="#2-기존의-시도와-New-Era" class="headerlink" title="2. 기존의 시도와 New Era"></a>2. 기존의 시도와 New Era</h2><ul><li>Hard Coded Algorithm 과 여러 규칙 (rule-based로 해석된다) 들을 통해서 Image를 Classify 하는 노력들이 있어왔다. 이들의 문제는, (1) 위에 언급한 문제들이 Robust  하지 않다. (2) 객체가 달라지면, (고양이, 호랑이, 비행기 등) 객체마다 다 다른 규칙을 성립해줘야 한다. 즉 한마디로 요약하자면, Algorithm의 확장성이 없다.</li><li>이런 문제에 좀더 강한 방법이 지금 우리가 공부하고 있는, <strong>Data-Driven Approach</strong><ol><li>Image 와 Label pair 의 dataset 을 모은다.</li><li>Machine Learning 알고리즘을 이용해 classifier 를 학습시킨다.</li><li>Classifier 를 new images 에 테스트에 평가한다.</li></ol></li></ul><h2 id="3-First-Classifier-Nearest-Neighbor"><a href="#3-First-Classifier-Nearest-Neighbor" class="headerlink" title="3. First Classifier : Nearest Neighbor"></a>3. First Classifier : Nearest Neighbor</h2><h3 id="3-1-Nearest-Neighbor-의-기본-알고리즘"><a href="#3-1-Nearest-Neighbor-의-기본-알고리즘" class="headerlink" title="3-1. Nearest Neighbor 의 기본 알고리즘"></a>3-1. Nearest Neighbor 의 기본 알고리즘</h3><ol><li>train set 에서의 모든 data 와 label 을 기억한다.</li><li>test Image 와 <strong>가장 가까운</strong> train Image 의 label로 test image를 predict 한다.<ul><li>이 때 ‘<strong>가장 가까운’</strong> 을 계산 할 때<strong>, L1 distance</strong> 와 <strong>L2 distance</strong> 가 쓰일 수 있다. 이 외에도, 다양한 distance 지표가 쓰일 수 있다.</li></ul></li></ol><h3 id="3-2-Nearest-Neighbor-Classifier-의-문제"><a href="#3-2-Nearest-Neighbor-Classifier-의-문제" class="headerlink" title="3-2. Nearest Neighbor Classifier 의 문제"></a>3-2. Nearest Neighbor Classifier 의 문제</h3><ul><li>이미지 classification 에는 잘 사용되지 않는다.</li><li>train 보다 predict 하는데 훨씬 오래 걸린다.<ul><li>train 은 train data set 의 기억만 하면 되지만, predict 할 때는 전체 train data 에 대해 거리를 측정해야하고, sorting 해야하는 문제가 발생한다.</li><li>Time Complexity - train O(1), predict O(N) (N은 train data 수)</li></ul></li></ul><p><img src="Untitled-2fdb78f0-11b7-49cf-99f8-164d6b79fc2c.png" alt=""></p><p>위 그림을 보면, 연두색 공간에 노란색  class 가 포함 되어 있는 것을 볼 수 있다. 이는 generalize 면에서 부족한 모델이라고 볼 수 있다. 같은 알고리즘 이지만, 이를 해결 하는 방법은 K 개의 가까운 neighbor 로 부터 majority voting 을 받은 것으로 classify 를 하는 것이다.</p><h3 id="3-3-K-Nearest-Neightbors"><a href="#3-3-K-Nearest-Neightbors" class="headerlink" title="3-3. K-Nearest Neightbors"></a>3-3. K-Nearest Neightbors</h3><p>Single Nearest 만 보는 것이 아니라, K 개의 가까운 point 의 투표를 통해 해당 test data  의 label 을 예측한다.</p><ul><li>이 때, Voting 하는 방법에는 majority voting ( 다수결 ) 과 weighted voting ( 가중치를 주어 투표: distance 가 가까운 것에 가중치를 준다.)</li><li>가중치를 주는 방법에는 distance 가 커지면 곱해지는 weight 을 줄이는 방법으로 1 / (1+distance) 등을 weight 을 곱해준다.</li></ul><p><img src="Untitled-469c81dd-01a3-4934-8fec-429c34285d0e.png" alt=""></p><h3 id="3-4-k-Nearest-Neighbor-on-images-NEVER-USED"><a href="#3-4-k-Nearest-Neighbor-on-images-NEVER-USED" class="headerlink" title="3-4. k-Nearest Neighbor on images NEVER USED"></a>3-4. k-Nearest Neighbor on images NEVER USED</h3><ul><li>차원의 저주 문제</li><li>knn 이 잘 동작하기 위해서는 dataset 공간을 조밀하게 커버할 만큼의 충분한 training space 가 필요하다. 하지만, data 의 차원이 늘어날 수록 그 충분한 data 의 수가 exponential 하게 늘어난다.</li></ul><h2 id="4-Setting-Hyperparameters"><a href="#4-Setting-Hyperparameters" class="headerlink" title="4. Setting Hyperparameters"></a>4. Setting Hyperparameters</h2><p>Model 최적의 hyperparameter 를 찾기 위해서는 data set 을 구분하여, unseened data 를 사용하여 성능 검증을 하고, model selection 을 해야한다. 이는 단순이 hyperparameter 를 찾는 용도 뿐만 아니라 우리가 세운 가설을 서로 비교 할 때는 data set 을 정확히 구분하고, test set 을 통해 비교하고, 선택해야한다. 그 방법에는 train, validation, test set 으로 dataset 을 나누는 방법과 cross validation 방법이 있다.</p><ul><li>첫 번째 방법으로는, Validation set 을 통해 hyperparameter(가설)를 검증하고 선택하여, Test set 을 사용하여 Evaluate 과 Reporting 등을 한다. 딥러닝 모델링에서는 이 방법으로 많이 사용한다.</li></ul><p><img src="Untitled-7d99fc52-7613-4bbf-8cfc-5e036f905602.png" alt=""></p><ul><li>두 번째 방법은, data set 의 크기가 크지 않을 때, Train set 안에서 folds 들을 나누어 각 fold 가 돌아가며 validation set 이 되며, 이들의 평균값으로 가설을 비교한다. 이는 딥러닝 모델에서는 적합하지 않은 형태이다. 모델 자체의 연산이 많은데다가, 같은 모델에 대해 많은 validation 이 효율적이지 않기 때문이다. 또한 data가 많지 않은 상태에서 딥러닝 모델을 선택하는 것은 옳지 않다.</li></ul><p><img src="Untitled-1e7d1cc8-fcee-4215-a721-345c8f25e8f5.png" alt=""></p><h2 id="5-Second-Classifier-Linear-Classifier"><a href="#5-Second-Classifier-Linear-Classifier" class="headerlink" title="5. Second Classifier : Linear Classifier"></a>5. Second Classifier : Linear Classifier</h2><p>Linear Classifier 는 Neural Network 의 기본 골격이다. (1) image data 와 W (parameters or weights) 을 통해 연산을 해주고, (2) function 을 통과해 Classification 을 해준다.</p><p>특히 Linear Classifier 의 경우 아래 와 같이, (1) image data 와 W 를 dot product 를 해주고 (2) linear function f 를 통과한다.</p><p>$$f(x, W) = Wx$$</p><p><img src="Untitled-c15a20fd-b906-44ce-af25-6810bc57751a.png" alt=""></p><h2 id="6-Reference"><a href="#6-Reference" class="headerlink" title="6. Reference"></a>6. Reference</h2><p><a href="https://www.youtube.com/watch?v=OoUX-nOEjG0&amp;list=PL3FW7Lu3i5JvHM8ljYj-zLfQRF3EO8sYv&amp;index=2" target="_blank" rel="noopener">Lecture 2 | Image Classification</a></p><p><a href="http://cs231n.stanford.edu/syllabus.html" target="_blank" rel="noopener">Syllabus | CS 231N</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;Lecture-02-Image-Classification-Pipeline&quot;&gt;&lt;a href=&quot;#Lecture-02-Image-Classification-Pipeline&quot; class=&quot;headerlink&quot; title=&quot;Lecture 02: 
+      
+    
+    </summary>
+    
+      <category term="Lecture" scheme="https://emjayahn.github.io/categories/Lecture/"/>
+    
+      <category term="CS231n" scheme="https://emjayahn.github.io/categories/Lecture/CS231n/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>Basic Classification with Pytorch</title>
@@ -472,33 +497,6 @@
     
     </summary>
     
-    
-  </entry>
-  
-  <entry>
-    <title>NGINX</title>
-    <link href="https://emjayahn.github.io/2018/11/29/NGINX/"/>
-    <id>https://emjayahn.github.io/2018/11/29/NGINX/</id>
-    <published>2018-11-29T13:57:28.000Z</published>
-    <updated>2018-11-29T14:00:09.249Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h1><h2 id="0-What-is-nginx"><a href="#0-What-is-nginx" class="headerlink" title="0. What is nginx?"></a>0. What is nginx?</h2><ul><li>client 가 외부 IP와 그 포트를 통해 server 에 접근하면,</li><li>그 때부터는 request 를 내부 IP 와 port 로 연결을 해주어야 한다.</li><li>일종의 <code>proxy server</code> 역할을 해주는 것이 <code>nginx</code></li></ul><h2 id="1-Install-Nginx"><a href="#1-Install-Nginx" class="headerlink" title="1. Install Nginx"></a>1. Install Nginx</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br><span class="line">$ sudo apt-get install nginx</span><br></pre></td></tr></table></figure><h2 id="2-Manage-the-Nginx-Process"><a href="#2-Manage-the-Nginx-Process" class="headerlink" title="2. Manage the Nginx Process"></a>2. Manage the Nginx Process</h2><ul><li>nginx Process<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#start Nginx</span></span><br><span class="line">$ sudo systemctl start nginx</span><br><span class="line"></span><br><span class="line"><span class="comment">#stop nginx</span></span><br><span class="line">$ sudo systemctl stop nginx</span><br><span class="line"></span><br><span class="line"><span class="comment">#restart nginx</span></span><br><span class="line">$ sudo systemctl restart nginx</span><br><span class="line"></span><br><span class="line"><span class="comment">#check status nginx</span></span><br><span class="line">$ sudo systemctl status nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># reload nginx</span></span><br><span class="line">$ sudo systemctl reload nginx</span><br></pre></td></tr></table></figure></li></ul><h2 id="3-Structure"><a href="#3-Structure" class="headerlink" title="3. Structure"></a>3. Structure</h2><ul><li><code>/etc/nginx</code><ul><li>Nginx의 설정에 관련된 directory</li></ul></li><li><code>/etc/nginx/nginx.conf</code><ul><li>nginx의 <code>기본설정</code> 파일, <code>global</code>설정은 이 파일에서</li></ul></li><li><code>/etc/nginx/sites-available/</code><ul><li>포트 접속시 개별 설정하는 directory</li><li>여기 안에 <code>default</code> 파일 변경</li></ul></li></ul><h2 id="4-Nginx-Configuration"><a href="#4-Nginx-Configuration" class="headerlink" title="4. Nginx Configuration"></a>4. Nginx Configuration</h2><h3 id="4-1-static-file-serving"><a href="#4-1-static-file-serving" class="headerlink" title="4.1 static file serving"></a>4.1 static file serving</h3><p><code>/etc/nginx/sites-available/default</code> 파일 수정</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">  location / &#123;</span><br><span class="line">    root /path/to/html ;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  location /images/ &#123;</span><br><span class="line">    root /path/to/image;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="4-2-proxy-server"><a href="#4-2-proxy-server" class="headerlink" title="4.2 proxy server"></a>4.2 proxy server</h3><ul><li><p>port 별로 설정이 가능하다</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">  # default 는 80 port (http default)</span><br><span class="line">  # 8080 port 에 대해서</span><br><span class="line">  listen 8080;</span><br><span class="line">  location / &#123;</span><br><span class="line">    proxy_pass http://localhost:8080;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li><li><p>여러개의 포트를 연결<br><code>`</code><br>server {<br>listen 8080;<br>listen 80;</p><p>location / {<br>  proxy_pass <a href="http://localhost:8080" target="_blank" rel="noopener">http://localhost:8080</a>;<br>}<br>}</p></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;Nginx&quot;&gt;&lt;a href=&quot;#Nginx&quot; class=&quot;headerlink&quot; title=&quot;Nginx&quot;&gt;&lt;/a&gt;Nginx&lt;/h1&gt;&lt;h2 id=&quot;0-What-is-nginx&quot;&gt;&lt;a href=&quot;#0-What-is-nginx&quot; class=&quot;he
-      
-    
-    </summary>
-    
-      <category term="wiki" scheme="https://emjayahn.github.io/categories/wiki/"/>
-    
-      <category term="NGINX" scheme="https://emjayahn.github.io/categories/wiki/NGINX/"/>
-    
-    
-      <category term="nginx, proxy" scheme="https://emjayahn.github.io/tags/nginx-proxy/"/>
     
   </entry>
   
