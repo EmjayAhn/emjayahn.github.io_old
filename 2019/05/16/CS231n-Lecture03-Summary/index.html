@@ -6,24 +6,26 @@
     
 
     
-    <title>Selenium | Emjay&#39;s DailyBlog</title>
+    <title>[CS231n]Lecture03-Summary | Emjay&#39;s DailyBlog</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
-        <meta name="keywords" content="자동화, selenium, webdriver">
+        <meta name="keywords" content="">
     
-    <meta name="description" content="Selenium 공부한 내용을 스스로 보기 쉽게 정리한 글입니다.  자동화 할 수 있는 프로그램   [ Install Selenium ] chrome driver 다운로드 1$ mv ~/Download/chromedriver /usr/local/bin  Selenium Python Package 설치 1$ sudo pip3 install selenium">
-<meta name="keywords" content="자동화, selenium, webdriver">
+    <meta name="description" content="Lecture 03: Loss Function &amp;amp; Optimization 이 글은, Standford University 의 CS231n 강의를 듣고 스스로 정리 목적을 위해 적은 글입니다.  1. Introduction Loss Function : 우리가 가지고 있는 W matrix 가 얼마나 안좋은지 정량화(Quantify)  Optimizati">
+<meta name="keywords" content="hexo,datascience,datascientist">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Selenium">
-<meta property="og:url" content="https://emjayahn.github.io/2018/10/24/Selenium/index.html">
+<meta property="og:title" content="[CS231n]Lecture03-Summary">
+<meta property="og:url" content="https://emjayahn.github.io/2019/05/16/CS231n-Lecture03-Summary/index.html">
 <meta property="og:site_name" content="Emjay&#39;s DailyBlog">
-<meta property="og:description" content="Selenium 공부한 내용을 스스로 보기 쉽게 정리한 글입니다.  자동화 할 수 있는 프로그램   [ Install Selenium ] chrome driver 다운로드 1$ mv ~/Download/chromedriver /usr/local/bin  Selenium Python Package 설치 1$ sudo pip3 install selenium">
+<meta property="og:description" content="Lecture 03: Loss Function &amp;amp; Optimization 이 글은, Standford University 의 CS231n 강의를 듣고 스스로 정리 목적을 위해 적은 글입니다.  1. Introduction Loss Function : 우리가 가지고 있는 W matrix 가 얼마나 안좋은지 정량화(Quantify)  Optimizati">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-11-29T14:03:05.332Z">
+<meta property="og:image" content="https://emjayahn.github.io/2019/05/16/CS231n-Lecture03-Summary/Untitled-d804129d-082d-4cfc-819c-4fd3e14ddf17.png">
+<meta property="og:updated_time" content="2019-05-16T01:18:24.337Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Selenium">
-<meta name="twitter:description" content="Selenium 공부한 내용을 스스로 보기 쉽게 정리한 글입니다.  자동화 할 수 있는 프로그램   [ Install Selenium ] chrome driver 다운로드 1$ mv ~/Download/chromedriver /usr/local/bin  Selenium Python Package 설치 1$ sudo pip3 install selenium">
+<meta name="twitter:title" content="[CS231n]Lecture03-Summary">
+<meta name="twitter:description" content="Lecture 03: Loss Function &amp;amp; Optimization 이 글은, Standford University 의 CS231n 강의를 듣고 스스로 정리 목적을 위해 적은 글입니다.  1. Introduction Loss Function : 우리가 가지고 있는 W matrix 가 얼마나 안좋은지 정량화(Quantify)  Optimizati">
+<meta name="twitter:image" content="https://emjayahn.github.io/2019/05/16/CS231n-Lecture03-Summary/Untitled-d804129d-082d-4cfc-819c-4fd3e14ddf17.png">
     
 
     
@@ -147,19 +149,19 @@ ga('send', 'pageview');
                         <div class="main-body-header">
     <h1 class="header">
     
-    <a class="page-title-link" href="/categories/wiki/">wiki</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/wiki/Selenium/">Selenium</a>
+    <a class="page-title-link" href="/categories/Lecture/">Lecture</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/Lecture/CS231n/">CS231n</a>
     </h1>
 </div>
 
                         <div class="main-body-content">
-                            <article id="post-Selenium" class="article article-single article-type-post" itemscope="" itemprop="blogPost">
+                            <article id="post-CS231n-Lecture03-Summary" class="article article-single article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
             <header class="article-header">
                 
     
         <h1 class="article-title" itemprop="name">
-        Selenium
+        [CS231n]Lecture03-Summary
         </h1>
     
 
@@ -169,102 +171,96 @@ ga('send', 'pageview');
             <div class="article-meta">
                 
     <div class="article-date">
-        <a href="/2018/10/24/Selenium/" class="article-date">
-            <time datetime="2018-10-24T03:02:50.000Z" itemprop="datePublished">2018-10-24</time>
+        <a href="/2019/05/16/CS231n-Lecture03-Summary/" class="article-date">
+            <time datetime="2019-05-16T01:17:11.000Z" itemprop="datePublished">2019-05-16</time>
         </a>
     </div>
 
 		
 
                 
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/자동화-selenium-webdriver/">자동화, selenium, webdriver</a>
-    </div>
-
             </div>
         
         
         <div class="article-entry" itemprop="articleBody">
-            <h1 id="Selenium"><a href="#Selenium" class="headerlink" title="Selenium"></a>Selenium</h1><blockquote>
-<p>공부한 내용을 스스로 보기 쉽게 정리한 글입니다.</p>
-<ul>
-<li>자동화 할 수 있는 프로그램</li>
+            <h1 id="Lecture-03-Loss-Function-amp-Optimization"><a href="#Lecture-03-Loss-Function-amp-Optimization" class="headerlink" title="Lecture 03: Loss Function &amp; Optimization"></a>Lecture 03: Loss Function &amp; Optimization</h1><ul>
+<li>이 글은, Standford University 의 CS231n 강의를 듣고 스스로 정리 목적을 위해 적은 글입니다.</li>
 </ul>
-</blockquote>
-<h2 id="Install-Selenium"><a href="#Install-Selenium" class="headerlink" title="[ Install Selenium ]"></a>[ Install Selenium ]</h2><ol>
-<li><p>chrome driver 다운로드</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> mv ~/Download/chromedriver /usr/<span class="built_in">local</span>/bin</span></span><br></pre></td></tr></table></figure>
+<h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h2><ol>
+<li>Loss Function : 우리가 가지고 있는 W matrix 가 <strong>얼마나 안좋은지 정량화(Quantify)</strong> </li>
+<li>Optimization : 위의 Loss Function 을 minimize 해서 가장 좋은 parameter (W) 를 찾는 과정</li>
+</ol>
+<h2 id="2-Loss-Function"><a href="#2-Loss-Function" class="headerlink" title="2. Loss Function"></a>2. Loss Function</h2><p>주어진 data 가 다음과 같을 때, </p>
+<p>$${(x_i, y_i)}_{i=1}^{N}$$</p>
+<p> Loss 는 “Average of over examples” 즉, </p>
+<p>$$L = \frac{1}{N}\sum_{i}L_i(f(x_i, W), y_i)$$</p>
+<ul>
+<li>딥러닝 알고리즘의 General Setup<ul>
+<li>W 가 얼마나 좋고, 나쁜지를 정량화하는 손실함수 만들기</li>
+<li>W 공간을 탐색하면서  이 loss를 minimize 하는 W 를 찾기</li>
+</ul>
 </li>
-<li><p>Selenium Python Package 설치</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo pip3 install selenium</span></span><br></pre></td></tr></table></figure>
+</ul>
+<h3 id="2-1-Loss-Example-Multiclass-SVM-Loss"><a href="#2-1-Loss-Example-Multiclass-SVM-Loss" class="headerlink" title="2-1. Loss Example: Multiclass SVM Loss"></a>2-1. Loss Example: Multiclass SVM Loss</h3><p>SVM Loss 는 다음과 같다. 주어진 data example (x_i, y_i) 에 대해서, score vector <strong>s</strong> 는 다음과 같다. </p>
+<p>$$s = f(x_i, W)$$</p>
+<p>이 때, SVM loss는 </p>
+<p>$$L_i = \sum_{j\neq y_i}\begin{cases} 0 \quad\quad\quad\quad\quad\quad\quad if \;s_{y_i} \geq s_j +1 \ s_j - s_{y_i} + 1 \quad\quad otherwise \end{cases} \ = \sum_{j\neq y_i}max(0, s_j-s_{y_i}+ 1)$$</p>
+<p>x_i 의 정답이 아닌 클래스의 score (s_j) + 1 (safety margin) 과 정답 클래스 score s_yi 를 비교하여, Loss 를 계산한다.</p>
+<p><img src="Untitled-d804129d-082d-4cfc-819c-4fd3e14ddf17.png" alt=""></p>
+<ol>
+<li>SVM Loss 의 최대, 최솟값은 ? min : 0, max :  infinite</li>
+<li>W 를 작게 초기화 하면, s 가 거의 0에 가까워 진다. 이 때, SVM Loss 는 어떻게 예상되는가?<ul>
+<li>정답이 아닌 class, 즉 class - 1 개의 score 원소들을 순회하면서 모두 더할 때, score 는 0에 가깝고, 이를 average 취하면 <strong>class 갯수 - 1</strong> 만큼의 Loss 값이 나온다.</li>
+<li>이 특징은 debugging strategy 로 사용할 수 있다. 초기 loss 가 C-1 에 가깝지 않으면 bug 가 있는 것으로 의심해볼 수 있다.</li>
+</ul>
+</li>
+<li>만약 include j = y_i 이면, SVM Loss 는 어떻게 되는가? <ul>
+<li>Loss Funtion 이 바뀌는 것은 아니다. 단지 전체 loss의 minimum 이 1이 될 뿐이므로 해석의 관점에서 관례상 맞지 않아 정답 class 는 빼고 계산한다.</li>
+</ul>
+</li>
+<li>우리가 average 를 취하지 않으면?<ul>
+<li>이 역시 바뀌는 것이 없다. 전체 class 수는 정해져 있고, 이를 나누는 average 는 scaling 만 할 뿐이다.</li>
+</ul>
+</li>
+<li>Loss 를 max(0, s_j - s_yi + 1) ^2 를 사용하면?<ul>
+<li>이는 squared hinge function 으로 때에 따라서 사용할 수 있는 loss function 이다. 다른 Loss function 이며, 이는 위의 loss 와 다르게 해석 할 수 있다. 기존의 SVM loss 는 class score 가 각각 얼마나 차이가 나는지에 대해서는 고려하지 않는 것이라고 한다면, squared 가 들어감으로써, 차이가 많이 나는 score class 에 대해서는 좀더 가중하여 고려하겠다는 의미로 해석 할 수 있다.</li>
+</ul>
 </li>
 </ol>
-<h2 id="1-셀레니움-사용해보기"><a href="#1-셀레니움-사용해보기" class="headerlink" title="1. 셀레니움 사용해보기"></a>1. 셀레니움 사용해보기</h2><ul>
-<li><p>import</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Open Browser (Chrome Driver)</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver = webdriver.Chrome()</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>페이지 이동</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.get(url)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>브라우져 상에서 자바 스크립트 실행</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.execute_script(<span class="string">"window.scrollTo(300, 400)"</span>)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>지금 control하고 있는 window 객체 확인</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">main_window = driver.current_window_handle</span><br><span class="line">main_window</span><br><span class="line"><span class="comment">#현재 control 하고 있는 window 의 객체를 리턴한다.</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>열려 있는 전체 window 탭 모두 확인</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">windows = driver.window_handles</span><br><span class="line">windows</span><br><span class="line"><span class="comment">#현재 열려있는 모든 탭의 객체를 리스트 형태로 리턴한다.</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>열려있는 window 탭 중, control 대상 window 로 바꾸기</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">driver.switch_to_window(windows[<span class="number">0</span>])</span><br><span class="line"><span class="comment">#다시 원래 열었던 창으로 돌아가기</span></span><br><span class="line">driver.switch_to_window(main_window)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="2-Alert-와-Confirm-다루기"><a href="#2-Alert-와-Confirm-다루기" class="headerlink" title="2. Alert 와 Confirm 다루기"></a>2. Alert 와 Confirm 다루기</h2><ul>
-<li>웹을 자동화해서 다니다보면, Alert 창이나 Confirm 창이 의도치 않게 나올 수 있다. 이를 다루는 방법은 다음과 같다.</li>
-<li>Alert와 Confirm 창의 차이는, <br><br>Alert 는 확인 창 하나만 있고, Confirm은 확인과 취소가 같이 있는 창이다.</li>
-</ul>
-<h3 id="1-Alert"><a href="#1-Alert" class="headerlink" title="(1) Alert"></a>(1) Alert</h3><ul>
-<li><p>Alert 띄우기</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">drive.switch_to_window(main_window)</span><br><span class="line">drive.execute_script(<span class="string">"alert('이게 alert 로 뜰겁니다.');"</span>)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Alert 확인 누르기</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">alert = driver.switch_to.alert</span><br><span class="line">alert.accept()</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Alert 창이 있으면 확인을 누르고, 없으면 없다고 리턴하기 (예외처리)</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">  alert = driver.switch_to.alert</span><br><span class="line">  alert.accept()</span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">  print(<span class="string">"alert 가 없습니다."</span>)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="2-Confirm"><a href="#2-Confirm" class="headerlink" title="(2) Confirm"></a>(2) Confirm</h3><ul>
-<li><p>Confirm 띄우기</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.execute_script(<span class="string">"confirm('이게 Confirm 창입니다.');"</span>)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Confirm 창 확인 누르기 or 취소 누르기</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">confirm = driver.switch_to.alert</span><br><span class="line"><span class="comment"># 확인</span></span><br><span class="line"><span class="comment"># confirm.accept()</span></span><br><span class="line"><span class="comment"># 취소</span></span><br><span class="line">confirm.dismiss()</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="3-입력창에-글씨-입력하기"><a href="#3-입력창에-글씨-입력하기" class="headerlink" title="3. 입력창에 글씨 입력하기"></a>3. 입력창에 글씨 입력하기</h2><ul>
-<li>이제부터 Selenium을 통해 특정 html 의 element 에 액션을 주려면,<br>각종 Selector 를 사용하여 html 상의 element을 셀렉팅 하고, 해당 element 에게 액션을 주어야한다.</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.find_element_by_css_selector(nameof cssselector).send_keys(<span class="string">"입력할 내용"</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="2-2-Regularization"><a href="#2-2-Regularization" class="headerlink" title="2-2. Regularization"></a>2-2. Regularization</h3><p>만약 위 Loss Function 에 대해서, L = 0 으로 만드는 W 를 찾았다고 할때, 과연 이 W 는 유일한가? 그렇지 않다. W 일 때, L=0  이라면, 2W 역시 L=0 이다. 또한 L을 0으로 만드는 다양한 W 중에서 단지  training  data 에만 fit 하는 classifier 를 원하는 것이 아니라, test data에서 좋은 성능을 발휘하는 classifier 를 찾기를 원한다. 이런 Overfitting 을 막기 위해서는 모델의 W 를 다른 의미에서 조절해줄 수 있는 <strong>Regularization</strong> term 을 추가할 수 있다.</p>
+<p><strong>즉, Model이 training set 에 완벽하게  fit 하지 못하도록 Model 의 복잡도에 penalty 를 부여하는 것을 말한다.</strong></p>
+<p><img src="Untitled-253fa150-bbe6-473f-bd43-e3fd6fe0009d.png" alt=""></p>
+<p>Regularization 의 종류들:</p>
 <ul>
-<li>.find_element_by_css_selector 와 <br><br>.find_<b>elements</b>_<br>by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 반면, elements 는 여러가지 element 를 셀렉팅 해서, 리스트 형식으로 Return 한다.</li>
-<li>따라서 이렇게 리스트 형식으로 Return 이 된 경우, List[0] 등과 같이 그 엘리먼트를 뒤에 지정해줘야된다. 즉,<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">driver.find_element_by_css_selector(nameof cssselector)</span><br><span class="line"><span class="comment">#위는 바로 selecting 이 된것이지만,</span></span><br><span class="line">driver.find_elements_by_css_selector(nameof cssselector)[<span class="number">0</span>]</span><br><span class="line"><span class="comment">#위는 뒤에 selecting 위해 list 의 요소를 선택 해주어야한다.</span></span><br></pre></td></tr></table></figure>
+<li>L2 Regularization</li>
+<li>L1 Regularization</li>
+<li>Elastic net(L1 + L2)</li>
+<li>Max norm Regularization</li>
+<li>Dropout</li>
+<li>Batch normalization, stochastic depth</li>
+</ul>
+<h3 id="2-3-Loss-example-Softmax-Classifier-Multinomial-Logistic-Regression"><a href="#2-3-Loss-example-Softmax-Classifier-Multinomial-Logistic-Regression" class="headerlink" title="2-3 Loss example: Softmax Classifier (Multinomial Logistic Regression)"></a>2-3 Loss example: Softmax Classifier (Multinomial Logistic Regression)</h3><p>deeplearning 에서 훨씬 더 자주 보게 되는 loss 의 종류 중 하나이다.  위에서 살펴본 SVM loss 의 단점은 그 값 자체에 어떤 의미를 부여하기는 힘들다는 점이다. 반면에, Softmax Classifier 는 그 값 자체를 확률적 해석이 가능하기 때문이다. (cf. 콜모고로프의 공리를 통해 softmax 의 layer 의 output 이 확률로 해석 될 수 있다.)</p>
+<p>Softmax Function 은 다음과 같다.</p>
+<p>$$P(Y=k|X=x_i) = \frac{e^{s_k}}{\sum_j e^{s_j}},\quad where \quad s = f(x_i;W)$$</p>
+<h2 id="3-Opitmization"><a href="#3-Opitmization" class="headerlink" title="3. Opitmization"></a>3. Opitmization</h2><p>Optimization 을 한마디로 요약하자면, <strong>우리의  loss 를 최소화 하는 W 를 찾기</strong> 가 되겠다. 그 방법에는,</p>
+<ul>
+<li>(바보 같은 접근인: 강의표현) Random Search</li>
+<li>Gradient 를 구하는 방법<ul>
+<li>Numerical Gradient 수치적 접근 : 이 방법은 근사치를 구하는 것이며, 매우 느린 단점이 있다. 하지만, 쉽게 작성할 수 있다는 장점이 있다.</li>
+<li>Analytic Gradient 해석적 접근 : 미분식을 구해야하는 단점이 있다. 하지만 빠르고 정확하다.</li>
+</ul>
 </li>
 </ul>
-<h2 id="4-버튼-클릭하기"><a href="#4-버튼-클릭하기" class="headerlink" title="4. 버튼 클릭하기"></a>4. 버튼 클릭하기</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 위의 방법처럼, element 를 선택해준다.</span></span><br><span class="line">driver.find_element_by_css_selector(<span class="string">"name of css selector"</span>).click()</span><br></pre></td></tr></table></figure>
-<h2 id="5-id-class-그-외의-attribute-값을-selecting-하는-법"><a href="#5-id-class-그-외의-attribute-값을-selecting-하는-법" class="headerlink" title="5. id, class, 그 외의 attribute 값을 selecting 하는 법"></a>5. id, class, 그 외의 attribute 값을 selecting 하는 법</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">driver.find_element_by_css_selector(<span class="string">"name of css selector."</span>).click()</span><br><span class="line"><span class="comment"># id 의 경우 : #idname</span></span><br><span class="line"><span class="comment"># class 의 경우 : .classname</span></span><br><span class="line"><span class="comment"># 다른 attribute 의 경우 : [attribute = 'value']</span></span><br></pre></td></tr></table></figure>
-<h2 id="6-selecting-한-element-의-attribute-value-를-얻는-방법"><a href="#6-selecting-한-element-의-attribute-value-를-얻는-방법" class="headerlink" title="6. selecting 한 element 의 attribute value 를 얻는 방법"></a>6. selecting 한 element 의 attribute value 를 얻는 방법</h2><ul>
-<li>CSS로 선택한 element에 html 태그에는 다양한 attribute 들이 있을 수 있다. 이 중<br>attribute의 value에 접근 하고 싶을 때는 .get_attribute()메소드를 사용할 수 있다.<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.find_element_by_css_selector(<span class="string">"name of css selector"</span>).get_attribute(<span class="string">"attribute_name"</span>)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="7-element-의-위치와-사이즈-구하기"><a href="#7-element-의-위치와-사이즈-구하기" class="headerlink" title="7. element 의 위치와, 사이즈 구하기"></a>7. element 의 위치와, 사이즈 구하기</h2><ul>
-<li>스크롤을 내리거나, 엘리먼트의 위치와 크기를 알고 싶을 때 사용할 수 있다.<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">element = driver.find_element_by_css_selector(<span class="string">"name of css selector"</span>)</span><br><span class="line">element.location</span><br><span class="line"><span class="comment">#element 의 좌측 상단의 위치가 pixel 단위로 x, y 값의 dictionary로 보여준다.</span></span><br><span class="line">element.size</span><br><span class="line"><span class="comment">#element 의 size 를 height, width를 pixel 단위로 dictionary로 보여준다.</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
+<p>실제로는, Analytic Gradient 방법을 사용한다. 하지만 debugging 을 위해 numerical gradient 를 사용한다. 이를 <strong>gradient check</strong>이라 한다.</p>
+<h3 id="3-1-Gradient-Descent-amp-Stochastic-Gradient-Descent"><a href="#3-1-Gradient-Descent-amp-Stochastic-Gradient-Descent" class="headerlink" title="3-1. Gradient Descent &amp; Stochastic Gradient Descent"></a>3-1. Gradient Descent &amp; Stochastic Gradient Descent</h3><p>Gradient Descent 를 방법을 이용해서 optimization 을 진행할 수 있다. 하지만 데이터의 숫자와 차원이 매우 큰 경우, parameter (W) 를 update 하는데 그 연산량이 매우 큰 단점과 위험이 있다. 이를 해결하기 위해 minibatch 를 사용하여 확률적 접근을 사용한다.</p>
+<h2 id="4-Image-Feature-Extraction"><a href="#4-Image-Feature-Extraction" class="headerlink" title="4. Image Feature Extraction"></a>4. Image Feature Extraction</h2><p>CNN 등이 등장하기 전에 Image 에서  Feature 를 뽑아내는 방법에 대해 소개한다. Feature를 뽑아내는 개념으로 생각할 수 도 있지만, Feature Transform 이라는 표현을 사용한다. </p>
+<ol>
+<li>Color Histogram :  이미지의 color distribution 을 사용하여 해당 이미지의 feature 로 사용할 수 있다. (출처: <a href="https://en.wikipedia.org/wiki/Color_histogram" target="_blank" rel="noopener">wikipedia</a> ) For digital images, a color histogram represents the number of pixels that have colors in each of a fixed list of color ranges, that span the image’s color space, the set of all possible colors.</li>
+<li>Histogram of Oriented Gradients (HoG) : CNN 이 등장하기 전, 매우 인기있는 Image Feature 중 하나라고 알고 있다. Edge 를 검출하는 방법이다. pixel 사이에, 값의 gradient 가 가장 큰 neighbor 가 edge 일 것이다라는 개념을 사용하여 edge 를 검출한다. 사진을 8 x 8 patch 를 만들어, 각 patch 마다 9 directional oriented gradients 를 계산하여, 이를 feature 로 사용하는 방법이다.</li>
+<li>Bag of Words : NLP 에서도 자주 사용되는 개념인 BoW 에서 차용한 개념으로, 이미지 데이터들에서 일정 크기의 patch 를 모아 clustering 을 통해 visual words (codebook)  을 만든다. 그리고 feature 뽑아내고 싶은 image 를 patch 형태로 바꾸고, codebook 에서 찾아 histogram 을 만들어 이를 feature 로 사용한다.</li>
+</ol>
+<h2 id="5-Reference"><a href="#5-Reference" class="headerlink" title="5. Reference"></a>5. Reference</h2><p><a href="https://www.youtube.com/watch?v=h7iBpEHGVNc" target="_blank" rel="noopener">Lecture 3 | Loss Functions and Optimization</a></p>
+<p><a href="http://cs231n.stanford.edu/syllabus.html" target="_blank" rel="noopener">Syllabus | CS 231N</a></p>
 
         </div>
         <footer class="article-footer">
@@ -371,20 +367,10 @@ ga('send', 'pageview');
         
 <nav id="article-nav">
     
-        <a href="/2018/10/25/181025-TodayWhatILearned/" id="article-nav-newer" class="article-nav-link-wrap">
-        <strong class="article-nav-caption">newer</strong>
-        <p class="article-nav-title">
-        
-            181025_TodayWhatILearned
-        
-        </p>
-        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
-    </a>
     
-    
-        <a href="/2018/10/24/Requests/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2019/05/13/CS231n-Lecture02-Summary/" id="article-nav-older" class="article-nav-link-wrap">
         <strong class="article-nav-caption">older</strong>
-        <p class="article-nav-title">Requests</p>
+        <p class="article-nav-title">[CS231n]Lecture02-Summary</p>
         <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
         </a>
     
@@ -448,7 +434,7 @@ ga('send', 'pageview');
     var disqus_shortname = 'emjaygithubpage';
     
     
-    var disqus_url = 'https://emjayahn.github.io/2018/10/24/Selenium/';
+    var disqus_url = 'https://emjayahn.github.io/2019/05/16/CS231n-Lecture03-Summary/';
     
     (function() {
     var dsq = document.createElement('script');
