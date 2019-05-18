@@ -6,24 +6,26 @@
     
 
     
-    <title>181103-TodayWhatILearned | Emjay&#39;s DailyBlog</title>
+    <title>[CS231n]Lecture04-Summary | Emjay&#39;s DailyBlog</title>
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
         <meta name="keywords" content="">
     
-    <meta name="description" content="181103 TWIL 오늘 한 일은 무엇인가 Crawling miniProject 코드 작성 Pandas 라이브러리 정리 Project 주말동안 할일 정하기   내일 할 일은 무엇인가 Project Data 회기 돌려보기 회기 부분 공부 크롤링 프로젝트 개선 사항 고민 (시간이 되면) A* 알고리즘 코드 짜보기   무엇을 느꼈는가 whoscored 사이트의">
+    <meta name="description" content="Lecture 04: Backpropagation and Neural Networks 이 글은, Standford University 의 CS231n 강의를 듣고 스스로 정리 목적을 위해 적은 글입니다.  1. Backpropagation1-1. 핵심Backprop의 한줄요약: 각 parameter 에 대해 Loss Function 의 gradient 를">
 <meta name="keywords" content="hexo,datascience,datascientist">
 <meta property="og:type" content="article">
-<meta property="og:title" content="181103-TodayWhatILearned">
-<meta property="og:url" content="https://emjayahn.github.io/2018/11/03/181103-TodayWhatILearned/index.html">
+<meta property="og:title" content="[CS231n]Lecture04-Summary">
+<meta property="og:url" content="https://emjayahn.github.io/2019/05/18/CS231n-Lecture04-Summary/index.html">
 <meta property="og:site_name" content="Emjay&#39;s DailyBlog">
-<meta property="og:description" content="181103 TWIL 오늘 한 일은 무엇인가 Crawling miniProject 코드 작성 Pandas 라이브러리 정리 Project 주말동안 할일 정하기   내일 할 일은 무엇인가 Project Data 회기 돌려보기 회기 부분 공부 크롤링 프로젝트 개선 사항 고민 (시간이 되면) A* 알고리즘 코드 짜보기   무엇을 느꼈는가 whoscored 사이트의">
+<meta property="og:description" content="Lecture 04: Backpropagation and Neural Networks 이 글은, Standford University 의 CS231n 강의를 듣고 스스로 정리 목적을 위해 적은 글입니다.  1. Backpropagation1-1. 핵심Backprop의 한줄요약: 각 parameter 에 대해 Loss Function 의 gradient 를">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-11-03T13:39:37.686Z">
+<meta property="og:image" content="https://emjayahn.github.io/2019/05/18/CS231n-Lecture04-Summary/Untitled-13d44613-a85b-4dcc-a807-8b114b0138c4.png">
+<meta property="og:updated_time" content="2019-05-18T14:31:33.065Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="181103-TodayWhatILearned">
-<meta name="twitter:description" content="181103 TWIL 오늘 한 일은 무엇인가 Crawling miniProject 코드 작성 Pandas 라이브러리 정리 Project 주말동안 할일 정하기   내일 할 일은 무엇인가 Project Data 회기 돌려보기 회기 부분 공부 크롤링 프로젝트 개선 사항 고민 (시간이 되면) A* 알고리즘 코드 짜보기   무엇을 느꼈는가 whoscored 사이트의">
+<meta name="twitter:title" content="[CS231n]Lecture04-Summary">
+<meta name="twitter:description" content="Lecture 04: Backpropagation and Neural Networks 이 글은, Standford University 의 CS231n 강의를 듣고 스스로 정리 목적을 위해 적은 글입니다.  1. Backpropagation1-1. 핵심Backprop의 한줄요약: 각 parameter 에 대해 Loss Function 의 gradient 를">
+<meta name="twitter:image" content="https://emjayahn.github.io/2019/05/18/CS231n-Lecture04-Summary/Untitled-13d44613-a85b-4dcc-a807-8b114b0138c4.png">
     
 
     
@@ -147,19 +149,19 @@ ga('send', 'pageview');
                         <div class="main-body-header">
     <h1 class="header">
     
-    <a class="page-title-link" href="/categories/Diary/">Diary</a>
+    <a class="page-title-link" href="/categories/Lecture/">Lecture</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/Lecture/CS231n/">CS231n</a>
     </h1>
 </div>
 
                         <div class="main-body-content">
-                            <article id="post-181103-TodayWhatILearned" class="article article-single article-type-post" itemscope="" itemprop="blogPost">
+                            <article id="post-CS231n-Lecture04-Summary" class="article article-single article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
             <header class="article-header">
                 
     
         <h1 class="article-title" itemprop="name">
-        181103-TodayWhatILearned
+        [CS231n]Lecture04-Summary
         </h1>
     
 
@@ -169,8 +171,8 @@ ga('send', 'pageview');
             <div class="article-meta">
                 
     <div class="article-date">
-        <a href="/2018/11/03/181103-TodayWhatILearned/" class="article-date">
-            <time datetime="2018-11-03T13:27:46.000Z" itemprop="datePublished">2018-11-03</time>
+        <a href="/2019/05/18/CS231n-Lecture04-Summary/" class="article-date">
+            <time datetime="2019-05-18T14:21:08.000Z" itemprop="datePublished">2019-05-18</time>
         </a>
     </div>
 
@@ -181,26 +183,52 @@ ga('send', 'pageview');
         
         
         <div class="article-entry" itemprop="articleBody">
-            <h1 id="181103-TWIL"><a href="#181103-TWIL" class="headerlink" title="181103 TWIL"></a>181103 TWIL</h1><hr>
-<h2 id="오늘-한-일은-무엇인가"><a href="#오늘-한-일은-무엇인가" class="headerlink" title="오늘 한 일은 무엇인가"></a>오늘 한 일은 무엇인가</h2><ol>
-<li>Crawling miniProject 코드 작성</li>
-<li>Pandas 라이브러리 정리</li>
-<li>Project 주말동안 할일 정하기</li>
-</ol>
-<hr>
-<h2 id="내일-할-일은-무엇인가"><a href="#내일-할-일은-무엇인가" class="headerlink" title="내일 할 일은 무엇인가"></a>내일 할 일은 무엇인가</h2><ol>
-<li>Project Data 회기 돌려보기</li>
-<li>회기 부분 공부</li>
-<li>크롤링 프로젝트 개선 사항 고민</li>
-<li>(시간이 되면) A* 알고리즘 코드 짜보기<br><br></li>
-</ol>
-<hr>
-<h2 id="무엇을-느꼈는가"><a href="#무엇을-느꼈는가" class="headerlink" title="무엇을 느꼈는가"></a>무엇을 느꼈는가</h2><ul>
-<li>whoscored 사이트의 Player 정보를 크롤링 하는 miniProject 의 코드를 작성하였다. Selenium을<br>통해서 크롤링하는데, headless 적용을 하면 에러가 나는 부분을 어떻게 처리해야할지 고민해보아야 한다.<br>Chrome webdriver 를 열어놓는 환경과 headless 환경의 차이가 있는 것 같은데, 이 부분은 document<br>를 살펴보아야 할 것같다. window창을 열어놓는것 과 그렇지 않은 것의 차이점이 있는지 확인해야한다.</li>
-<li>함수로 짠 코드를 class 화 시킬 때는 다루는 범위가 커져야 한다는 강박관념이 있다. class 화 시켰을<br>때의 편의성 부분을 고민하면서 위 생각으로 흐름이 이어지는 것 같은데, 그렇지 않기 위해 class의 장점을<br>좀더 체감해볼 필요가 있다.</li>
-<li>Linear Regression 강의를 들으면서, LineByLine 수식을 이해하는데는 문제가 없으나 이야기의 큰 그림<br>을 놓치는 경향이 있는 것 같다. 내일은 이 부분을 중점적으로 공부해보고, 메인 프로젝트에 적용해보는 것 까지<br>해봐야겠다.</li>
+            <h1 id="Lecture-04-Backpropagation-and-Neural-Networks"><a href="#Lecture-04-Backpropagation-and-Neural-Networks" class="headerlink" title="Lecture 04: Backpropagation and Neural Networks"></a>Lecture 04: Backpropagation and Neural Networks</h1><ul>
+<li>이 글은, Standford University 의 CS231n 강의를 듣고 스스로 정리 목적을 위해 적은 글입니다.</li>
 </ul>
-<hr>
+<h2 id="1-Backpropagation"><a href="#1-Backpropagation" class="headerlink" title="1. Backpropagation"></a>1. Backpropagation</h2><h3 id="1-1-핵심"><a href="#1-1-핵심" class="headerlink" title="1-1. 핵심"></a>1-1. 핵심</h3><p>Backprop의 한줄요약: 각 parameter 에 대해 Loss Function 의 gradient 를 구하기 위해 사용하는 graphical representation of <strong>ChainRule</strong></p>
+<p>언뜻 보면 어려울 수 도 있지만, just ChainRule</p>
+<p><img src="Untitled-13d44613-a85b-4dcc-a807-8b114b0138c4.png" alt=""></p>
+<p>위의 그림을 예를 들어 살펴 보면, y 에 대한 f의 gradient 는 q에 대한 f의 gradient <em> y 에 대한 q 의 gradient 으로 볼 수 있다. 이를 해석하자면, f 에게 미치는 y 의 영향 = f 에게 미치는 q의 영향 </em> q 에게 미치는 y 의 영향으로 볼 수 있다.</p>
+<p>Backpropagation 의 가장 중요한 특징!!</p>
+<pre><code>gradient 를 구하기 위해 node 를 기준으로 앞과 뒤만 보면 된다.
+</code></pre><p><img src="Untitled-f2d8c1d9-1a28-4e16-8e35-83ff9f93045f.png" alt=""></p>
+<p>또한, 위 그림을 보게 되면, Forward passing 과 마찬가지로, Backprop 시에도, 이전 노드에서 전달 되는 Gradient 를 node 에서 local gradient 와의 연산으로 다음 Node 에 gradient 를 전달해 줄 수 있다.</p>
+<h3 id="1-2-Back-prop-시-각-node-의-역할"><a href="#1-2-Back-prop-시-각-node-의-역할" class="headerlink" title="1-2. Back prop 시, 각 node  의 역할"></a>1-2. Back prop 시, 각 node  의 역할</h3><p><img src="Untitled-7a11e194-ea07-4922-a7b5-aa4346476acb.png" alt=""></p>
+<ol>
+<li>Add gate : gradient distributor<ul>
+<li>add gate 를 기점으로, 각 입력(forward 방향의 입력)의 gradient로 local gradient 를 구하면 1이므로, 전달 되는 gradient 와 각각 1씩 곱해져 전달 되게 된다. 이 현상을 보게 되면 동등하게 나눠주는 역할을 하므로 gradient distributor 라고 볼 수 있다.</li>
+</ul>
+</li>
+<li><p>Max gate : gradient router</p>
+<ul>
+<li>Max gate 는 gradient 를 한쪽에는 전체, 다른 쪽에는 0 을 준다.</li>
+<li><p>해석적으로 보자면, max 연산을 통해 forward 방향에서 영향을 준 branch 에게 gradient 를 전달해 주는 것이 합적</p>
+<p>$$max(x, y) = \begin{cases} x \quad\quad if \quad x &gt; y \\ y \quad\quad if \quad x &lt; y \end{cases}$$</p>
+</li>
+<li><p>수식으로 보자면, x 에 대한 gradient, y 에 대한 gradient 가 각각 (1, 0), (0, 1)  로 local gradient 가 계산되기 때문이다.</p>
+</li>
+<li>gradient 가 전달될 길을 결정해주는 면에서, 네트워크에서 path 를 설정해 주는 router의 기능과 비슷하다.</li>
+</ul>
+</li>
+<li>Mul gate : gradient switcher + scaler<ul>
+<li>곱셈연산의 gradient 의 경우, x 에 대한 gradient 는 y 가 되므로, 서로 바꿔주는 역할을 한다. 이 때, forward 상에서의 결과 값으로 곱해주므로, scale 역할까지 함께 하게 된다.</li>
+</ul>
+</li>
+</ol>
+<h2 id="2-Neural-Networks"><a href="#2-Neural-Networks" class="headerlink" title="2. Neural Networks"></a>2. Neural Networks</h2><p>강의에서는 Neural Network 에 대한 intuition 을 위해, biological neuron 과 비교하였다. 모델 architecture 로서의 neuron 과 biological neuron 의 공통점은 다음과 같다.</p>
+<ol>
+<li>input impulse</li>
+<li>input axon → dendrite</li>
+<li>(cell body)activation &amp; activation function</li>
+<li>output axon</li>
+</ol>
+<p>이러한 비교는, 나의 개인적인 Neural Network에 대한 공부와 이해에 도움이 되지 않기에 큰 감동은 없다. </p>
+<ul>
+<li>4강에 대한 핵심 사항은, Backpropagation 에 대한 수식적 이해와 그 이해를 통해 Backpropagation 이 gradient를 구함에 있어, 얼마나 편한 representation 인지이다. 공부하며 어려웠던 것은, backprop in <strong>vectorized</strong> 에서, Jacobian Matrix 의 표현이 scalar  backprop 때와는 달리 한번에 머릿속으로 상상되지 않았기에, 손으로 써가며 따라 갔어야만 했다.</li>
+</ul>
+<h2 id="3-Reference"><a href="#3-Reference" class="headerlink" title="3. Reference"></a>3. Reference</h2><p><a href="https://www.youtube.com/watch?v=d14TUNcbn1k" target="_blank" rel="noopener">Lecture 4 | Introduction to Neural Networks</a></p>
+<p><a href="http://cs231n.stanford.edu/syllabus.html" target="_blank" rel="noopener">Syllabus | CS 231N</a></p>
 
         </div>
         <footer class="article-footer">
@@ -307,20 +335,10 @@ ga('send', 'pageview');
         
 <nav id="article-nav">
     
-        <a href="/2018/11/04/181104-TodayWhatILearned/" id="article-nav-newer" class="article-nav-link-wrap">
-        <strong class="article-nav-caption">newer</strong>
-        <p class="article-nav-title">
-        
-            181104-TodayWhatILearned
-        
-        </p>
-        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
-    </a>
     
-    
-        <a href="/2018/11/02/181102-TodayWhatILearned/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2019/05/16/CS231n-Lecture03-Summary/" id="article-nav-older" class="article-nav-link-wrap">
         <strong class="article-nav-caption">older</strong>
-        <p class="article-nav-title">181102-TodayWhatILearned</p>
+        <p class="article-nav-title">[CS231n]Lecture03-Summary</p>
         <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
         </a>
     
@@ -384,7 +402,7 @@ ga('send', 'pageview');
     var disqus_shortname = 'emjaygithubpage';
     
     
-    var disqus_url = 'https://emjayahn.github.io/2018/11/03/181103-TodayWhatILearned/';
+    var disqus_url = 'https://emjayahn.github.io/2019/05/18/CS231n-Lecture04-Summary/';
     
     (function() {
     var dsq = document.createElement('script');
