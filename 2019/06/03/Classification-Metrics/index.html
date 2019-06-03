@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+
+    
+
+    
+    <title>Classification Metrics | Emjay&#39;s DailyBlog</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="">
+    
+    <meta name="description" content="Classification Metrics: 분류 성능 지표Kaggle Classification 의 Evaluation 에 자주 사용되는 ROC-AUC를 정리해보면서, 이번 기회에 분류모델에서 자주 사용되는 성능지표(Metric)을 간단하게 정리해봅니다. Confusion Matrix 에서 비롯되는 Metric 들은 이를 이미지로 기억하는 것이 효율적입니다">
+<meta name="keywords" content="hexo,datascience,datascientist">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Classification Metrics">
+<meta property="og:url" content="https://emjayahn.github.io/2019/06/03/Classification-Metrics/index.html">
+<meta property="og:site_name" content="Emjay&#39;s DailyBlog">
+<meta property="og:description" content="Classification Metrics: 분류 성능 지표Kaggle Classification 의 Evaluation 에 자주 사용되는 ROC-AUC를 정리해보면서, 이번 기회에 분류모델에서 자주 사용되는 성능지표(Metric)을 간단하게 정리해봅니다. Confusion Matrix 에서 비롯되는 Metric 들은 이를 이미지로 기억하는 것이 효율적입니다">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://emjayahn.github.io/2019/06/03/Classification-Metrics/Untitled-170ac3e3-8259-4e1a-80e5-647b5bd326fd.png">
+<meta property="og:updated_time" content="2019-06-03T03:21:28.008Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Classification Metrics">
+<meta name="twitter:description" content="Classification Metrics: 분류 성능 지표Kaggle Classification 의 Evaluation 에 자주 사용되는 ROC-AUC를 정리해보면서, 이번 기회에 분류모델에서 자주 사용되는 성능지표(Metric)을 간단하게 정리해봅니다. Confusion Matrix 에서 비롯되는 Metric 들은 이를 이미지로 기억하는 것이 효율적입니다">
+<meta name="twitter:image" content="https://emjayahn.github.io/2019/06/03/Classification-Metrics/Untitled-170ac3e3-8259-4e1a-80e5-647b5bd326fd.png">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="Emjay&#39;s DailyBlog" type="application/atom+xml">
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-128251719-1', 'auto');
+ga('send', 'pageview');
+
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    
+    
+
+
+</head>
+</html>
+<body>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">Emjay&#39;s DataScience &amp; Development</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/">Home</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DataStructure/">DataStructure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Diary/">Diary</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Lecture/">Lecture</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Lecture/CS231n/">CS231n</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Lecture/딥러닝을-이용한-자연어-처리/">딥러닝을 이용한 자연어 처리</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/MachineLearning/">MachineLearning</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/MachineLearning/Apache-Spark/">Apache Spark</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/MachineLearning/Pytorch/">Pytorch</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Math/">Math</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/">wiki</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/MySQL/">MySQL</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/NGINX/">NGINX</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/Pillow/">Pillow</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/Provision/">Provision</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/Python/">Python</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/Requests/">Requests</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/Scrapy/">Scrapy</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/Selenium/">Selenium</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/Xpath/">Xpath</a></li></ul></li></ul>
+                                    
+                                <li class="main-nav-list-item">
+                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/MachineLearning/">MachineLearning</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-Classification-Metrics" class="article article-single article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        Classification Metrics
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/06/03/Classification-Metrics/" class="article-date">
+            <time datetime="2019-06-03T03:18:57.000Z" itemprop="datePublished">2019-06-03</time>
+        </a>
+    </div>
+
+		
+
+                
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h1 id="Classification-Metrics-분류-성능-지표"><a href="#Classification-Metrics-분류-성능-지표" class="headerlink" title="Classification Metrics: 분류 성능 지표"></a>Classification Metrics: 분류 성능 지표</h1><p>Kaggle Classification 의 Evaluation 에 자주 사용되는 ROC-AUC를 정리해보면서, 이번 기회에 분류모델에서 자주 사용되는 성능지표(Metric)을 간단하게 정리해봅니다. Confusion Matrix 에서 비롯되는 Metric 들은 이를 이미지로 기억하는 것이 효율적입니다.</p>
+<h2 id="Confusion-Matrix"><a href="#Confusion-Matrix" class="headerlink" title="Confusion Matrix"></a>Confusion Matrix</h2><p>confusion matrix  는 해당 데이터의 정답 클래스(y_true) 와 모델의 예측 클래스(y_pred)의 일치 여부를 갯수로 센 표입니다. 주로, 정답 클래스는 행으로(row), 예측 클래스는 열로(columns) 표현합니다. </p>
+<p><img src="Untitled-170ac3e3-8259-4e1a-80e5-647b5bd326fd.png" alt=""></p>
+<ul>
+<li>(정의하기에 따라 다르지만) 일반적으로, class 1 을 positive로, class 0 을 negative 로 표기합니다.</li>
+<li>우리가 예측한 클래스를 기준으로 Positive 와 Negative 를 구분합니다.</li>
+<li>그리고 정답과 맞았는지, 틀렸는지를 알려주기 위해 True 와 False 를 각각 붙여줍니다.</li>
+</ul>
+<h2 id="Accuracy-정확도"><a href="#Accuracy-정확도" class="headerlink" title="Accuracy: 정확도"></a>Accuracy: 정확도</h2><ul>
+<li>전체 데이터에 대해 맞게 예측한 비율</li>
+</ul>
+<p>$$\frac{TP+TN}{TP+FN+FP+TN}$$</p>
+<h2 id="Precision-정밀도"><a href="#Precision-정밀도" class="headerlink" title="Precision: 정밀도"></a>Precision: 정밀도</h2><ul>
+<li>class 1 이라고 예측한 데이터 중, 실제로 class 1 인 데이터의 비율</li>
+</ul>
+<p>$$\frac{TP}{TP+FP}$$</p>
+<p>우리의 모델이 기본적인 decision이 class 0 이라고 생각할 때, class 1 은 특별한 경우를 detect 한 경우 일 것입니다. 이 때 class 1 이라고 알람을 울리는 우리의 모델이 얼마나 세밀하게 class를 구분 할 수 있는지의 정도를 수치화 한 것입니다.</p>
+<h2 id="Recall-재현율"><a href="#Recall-재현율" class="headerlink" title="Recall: 재현율"></a>Recall: 재현율</h2><ul>
+<li>실제로 class 1 인 데이터 중에 class 1 이라고 예측한 비율</li>
+<li>= Sensivity = TPR</li>
+</ul>
+<p>$$\frac{TP}{TP+FN}$$</p>
+<p>제가 기억하는 방식은, 자동차에 결함이 발견되서 recall 이 되어야 하는데 (실제 고장 데이터중) 얼마나 recall 됐는지로 생각합니다. </p>
+<h2 id="Fall-out-위양성율"><a href="#Fall-out-위양성율" class="headerlink" title="Fall-out: 위양성율"></a>Fall-out: 위양성율</h2><ul>
+<li>실제로 class 1 이 아닌 데이터 중에 class 1이라고 예측한 비율</li>
+<li>낮을 수록 좋음</li>
+<li>= FPR = 1 - Specificity</li>
+<li>Specificity = 1 - Fall out</li>
+</ul>
+<p>$$\frac{FP}{FP+TN}$$</p>
+<p>실제로 양성데이터가 아닌 데이터에 대해서 우리의 모델이 양성이라고 잘못 예측한 비율을 말합니다. 억울한 데이터의 정도를 측정했다고 생각 할 수 있습니다.</p>
+<h2 id="각-Metric-간의-상관관계"><a href="#각-Metric-간의-상관관계" class="headerlink" title="각 Metric 간의 상관관계"></a>각 Metric 간의 상관관계</h2><p>우리 모델의 decision function 을 f(x) 라 할 때, 우리는 f(x)의 결과와 threshold (decision point)를 기준으로 class를 구분합니다.</p>
+<ul>
+<li><p>Recall vs Fall-out : 양의 상관관계</p>
+<p>  Recall은 위의 정의에 의하듯이, 실제로 positive  인  클래스에 대해 얼마나 positve 라고 예측했는지의 비율입니다. 우리가 Recall 을 높이기 위해서는 고정되어있는 실제 positive 데이터 수에 대해 예측하는 positive 데이터의 갯수 threshold 를 낮춰 늘리면 됩니다. 이에 반해 threshold 를 낮추게 되면, 실제로 positive 가 아닌 데이터에 대해 positive 라고 예측하는 억울한 데이터가 많아지므로 Fall-out 은 커지게 되고 둘은 양의 상관관계를 갖게 됩니다.</p>
+</li>
+<li><p>Recall vs Precision : 대략적인 음의 상관관계</p>
+<p>  위에 설명한 것처럼 threshold 를 낮춰 우리가 예측하는 positive 클래스의 숫자를 늘리게 되면, recall 은 높아지는 반면, 예측한 positive 데이터 중 실제 positive 데이터의 비율은 작아 질 수 있습니다.</p>
+</li>
+</ul>
+<h2 id="F-beta-score"><a href="#F-beta-score" class="headerlink" title="F-beta score"></a>F-beta score</h2><ul>
+<li>precision 과 recall의 가중 조화평균</li>
+</ul>
+<p>$$(\frac{1}{1+\beta^2}\frac{1}{precision} + \frac{\beta^2}{1+\beta^2}\frac{1}{recall})^{-1}$$</p>
+<p>이처럼, 다양한 Metric 에 대해 우리가 초점을 맞추는 것에 따라 모델의 성능은 다르게 바라 볼 수 있습니다. 따라서 모델에 대해 성능을 평가하고 최종 모델을 선택함에 있어, 서로 다른 Metric 을 동시에 비교해야합니다. 이를 위해 precision 과 recall 을 precision 에 beta^2 만큼 가중하여 바라보는 스코어가 F beta score 입니다.</p>
+<p>이 중 beta=1 일 때, score 가 우리가 자주 보는 f1 score 입니다.</p>
+<p>$$F_1=\frac{2<em>precision</em>recall}{precision+recall}$$</p>
+<h2 id="ROC-Curve-Receiver-Operator-Characteristic-Curve"><a href="#ROC-Curve-Receiver-Operator-Characteristic-Curve" class="headerlink" title="ROC Curve: Receiver Operator Characteristic Curve"></a>ROC Curve: Receiver Operator Characteristic Curve</h2><ul>
+<li>Recall vs Fallout 의 plot (TPR vs FPR)</li>
+</ul>
+<p>위의 예시 처럼, 우리가 클래스를 판별하는 기준이 되는 threshold (decision point) 를 올리거나 내리면서, recall 과 fall out 은 바뀌게 됩니다. 이렇게 threshhold 를 변화 해 가면서, recall 과 fall out 을 plotting 한 것이 ROC curve 입니다.</p>
+<ul>
+<li>sklearn.metrics.roc_curve() 의 documentation</li>
+</ul>
+<p><img src="Untitled-1f189e32-c453-43c9-8366-559df3f16464.png" alt=""></p>
+<h2 id="ROC-AUC-Area-Under-Curve"><a href="#ROC-AUC-Area-Under-Curve" class="headerlink" title="(ROC-)AUC: Area Under Curve"></a>(ROC-)AUC: Area Under Curve</h2><ul>
+<li>위에서 그린 ROC Curve 의 넓이를 점수로써 사용하는 것이 AUC 입니다. AUC 의 유의미한 범위는 class 를 50%의 확률로 random 하게 예측한 넓이인 0.5 보다는 클 것이고, 가장 최대의 AUC 의 넓이는 1 일 것이므로 0.5≤AUC≤1 의 범위를 갖는 score 입니다.</li>
+</ul>
+<p><img src="Untitled-44d5d317-d0ec-4f1a-8aa0-8bdbfe34bd67.png" alt=""></p>
+<ul>
+<li>ROC 커브와 AUC score 를 보고 모델에 대한 성능을 평가 하기 위해서, ROC 는 같은 Fall out 에 대해 Recall  은 더 높길 바라고, 같은 Recall  에 대해서는, Recall  이 더 작길 바랍니다. 결국, 그래프가 왼쪽 위로 그려지고, AUC 즉 curve  의 넓이는 커지는 것이 더 좋은 성능의 모델이라고 볼 수 있습니다.</li>
+</ul>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+    <div class="a2a_kit a2a_default_style">
+    <a class="a2a_dd" href="https://www.addtoany.com/share">Share</a>
+    <span class="a2a_divider"></span>
+    <a class="a2a_button_facebook"></a>
+    <a class="a2a_button_twitter"></a>
+    <a class="a2a_button_google_plus"></a>
+    <a class="a2a_button_pinterest"></a>
+    <a class="a2a_button_tumblr"></a>
+</div>
+<script type="text/javascript" src="//static.addtoany.com/menu/page.js"></script>
+<style>
+    .a2a_menu {
+        border-radius: 4px;
+    }
+    .a2a_menu a {
+        margin: 2px 0;
+        font-size: 14px;
+        line-height: 16px;
+        border-radius: 4px;
+        color: inherit !important;
+        font-family: 'Microsoft Yahei';
+    }
+    #a2apage_dropdown {
+        margin: 10px 0;
+    }
+    .a2a_mini_services {
+        padding: 10px;
+    }
+    a.a2a_i,
+    i.a2a_i {
+        width: 122px;
+        line-height: 16px;
+    }
+    a.a2a_i .a2a_svg,
+    a.a2a_more .a2a_svg {
+        width: 16px;
+        height: 16px;
+        line-height: 16px;
+        vertical-align: top;
+        background-size: 16px;
+    }
+    a.a2a_i {
+        border: none !important;
+    }
+    a.a2a_menu_show_more_less {
+        margin: 0;
+        padding: 10px 0;
+        line-height: 16px;
+    }
+    .a2a_mini_services:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+    .a2a_mini_services{*+height:1%;}
+</style>
+
+
+        </footer>
+    </div>
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+
+
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <p>follow:</p>
+        <ul class="social-links">
+            
+                
+                <li>
+                    <a class="social-tooltip" title="github" href="https://github.com/emjayahn" target="_blank" rel="noopener">
+                        <i class="icon fa fa-github"></i>
+                    </a>
+                </li>
+                
+            
+                
+                <li>
+                    <a class="social-tooltip" title="rss" href="/atom.xml" target="_blank" rel="noopener">
+                        <i class="icon fa fa-rss"></i>
+                    </a>
+                </li>
+                
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2019/05/31/SPARK-BASIC-1/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">older</strong>
+        <p class="article-nav-title">SPARK BASIC 1</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DataStructure/">DataStructure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Diary/">Diary</a><span class="category-list-count">42</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Lecture/">Lecture</a><span class="category-list-count">5</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Lecture/CS231n/">CS231n</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Lecture/딥러닝을-이용한-자연어-처리/">딥러닝을 이용한 자연어 처리</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/MachineLearning/">MachineLearning</a><span class="category-list-count">5</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/MachineLearning/Apache-Spark/">Apache Spark</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MachineLearning/Pytorch/">Pytorch</a><span class="category-list-count">3</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/">Math</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/">wiki</a><span class="category-list-count">10</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/MySQL/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/NGINX/">NGINX</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/Pillow/">Pillow</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/Provision/">Provision</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/Python/">Python</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/Requests/">Requests</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/Scrapy/">Scrapy</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/Selenium/">Selenium</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/Xpath/">Xpath</a><span class="category-list-count">1</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">25</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a><span class="archive-list-count">20</span></li></ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 EmjayAhn(Minjae Ahn)</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
+            </div>
+            <div class="footer-plugins">
+              
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    
+    <script>
+    var disqus_shortname = 'emjaygithubpage';
+    
+    
+    var disqus_url = 'https://emjayahn.github.io/2019/06/03/Classification-Metrics/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>
