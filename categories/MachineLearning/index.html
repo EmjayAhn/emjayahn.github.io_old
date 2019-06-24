@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
 <title>Category: MachineLearning - Emjay&#39;s DailyBlog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -183,7 +183,7 @@
         <div class="content">
             <h1 id="Classification-Metrics-분류-성능-지표"><a href="#Classification-Metrics-분류-성능-지표" class="headerlink" title="Classification Metrics: 분류 성능 지표"></a>Classification Metrics: 분류 성능 지표</h1><p>Kaggle Classification 의 Evaluation 에 자주 사용되는 ROC-AUC를 정리해보면서, 이번 기회에 분류모델에서 자주 사용되는 성능지표(Metric)을 간단하게 정리해봅니다. Confusion Matrix 에서 비롯되는 Metric 들은 이를 이미지로 기억하는 것이 효율적입니다.</p>
 <h2 id="Confusion-Matrix"><a href="#Confusion-Matrix" class="headerlink" title="Confusion Matrix"></a>Confusion Matrix</h2><p>confusion matrix  는 해당 데이터의 정답 클래스(y_true) 와 모델의 예측 클래스(y_pred)의 일치 여부를 갯수로 센 표입니다. 주로, 정답 클래스는 행으로(row), 예측 클래스는 열로(columns) 표현합니다. </p>
-<p><img src="Untitled-170ac3e3-8259-4e1a-80e5-647b5bd326fd.png" alt=""></p>
+<p><img src="Untitled-170ac3e3-8259-4e1a-80e5-647b5bd326fd.png" alt></p>
 <ul>
 <li>(정의하기에 따라 다르지만) 일반적으로, class 1 을 positive로, class 0 을 negative 로 표기합니다.</li>
 <li>우리가 예측한 클래스를 기준으로 Positive 와 Negative 를 구분합니다.</li>
@@ -192,26 +192,23 @@
 <h2 id="Accuracy-정확도"><a href="#Accuracy-정확도" class="headerlink" title="Accuracy: 정확도"></a>Accuracy: 정확도</h2><ul>
 <li>전체 데이터에 대해 맞게 예측한 비율</li>
 </ul>
-<p>$$\frac{TP+TN}{TP+FN+FP+TN}$$</p>
-<h2 id="Precision-정밀도"><a href="#Precision-정밀도" class="headerlink" title="Precision: 정밀도"></a>Precision: 정밀도</h2><ul>
+<script type="math/tex; mode=display">
+\frac{TP+TN}{TP+FN+FP+TN}</script><h2 id="Precision-정밀도"><a href="#Precision-정밀도" class="headerlink" title="Precision: 정밀도"></a>Precision: 정밀도</h2><ul>
 <li>class 1 이라고 예측한 데이터 중, 실제로 class 1 인 데이터의 비율</li>
 </ul>
-<p>$$\frac{TP}{TP+FP}$$</p>
-<p>우리의 모델이 기본적인 decision이 class 0 이라고 생각할 때, class 1 은 특별한 경우를 detect 한 경우 일 것입니다. 이 때 class 1 이라고 알람을 울리는 우리의 모델이 얼마나 세밀하게 class를 구분 할 수 있는지의 정도를 수치화 한 것입니다.</p>
+<script type="math/tex; mode=display">\frac{TP}{TP+FP}</script><p>우리의 모델이 기본적인 decision이 class 0 이라고 생각할 때, class 1 은 특별한 경우를 detect 한 경우 일 것입니다. 이 때 class 1 이라고 알람을 울리는 우리의 모델이 얼마나 세밀하게 class를 구분 할 수 있는지의 정도를 수치화 한 것입니다.</p>
 <h2 id="Recall-재현율"><a href="#Recall-재현율" class="headerlink" title="Recall: 재현율"></a>Recall: 재현율</h2><ul>
 <li>실제로 class 1 인 데이터 중에 class 1 이라고 예측한 비율</li>
 <li>= Sensivity = TPR</li>
 </ul>
-<p>$$\frac{TP}{TP+FN}$$</p>
-<p>제가 기억하는 방식은, 자동차에 결함이 발견되서 recall 이 되어야 하는데 (실제 고장 데이터중) 얼마나 recall 됐는지로 생각합니다. </p>
+<script type="math/tex; mode=display">\frac{TP}{TP+FN}</script><p>제가 기억하는 방식은, 자동차에 결함이 발견되서 recall 이 되어야 하는데 (실제 고장 데이터중) 얼마나 recall 됐는지로 생각합니다. </p>
 <h2 id="Fall-out-위양성율"><a href="#Fall-out-위양성율" class="headerlink" title="Fall-out: 위양성율"></a>Fall-out: 위양성율</h2><ul>
 <li>실제로 class 1 이 아닌 데이터 중에 class 1이라고 예측한 비율</li>
 <li>낮을 수록 좋음</li>
 <li>= FPR = 1 - Specificity</li>
 <li>Specificity = 1 - Fall out</li>
 </ul>
-<p>$$\frac{FP}{FP+TN}$$</p>
-<p>실제로 양성데이터가 아닌 데이터에 대해서 우리의 모델이 양성이라고 잘못 예측한 비율을 말합니다. 억울한 데이터의 정도를 측정했다고 생각 할 수 있습니다.</p>
+<script type="math/tex; mode=display">\frac{FP}{FP+TN}</script><p>실제로 양성데이터가 아닌 데이터에 대해서 우리의 모델이 양성이라고 잘못 예측한 비율을 말합니다. 억울한 데이터의 정도를 측정했다고 생각 할 수 있습니다.</p>
 <h2 id="각-Metric-간의-상관관계"><a href="#각-Metric-간의-상관관계" class="headerlink" title="각 Metric 간의 상관관계"></a>각 Metric 간의 상관관계</h2><p>우리 모델의 decision function 을 f(x) 라 할 때, 우리는 f(x)의 결과와 threshold (decision point)를 기준으로 class를 구분합니다.</p>
 <ul>
 <li><p>Recall vs Fall-out : 양의 상관관계</p>
@@ -224,22 +221,20 @@
 <h2 id="F-beta-score"><a href="#F-beta-score" class="headerlink" title="F-beta score"></a>F-beta score</h2><ul>
 <li>precision 과 recall의 가중 조화평균</li>
 </ul>
-<p>$$(\frac{1}{1+\beta^2}\frac{1}{precision} + \frac{\beta^2}{1+\beta^2}\frac{1}{recall})^{-1}$$</p>
-<p>이처럼, 다양한 Metric 에 대해 우리가 초점을 맞추는 것에 따라 모델의 성능은 다르게 바라 볼 수 있습니다. 따라서 모델에 대해 성능을 평가하고 최종 모델을 선택함에 있어, 서로 다른 Metric 을 동시에 비교해야합니다. 이를 위해 precision 과 recall 을 precision 에 beta^2 만큼 가중하여 바라보는 스코어가 F beta score 입니다.</p>
+<script type="math/tex; mode=display">(\frac{1}{1+\beta^2}\frac{1}{precision} + \frac{\beta^2}{1+\beta^2}\frac{1}{recall})^{-1}</script><p>이처럼, 다양한 Metric 에 대해 우리가 초점을 맞추는 것에 따라 모델의 성능은 다르게 바라 볼 수 있습니다. 따라서 모델에 대해 성능을 평가하고 최종 모델을 선택함에 있어, 서로 다른 Metric 을 동시에 비교해야합니다. 이를 위해 precision 과 recall 을 precision 에 beta^2 만큼 가중하여 바라보는 스코어가 F beta score 입니다.</p>
 <p>이 중 beta=1 일 때, score 가 우리가 자주 보는 f1 score 입니다.</p>
-<p>$$F_1=\frac{2<em>precision</em>recall}{precision+recall}$$</p>
-<h2 id="ROC-Curve-Receiver-Operator-Characteristic-Curve"><a href="#ROC-Curve-Receiver-Operator-Characteristic-Curve" class="headerlink" title="ROC Curve: Receiver Operator Characteristic Curve"></a>ROC Curve: Receiver Operator Characteristic Curve</h2><ul>
+<script type="math/tex; mode=display">F_1=\frac{2*precision*recall}{precision+recall}</script><h2 id="ROC-Curve-Receiver-Operator-Characteristic-Curve"><a href="#ROC-Curve-Receiver-Operator-Characteristic-Curve" class="headerlink" title="ROC Curve: Receiver Operator Characteristic Curve"></a>ROC Curve: Receiver Operator Characteristic Curve</h2><ul>
 <li>Recall vs Fallout 의 plot (TPR vs FPR)</li>
 </ul>
 <p>위의 예시 처럼, 우리가 클래스를 판별하는 기준이 되는 threshold (decision point) 를 올리거나 내리면서, recall 과 fall out 은 바뀌게 됩니다. 이렇게 threshhold 를 변화 해 가면서, recall 과 fall out 을 plotting 한 것이 ROC curve 입니다.</p>
 <ul>
 <li>sklearn.metrics.roc_curve() 의 documentation</li>
 </ul>
-<p><img src="Untitled-1f189e32-c453-43c9-8366-559df3f16464.png" alt=""></p>
+<p><img src="Untitled-1f189e32-c453-43c9-8366-559df3f16464.png" alt></p>
 <h2 id="ROC-AUC-Area-Under-Curve"><a href="#ROC-AUC-Area-Under-Curve" class="headerlink" title="(ROC-)AUC: Area Under Curve"></a>(ROC-)AUC: Area Under Curve</h2><ul>
 <li>위에서 그린 ROC Curve 의 넓이를 점수로써 사용하는 것이 AUC 입니다. AUC 의 유의미한 범위는 class 를 50%의 확률로 random 하게 예측한 넓이인 0.5 보다는 클 것이고, 가장 최대의 AUC 의 넓이는 1 일 것이므로 0.5≤AUC≤1 의 범위를 갖는 score 입니다.</li>
 </ul>
-<p><img src="Untitled-44d5d317-d0ec-4f1a-8aa0-8bdbfe34bd67.png" alt=""></p>
+<p><img src="Untitled-44d5d317-d0ec-4f1a-8aa0-8bdbfe34bd67.png" alt></p>
 <ul>
 <li>ROC 커브와 AUC score 를 보고 모델에 대한 성능을 평가 하기 위해서, ROC 는 같은 Fall out 에 대해 Recall  은 더 높길 바라고, 같은 Recall  에 대해서는, Recall  이 더 작길 바랍니다. 결국, 그래프가 왼쪽 위로 그려지고, AUC 즉 curve  의 넓이는 커지는 것이 더 좋은 성능의 모델이라고 볼 수 있습니다.</li>
 </ul>
@@ -299,7 +294,7 @@
 <h1 id="1-Spark-shell"><a href="#1-Spark-shell" class="headerlink" title="1. Spark-shell"></a>1. Spark-shell</h1><h2 id="1-1-Introduction"><a href="#1-1-Introduction" class="headerlink" title="1-1. Introduction"></a>1-1. Introduction</h2><p>shell의 spark home directory 에서 다음 명령어를 통해 spark shell 을 진입할 수 있습니다.</p>
 <pre><code>$ cd /spark_home_directory/
 $ ./bin/spark-shell
-</code></pre><p><img src="Untitled-d3bd9451-d568-49aa-bf5a-0f6b7bf598d9.png" alt=""></p>
+</code></pre><p><img src="Untitled-d3bd9451-d568-49aa-bf5a-0f6b7bf598d9.png" alt></p>
 <ul>
 <li>sc : spark context</li>
 <li>spark : spark session</li>
@@ -322,7 +317,7 @@ distData.filter(_ &lt; 10).collect()
 <li>spark 의 특징은 .collect() 와 같은 action api 가 실행될 때 모든 것이 실행되는 <strong>Lazy Evaluation (RDD)</strong>으로 동작한다.</li>
 </ul>
 <p>드라이버 웹 UI 를 통해 이를 확인 할 수 있다. 이전 command line 에서는 아무 동작도 일어나지 않다가 collect() action api 수행을 통해 실제로 command들이 수행되는 것을 확인 할 수 있다. local 에서 default 로 동작하기 때문에 2개의 partition 으로 동작하며, 어떤 shuffling 도 일어나지 않았기 때문에 1개의 stage 임을 확인 할 수 있다.</p>
-<p><img src="Untitled-a49c2d30-d7d2-43bf-a2d0-7a54ff94d0c6.png" alt=""></p>
+<p><img src="Untitled-a49c2d30-d7d2-43bf-a2d0-7a54ff94d0c6.png" alt></p>
 <pre><code>// scala shell
 // sc.textFile 을 통해 textfile, md 파일등을 읽어드릴 수 있다.
 val data = sc.textFile(&quot;file_name&quot;)
@@ -338,9 +333,9 @@ distData.count
 <ul>
 <li>가장 왼쪽에 있는 | 를 통해 stage 정보 역시 확인 할 수 있다. shuffle 이 일어나게 되면, stage가 바뀌므로, 서로 다른 stage  에 있는 command 의 경우, 다른 indent에 있게 된다.</li>
 </ul>
-<p><img src="Untitled-62b02b6f-4150-4dcf-8543-655381c951f7.png" alt=""></p>
+<p><img src="Untitled-62b02b6f-4150-4dcf-8543-655381c951f7.png" alt></p>
 <p><code>RDD.getNumPartitions</code> 를 통해 해당 RDD의 Partition 갯수 (=Task 의 갯수), 즉 병렬화 수준을 확인 할 수 있다.</p>
-<p><img src="Untitled-a773c2aa-c715-4ccb-8b21-66eaaf1e22b3.png" alt=""></p>
+<p><img src="Untitled-a773c2aa-c715-4ccb-8b21-66eaaf1e22b3.png" alt></p>
 <h3 id="Shuffle"><a href="#Shuffle" class="headerlink" title="Shuffle!!"></a>Shuffle!!</h3><p>suffle 이 일어나는 경우는 api 마다 다양할 수 있다. 가장 기본적으로, 우리가 default partition 갯수를 변경하므로써 shuffle 이 일어나는 것을 확인 할 수 있다.</p>
 <pre><code>val data = sc.textFile(&quot;file_name&quot;)
 
@@ -358,22 +353,22 @@ newData.toDebugString
 
 newData.count
 // action api 를 수행하여 앞선 command 를 모두 수행
-</code></pre><p><img src="Untitled-95d981bb-62a7-457f-9378-0b41db4d5b42.png" alt=""></p>
+</code></pre><p><img src="Untitled-95d981bb-62a7-457f-9378-0b41db4d5b42.png" alt></p>
 <p>위 command line 에 대한 DAG 를 웹 UI 를 통해 확인하면, 다음과 같이 stage 가 repartition을 기점으로 나누어 지는 것을 확인 할 수 있다.</p>
-<p><img src="Untitled-ef367f62-d6f5-47da-9086-cdaa914aa5d7.png" alt=""></p>
+<p><img src="Untitled-ef367f62-d6f5-47da-9086-cdaa914aa5d7.png" alt></p>
 <p>총 Partition의 갯수 (Task의 갯수)를 확인해 보면,  default 로 수행된 partition 2 개와, 우리가 설정해준 Partition 의 갯수인 10개를 합하여 12개인 것을 확인 할 수 있다.</p>
-<p><img src="Untitled-6bf929e7-3f6d-4f2f-8898-04ca7ba404b6.png" alt=""></p>
+<p><img src="Untitled-6bf929e7-3f6d-4f2f-8898-04ca7ba404b6.png" alt></p>
 <p>여기서 한 스텝을 더 들어가보면, spark 만의 특이한 특징을 확인 할 수 있다.</p>
 <pre><code>// 위 코드에 이어서, newData 에 대해
 // newData RDD를 collect 해서 cli에 찍는 command 를 수행해보자.
 newData.collect.foreach(println)
 </code></pre><p>collect api 와 RDD의 element를 print 를 하는 action api 를 수행할 때, 지금까지 공부한 것으로 생각해 보면, text를 읽어서, 2개의 Partition 을 나누고, 다시 10개의 Partition 을 나누는 작업으로 이전의 12 개의 Task 와 다를게 없을 것 같은 느낌이다. 하지만 UI 를 통해 확인해보면, 10개의 Partition 으로 2개가 skipped 되었다고 확인할 수 있다. DAG 에서도, skipped 된 stage에 대해서 회색으로 확인된다.</p>
-<p><img src="Untitled-6e461b14-8e34-4edb-91ad-6dd9ba2ba516.png" alt=""></p>
-<p><img src="Untitled-85afaaf0-58d6-4533-995d-c5ec919da985.png" alt=""></p>
+<p><img src="Untitled-6e461b14-8e34-4edb-91ad-6dd9ba2ba516.png" alt></p>
+<p><img src="Untitled-85afaaf0-58d6-4533-995d-c5ec919da985.png" alt></p>
 <p>이는 spark 에서 이 커맨드라인을 수행할 때, process 간 통신이 file 을 기반으로한 통신을 했기 때문이다. 제일 처음 <code>newData</code> 에 대해서 수행 될 때, 첫 stage 에서 shuffle 이 수행 될 때, 해당 파일을 각 executor 에서 shuffle write 을 하고 저장해두었다가, 두번째 stage 에서 shuffle  이 수행 될때, shuffle read 를 하는 방식으로 file을 기반으로 processor 가 통신하게 된다.</p>
-<p><img src="Untitled-310cc7d4-4e31-4362-bf74-f0e046a27052.png" alt=""></p>
+<p><img src="Untitled-310cc7d4-4e31-4362-bf74-f0e046a27052.png" alt></p>
 <p>따라서, spark 가 같은 command line 을 수행하게 되면 미리 shuffle write  된 file 을 읽기만 함으로써 앞선 stage 의 동일한 반복 작업을 수행하지 않게 되는 것이다. UI 를 확인 해보아도, shuffle read 만 수행 되었다. </p>
-<p><img src="Untitled-e89e6c5f-89f8-475c-af4a-78c1e3ae8377.png" alt=""></p>
+<p><img src="Untitled-e89e6c5f-89f8-475c-af4a-78c1e3ae8377.png" alt></p>
 <h3 id="SaveFile"><a href="#SaveFile" class="headerlink" title="SaveFile!!!"></a>SaveFile!!!</h3><p><code>RDD.saveAsTextFile(&quot;directory_name&quot;)</code> api 를 활용하여, 어떤 처리가 끝난 RDD 를 저장할 수 있다. 이 때 주의 할 점은 parameter 에 들어 가는 것이 directory_name 이라는 것이다. 또한 partition 별로 파일이 저장된다. (e.g. 10개의 partition 이라면, 10개의 file이 저장된다.)</p>
 <h3 id="Cache"><a href="#Cache" class="headerlink" title="Cache!!!"></a>Cache!!!</h3><p>spark가 자랑하는 가장 큰 특징은, data(RDD) 를 memory에 cache  함으로써 처리의 속도가 매우 빠르다는 점이다. <code>RDD.cache</code> api 를 통해 memory 에 캐시할 수 있다. </p>
 <pre><code>// distData RDD 에 이름을 부여
@@ -388,9 +383,9 @@ distData.take(5)
 // action : collect
 distData.collect
 </code></pre><p><code>distData.take(5)</code> 까지 한 결과를 UI 에서 cache 를 살펴보면, 다음과 같다.</p>
-<p><img src="Untitled-54196c66-b41c-4216-af72-5a70b030b321.png" alt=""></p>
+<p><img src="Untitled-54196c66-b41c-4216-af72-5a70b030b321.png" alt></p>
 <p>우리가 설정 한 것 처럼, RDD 의 이름이 myData 로 들어간것을 확인 할 수 있고 cache  역시 확인 할 수 있다. 하지만, Cached  된 비율을 확인하면 전체 RDD  에서 50% 만 된 것을 확인 할 수 있다. 반면에, <code>distData.collect</code> action 을 취하게 되면, Fraction Cached  가 100% 가 된 것을 확인 할 수 있다.</p>
-<p><img src="Untitled-8f50bedc-ace7-4c09-9450-fb277ee5830b.png" alt=""></p>
+<p><img src="Untitled-8f50bedc-ace7-4c09-9450-fb277ee5830b.png" alt></p>
 <p>이는 우리의 action 에 따라 cache 할 용량이 달라 질 수 있기 때문이다. spark 입장에서 take(5) api 는 전체 RDD 중 5개의 element data 만 가져오면되고, 이 때 2개의 Partition 중 하나의 Partition 만 cache 해도 충분하기 때문에 Fraction Cached가 50%라고 나오는 것이다. 반면 collect api 는 collect 자체가 각 executor 에 있는 data 를 driver 로 모두 가져오는 것이므로 100% cache 하게 된다.</p>
 <p><strong>Cache 에서 중요한 것은, 각 executor 의 cache 를 위한 가용 메모리 공간이 해당 Partition의 용량보다 작을 경우, 저장 할 수 있는 용량만큼 저장되는 것이 아니라, 해당 Partition 은 아예 저장이 안되게 된다. 이 점은 Cache를 할 때, Partition 의 용량과 해당 Executor 의 가용 메모리 공간을 미리 파악하여, 설계해야 한다.</strong></p>
 <h3 id="Word-Count-예제"><a href="#Word-Count-예제" class="headerlink" title="Word Count 예제!!!"></a>Word Count 예제!!!</h3><p>우리가 데이터 분석을 할 때, 가장 basic 한 방법은 해당 데이터의 갯수를 세어 보는 것이다. 본 예제에서는 텍스트 파일을 읽어, 띄어쓰기를 바탕으로 word token을 나누고, 이를 세어보자.</p>
@@ -583,8 +578,8 @@ epoch 10000 -- loss 0.3252090811729431
 <li>Pytorch 를 사용하여 Modeling 과 loss function 등을 class 형태, 내장 loss 함수등을 사용해보겠습니다.</li>
 </ul>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> torch</span><br><span class="line"><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn</span><br><span class="line"><span class="hljs-keyword">import</span> torch.optim <span class="hljs-keyword">as</span> optim</span><br><span class="line"><span class="hljs-keyword">import</span> torch.nn.functional <span class="hljs-keyword">as</span> F</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np</span><br><span class="line"><span class="hljs-keyword">import</span> warnings</span><br><span class="line">warnings.filterwarnings(<span class="hljs-string">"ignore"</span>)</span><br><span class="line">%config InlineBackend.figure_format = <span class="hljs-string">'retina'</span></span><br><span class="line">%matplotlib inline</span><br></pre></td></tr></table></figure>
-<h2 id="1-Quadratic-Regression-Model"><a href="#1-Quadratic-Regression-Model" class="headerlink" title="1. Quadratic Regression Model"></a>1. Quadratic Regression Model</h2><p>$$<br>f(x) = w_0 + w_1x + w_2x^2<br>$$</p>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">x = np.linspace(<span class="hljs-number">-10</span>, <span class="hljs-number">10</span>, <span class="hljs-number">100</span>)</span><br><span class="line">y = x**<span class="hljs-number">2</span> + <span class="hljs-number">0.7</span> * x + <span class="hljs-number">3.0</span> + <span class="hljs-number">20</span> * np.random.rand(len(x))</span><br><span class="line"></span><br><span class="line">plt.plot(x, y, <span class="hljs-string">'o'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.xlabel(<span class="hljs-string">'x'</span>)</span><br><span class="line">plt.ylabel(<span class="hljs-string">'y'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<h2 id="1-Quadratic-Regression-Model"><a href="#1-Quadratic-Regression-Model" class="headerlink" title="1. Quadratic Regression Model"></a>1. Quadratic Regression Model</h2><script type="math/tex; mode=display">
+f(x) = w_0 + w_1x + w_2x^2</script><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">x = np.linspace(<span class="hljs-number">-10</span>, <span class="hljs-number">10</span>, <span class="hljs-number">100</span>)</span><br><span class="line">y = x**<span class="hljs-number">2</span> + <span class="hljs-number">0.7</span> * x + <span class="hljs-number">3.0</span> + <span class="hljs-number">20</span> * np.random.rand(len(x))</span><br><span class="line"></span><br><span class="line">plt.plot(x, y, <span class="hljs-string">'o'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.xlabel(<span class="hljs-string">'x'</span>)</span><br><span class="line">plt.ylabel(<span class="hljs-string">'y'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
 <p><img src="output_4_0.png" alt="png"></p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">x_train = torch.FloatTensor([[each_x**<span class="hljs-number">2</span>, each_x, <span class="hljs-number">1</span>] <span class="hljs-keyword">for</span> each_x <span class="hljs-keyword">in</span> x])</span><br><span class="line">y_train = torch.FloatTensor(y)</span><br><span class="line"></span><br><span class="line">print(<span class="hljs-string">"x_train shape: "</span>, x_train.shape)</span><br><span class="line">print(<span class="hljs-string">"y_train shape: "</span>, y_train.shape)</span><br></pre></td></tr></table></figure>
 <pre><code>x_train shape:  torch.Size([100, 3])
@@ -602,8 +597,8 @@ epoch: 9000 -- Parameters: W: tensor([1.0798, 0.4949, 6.8214]) -- loss 42.208694
 epoch: 10000 -- Parameters: W: tensor([1.0721, 0.4949, 7.2935]) -- loss 39.97709655761719
 </code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(x, y, <span class="hljs-string">'o'</span>, label=<span class="hljs-string">'train data'</span>)</span><br><span class="line">plt.plot(x, (x_train.data.matmul(W.data).numpy()), <span class="hljs-string">'-r'</span>, linewidth=<span class="hljs-number">3</span>, label=<span class="hljs-string">'fitted'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
 <p><img src="output_7_0.png" alt="png"></p>
-<h2 id="2-Cubic-Regression-Model"><a href="#2-Cubic-Regression-Model" class="headerlink" title="2. Cubic Regression Model"></a>2. Cubic Regression Model</h2><p>$$<br>f(x) = w_0 + w_1x + w_2x^2 + w_3x^3<br>$$</p>
-<h3 id="2-1-Generate-Toy-data"><a href="#2-1-Generate-Toy-data" class="headerlink" title="2.1 Generate Toy data"></a>2.1 Generate Toy data</h3><ul>
+<h2 id="2-Cubic-Regression-Model"><a href="#2-Cubic-Regression-Model" class="headerlink" title="2. Cubic Regression Model"></a>2. Cubic Regression Model</h2><script type="math/tex; mode=display">
+f(x) = w_0 + w_1x + w_2x^2 + w_3x^3</script><h3 id="2-1-Generate-Toy-data"><a href="#2-1-Generate-Toy-data" class="headerlink" title="2.1 Generate Toy data"></a>2.1 Generate Toy data</h3><ul>
 <li>100개의 data 를 생성합니다.</li>
 </ul>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x = np.linspace(<span class="hljs-number">-1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">100</span>)</span><br><span class="line">y = <span class="hljs-number">3</span>*x**<span class="hljs-number">3</span> - <span class="hljs-number">0.2</span> * x ** <span class="hljs-number">2</span> + <span class="hljs-number">0.7</span> * x + <span class="hljs-number">3</span> + <span class="hljs-number">0.5</span> * np.random.rand(len(x))</span><br></pre></td></tr></table></figure>
@@ -635,9 +630,9 @@ epoch: 13500 -- loss 0.05964164435863495
 epoch: 15000 -- loss 0.055785566568374634
 </code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(x, y, <span class="hljs-string">'o'</span>, label=<span class="hljs-string">'train data'</span>)</span><br><span class="line">plt.plot(x, model(x_train).data.numpy(), <span class="hljs-string">'-r'</span>, linewidth=<span class="hljs-number">3</span>, label=<span class="hljs-string">'fitted'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
 <p><img src="output_19_0.png" alt="png"></p>
-<h2 id="3-Exponential-Regression-Model"><a href="#3-Exponential-Regression-Model" class="headerlink" title="3. Exponential Regression Model"></a>3. Exponential Regression Model</h2><p>$$<br>f(x) = e^{w_0x}<br>$$</p>
-<p>$$<br>g(x) = \ln f(x) = w_0x<br>$$</p>
-<ul>
+<h2 id="3-Exponential-Regression-Model"><a href="#3-Exponential-Regression-Model" class="headerlink" title="3. Exponential Regression Model"></a>3. Exponential Regression Model</h2><script type="math/tex; mode=display">
+f(x) = e^{w_0x}</script><script type="math/tex; mode=display">
+g(x) = \ln f(x) = w_0x</script><ul>
 <li>Exponential 의 경우, Linear Model 형태를 만들어 주기 위해, log 를 씌워 주워 train 을 시킨후, 다시 exponential 을 양변에 취해주는 형태로 modeling 을 하여야 한다.</li>
 </ul>
 <h3 id="3-1-Generate-Toy-data"><a href="#3-1-Generate-Toy-data" class="headerlink" title="3.1 Generate Toy data"></a>3.1 Generate Toy data</h3><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">np.random.seed(<span class="hljs-number">20190505</span>)</span><br><span class="line">x = np.linspace(<span class="hljs-number">-1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">50</span>)</span><br><span class="line">y = np.exp(<span class="hljs-number">2</span> * x) + <span class="hljs-number">0.2</span> * (<span class="hljs-number">2</span> * np.random.rand(len(x)) - <span class="hljs-number">1</span>)</span><br></pre></td></tr></table></figure>
@@ -668,8 +663,8 @@ epoch: 14000 -- loss 0.1677515208721161
 epoch: 15000 -- loss 0.1677515208721161
 </code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(x, y, <span class="hljs-string">'o'</span>, label=<span class="hljs-string">'train data'</span>)</span><br><span class="line">plt.plot(x, np.exp(model(x_train).data.numpy()), <span class="hljs-string">'-r'</span>, linewidth=<span class="hljs-number">3</span>, label=<span class="hljs-string">'fitted'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
 <p><img src="output_29_0.png" alt="png"></p>
-<h2 id="4-Sine-amp-Cosine-Regression"><a href="#4-Sine-amp-Cosine-Regression" class="headerlink" title="4. Sine &amp; Cosine Regression"></a>4. Sine &amp; Cosine Regression</h2><p>$$<br>f(x) = w_0\cos(\pi x) + w_1\sin(\pi  x)<br>$$</p>
-<h3 id="4-1-Generate-Toy-data"><a href="#4-1-Generate-Toy-data" class="headerlink" title="4.1 Generate Toy data"></a>4.1 Generate Toy data</h3><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x = np.linspace(<span class="hljs-number">-2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">100</span>)</span><br><span class="line">y = <span class="hljs-number">2</span> * np.cos(np.pi * x) + <span class="hljs-number">1.5</span> * np.sin(np.pi * x) + <span class="hljs-number">2</span> * np.random.rand(len(x)) - <span class="hljs-number">1</span></span><br></pre></td></tr></table></figure>
+<h2 id="4-Sine-amp-Cosine-Regression"><a href="#4-Sine-amp-Cosine-Regression" class="headerlink" title="4. Sine &amp; Cosine Regression"></a>4. Sine &amp; Cosine Regression</h2><script type="math/tex; mode=display">
+f(x) = w_0\cos(\pi x) + w_1\sin(\pi  x)</script><h3 id="4-1-Generate-Toy-data"><a href="#4-1-Generate-Toy-data" class="headerlink" title="4.1 Generate Toy data"></a>4.1 Generate Toy data</h3><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x = np.linspace(<span class="hljs-number">-2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">100</span>)</span><br><span class="line">y = <span class="hljs-number">2</span> * np.cos(np.pi * x) + <span class="hljs-number">1.5</span> * np.sin(np.pi * x) + <span class="hljs-number">2</span> * np.random.rand(len(x)) - <span class="hljs-number">1</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(x, y, <span class="hljs-string">'o'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.xlabel(<span class="hljs-string">'x'</span>)</span><br><span class="line">plt.ylabel(<span class="hljs-string">'y'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
 <p><img src="output_33_0.png" alt="png"></p>
 <h3 id="4-2-Modeling"><a href="#4-2-Modeling" class="headerlink" title="4.2 Modeling"></a>4.2 Modeling</h3><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x_train = torch.FloatTensor([[np.cos(np.pi*xval), np.sin(np.pi*xval), <span class="hljs-number">1</span>] <span class="hljs-keyword">for</span> xval <span class="hljs-keyword">in</span> x])</span><br><span class="line">y_train = torch.FloatTensor(y).view(<span class="hljs-number">100</span>, <span class="hljs-number">-1</span>)</span><br><span class="line">y_train.shape</span><br></pre></td></tr></table></figure>
@@ -910,6 +905,45 @@ epoch: 10000 -- Parameters: W: tensor([0.2958]) b: tensor([9.6088]) -- loss 7.41
 </div>
     
         
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Links
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">PPOffice</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">github.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
     
         
 <div class="card widget">
@@ -1469,24 +1503,23 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 <script src="/js/insight.js" defer></script>
 <link rel="stylesheet" href="/css/search.css">
-<link rel="stylesheet" href="/css/insight.css"><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
+<link rel="stylesheet" href="/css/insight.css">
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

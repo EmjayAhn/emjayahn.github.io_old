@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
 <title>[CS231n]Lecture02-Image Classification Pipeline - Emjay&#39;s DailyBlog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -173,7 +173,7 @@
             <h1 id="Lecture-02-Image-Classification-Pipeline"><a href="#Lecture-02-Image-Classification-Pipeline" class="headerlink" title="Lecture 02: Image Classification Pipeline"></a>Lecture 02: Image Classification Pipeline</h1><ul>
 <li>이 글은, Standford University 의 CS231n 강의를 듣고 스스로 정리 목적을 위해 적은 글입니다.</li>
 </ul>
-<h2 id="1-Image-Classification-의-기본-TASK"><a href="#1-Image-Classification-의-기본-TASK" class="headerlink" title="1. Image Classification 의 기본 TASK"></a>1. Image Classification 의 기본 TASK</h2><p><img src="Untitled-dfb244ee-00d4-4801-9db3-2247269d65db.png" alt=""></p>
+<h2 id="1-Image-Classification-의-기본-TASK"><a href="#1-Image-Classification-의-기본-TASK" class="headerlink" title="1. Image Classification 의 기본 TASK"></a>1. Image Classification 의 기본 TASK</h2><p><img src="Untitled-dfb244ee-00d4-4801-9db3-2247269d65db.png" alt></p>
 <ul>
 <li>위 사진을 보고, → ‘CAT’ 혹은 ‘고양이’ 라고 classification</li>
 <li>자연스럽게 따라오는 문제는 <strong>“Sementic Gap”</strong> : 우리가 준 data (pixel 값  [0, 255]) 와 Label 간의  gap</li>
@@ -211,14 +211,14 @@
 </ul>
 </li>
 </ul>
-<p><img src="Untitled-2fdb78f0-11b7-49cf-99f8-164d6b79fc2c.png" alt=""></p>
+<p><img src="Untitled-2fdb78f0-11b7-49cf-99f8-164d6b79fc2c.png" alt></p>
 <p>위 그림을 보면, 연두색 공간에 노란색  class 가 포함 되어 있는 것을 볼 수 있다. 이는 generalize 면에서 부족한 모델이라고 볼 수 있다. 같은 알고리즘 이지만, 이를 해결 하는 방법은 K 개의 가까운 neighbor 로 부터 majority voting 을 받은 것으로 classify 를 하는 것이다.</p>
 <h3 id="3-3-K-Nearest-Neightbors"><a href="#3-3-K-Nearest-Neightbors" class="headerlink" title="3-3. K-Nearest Neightbors"></a>3-3. K-Nearest Neightbors</h3><p>Single Nearest 만 보는 것이 아니라, K 개의 가까운 point 의 투표를 통해 해당 test data  의 label 을 예측한다.</p>
 <ul>
 <li>이 때, Voting 하는 방법에는 majority voting ( 다수결 ) 과 weighted voting ( 가중치를 주어 투표: distance 가 가까운 것에 가중치를 준다.)</li>
 <li>가중치를 주는 방법에는 distance 가 커지면 곱해지는 weight 을 줄이는 방법으로 1 / (1+distance) 등을 weight 을 곱해준다.</li>
 </ul>
-<p><img src="Untitled-469c81dd-01a3-4934-8fec-429c34285d0e.png" alt=""></p>
+<p><img src="Untitled-469c81dd-01a3-4934-8fec-429c34285d0e.png" alt></p>
 <h3 id="3-4-k-Nearest-Neighbor-on-images-NEVER-USED"><a href="#3-4-k-Nearest-Neighbor-on-images-NEVER-USED" class="headerlink" title="3-4. k-Nearest Neighbor on images NEVER USED"></a>3-4. k-Nearest Neighbor on images NEVER USED</h3><ul>
 <li>차원의 저주 문제</li>
 <li>knn 이 잘 동작하기 위해서는 dataset 공간을 조밀하게 커버할 만큼의 충분한 training space 가 필요하다. 하지만, data 의 차원이 늘어날 수록 그 충분한 data 의 수가 exponential 하게 늘어난다.</li>
@@ -227,15 +227,14 @@
 <ul>
 <li>첫 번째 방법으로는, Validation set 을 통해 hyperparameter(가설)를 검증하고 선택하여, Test set 을 사용하여 Evaluate 과 Reporting 등을 한다. 딥러닝 모델링에서는 이 방법으로 많이 사용한다.</li>
 </ul>
-<p><img src="Untitled-7d99fc52-7613-4bbf-8cfc-5e036f905602.png" alt=""></p>
+<p><img src="Untitled-7d99fc52-7613-4bbf-8cfc-5e036f905602.png" alt></p>
 <ul>
 <li>두 번째 방법은, data set 의 크기가 크지 않을 때, Train set 안에서 folds 들을 나누어 각 fold 가 돌아가며 validation set 이 되며, 이들의 평균값으로 가설을 비교한다. 이는 딥러닝 모델에서는 적합하지 않은 형태이다. 모델 자체의 연산이 많은데다가, 같은 모델에 대해 많은 validation 이 효율적이지 않기 때문이다. 또한 data가 많지 않은 상태에서 딥러닝 모델을 선택하는 것은 옳지 않다.</li>
 </ul>
-<p><img src="Untitled-1e7d1cc8-fcee-4215-a721-345c8f25e8f5.png" alt=""></p>
+<p><img src="Untitled-1e7d1cc8-fcee-4215-a721-345c8f25e8f5.png" alt></p>
 <h2 id="5-Second-Classifier-Linear-Classifier"><a href="#5-Second-Classifier-Linear-Classifier" class="headerlink" title="5. Second Classifier : Linear Classifier"></a>5. Second Classifier : Linear Classifier</h2><p>Linear Classifier 는 Neural Network 의 기본 골격이다. (1) image data 와 W (parameters or weights) 을 통해 연산을 해주고, (2) function 을 통과해 Classification 을 해준다.</p>
 <p>특히 Linear Classifier 의 경우 아래 와 같이, (1) image data 와 W 를 dot product 를 해주고 (2) linear function f 를 통과한다.</p>
-<p>$$f(x, W) = Wx$$</p>
-<p><img src="Untitled-c15a20fd-b906-44ce-af25-6810bc57751a.png" alt=""></p>
+<script type="math/tex; mode=display">f(x, W) = Wx</script><p><img src="Untitled-c15a20fd-b906-44ce-af25-6810bc57751a.png" alt></p>
 <h2 id="6-Reference"><a href="#6-Reference" class="headerlink" title="6. Reference"></a>6. Reference</h2><p><a href="https://www.youtube.com/watch?v=OoUX-nOEjG0&amp;list=PL3FW7Lu3i5JvHM8ljYj-zLfQRF3EO8sYv&amp;index=2" target="_blank" rel="noopener">Lecture 2 | Image Classification</a></p>
 <p><a href="http://cs231n.stanford.edu/syllabus.html" target="_blank" rel="noopener">Syllabus | CS 231N</a></p>
 
@@ -405,6 +404,45 @@
 </div>
     
         
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Links
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">PPOffice</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">github.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
     
         
 <div class="card widget">
@@ -964,24 +1002,23 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 <script src="/js/insight.js" defer></script>
 <link rel="stylesheet" href="/css/search.css">
-<link rel="stylesheet" href="/css/insight.css"><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
+<link rel="stylesheet" href="/css/insight.css">
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

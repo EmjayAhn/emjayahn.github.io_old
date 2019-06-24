@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
 <title>[CS231n]Lecture05-CNN - Emjay&#39;s DailyBlog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -175,20 +175,19 @@
 </ul>
 <h2 id="1-Convolution-Layer"><a href="#1-Convolution-Layer" class="headerlink" title="1. Convolution Layer"></a>1. Convolution Layer</h2><h3 id="1-1-Fully-Connected-Layer-와-Convolution-Layer-의-비교"><a href="#1-1-Fully-Connected-Layer-와-Convolution-Layer-의-비교" class="headerlink" title="1-1. Fully Connected Layer 와 Convolution Layer 의 비교"></a>1-1. Fully Connected Layer 와 Convolution Layer 의 비교</h3><p>32 x 32 x 3 image 가 있다고 하자. network 에 주입하기 위해, 1 x 3072 로 핀 data 를 상상해 보자.</p>
 <p>Fully Connected Layer 의 경우, 아래 그림 처럼, Weight 과 dot product 가 수행되어, activation 값이 나오게 된다. 이 때, activation 의 갯수는 W 의 크기에 따른다.</p>
-<p><img src="Untitled-c7b225ec-cc03-4a1b-900f-558beebc21b5.png" alt=""></p>
+<p><img src="Untitled-c7b225ec-cc03-4a1b-900f-558beebc21b5.png" alt></p>
 <p>Fully Connected Layer 의 경우, 사진이라는 공간적 구조(Spatial Structure) 가 중요한 data 에 대해, 공간적인 정보를 다 잃어버리는 문제가 발생한다. 공간적 정보를 보존하기 위해 Convolution Layer 를 사용한다. </p>
-<h3 id="1-2-Convolution-Layer-Overview"><a href="#1-2-Convolution-Layer-Overview" class="headerlink" title="1-2. Convolution Layer Overview"></a>1-2. Convolution Layer Overview</h3><p><img src="Untitled-7729c470-9f6b-4d19-9656-cc46c1dfb812.png" alt=""></p>
+<h3 id="1-2-Convolution-Layer-Overview"><a href="#1-2-Convolution-Layer-Overview" class="headerlink" title="1-2. Convolution Layer Overview"></a>1-2. Convolution Layer Overview</h3><p><img src="Untitled-7729c470-9f6b-4d19-9656-cc46c1dfb812.png" alt></p>
 <p>이 때, 실제 convolution 계산은 image 의 filter 크기 만큼의 matrix 를 vectorize 한 후, filter vector 와 dot product 로 수행한다고 한다. 따라서 이 때 헷갈리지 않도록 할 것은, 한번의 Convolution 연산 결과는 <strong>하나의 scalar value</strong> 가 된다. 따라서, 하나의 filter 가 이미지 한 장을 훑어 내려간다면, 원본 이미지보다는 조금 작은 depth 가 1인 <strong>activation map</strong> 이 결과로 나온다.</p>
-<p><img src="Untitled-fce64257-258e-4b3e-93ab-d0543662984f.png" alt=""></p>
+<p><img src="Untitled-fce64257-258e-4b3e-93ab-d0543662984f.png" alt></p>
 <p>따라서 activation map 의 깊이(channel 수)는, <strong>filter 의 갯수</strong> 와 동일하다. 여러개의 필터는 이미지의 각기 다른 특징을 추출하려는 의도에서 사용된다.</p>
 <p>그 후, 이 Convolution 의 결과인 activation map 을 비선형 함수(ReLU 등)에 통과 시킨다.</p>
 <p><strong>여러 유명한 ConvNet 들은 이렇게, Convolution Layer 와 비선형함수를 반복적으로 나열 한 Network  라고 볼수 있다</strong></p>
 <h3 id="1-3-Convolution-Layer-의-결과물"><a href="#1-3-Convolution-Layer-의-결과물" class="headerlink" title="1-3. Convolution Layer 의 결과물"></a>1-3. Convolution Layer 의 결과물</h3><p>이렇게 여러 계층의 Convolution Layer를 쌓는 것은, 가장 아래 Layer 부터 높은 Layer 까지 단순한 feature → 복잡한 feature 를 뽑아 내는 것으로 볼 수 있다.</p>
-<p><img src="Untitled-5fec1f58-a947-449b-8d71-772aac9a6f3e.png" alt=""></p>
-<h3 id="1-4-Convolution-Layer-연산"><a href="#1-4-Convolution-Layer-연산" class="headerlink" title="1-4. Convolution Layer 연산"></a>1-4. Convolution Layer 연산</h3><p><img src="Untitled-2a8adbad-1f2a-4fac-898d-aac944438a1b.png" alt=""></p>
+<p><img src="Untitled-5fec1f58-a947-449b-8d71-772aac9a6f3e.png" alt></p>
+<h3 id="1-4-Convolution-Layer-연산"><a href="#1-4-Convolution-Layer-연산" class="headerlink" title="1-4. Convolution Layer 연산"></a>1-4. Convolution Layer 연산</h3><p><img src="Untitled-2a8adbad-1f2a-4fac-898d-aac944438a1b.png" alt></p>
 <p>filter 가 이미지를 훑고 지나가면서 convolution 연산을 한 후, 나온 결과는 원본 이미지보다 그 크기가 작아지게 된다. 그 정도는 filter 의 크기와 filter 가 훑고 지나가는 간격인 stride 에 따라 바뀌게 된다. </p>
-<p>$$output \;size = (N-F)/stride + 1$$</p>
-<p><strong>문제점:</strong></p>
+<script type="math/tex; mode=display">output \;size = (N-F)/stride + 1</script><p><strong>문제점:</strong></p>
 <ol>
 <li><p>convolution 연산의 문제는 이미지의 모서리에 있는 정보는 가운데에 있는 이미지의 정보보다 적게 추출 되는 문제가 있다.(filter 가 모서리를 넘어서는 이동 할 수 없으므로)</p>
 </li>
@@ -377,6 +376,45 @@
 </div>
     
         
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Links
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">PPOffice</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">github.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
     
         
 <div class="card widget">
@@ -936,24 +974,23 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 <script src="/js/insight.js" defer></script>
 <link rel="stylesheet" href="/css/search.css">
-<link rel="stylesheet" href="/css/insight.css"><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
+<link rel="stylesheet" href="/css/insight.css">
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

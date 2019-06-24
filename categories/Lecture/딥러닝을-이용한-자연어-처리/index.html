@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
 <title>Category: 딥러닝을 이용한 자연어 처리 - Emjay&#39;s DailyBlog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -201,14 +201,12 @@
 <li><p>제공되는 것들:</p>
 <ol>
 <li><p>N 개의 pair 로 된 training set</p>
-<p> $$D = {(x_1, y_1), …, (x_N, y_N)}$$</p>
-</li>
+<script type="math/tex; mode=display">D = {(x_1, y_1), ..., (x_N, y_N)}</script></li>
 <li><p>Data 별 loss function</p>
 <ul>
 <li>Loss function 은 필요에 따라서 우리가 디자인 해야 할 때도 있다.</li>
 </ul>
-<p>$$l(M(x), y) \geq 0$$</p>
-</li>
+<script type="math/tex; mode=display">l(M(x), y) \geq 0</script></li>
 <li><p>Evaluation sets: Validation set과 test set</p>
 </li>
 </ol>
@@ -255,11 +253,9 @@
 <li><p>관점의 이동:</p>
 <ul>
 <li><p>어떤 주어진 data x 에 대하여 y 는 무엇일까? 를 생각하는 모델이 아니라,</p>
-<p>$$f_\theta(x) = ? $$</p>
-</li>
+<script type="math/tex; mode=display">f_\theta(x) = ?</script></li>
 <li><p>주어진 x 에 대해 y가 어떤 case 혹은 값일 확률로 생각한다.</p>
-<p>$$p(y=y’|x) = ?$$</p>
-</li>
+<script type="math/tex; mode=display">p(y=y'|x) = ?</script></li>
 </ul>
 </li>
 <li><p>Distribution based loss functions</p>
@@ -272,12 +268,10 @@
 </li>
 <li>결국 Loss Function 은 다음과 같이 표현될 수 있다. Maximize logp</li>
 </ul>
-<p>$$argmax_\theta \sum_{n=1}^{N} logp_\theta(y_n|x_n)$$</p>
-<ul>
+<script type="math/tex; mode=display">argmax_\theta \sum_{n=1}^{N} logp_\theta(y_n|x_n)</script><ul>
 <li>= minimize L(theta):</li>
 </ul>
-<p>$$L(\theta) = \sum_{n=1}^{N} l(M_\theta(x_n), y_n)=  -\sum_{n=1}^{N} logp_\theta(y_n|x_n)$$</p>
-<h3 id="3-Optimization"><a href="#3-Optimization" class="headerlink" title="3. Optimization"></a>3. Optimization</h3><ul>
+<script type="math/tex; mode=display">L(\theta) = \sum_{n=1}^{N} l(M_\theta(x_n), y_n)=  -\sum_{n=1}^{N} logp_\theta(y_n|x_n)</script><h3 id="3-Optimization"><a href="#3-Optimization" class="headerlink" title="3. Optimization"></a>3. Optimization</h3><ul>
 <li>Optimization 방법<ul>
 <li>Optimization 방법에는 GD, SGD, Newton Method 등 다양한 방법이 있지만, Nerual Network 에서는 Gradient Descent 방법을 위주로 사용한다. 이 강의에서는 다루지 않았지만, Gradient Descent  방법 외의 다른 알고리즘들은 전제되는 가정들이 많고, Nerual Network 의 고차원에서는 그 가정을 만족하기가 쉽지 않다. (예를 들어, Newton Method 에서의 Hessian 행렬이 구해지기 위한 가정, computation 양 또한 매우 많다.) 이런 이유에서 Gradient Descent 방법을 사용한다.</li>
 </ul>
@@ -403,6 +397,45 @@
 </div>
     
         
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Links
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">PPOffice</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">github.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
     
         
 <div class="card widget">
@@ -962,24 +995,23 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 <script src="/js/insight.js" defer></script>
 <link rel="stylesheet" href="/css/search.css">
-<link rel="stylesheet" href="/css/insight.css"><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
+<link rel="stylesheet" href="/css/insight.css">
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

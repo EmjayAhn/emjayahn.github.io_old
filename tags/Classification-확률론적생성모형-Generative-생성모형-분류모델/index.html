@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
 <title>Tag: Classification, 확률론적생성모형, Generative, 생성모형, 분류모델 - Emjay&#39;s DailyBlog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -183,8 +183,9 @@
             <h1 id="확률론적-생성모형-Generative-Model"><a href="#확률론적-생성모형-Generative-Model" class="headerlink" title="확률론적 생성모형 (Generative Model)"></a>확률론적 생성모형 (Generative Model)</h1><h2 id="확률론적-생성모형의-기본-개념"><a href="#확률론적-생성모형의-기본-개념" class="headerlink" title="확률론적 생성모형의 기본 개념"></a>확률론적 생성모형의 기본 개념</h2><ul>
 <li><p>우리가 궁금한 것은 $ x $ (features) 들이 있을 떄, $ y $가 어떤 Class 인지 맞추는 것이다. 맞추기 위해서는 training set 으로 부터 각 Class 마다 $ P(y \mid x) $의 모형을 알아내야 한다.</p>
 </li>
-<li><p>베이즈 정리를 이용하여, $ y=C_k $일 때의 조건부 확률을 구할 수 있다.<br>$$<br>P(y = C_k \mid x) = \dfrac{P(x \mid y = C_k)\; P(y = C_k)}{P(x)}<br>$$</p>
-</li>
+<li><p>베이즈 정리를 이용하여, $ y=C_k $일 때의 조건부 확률을 구할 수 있다.</p>
+<script type="math/tex; mode=display">
+P(y = C_k \mid x) = \dfrac{P(x \mid y = C_k)\; P(y = C_k)}{P(x)}</script></li>
 <li><p>이 때, $ P(x \mid y = C_k) $<br>== <strong>Likelihood</strong><br>== y가 k라는 클래스 일 때, x의 확률을 구하는 것이 관건</p>
 </li>
 </ul>
@@ -310,6 +311,45 @@
 </div>
     
         
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Links
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">PPOffice</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">github.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
     
         
 <div class="card widget">
@@ -869,24 +909,23 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 <script src="/js/insight.js" defer></script>
 <link rel="stylesheet" href="/css/search.css">
-<link rel="stylesheet" href="/css/insight.css"><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
+<link rel="stylesheet" href="/css/insight.css">
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

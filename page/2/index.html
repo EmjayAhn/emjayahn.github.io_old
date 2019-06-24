@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
 <title>Emjay&#39;s DailyBlog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -188,14 +188,12 @@
 <li><p>제공되는 것들:</p>
 <ol>
 <li><p>N 개의 pair 로 된 training set</p>
-<p> $$D = {(x_1, y_1), …, (x_N, y_N)}$$</p>
-</li>
+<script type="math/tex; mode=display">D = {(x_1, y_1), ..., (x_N, y_N)}</script></li>
 <li><p>Data 별 loss function</p>
 <ul>
 <li>Loss function 은 필요에 따라서 우리가 디자인 해야 할 때도 있다.</li>
 </ul>
-<p>$$l(M(x), y) \geq 0$$</p>
-</li>
+<script type="math/tex; mode=display">l(M(x), y) \geq 0</script></li>
 <li><p>Evaluation sets: Validation set과 test set</p>
 </li>
 </ol>
@@ -242,11 +240,9 @@
 <li><p>관점의 이동:</p>
 <ul>
 <li><p>어떤 주어진 data x 에 대하여 y 는 무엇일까? 를 생각하는 모델이 아니라,</p>
-<p>$$f_\theta(x) = ? $$</p>
-</li>
+<script type="math/tex; mode=display">f_\theta(x) = ?</script></li>
 <li><p>주어진 x 에 대해 y가 어떤 case 혹은 값일 확률로 생각한다.</p>
-<p>$$p(y=y’|x) = ?$$</p>
-</li>
+<script type="math/tex; mode=display">p(y=y'|x) = ?</script></li>
 </ul>
 </li>
 <li><p>Distribution based loss functions</p>
@@ -259,12 +255,10 @@
 </li>
 <li>결국 Loss Function 은 다음과 같이 표현될 수 있다. Maximize logp</li>
 </ul>
-<p>$$argmax_\theta \sum_{n=1}^{N} logp_\theta(y_n|x_n)$$</p>
-<ul>
+<script type="math/tex; mode=display">argmax_\theta \sum_{n=1}^{N} logp_\theta(y_n|x_n)</script><ul>
 <li>= minimize L(theta):</li>
 </ul>
-<p>$$L(\theta) = \sum_{n=1}^{N} l(M_\theta(x_n), y_n)=  -\sum_{n=1}^{N} logp_\theta(y_n|x_n)$$</p>
-<h3 id="3-Optimization"><a href="#3-Optimization" class="headerlink" title="3. Optimization"></a>3. Optimization</h3><ul>
+<script type="math/tex; mode=display">L(\theta) = \sum_{n=1}^{N} l(M_\theta(x_n), y_n)=  -\sum_{n=1}^{N} logp_\theta(y_n|x_n)</script><h3 id="3-Optimization"><a href="#3-Optimization" class="headerlink" title="3. Optimization"></a>3. Optimization</h3><ul>
 <li>Optimization 방법<ul>
 <li>Optimization 방법에는 GD, SGD, Newton Method 등 다양한 방법이 있지만, Nerual Network 에서는 Gradient Descent 방법을 위주로 사용한다. 이 강의에서는 다루지 않았지만, Gradient Descent  방법 외의 다른 알고리즘들은 전제되는 가정들이 많고, Nerual Network 의 고차원에서는 그 가정을 만족하기가 쉽지 않다. (예를 들어, Newton Method 에서의 Hessian 행렬이 구해지기 위한 가정, computation 양 또한 매우 많다.) 이런 이유에서 Gradient Descent 방법을 사용한다.</li>
 </ul>
@@ -408,11 +402,7 @@
         </h1>
         <div class="content">
             <h1 id="190109-TWIL"><a href="#190109-TWIL" class="headerlink" title="190109 TWIL"></a>190109 TWIL</h1><hr>
-<h2 id="오늘-한-일은-무엇인가"><a href="#오늘-한-일은-무엇인가" class="headerlink" title="오늘 한 일은 무엇인가"></a>오늘 한 일은 무엇인가</h2><ol>
-<li>BLOG RENEWAL</li>
-</ol>
-<hr>
-<h2 id="내일-할-일은-무엇인가"><a href="#내일-할-일은-무엇인가" class="headerlink" title="내일 할 일은 무엇인가"></a>내일 할 일은 무엇인가</h2><ol>
+<h2 id="오늘-한-일은-무엇인가"><a href="#오늘-한-일은-무엇인가" class="headerlink" title="오늘 한 일은 무엇인가"></a>오늘 한 일은 무엇인가</h2><h2 id="1-BLOG-RENEWAL"><a href="#1-BLOG-RENEWAL" class="headerlink" title="1. BLOG RENEWAL"></a>1. BLOG RENEWAL</h2><h2 id="내일-할-일은-무엇인가"><a href="#내일-할-일은-무엇인가" class="headerlink" title="내일 할 일은 무엇인가"></a>내일 할 일은 무엇인가</h2><ol>
 <li>Graph모형 공부</li>
 <li>LinearAlgebra 1강, 2강<br><br></li>
 </ol>
@@ -480,11 +470,7 @@
 <li>LinearAlgebra 1강, 2강<br><br></li>
 </ol>
 <hr>
-<h2 id="내일-할-일은-무엇인가"><a href="#내일-할-일은-무엇인가" class="headerlink" title="내일 할 일은 무엇인가"></a>내일 할 일은 무엇인가</h2><ol>
-<li>네트워크 추론 공부(수식 위주로 공부)</li>
-</ol>
-<hr>
-
+<h2 id="내일-할-일은-무엇인가"><a href="#내일-할-일은-무엇인가" class="headerlink" title="내일 할 일은 무엇인가"></a>내일 할 일은 무엇인가</h2><h2 id="1-네트워크-추론-공부-수식-위주로-공부"><a href="#1-네트워크-추론-공부-수식-위주로-공부" class="headerlink" title="1. 네트워크 추론 공부(수식 위주로 공부)"></a>1. 네트워크 추론 공부(수식 위주로 공부)</h2>
         </div>
         
         
@@ -529,11 +515,7 @@
         </h1>
         <div class="content">
             <h1 id="181225-TWIL"><a href="#181225-TWIL" class="headerlink" title="181225 TWIL"></a>181225 TWIL</h1><hr>
-<h2 id="오늘-한-일은-무엇인가"><a href="#오늘-한-일은-무엇인가" class="headerlink" title="오늘 한 일은 무엇인가"></a>오늘 한 일은 무엇인가</h2><ol>
-<li>(Project) Text Preprocessing</li>
-</ol>
-<hr>
-<h2 id="내일-할-일은-무엇인가"><a href="#내일-할-일은-무엇인가" class="headerlink" title="내일 할 일은 무엇인가"></a>내일 할 일은 무엇인가</h2><ol>
+<h2 id="오늘-한-일은-무엇인가"><a href="#오늘-한-일은-무엇인가" class="headerlink" title="오늘 한 일은 무엇인가"></a>오늘 한 일은 무엇인가</h2><h2 id="1-Project-Text-Preprocessing"><a href="#1-Project-Text-Preprocessing" class="headerlink" title="1. (Project) Text Preprocessing"></a>1. (Project) Text Preprocessing</h2><h2 id="내일-할-일은-무엇인가"><a href="#내일-할-일은-무엇인가" class="headerlink" title="내일 할 일은 무엇인가"></a>내일 할 일은 무엇인가</h2><ol>
 <li>(Project) Project 모임</li>
 <li>Linear Algebra 강의 2강, 3강 듣기<br><br></li>
 </ol>
@@ -603,11 +585,7 @@
 <li>Classification 개념 다시 보기<br><br></li>
 </ol>
 <hr>
-<h2 id="무엇을-느꼈는가"><a href="#무엇을-느꼈는가" class="headerlink" title="무엇을 느꼈는가"></a>무엇을 느꼈는가</h2><ul>
-<li>즐기자</li>
-</ul>
-<hr>
-
+<h2 id="무엇을-느꼈는가"><a href="#무엇을-느꼈는가" class="headerlink" title="무엇을 느꼈는가"></a>무엇을 느꼈는가</h2><h2 id="즐기자"><a href="#즐기자" class="headerlink" title="- 즐기자"></a>- 즐기자</h2>
         </div>
         
         
@@ -901,7 +879,7 @@
 <li>Algorithm 추가 과제 마무리</li>
 <li>수학 12-5장까지 복습</li>
 </ol>
-<h2 id=""><a href="#" class="headerlink" title=""></a><br></h2><h2 id="무엇을-느꼈는가"><a href="#무엇을-느꼈는가" class="headerlink" title="무엇을 느꼈는가"></a>무엇을 느꼈는가</h2><ul>
+<h2 id><a href="#" class="headerlink" title></a><br></h2><h2 id="무엇을-느꼈는가"><a href="#무엇을-느꼈는가" class="headerlink" title="무엇을 느꼈는가"></a>무엇을 느꼈는가</h2><ul>
 <li>Insuracne Data regression 을 진행하면서, 지난 프로젝트에서는 다가가지 못한 Step 들을 수행하였다. 잔차의 정규성을 검토하면서, 이를 발전 시킬 수 있는 방법에 대해 코드를 작성하였고, EDA 과정을 꼼꼼히 한 덕분인지, regression  formula 를 돌리는데 있어 각 스텝마다, 작은 근거들이 생겨났다.</li>
 <li>아직은 수업 자료에서 모든 내용을 담을 만큼 Performance 와 스텝간의 근거들이 명확하지 않기 때문에 공부할 것이 한참남았지만, 오늘 새로운 데이터셋을 좀더 꼼꼼히 EDA 를 하면서, 새롭게 알게되고, 적용할 수 있는 것들이 생겨 뿌듯했다.</li>
 </ul>
@@ -1046,6 +1024,45 @@
 </div>
     
         
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Links
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">PPOffice</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">github.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
     
         
 <div class="card widget">
@@ -1605,24 +1622,23 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 <script src="/js/insight.js" defer></script>
 <link rel="stylesheet" href="/css/search.css">
-<link rel="stylesheet" href="/css/insight.css"><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
+<link rel="stylesheet" href="/css/insight.css">
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

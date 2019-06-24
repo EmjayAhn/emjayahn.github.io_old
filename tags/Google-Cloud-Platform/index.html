@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
 <title>Tag: Google Cloud Platform - Emjay&#39;s DailyBlog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -194,30 +194,30 @@
 <li>Jupyter 설치 및 환경설정</li>
 </ol>
 <h2 id="1-인스턴스-생성-및-네트워크-설정"><a href="#1-인스턴스-생성-및-네트워크-설정" class="headerlink" title="1. 인스턴스 생성 및 네트워크 설정"></a>1. 인스턴스 생성 및 네트워크 설정</h2><p>Compute Engine에서 자신의 목적에 맞는 리소스를 정해, 인스턴스를 생성해줍니다.</p>
-<p><img src="Untitled-aa8ea35c-8d35-4efb-8fda-520336241429.png" alt=""></p>
+<p><img src="Untitled-aa8ea35c-8d35-4efb-8fda-520336241429.png" alt></p>
 <p>Jupyter  notebook 을 사용하기 위해, VPC 네트워크 → 방화벽 규칙 탭에서 방화벽 규칙을 만들어 줍니다. 후에 Tensorboard 와 다른 기타 환경들을 사용할 때 그에 맞는 포트 규칙을 동일한 방법으로 열어주면 됩니다. 아래의 4가지를 설정해주고 ‘만들기’ 클릭</p>
 <p>이름 : jupyter</p>
 <p>소스 IP 범위: 0.0.0.0/0</p>
 <p>대상 태그: jupyter</p>
 <p>tcp: 8888</p>
 <p>http, https: 체크</p>
-<p><img src="Untitled-e502c0fe-c454-4da1-bf99-5ee9c057bab5.png" alt=""></p>
+<p><img src="Untitled-e502c0fe-c454-4da1-bf99-5ee9c057bab5.png" alt></p>
 <h2 id="2-접속을-위한-RSA-key-pair-생성-및-ssh-접속"><a href="#2-접속을-위한-RSA-key-pair-생성-및-ssh-접속" class="headerlink" title="2. 접속을 위한 RSA key pair 생성 및 ssh 접속"></a>2. 접속을 위한 RSA key pair 생성 및 ssh 접속</h2><ul>
 <li>gcp 에서 제공하는 gcloud로도 접속 할 수 있습니다.</li>
 </ul>
 <ol>
 <li><p>위에서 생성한 인스턴스에 접속하기 위해, RSA key pair 를 이를 통해 접속 해 봅니다. 아래의 명령어를 이용해 키페어를 생성해 줍니다. 이 때, USERNAME 은 gcp에 등록한 이메일로 설정합니다.</p>
 <p> $ ssh-keygen -t rsa -f ~/.ssh/[KEYFILE_NAME] -C “[USERNAME]”</p>
-<p> example) $ ssh-keygen -t rsa -f ~/.ssh/gcp-key -C “<a href="mailto:myemail@mail.com" target="_blank" rel="noopener">myemail@mail.com</a>“</p>
+<p> example) $ ssh-keygen -t rsa -f ~/.ssh/gcp-key -C “myemail@mail.com”</p>
 </li>
 </ol>
 <p>앞으로 사용할 Password 를 입력하고, </p>
 <p>생성된 키페어는 <code>.ssh</code> 폴더 안에서 확인 할 수 있습니다. <code>.ssh/[KEYFILE_NAME].pub</code> 를 확인해 볼 수 있습니다.</p>
-<ol start="2">
+<ol>
 <li>생성한 키페어를 gcp 의 메타데이터 탭 → SSH 키에 등록합니다.</li>
 </ol>
-<p><img src="Untitled-ac2cd300-7176-46cc-92d2-aa405a955f85.png" alt=""></p>
-<ol start="3">
+<p><img src="Untitled-ac2cd300-7176-46cc-92d2-aa405a955f85.png" alt></p>
+<ol>
 <li><p>ssh 접속</p>
 <p> $ ssh -i ~/.ssh/[KEYFILE_NAME] [USERNAME]@[GCP외부IP]</p>
 </li>
@@ -228,7 +228,7 @@
 </li>
 </ol>
 <p>en_US.UTF-8이 [*] 로 체크 되어 있는지까지 확인합니다.</p>
-<ol start="2">
+<ol>
 <li>Python3, PIP 설치<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt update</span><br><span class="line">$ sudo apt install python3-pip</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
@@ -238,11 +238,11 @@
 <li>먼저, 설치 파일을 다운로드 해줍니다.</li>
 </ol>
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 루트에서</span><br><span class="line">$ wget [http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64/](https://developer.nvidia.com/compute/cuda/10.0/Prod/local_installers/cuda-repo-ubuntu1804-10-0-local-10.0.130-410.48_1.0-1_amd64)</span><br></pre></td></tr></table></figure>
-<ol start="2">
+<ol>
 <li><code>ls</code> 로 cuda-repo-ubuntu1804-10-0-local-10.0.130-410.48_1.0-1_amd64.deb 이 잘 다운로드 되었는지 확인 해 줍니다. 다운로드 결과 <code>.deb</code> 확장자가 되어있지 않다면, 파일명에 .deb 를 뒤에 붙여 줍니다.</li>
 </ol>
 <p><code>mv cuda-repo-ubuntu1804-10-0-local-10.0.130-410.48_1.0-1_amd64 cuda-repo-ubuntu1804-10-0-local-10.0.130-410.48_1.0-1_amd64.deb</code></p>
-<ol start="3">
+<ol>
 <li>설치<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo dpkg -i cuda-repo-ubuntu1804-10-0-local-10.0.130-410.48_1.0-1_amd64.deb</span><br><span class="line">$ sudo apt add /var/cuda-repo-&lt;version&gt;/7fa2af80.pub</span><br><span class="line">$ sudo apt update</span><br><span class="line">$ sudo apt install cuda</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
@@ -257,7 +257,7 @@
 </li>
 </ol>
 <p>설치 후, <code>$ jupyter notebook</code> 으로 주피터 커널이 켜지는지 확인합니다.</p>
-<ol start="2">
+<ol>
 <li><p>주피터 config 파일을 생성합니다.</p>
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ jupyter notebook --generate-config</span><br></pre></td></tr></table></figure>
 </li>
@@ -266,13 +266,13 @@
 </li>
 </ol>
 <p>출력된 비밀번호 해쉬  <code>sha1: ~~~</code> 를 복사해 둡니다.</p>
-<ol start="4">
+<ol>
 <li>우리의 인스턴스는 https 프로토콜을 사용하므로, SSL 키파일을 생성해야 합니다.<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout cert.pem -out cert.pem</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <p>위 명령어를 입력하고, 뒤따라 나오는 정보들을 입력하여, <code>.pem</code> 파일을 생성합니다.</p>
-<ol start="5">
-<li><ol start="2">
+<ol>
+<li><ol>
 <li>에서 생성한 config 파일 수정<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vi /home/[USERNAME]/.jupyter/jupyter_notebook_config.py</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
@@ -395,6 +395,45 @@
 </div>
     
         
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Links
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">PPOffice</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">github.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
     
         
 <div class="card widget">
@@ -954,24 +993,23 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 <script src="/js/insight.js" defer></script>
 <link rel="stylesheet" href="/css/search.css">
-<link rel="stylesheet" href="/css/insight.css"><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
+<link rel="stylesheet" href="/css/insight.css">
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>
