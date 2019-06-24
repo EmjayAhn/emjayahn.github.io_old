@@ -1,15 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head><meta name="generator" content="Hexo 3.8.0">
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+<title>Category: 딥러닝을 이용한 자연어 처리 - Emjay&#39;s DailyBlog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    
 
-    
-    <title>Category: 딥러닝을 이용한 자연어 처리 | Emjay&#39;s DailyBlog</title>
-    
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
+
     <meta name="description" content="공부한 것, 알게된 것을 기록하는 블로그입니다.">
 <meta name="keywords" content="hexo,datascience,datascientist">
 <meta property="og:type" content="website">
@@ -18,309 +15,993 @@
 <meta property="og:site_name" content="Emjay&#39;s DailyBlog">
 <meta property="og:description" content="공부한 것, 알게된 것을 기록하는 블로그입니다.">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="https://emjayahn.github.io/images/og_image.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Emjay&#39;s DailyBlog">
 <meta name="twitter:description" content="공부한 것, 알게된 것을 기록하는 블로그입니다.">
+<meta name="twitter:image" content="https://emjayahn.github.io/images/og_image.png">
+
+
+
+
+
+<link rel="alternative" href="/atom.xml" title="Emjay&#39;s DailyBlog" type="application/atom+xml">
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
     
 
     
-        <link rel="alternate" href="/atom.xml" title="Emjay&#39;s DailyBlog" type="application/atom+xml">
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
     
 
     
+    
 
-    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
-    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
 
-    <link rel="stylesheet" href="/css/style.css">
 
-    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
     
     
-        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
-    
-    
-        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
-    
-    
-        <script type="text/javascript">
-(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-128251719-1', 'auto');
-ga('send', 'pageview');
-
-</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
     
     
 
+<link rel="stylesheet" href="/css/back-to-top.css">
 
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
-</html>
-<body>
-    <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="wrap">
-        <header id="header">
-    <div id="header-outer" class="outer">
-        <div class="container">
-            <div class="container-inner">
-                <div id="header-title">
-                    <h1 class="logo-wrap">
-                        <a href="/" class="logo"></a>
-                    </h1>
+<body class="is-2-column">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/Emjaybloglogo_edit.png" alt="Emjay&#39;s DailyBlog" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">Home</a>
+                
+                <a class="navbar-item" href="/archives">Archives</a>
+                
+                <a class="navbar-item" href="/categories">Categories</a>
+                
+                <a class="navbar-item" href="/tags">Tags</a>
+                
+                <a class="navbar-item" href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
                     
-                        <h2 class="subtitle-wrap">
-                            <p class="subtitle">Emjay&#39;s DataScience &amp; Development</p>
-                        </h2>
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="https://github.com/emjayahn">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                
+                <a class="navbar-item search" title="Search" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-8-widescreen has-order-2 column-main"><div class="card">
+    <div class="card-content">
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+        <ul>
+            <li><a href="/categories">Categories</a></li>
+            
+            <li><a href="/categories/Lecture/">Lecture</a></li>
+            
+            <li class="is-active"><a href="#" aria-current="page">딥러닝을 이용한 자연어 처리</a></li>
+        </ul>
+        </nav>
+    </div>
+</div>
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-05-03T04:24:28.000Z">2019-05-03</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/Lecture/">Lecture</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/Lecture/딥러닝을-이용한-자연어-처리/">딥러닝을 이용한 자연어 처리</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    8 minutes read (About 1133 words)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/05/03/Lecture-딥러닝을-이용한-자연어-처리-Section-A-B/">[Lecture] 딥러닝을 이용한 자연어 처리 Section A, B</a>
+            
+        </h1>
+        <div class="content">
+            <h1 id="Section-A-B-Summary"><a href="#Section-A-B-Summary" class="headerlink" title="Section A, B - Summary"></a>Section A, B - Summary</h1><p>이 글은 edwith(<a href="https://www.edwith.org/" target="_blank" rel="noopener">https://www.edwith.org/</a>)의 조경현 교수님의 딥러닝을 이용한 자연어 처리 (<a href="https://www.edwith.org/deepnlp/joinLectures/17363" target="_blank" rel="noopener">https://www.edwith.org/deepnlp/joinLectures/17363</a>)강의를 듣고 정리한 글입니다.</p>
+<h2 id="Section-A-Introduction"><a href="#Section-A-Introduction" class="headerlink" title="Section A. Introduction"></a>Section A. Introduction</h2><ul>
+<li>알고리즘의 정의 : 문제를 해결하기 위한 instruction 의 sequence</li>
+<li><p>Machine Learning Algorithm</p>
+<ol>
+<li><p>문제 정의 (optional) : 문제를 specific 하게 정의 하는 것 자체가 쉽지 않다.</p>
+<p> ex) 얼굴을 detection 할 때, 어떤 범위까지 얼굴이라고 정의할 것인지</p>
+</li>
+<li><p>Example들이 주어진다 → 데이터들</p>
+</li>
+<li>문제를 해결 할 수 있는 Train된 Machine Learning Model</li>
+</ol>
+</li>
+</ul>
+<h2 id="Section-B-Basic-Machine-Learning-Supervised-Learning"><a href="#Section-B-Basic-Machine-Learning-Supervised-Learning" class="headerlink" title="Section B. Basic Machine Learning: Supervised Learning"></a>Section B. Basic Machine Learning: Supervised Learning</h2><h3 id="0-Supervised-Learning"><a href="#0-Supervised-Learning" class="headerlink" title="0. Supervised Learning"></a>0. Supervised Learning</h3><ul>
+<li><p>제공되는 것들:</p>
+<ol>
+<li><p>N 개의 pair 로 된 training set</p>
+<p> $$D = {(x_1, y_1), …, (x_N, y_N)}$$</p>
+</li>
+<li><p>Data 별 loss function</p>
+<ul>
+<li>Loss function 은 필요에 따라서 우리가 디자인 해야 할 때도 있다.</li>
+</ul>
+<p>$$l(M(x), y) \geq 0$$</p>
+</li>
+<li><p>Evaluation sets: Validation set과 test set</p>
+</li>
+</ol>
+<ul>
+<li>기존에 보지 못한 dataset 에도 trained model 이 잘 작동 하는지 확인하는 것이 필수</li>
+</ul>
+</li>
+<li>우리가 결정해야 하는 것들:<ol>
+<li>Hypothesis sets: H1, H2 … :<ul>
+<li>모델, hyper parameter들이 다른 모델, 여러가지 실험 해보고 싶은 것들이 될 수 있다.</li>
+<li>가설을 잘 설정하는 것이 최종의 모델을 결정하는데 중요한 기초 작업</li>
+</ul>
+</li>
+<li>Optimization Algorithm<ul>
+<li>어떤 방법론으로 최적화를 진행 할지 역시 매우 중요한 문제</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>결국, 우리가 해야 하는 것은<ol>
+<li>주어진 Training set 에서, hypothesis set 안의 각 Hm 마다 가장 좋은 모델을 찾는다.</li>
+<li>Trained Hm 중에서, Validation set 에서 가장 좋은 한 가지 모델을 결정한다.</li>
+<li>Reporting 을 위해 test set 에서 얼마나 좋은 성능을 나타내는지 확인한다.</li>
+</ol>
+</li>
+</ul>
+<h3 id="Three-points-to-Consider-both-in-research-and-in-practice"><a href="#Three-points-to-Consider-both-in-research-and-in-practice" class="headerlink" title="[Three points to Consider both in research and in practice]"></a>[Three points to Consider both in research and in practice]</h3><h3 id="1-어떻게-Hypothesis-set-을-설정하는가"><a href="#1-어떻게-Hypothesis-set-을-설정하는가" class="headerlink" title="1. 어떻게 Hypothesis set 을 설정하는가?"></a>1. 어떻게 Hypothesis set 을 설정하는가?</h3><ul>
+<li><p>Hypothesis Set 자체가 infinite 하다는 문제</p>
+<ul>
+<li>Neural Network 에서 국한되서 보자면, 어떤 Network Architecture 를 사용하여 모델을 구성할 것인지,  각 모델마다 hyper parameter 를 어떻게 설정할 것인지 등 hypothesis set 이 매우 다양하다.</li>
+<li>이 중, 좋은 한가지 모델을 한가지 찾는 방법이 어렵다.</li>
+<li>강의 표현 중 이를 찾는 것은 Science ——— Magic 사이에 어느 한 점인, 거의 Art 에 가깝다고 하셔서 매우 웃겼다. 개인적으로 이 부분이 가장 공부하면서도 어렵고, 그 모델을 찾는 것이 매우 추상적인 느낌이다. 그리고 개인적으로 진행하는 프로젝트에서 과연 내가 찾은 모델보다 더 좋은 성능을 가지는 모델혹은 파라미터는 없을까(무조건 있을 것인데..라고 생각하는 경우가 훨씬 많지만..)라고 생각하며 분석과 모델링의 열정을 높이곤한다.</li>
+</ul>
+</li>
+<li><p>Network Architectures</p>
+<ul>
+<li>Neural Network 는 Directed Acyclic Graph이다!!</li>
+<li>Inference : Forward Computaion 만으로, 쉽게 trained neural network를 사용할 수 있다.</li>
+<li>이를 구성하는데 있어, high-level 로 abstraction 된 라이브러리를 oop , functional programming 을 활용해 쉽게 구현할 수 있다. (pytorch, tensorflow…)</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-Loss-Function"><a href="#2-Loss-Function" class="headerlink" title="2.  Loss Function"></a>2.  Loss Function</h3><ul>
+<li><p>관점의 이동:</p>
+<ul>
+<li><p>어떤 주어진 data x 에 대하여 y 는 무엇일까? 를 생각하는 모델이 아니라,</p>
+<p>$$f_\theta(x) = ? $$</p>
+</li>
+<li><p>주어진 x 에 대해 y가 어떤 case 혹은 값일 확률로 생각한다.</p>
+<p>$$p(y=y’|x) = ?$$</p>
+</li>
+</ul>
+</li>
+<li><p>Distribution based loss functions</p>
+<ul>
+<li>Binary Classification : Bernoulli distribution → Sigmoid</li>
+<li>Multiclass Classification : Categorical distribution → Softmax</li>
+<li>Linear Regression : Gaussian distribution</li>
+<li>Multimodal linear Regression : Mixture of Gaussians</li>
+</ul>
+</li>
+<li>결국 Loss Function 은 다음과 같이 표현될 수 있다. Maximize logp</li>
+</ul>
+<p>$$argmax_\theta \sum_{n=1}^{N} logp_\theta(y_n|x_n)$$</p>
+<ul>
+<li>= minimize L(theta):</li>
+</ul>
+<p>$$L(\theta) = \sum_{n=1}^{N} l(M_\theta(x_n), y_n)=  -\sum_{n=1}^{N} logp_\theta(y_n|x_n)$$</p>
+<h3 id="3-Optimization"><a href="#3-Optimization" class="headerlink" title="3. Optimization"></a>3. Optimization</h3><ul>
+<li>Optimization 방법<ul>
+<li>Optimization 방법에는 GD, SGD, Newton Method 등 다양한 방법이 있지만, Nerual Network 에서는 Gradient Descent 방법을 위주로 사용한다. 이 강의에서는 다루지 않았지만, Gradient Descent  방법 외의 다른 알고리즘들은 전제되는 가정들이 많고, Nerual Network 의 고차원에서는 그 가정을 만족하기가 쉽지 않다. (예를 들어, Newton Method 에서의 Hessian 행렬이 구해지기 위한 가정, computation 양 또한 매우 많다.) 이런 이유에서 Gradient Descent 방법을 사용한다.</li>
+</ul>
+</li>
+<li>Backward Computation : Backpropagation<ul>
+<li>Loss function 의 gradient 를 구하는 방법은 쉽지 않다.</li>
+<li>Neural Network는 Automatic differentiation (Autograd) 를 사용하여, weight 과 bias term 에 대해 쉽게(?) gradient 값을 구할 수 있다. library 덕분에 우리가 loss function 의 gradient 를 직접 구하지 않아도 된다.</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-4-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    
+                        <img class="image is-128x128 has-mb-6" src="/images/profile.jpeg" alt="Emjay Ahn">
+                    
+                    
+                    <p class="is-size-4 is-block">
+                        Emjay Ahn
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        data scientist
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Seoul, Korea</span>
+                    </p>
                     
                 </div>
-                <div id="header-inner" class="nav-container">
-                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
-                    <div class="nav-container-inner">
-                        <ul id="main-nav">
-                            
-                                <li class="main-nav-list-item">
-                                    <a class="main-nav-list-link" href="/">Home</a>
-                                </li>
-                            
-                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/DataStructure/">DataStructure</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Diary/">Diary</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Google-Cloud-Platform/">Google Cloud Platform</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Lecture/">Lecture</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Lecture/CS231n/">CS231n</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Lecture/딥러닝을-이용한-자연어-처리/">딥러닝을 이용한 자연어 처리</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/MachineLearning/">MachineLearning</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/MachineLearning/Apache-Spark/">Apache Spark</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/MachineLearning/Pytorch/">Pytorch</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/Math/">Math</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/">wiki</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/MySQL/">MySQL</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/NGINX/">NGINX</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/Pillow/">Pillow</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/Provision/">Provision</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/Python/">Python</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/Requests/">Requests</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/Scrapy/">Scrapy</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/Selenium/">Selenium</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/wiki/Xpath/">Xpath</a></li></ul></li></ul>
-                                    
-                                <li class="main-nav-list-item">
-                                    <a class="main-nav-list-link" href="/about/index.html">About</a>
-                                </li>
-                            
-                        </ul>
-                        <nav id="sub-nav">
-                            <div id="search-form-wrap">
-
-    <form class="search-form">
-        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
-        <button type="submit" class="search-form-submit"></button>
-    </form>
-    <div class="ins-search">
-    <div class="ins-search-mask"></div>
-    <div class="ins-search-container">
-        <div class="ins-input-wrapper">
-            <input type="text" class="ins-search-input" placeholder="Type something...">
-            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Posts
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        71
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Categories
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        20
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Tags
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        14
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/emjayahn" target="_blank">
+                Follow</a>
         </div>
-        <div class="ins-section-wrapper">
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="https://github.com/emjayahn">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="https://facebook.com/jjminjae">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/atom.xml">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Links
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">PPOffice</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">github.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Categories
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/DataStructure/">
+            <span class="level-start">
+                <span class="level-item">DataStructure</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Diary/">
+            <span class="level-start">
+                <span class="level-item">Diary</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">42</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Google-Cloud-Platform/">
+            <span class="level-start">
+                <span class="level-item">Google Cloud Platform</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Lecture/">
+            <span class="level-start">
+                <span class="level-item">Lecture</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a><ul><li>
+        <a class="level is-marginless" href="/categories/Lecture/CS231n/">
+            <span class="level-start">
+                <span class="level-item">CS231n</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Lecture/딥러닝을-이용한-자연어-처리/">
+            <span class="level-start">
+                <span class="level-item">딥러닝을 이용한 자연어 처리</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li></ul></li><li>
+        <a class="level is-marginless" href="/categories/MachineLearning/">
+            <span class="level-start">
+                <span class="level-item">MachineLearning</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a><ul><li>
+        <a class="level is-marginless" href="/categories/MachineLearning/Apache-Spark/">
+            <span class="level-start">
+                <span class="level-item">Apache Spark</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/MachineLearning/Pytorch/">
+            <span class="level-start">
+                <span class="level-item">Pytorch</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li></ul></li><li>
+        <a class="level is-marginless" href="/categories/Math/">
+            <span class="level-start">
+                <span class="level-item">Math</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/wiki/">
+            <span class="level-start">
+                <span class="level-item">wiki</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">10</span>
+            </span>
+        </a><ul><li>
+        <a class="level is-marginless" href="/categories/wiki/MySQL/">
+            <span class="level-start">
+                <span class="level-item">MySQL</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/wiki/NGINX/">
+            <span class="level-start">
+                <span class="level-item">NGINX</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/wiki/Pillow/">
+            <span class="level-start">
+                <span class="level-item">Pillow</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/wiki/Provision/">
+            <span class="level-start">
+                <span class="level-item">Provision</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/wiki/Python/">
+            <span class="level-start">
+                <span class="level-item">Python</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/wiki/Requests/">
+            <span class="level-start">
+                <span class="level-item">Requests</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/wiki/Scrapy/">
+            <span class="level-start">
+                <span class="level-item">Scrapy</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/wiki/Selenium/">
+            <span class="level-start">
+                <span class="level-item">Selenium</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/wiki/Xpath/">
+            <span class="level-start">
+                <span class="level-item">Xpath</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li></ul></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Tag Cloud
+        </h3>
+        <a href="/tags/CS231n/" style="font-size: 15px;">CS231n</a> <a href="/tags/Classification-확률론적생성모형-Generative-생성모형-분류모델/" style="font-size: 10px;">Classification, 확률론적생성모형, Generative, 생성모형, 분류모델</a> <a href="/tags/Crawling-Web-Requests/" style="font-size: 10px;">Crawling, Web, Requests</a> <a href="/tags/Google-Cloud-Platform/" style="font-size: 10px;">Google Cloud Platform</a> <a href="/tags/TWIL/" style="font-size: 20px;">TWIL</a> <a href="/tags/Thread/" style="font-size: 10px;">Thread</a> <a href="/tags/datastructure/" style="font-size: 10px;">datastructure</a> <a href="/tags/datastructure-stack/" style="font-size: 10px;">datastructure, stack</a> <a href="/tags/mysql-MYSQL-database/" style="font-size: 10px;">mysql, MYSQL, database</a> <a href="/tags/nginx-proxy/" style="font-size: 10px;">nginx, proxy</a> <a href="/tags/pillow-Pillow-image/" style="font-size: 10px;">pillow, Pillow, image</a> <a href="/tags/scrapy-crawling-web/" style="font-size: 10px;">scrapy, crawling, web</a> <a href="/tags/summary/" style="font-size: 15px;">summary</a> <a href="/tags/자동화-selenium-webdriver/" style="font-size: 10px;">자동화, selenium, webdriver</a>
+    </div>
+</div>
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Recent
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/06/17/gcp-setting/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="[GCP] Computing Engine 환경설정">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-06-17T11:54:01.000Z">2019-06-17</time></div>
+                    <a href="/2019/06/17/gcp-setting/" class="has-link-black-ter is-size-6">[GCP] Computing Engine 환경설정</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Google-Cloud-Platform/">Google Cloud Platform</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/06/03/Classification-Metrics/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Classification Metrics">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-06-03T03:18:57.000Z">2019-06-03</time></div>
+                    <a href="/2019/06/03/Classification-Metrics/" class="has-link-black-ter is-size-6">Classification Metrics</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/MachineLearning/">MachineLearning</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/05/31/SPARK-BASIC-1/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="SPARK BASIC 1">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-05-31T12:07:52.000Z">2019-05-31</time></div>
+                    <a href="/2019/05/31/SPARK-BASIC-1/" class="has-link-black-ter is-size-6">SPARK BASIC 1</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/MachineLearning/">MachineLearning</a> / <a class="has-link-grey -link" href="/categories/MachineLearning/Apache-Spark/">Apache Spark</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/05/20/CS231n-Lecture05-Summary/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="[CS231n]Lecture05-CNN">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-05-20T08:36:09.000Z">2019-05-20</time></div>
+                    <a href="/2019/05/20/CS231n-Lecture05-Summary/" class="has-link-black-ter is-size-6">[CS231n]Lecture05-CNN</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Lecture/">Lecture</a> / <a class="has-link-grey -link" href="/categories/Lecture/CS231n/">CS231n</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/05/18/CS231n-Lecture04-Summary/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="[CS231n]Lecture04-Backprop/NeuralNetworks">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-05-18T14:21:08.000Z">2019-05-18</time></div>
+                    <a href="/2019/05/18/CS231n-Lecture04-Summary/" class="has-link-black-ter is-size-6">[CS231n]Lecture04-Backprop/NeuralNetworks</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Lecture/">Lecture</a> / <a class="has-link-grey -link" href="/categories/Lecture/CS231n/">CS231n</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">9</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/01/">
+                <span class="level-start">
+                    <span class="level-item">January 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/12/">
+                <span class="level-start">
+                    <span class="level-item">December 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">12</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/11/">
+                <span class="level-start">
+                    <span class="level-item">November 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">25</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/10/">
+                <span class="level-start">
+                    <span class="level-item">October 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">20</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/Emjaybloglogo_edit.png" alt="Emjay&#39;s DailyBlog" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2019 EmjayAhn(Minjae Ahn)&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/emjayahn/">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("en");</script>
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="Back to Top" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+    <script src="/js/clipboard.js" defer></script>
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
             <div class="ins-section-container"></div>
         </div>
     </div>
 </div>
 <script>
-(function (window) {
-    var INSIGHT_CONFIG = {
-        TRANSLATION: {
-            POSTS: 'Posts',
-            PAGES: 'Pages',
-            CATEGORIES: 'Categories',
-            TAGS: 'Tags',
-            UNTITLED: '(Untitled)',
-        },
-        ROOT_URL: '/',
-        CONTENT_URL: '/content.json',
-    };
-    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
-})(window);
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
 </script>
-<script src="/js/insight.js"></script>
-
-</div>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
-        <div class="container">
-            <div class="main-body container-inner">
-                <div class="main-body-inner">
-                    <section id="main">
-                        <div class="main-body-header">
-    <h1 class="header">
-    
-    <i class="icon fa fa-folder-open"></i>Category: <em class="page-title-link">딥러닝을 이용한 자연어 처리</em>
-    </h1>
-</div>
-
-                        <div class="main-body-content">
-                            
-
-    
-    
-        
-        
-        <section class="archives-wrap">
-            <div class="archive-year-wrap">
-                <a href="/archives/2019" class="archive-year"><i class="icon fa fa-calendar-o"></i>2019</a>
-            </div>
-            <div class="archives">
-    
-    
-    
-        <div class="article-row">
-    
-        <article class="article article-summary">
-    <div class="article-summary-inner">
-        
-        <div class="article-meta">
-            <div class="category">
-            <a class="article-category-link" href="/categories/Lecture/">Lecture</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/Lecture/딥러닝을-이용한-자연어-처리/">딥러닝을 이용한 자연어 처리</a>
-            </div>
-            <div class="date"><time datetime="2019-05-03T04:24:28.000Z" itemprop="datePublished">2019-05-03</time></div>
-        </div>
-        
-    
-        <h1 class="article-title" itemprop="name">
-        <a href="/2019/05/03/Lecture-딥러닝을-이용한-자연어-처리-Section-A-B/">[Lecture] 딥러닝을 이용한 자연어 처리 Section A, B</a>
-        </h1>
-    
-
-        <p class="article-excerpt">
-            Section A, B - Summary이 글은 edwith(https://www.edwith.org/)의 조경현 교수님의 딥러닝을 이용한 자연어 처리 (https://www.edwith.org/deepnlp/joinLectures/17363)강의를 듣고 정리한 글입니다.
-Section A. Introduction
-알고리즘의 정의 : 문제를 해결하기 위한 
-        </p>
-    </div>
-</article>
-    
-        </div>
-    
-
-
-    </div></section>
-
-
-
-
-                        </div>
-                    </section>
-                    <aside id="sidebar">
-    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
-    <div class="sidebar-top">
-        <p>follow:</p>
-        <ul class="social-links">
-            
-                
-                <li>
-                    <a class="social-tooltip" title="github" href="https://github.com/emjayahn" target="_blank" rel="noopener">
-                        <i class="icon fa fa-github"></i>
-                    </a>
-                </li>
-                
-            
-                
-                <li>
-                    <a class="social-tooltip" title="rss" href="/atom.xml" target="_blank" rel="noopener">
-                        <i class="icon fa fa-rss"></i>
-                    </a>
-                </li>
-                
-            
-        </ul>
-    </div>
-    
-    <div class="widgets-container">
-        
-            
-                
-    <div class="widget-wrap widget-list">
-        <h3 class="widget-title">categories</h3>
-        <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/DataStructure/">DataStructure</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Diary/">Diary</a><span class="category-list-count">42</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Google-Cloud-Platform/">Google Cloud Platform</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Lecture/">Lecture</a><span class="category-list-count">5</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Lecture/CS231n/">CS231n</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Lecture/딥러닝을-이용한-자연어-처리/">딥러닝을 이용한 자연어 처리</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/MachineLearning/">MachineLearning</a><span class="category-list-count">5</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/MachineLearning/Apache-Spark/">Apache Spark</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MachineLearning/Pytorch/">Pytorch</a><span class="category-list-count">3</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/Math/">Math</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/">wiki</a><span class="category-list-count">10</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/MySQL/">MySQL</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/NGINX/">NGINX</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/Pillow/">Pillow</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/Provision/">Provision</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/Python/">Python</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/Requests/">Requests</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/Scrapy/">Scrapy</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/Selenium/">Selenium</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/wiki/Xpath/">Xpath</a><span class="category-list-count">1</span></li></ul></li></ul>
-        </div>
-    </div>
-
-
-            
-                
-    <div class="widget-wrap widget-list">
-        <h3 class="widget-title">archives</h3>
-        <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a><span class="archive-list-count">25</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a><span class="archive-list-count">20</span></li></ul>
-        </div>
-    </div>
-
-
-            
-        
-    </div>
-</aside>
-
-                </div>
-            </div>
-        </div>
-        <footer id="footer">
-    <div class="container">
-        <div class="container-inner">
-            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
-            <div class="credit">
-                <h1 class="logo-wrap">
-                    <a href="/" class="logo"></a>
-                </h1>
-                <p>&copy; 2019 EmjayAhn(Minjae Ahn)</p>
-                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
-            </div>
-            <div class="footer-plugins">
-              
-    
-
-
-            </div>
-        </div>
-    </div>
-</footer>
-
-        
-    
-    <script>
-    var disqus_shortname = 'emjaygithubpage';
-    
-    
-    (function() {
-    var dsq = document.createElement('script');
-    dsq.type = 'text/javascript';
-    dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-    </script>
-
-
-
-
-    
-        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
-        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
-        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
-        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
-        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
-        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
-        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
-        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
-        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
-    
-    
-        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
-    
-    
-        <script type="text/x-mathjax-config">
-            MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
-        </script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-    
-
-
-
-<!-- Custom Scripts -->
-<script src="/js/main.js"></script>
-
-    </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css"><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
 </script>
@@ -338,5 +1019,6 @@ Section A. Introduction
 </script>
 <!-- End: Injected MathJax -->
 <!-- hexo-inject:end -->
+    
 </body>
 </html>
