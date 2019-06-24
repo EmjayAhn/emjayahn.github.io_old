@@ -176,28 +176,32 @@
 <h2 id="1-Backpropagation"><a href="#1-Backpropagation" class="headerlink" title="1. Backpropagation"></a>1. Backpropagation</h2><h3 id="1-1-핵심"><a href="#1-1-핵심" class="headerlink" title="1-1. 핵심"></a>1-1. 핵심</h3><p>Backprop의 한줄요약: 각 parameter 에 대해 Loss Function 의 gradient 를 구하기 위해 사용하는 graphical representation of <strong>ChainRule</strong></p>
 <p>언뜻 보면 어려울 수 도 있지만, just ChainRule</p>
 <p><img src="Untitled-13d44613-a85b-4dcc-a807-8b114b0138c4.png" alt></p>
-<p>위의 그림을 예를 들어 살펴 보면, y 에 대한 f의 gradient 는 q에 대한 f의 gradient <em> y 에 대한 q 의 gradient 으로 볼 수 있다. 이를 해석하자면, f 에게 미치는 y 의 영향 = f 에게 미치는 q의 영향 </em> q 에게 미치는 y 의 영향으로 볼 수 있다.</p>
+<p>위의 그림을 예를 들어 살펴 보면, y 에 대한 f의 gradient 는 q에 대한 f의 gradient * y 에 대한 q 의 gradient 으로 볼 수 있다. 이를 해석하자면, f 에게 미치는 y 의 영향 = f 에게 미치는 q의 영향 * q 에게 미치는 y 의 영향으로 볼 수 있다.</p>
 <p>Backpropagation 의 가장 중요한 특징!!</p>
-<pre><code>gradient 를 구하기 위해 node 를 기준으로 앞과 뒤만 보면 된다.
-</code></pre><p><img src="Untitled-f2d8c1d9-1a28-4e16-8e35-83ff9f93045f.png" alt></p>
+<pre><code>gradient 를 구하기 위해 node 를 기준으로 앞과 뒤만 보면 된다.</code></pre><p><img src="Untitled-f2d8c1d9-1a28-4e16-8e35-83ff9f93045f.png" alt></p>
 <p>또한, 위 그림을 보게 되면, Forward passing 과 마찬가지로, Backprop 시에도, 이전 노드에서 전달 되는 Gradient 를 node 에서 local gradient 와의 연산으로 다음 Node 에 gradient 를 전달해 줄 수 있다.</p>
 <h3 id="1-2-Back-prop-시-각-node-의-역할"><a href="#1-2-Back-prop-시-각-node-의-역할" class="headerlink" title="1-2. Back prop 시, 각 node  의 역할"></a>1-2. Back prop 시, 각 node  의 역할</h3><p><img src="Untitled-7a11e194-ea07-4922-a7b5-aa4346476acb.png" alt></p>
 <ol>
-<li>Add gate : gradient distributor<ul>
+<li><p>Add gate : gradient distributor</p>
+<ul>
 <li>add gate 를 기점으로, 각 입력(forward 방향의 입력)의 gradient로 local gradient 를 구하면 1이므로, 전달 되는 gradient 와 각각 1씩 곱해져 전달 되게 된다. 이 현상을 보게 되면 동등하게 나눠주는 역할을 하므로 gradient distributor 라고 볼 수 있다.</li>
 </ul>
 </li>
 <li><p>Max gate : gradient router</p>
 <ul>
-<li>Max gate 는 gradient 를 한쪽에는 전체, 다른 쪽에는 0 을 준다.</li>
+<li><p>Max gate 는 gradient 를 한쪽에는 전체, 다른 쪽에는 0 을 준다.</p>
+</li>
 <li><p>해석적으로 보자면, max 연산을 통해 forward 방향에서 영향을 준 branch 에게 gradient 를 전달해 주는 것이 합적</p>
-<script type="math/tex; mode=display">max(x, y) = \begin{cases} x \quad\quad if \quad x > y \\\\ y \quad\quad if \quad x < y \end{cases}</script></li>
+<p>$$max(x, y) = \begin{cases} x \quad\quad if \quad x &gt; y \\ y \quad\quad if \quad x &lt; y \end{cases}$$</p>
+</li>
 <li><p>수식으로 보자면, x 에 대한 gradient, y 에 대한 gradient 가 각각 (1, 0), (0, 1)  로 local gradient 가 계산되기 때문이다.</p>
 </li>
-<li>gradient 가 전달될 길을 결정해주는 면에서, 네트워크에서 path 를 설정해 주는 router의 기능과 비슷하다.</li>
+<li><p>gradient 가 전달될 길을 결정해주는 면에서, 네트워크에서 path 를 설정해 주는 router의 기능과 비슷하다.</p>
+</li>
 </ul>
 </li>
-<li>Mul gate : gradient switcher + scaler<ul>
+<li><p>Mul gate : gradient switcher + scaler</p>
+<ul>
 <li>곱셈연산의 gradient 의 경우, x 에 대한 gradient 는 y 가 되므로, 서로 바꿔주는 역할을 한다. 이 때, forward 상에서의 결과 값으로 곱해주므로, scale 역할까지 함께 하게 된다.</li>
 </ul>
 </li>
@@ -382,45 +386,6 @@
 </div>
     
         
-    
-        
-
-<div class="card widget">
-    <div class="card-content">
-        <div class="menu">
-        <h3 class="menu-label">
-            Links
-        </h3>
-        <ul class="menu-list">
-        
-            <li>
-                <a class="level is-mobile" href="https://hexo.io" target="_blank">
-                    <span class="level-left">
-                        <span class="level-item">Hexo</span>
-                    </span>
-                    <span class="level-right">
-                        <span class="level-item tag">hexo.io</span>
-                    </span>
-                </a>
-            </li>
-        
-            <li>
-                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
-                    <span class="level-left">
-                        <span class="level-item">PPOffice</span>
-                    </span>
-                    <span class="level-right">
-                        <span class="level-item tag">github.com</span>
-                    </span>
-                </a>
-            </li>
-        
-        </ul>
-        </div>
-    </div>
-</div>
-
-
     
         
 <div class="card widget">

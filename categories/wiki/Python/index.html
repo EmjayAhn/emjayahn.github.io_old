@@ -195,7 +195,9 @@
 <li>ThreadPoolExecutor : API - 멀티스레드와 멀티프로세스 동일한 형태로 디자인(Pool 클래스만 변경하면됨)</li>
 </ul>
 <h3 id="threading-Thread-arguement"><a href="#threading-Thread-arguement" class="headerlink" title="threading.Thread() arguement"></a>threading.Thread() arguement</h3><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Thread(group=, target=, args= , kwargs=, *, daemon=<span class="hljs-keyword">None</span>)</span><br><span class="line"><span class="hljs-comment">#target= : 실제 스레드에서 돌아가게 될 함수</span></span><br><span class="line"><span class="hljs-comment">#args= : tuple 로 target 함수에 들어가게될 argument</span></span><br><span class="line"><span class="hljs-comment">#kwargs= : dictionary로 target 함수에 들어가게될 argument</span></span><br><span class="line"><span class="hljs-comment">#daemon : 데몬 스레드로 돌아갈지 여부</span></span><br></pre></td></tr></table></figure>
+
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#Thread 의 메소드</span></span><br><span class="line">start(): <span class="hljs-comment">#스레드의 실행, self 의 run() 메소드를 호출</span></span><br><span class="line">run(): <span class="hljs-comment">#스레드가 실제로 수행하게될 작업</span></span><br><span class="line">name : <span class="hljs-comment">#스레드의 이름</span></span><br><span class="line">threading.locals() : <span class="hljs-comment">#해당 스레드 내부에서 사용할 로컬 변수 지정</span></span><br></pre></td></tr></table></figure>
+
 
         </div>
         
@@ -311,45 +313,6 @@
 </div>
     
         
-    
-        
-
-<div class="card widget">
-    <div class="card-content">
-        <div class="menu">
-        <h3 class="menu-label">
-            Links
-        </h3>
-        <ul class="menu-list">
-        
-            <li>
-                <a class="level is-mobile" href="https://hexo.io" target="_blank">
-                    <span class="level-left">
-                        <span class="level-item">Hexo</span>
-                    </span>
-                    <span class="level-right">
-                        <span class="level-item tag">hexo.io</span>
-                    </span>
-                </a>
-            </li>
-        
-            <li>
-                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
-                    <span class="level-left">
-                        <span class="level-item">PPOffice</span>
-                    </span>
-                    <span class="level-right">
-                        <span class="level-item tag">github.com</span>
-                    </span>
-                </a>
-            </li>
-        
-        </ul>
-        </div>
-    </div>
-</div>
-
-
     
         
 <div class="card widget">
