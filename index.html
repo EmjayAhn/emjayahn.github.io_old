@@ -147,6 +147,88 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-07-06T08:38:25.000Z">2019-07-06</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/Lecture/">Lecture</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/Lecture/CS224n/">CS224n</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    6 minutes read (About 879 words)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/07/06/CS224n-Lecture01-Summary/">CS224n-Lecture01-Summary</a>
+            
+        </h1>
+        <div class="content">
+            <h1 id="CS224n-Lecture-1-Introduction-and-Word-Vectors"><a href="#CS224n-Lecture-1-Introduction-and-Word-Vectors" class="headerlink" title="[CS224n] Lecture 1: Introduction and Word Vectors"></a>[CS224n] Lecture 1: Introduction and Word Vectors</h1><p>Standford University 의 CS224n 강의를 듣고 정리하는 글입니다.</p>
+<h2 id="1-Human-Language-and-Word-Meaning"><a href="#1-Human-Language-and-Word-Meaning" class="headerlink" title="1. Human Language and Word Meaning"></a>1. Human Language and Word Meaning</h2><p><strong>Word meaning</strong> 의 뜻 : symbol → idea or thing : Denotational Semantics</p>
+<p>우리가 ‘의자’라는 단어를 예로 들자면, 말하는 사람과 듣는 사람 모두 의자와 관련된 특정한 이미지와 아이디어 등을 생각해 볼 수 있다. 이렇게 단어에 대해 관념적인 것을 word meaning 이라고 할 수 있다. 그렇다면 컴퓨터에서 사용할 수 있는 <strong>word meaning</strong> 은 어떤 것이 있을까?</p>
+<h3 id="In-Computer-Word-Representations"><a href="#In-Computer-Word-Representations" class="headerlink" title="In Computer Word Representations"></a>In Computer Word Representations</h3><ol>
+<li>WordNet: synonym 과 hypernyms 의 집합으로 표현 (e.g: nltk wordnet)<ul>
+<li>아주 귀한 dataset 이지만,</li>
+<li>단점: Nuance (뉘앙스)를 담아내지 못함, 새로운 단어에 대해 사람이 직접 가공하여 추가해주어야 한다. 단어의 동의어에 대해 계산할 수 없음</li>
+</ul>
+</li>
+<li>Discrete Symbols: One-hot-vectors<ul>
+<li>단점 : 벡터의 차원이 우리가 가지고 있는 단어의 갯수만큼 커지게 된다. Corpus 의 구성 단어가 커질 수록 계산 해야하는 벡터 차원이 매우 커진다. 이는 컴퓨팅 자원의 부족으로 인한 현실적 구현의 어려움을 야기시킨다.</li>
+<li>One-hot-Vector 는 Vector Space 에서 모두 서로 orthogonal (직교)한다. 즉, similarity 가 모두 0으로 단어간의 관계를 알기 힘들다.</li>
+</ul>
+</li>
+<li>By CONTEXT: Word Vecttors<ul>
+<li>“You shall know a word by the company it keeps” (J.R.Firth)</li>
+<li>어떤 특정 단어 w 가 나온다는 것은, 그 주변 단어들(context)이  있기 때문이다.</li>
+<li>Word Vectors == Word Embeddings == Word Representations == Distributed Representation</li>
+</ul>
+</li>
+</ol>
+<h2 id="2-Word2vec-Introduction"><a href="#2-Word2vec-Introduction" class="headerlink" title="2. Word2vec Introduction"></a>2. Word2vec Introduction</h2><p>Word2vec(Mikolov et al. 2013) 은 Word Vectors 를 만들기 위한 알고리즘 중 가장 기초 뼈대를 이루는 알고리즘이다.</p>
+<ol>
+<li>가지고 있는 텍스트 데이터를 구성하는 큰 CORPUS</li>
+<li>Corpus 의 모든 단어는 RandomVector 로 시작한다.</li>
+<li>각 position t 에 대해, 중심단어 c(center) 와 주변단어 o(outside) 를 생각할 수 있다.</li>
+<li>중심단어 c 가 주어질 때, 주변단어 o 의 확률을 구하기 위해(skip-gram)(반대로도 가능(cbow): 주변단어가 주어질 때, 중심단어의 확률을 구하는 방법), 중심단어 c 와 주변단어 o, word 벡터들에 대해 similarity를 구한다.</li>
+<li>위의 확률을 최대화 하기 위해 word vector 를 updating 한다.</li>
+</ol>
+<p><img src="Untitled-cc28ca48-12e4-4a20-a6c4-b0be86d339d8.png" alt></p>
+<h2 id="3-Word2vec-objective-function-gradients"><a href="#3-Word2vec-objective-function-gradients" class="headerlink" title="3. Word2vec objective function gradients"></a>3. Word2vec objective function gradients</h2><p>문장의 특정 위치 t 에 대해 (t = 1, …, T), 중심단어w_j가 주어졌을때, 주변단어를 한정하는 window size m 에 대해  주변단어들을 예측하는 Likelihood 는 다음과 같습니다. likelihood 식을 해석해보면, 중심단어 w_t 에 대해 중심단어를 중심으로 window 사이즈 2m 개의 단어들의 확률을 모두 곱하고, T 개의 단어 갯수에 대해 또 다시 모두 곱합니다.</p>
+<p>$$Likelihood\quad L(\theta)= \prod_{t=1}^{T}\prod_{-m \leq j \leq m}P(w_{t+j}|w_{t};\theta)$$</p>
+<p>목적함수는 likelihood 를 바탕으로 minimize와 average, 계산 편의를 위해 log 를 씌웠다는 것외에 likelihood 와 동일하다.</p>
+<p>$$objective function \quad J(\theta) = - \frac{1}{T}logL(\theta)=-\frac{1}{T}\sum_{t=1}^{T}\sum_{-m \leq j \leq m, j\neq0}logP(w_{t+j} | w_{t};\theta)$$</p>
+<p>단어가 등장할 확률을 구하는 방법은 Softmax Function 을 활용합니다.</p>
+<p><img src="Untitled-99acc04b-91fd-451c-868f-574d995778b3.png" alt></p>
+<h3 id="Objective-Function-의-derivative"><a href="#Objective-Function-의-derivative" class="headerlink" title="Objective Function 의 derivative"></a>Objective Function 의 derivative</h3><p>Objective Function 과 단어 확률 (Softmax) 의 미분을 구하는 과정이다. </p>
+<p><img src="Untitled-d45516b7-8024-457c-bda2-39092a1f6892.png" alt></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
                 <time class="level-item has-text-grey" datetime="2019-06-17T11:54:01.000Z">2019-06-17</time>
                 
                 <div class="level-item">
@@ -1276,121 +1358,6 @@ epoch: 10000 -- loss 0.3566077649593353</code></pre><figure class="highlight pyt
 
 
 
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-05-03T09:19:59.000Z">2019-05-03</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/MachineLearning/">MachineLearning</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/MachineLearning/Pytorch/">Pytorch</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    6 minutes read (About 853 words)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/05/03/Linear-Regression-with-Pytorch/">Linear Regression with Pytorch</a>
-            
-        </h1>
-        <div class="content">
-            <h1 id="Linear-Regression-through-Pytorch"><a href="#Linear-Regression-through-Pytorch" class="headerlink" title="Linear Regression through Pytorch"></a>Linear Regression through Pytorch</h1><ul>
-<li>이번 포스트의 목적은 Linear Model을 Pytorch을 통해 구현해보며, 개인적으로 Pytorch의 사용을 연습하며 적응력을 높여보는 것입니다.</li>
-</ul>
-<h2 id="Import-Library"><a href="#Import-Library" class="headerlink" title="Import Library"></a>Import Library</h2><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> torch</span><br><span class="line"><span class="hljs-keyword">import</span> torch.optim <span class="hljs-keyword">as</span> optim</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt</span><br><span class="line"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">import</span> warnings</span><br><span class="line">warnings.filterwarnings(<span class="hljs-string">"ignore"</span>)</span><br><span class="line">%config InlineBackend.figure_format = <span class="hljs-string">'retina'</span></span><br><span class="line">%matplotlib inline</span><br></pre></td></tr></table></figure>
-
-<h2 id="Generate-Toy-Data"><a href="#Generate-Toy-Data" class="headerlink" title="Generate Toy Data"></a>Generate Toy Data</h2><p>$ y = \frac{1}{3} x + 5 $ 와 약간의 noise 를 합쳐 100 개의 toy data를 만들겠습니다.</p>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># Target Function</span></span><br><span class="line">f = <span class="hljs-keyword">lambda</span> x: <span class="hljs-number">1.0</span>/<span class="hljs-number">3.0</span> * x + <span class="hljs-number">5.0</span></span><br><span class="line"></span><br><span class="line">x = np.linspace(<span class="hljs-number">-40</span>, <span class="hljs-number">60</span>, <span class="hljs-number">100</span>)</span><br><span class="line">fx = f(x)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(x, fx)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-<p><img src="output_5_0.png" alt="png"></p>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># y_train data with little noise</span></span><br><span class="line">y = fx + <span class="hljs-number">10</span> * np.random.rand(len(x))</span><br><span class="line"></span><br><span class="line">plt.plot(x, y, <span class="hljs-string">'o'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-<p><img src="output_6_0.png" alt="png"></p>
-<h2 id="1-Gradient-Descent"><a href="#1-Gradient-Descent" class="headerlink" title="1. Gradient Descent"></a>1. Gradient Descent</h2><ol>
-<li>Model (hypothesis) 를 설정합니다.<br>(여기선, Linear Regression 이므로, $y = Wx + b$ 형태를 사용합니다.)</li>
-<li>Loss Function 을 정의합니다. (여기선, MSE loss 를 사용하겠습니다.)</li>
-<li>gradient 를 계산합니다.<br>(여기선, Gradient Descent 방법으로 optimize 를 할 것이므로, optim.SGD() 를 사용합니다.)</li>
-<li>parameter 를 update 합니다.</li>
-</ol>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x_train = torch.FloatTensor(x)</span><br><span class="line">y_train = torch.FloatTensor(y)</span><br><span class="line">print(<span class="hljs-string">"x_train Tensor shape: "</span>, x_train.shape)</span><br><span class="line">print(<span class="hljs-string">"y_train Tensor shape: "</span>, y_train.shape)</span><br></pre></td></tr></table></figure>
-
-<pre><code>x_train Tensor shape:  torch.Size([100])
-y_train Tensor shape:  torch.Size([100])</code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># train code</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-comment"># parameter setting &amp; initialize</span></span><br><span class="line">W = torch.zeros(<span class="hljs-number">1</span>, requires_grad=<span class="hljs-keyword">True</span>)</span><br><span class="line">b = torch.zeros(<span class="hljs-number">1</span>, requires_grad=<span class="hljs-keyword">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment"># optimizer setting</span></span><br><span class="line">optimizer = optim.SGD([W, b], lr=<span class="hljs-number">0.001</span>)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment"># total epochs</span></span><br><span class="line">epochs = <span class="hljs-number">3000</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, epochs + <span class="hljs-number">1</span>):</span><br><span class="line">    <span class="hljs-comment"># decide model(hypothesis)</span></span><br><span class="line">    model = W * x_train + b</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-comment"># loss function -&gt; MSE</span></span><br><span class="line">    loss = torch.mean((model - y_train)**<span class="hljs-number">2</span>)</span><br><span class="line">    </span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    loss.backward()</span><br><span class="line">    optimizer.step()</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-comment"># 10 epoch 마다 train loss 를 출력합니다.</span></span><br><span class="line">    <span class="hljs-keyword">if</span> epoch % <span class="hljs-number">500</span> == <span class="hljs-number">0</span>:</span><br><span class="line">        print(<span class="hljs-string">"epoch: &#123;&#125; -- Parameters: W: &#123;&#125; b: &#123;&#125; -- loss &#123;&#125;"</span>.format(epoch, W.data, b.data, loss.data))</span><br></pre></td></tr></table></figure>
-
-<pre><code>epoch: 500 -- Parameters: W: tensor([0.3709]) b: tensor([5.6408]) -- loss 22.728315353393555
-epoch: 1000 -- Parameters: W: tensor([0.3467]) b: tensor([7.9427]) -- loss 11.399767875671387
-epoch: 1500 -- Parameters: W: tensor([0.3368]) b: tensor([8.8829]) -- loss 9.51008415222168
-epoch: 2000 -- Parameters: W: tensor([0.3327]) b: tensor([9.2669]) -- loss 9.194862365722656
-epoch: 2500 -- Parameters: W: tensor([0.3311]) b: tensor([9.4237]) -- loss 9.142287254333496
-epoch: 3000 -- Parameters: W: tensor([0.3304]) b: tensor([9.4878]) -- loss 9.133516311645508</code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(x, y, <span class="hljs-string">'o'</span>, label=<span class="hljs-string">"train data"</span>)</span><br><span class="line">plt.plot(x_train.data.numpy(), W.data.numpy()*x + b.data.numpy(), label=<span class="hljs-string">'fitted'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-<p><img src="output_10_0.png" alt="png"></p>
-<h2 id="2-Stochastic-Gradient-Descent"><a href="#2-Stochastic-Gradient-Descent" class="headerlink" title="2. Stochastic Gradient Descent"></a>2. Stochastic Gradient Descent</h2><ol>
-<li>Model (hypothesis) Setting</li>
-<li>Loss Function Setting</li>
-<li>최적화 알고리즘 선택</li>
-<li>shuffle train data</li>
-<li>mini-batch 마다 W, b 업데이트</li>
-</ol>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># batch 를 generate 해주는 함수</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">generate_batch</span><span class="hljs-params">(batch_size, x_train, y_train)</span>:</span></span><br><span class="line">    <span class="hljs-keyword">assert</span> len(x_train) == len(y_train)</span><br><span class="line">    result_batches = []</span><br><span class="line">    x_size = len(x_train)</span><br><span class="line">    </span><br><span class="line">    shuffled_id = np.arange(x_size)</span><br><span class="line">    np.random.shuffle(shuffled_id)</span><br><span class="line">    shuffled_x_train = x_train[shuffled_id]</span><br><span class="line">    shuffled_y_train = y_train[shuffled_id]</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-keyword">for</span> start_idx <span class="hljs-keyword">in</span> range(<span class="hljs-number">0</span>, x_size, batch_size):</span><br><span class="line">        end_idx = start_idx + batch_size</span><br><span class="line">        batch = [shuffled_x_train[start_idx:end_idx], shuffled_y_train[start_idx:end_idx]]</span><br><span class="line">        result_batches.append(batch)</span><br><span class="line">    <span class="hljs-keyword">return</span> result_batches</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># train</span></span><br><span class="line">W = torch.zeros(<span class="hljs-number">1</span>, requires_grad=<span class="hljs-keyword">True</span>)</span><br><span class="line">b = torch.zeros(<span class="hljs-number">1</span>, requires_grad=<span class="hljs-keyword">True</span>)</span><br><span class="line"></span><br><span class="line">optimizer = optim.SGD([W, b], lr=<span class="hljs-number">0.001</span>)</span><br><span class="line"></span><br><span class="line">epochs = <span class="hljs-number">10000</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, epochs + <span class="hljs-number">1</span>):</span><br><span class="line">    <span class="hljs-keyword">for</span> x_batch, y_batch <span class="hljs-keyword">in</span> generate_batch(<span class="hljs-number">10</span>, x_train, y_train):</span><br><span class="line">        model = W * x_batch + b</span><br><span class="line">        loss = torch.mean((model - y_batch)**<span class="hljs-number">2</span>)</span><br><span class="line">        </span><br><span class="line">        optimizer.zero_grad()</span><br><span class="line">        loss.backward()</span><br><span class="line">        optimizer.step()</span><br><span class="line">        </span><br><span class="line">    <span class="hljs-keyword">if</span> epoch % <span class="hljs-number">500</span> == <span class="hljs-number">0</span>:</span><br><span class="line">        print(<span class="hljs-string">"epoch: &#123;&#125; -- Parameters: W: &#123;&#125; b: &#123;&#125; -- loss &#123;&#125;"</span>.format(epoch, W.data, b.data, loss.data))</span><br></pre></td></tr></table></figure>
-
-<pre><code>epoch: 500 -- Parameters: W: tensor([0.0890]) b: tensor([9.5399]) -- loss 162.1055450439453
-epoch: 1000 -- Parameters: W: tensor([0.3672]) b: tensor([9.5366]) -- loss 12.424881935119629
-epoch: 1500 -- Parameters: W: tensor([0.3560]) b: tensor([9.5097]) -- loss 7.826609134674072
-epoch: 2000 -- Parameters: W: tensor([0.3375]) b: tensor([9.5556]) -- loss 13.15934944152832
-epoch: 2500 -- Parameters: W: tensor([0.2462]) b: tensor([9.5157]) -- loss 11.582895278930664
-epoch: 3000 -- Parameters: W: tensor([0.3097]) b: tensor([9.5111]) -- loss 9.991677284240723
-epoch: 3500 -- Parameters: W: tensor([0.2497]) b: tensor([9.5532]) -- loss 20.481367111206055
-epoch: 4000 -- Parameters: W: tensor([0.4388]) b: tensor([9.5390]) -- loss 20.827198028564453
-epoch: 4500 -- Parameters: W: tensor([0.1080]) b: tensor([9.4959]) -- loss 140.0277862548828
-epoch: 5000 -- Parameters: W: tensor([0.3188]) b: tensor([9.4829]) -- loss 6.635367393493652
-epoch: 5500 -- Parameters: W: tensor([0.2553]) b: tensor([9.5017]) -- loss 25.45773696899414
-epoch: 6000 -- Parameters: W: tensor([0.2490]) b: tensor([9.5489]) -- loss 9.580666542053223
-epoch: 6500 -- Parameters: W: tensor([0.3189]) b: tensor([9.5347]) -- loss 12.585128784179688
-epoch: 7000 -- Parameters: W: tensor([0.3026]) b: tensor([9.4874]) -- loss 8.298829078674316
-epoch: 7500 -- Parameters: W: tensor([0.3507]) b: tensor([9.6815]) -- loss 13.348054885864258
-epoch: 8000 -- Parameters: W: tensor([0.1423]) b: tensor([9.5220]) -- loss 32.567440032958984
-epoch: 8500 -- Parameters: W: tensor([0.7147]) b: tensor([9.5182]) -- loss 75.97190856933594
-epoch: 9000 -- Parameters: W: tensor([0.5170]) b: tensor([9.5289]) -- loss 39.07848358154297
-epoch: 9500 -- Parameters: W: tensor([0.3748]) b: tensor([9.5590]) -- loss 10.358983993530273
-epoch: 10000 -- Parameters: W: tensor([0.2958]) b: tensor([9.6088]) -- loss 7.410649299621582</code></pre><ul>
-<li>Stochasitic 하게 loss의 gradient 를 계산하여, parameter update를 하므로, loss 가 굉장히 oscilation 이 나타나며 감소하는 것을 볼 수 있다.</li>
-</ul>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(x, y, <span class="hljs-string">'o'</span>, label=<span class="hljs-string">"train data"</span>)</span><br><span class="line">plt.plot(x_train.data.numpy(), W.data.numpy()*x + b.data.numpy(), label=<span class="hljs-string">'fitted'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
-<p><img src="output_15_0.png" alt="png"></p>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
 
     
 <div class="card card-transparent">
@@ -1457,7 +1424,7 @@ epoch: 10000 -- Parameters: W: tensor([0.2958]) b: tensor([9.6088]) -- loss 7.41
                         Posts
                     </p>
                     <p class="title has-text-weight-normal">
-                        71
+                        72
                     </p>
                 </div>
             </div>
@@ -1467,7 +1434,7 @@ epoch: 10000 -- Parameters: W: tensor([0.2958]) b: tensor([9.6088]) -- loss 7.41
                         Categories
                     </p>
                     <p class="title has-text-weight-normal">
-                        20
+                        21
                     </p>
                 </div>
             </div>
@@ -1477,7 +1444,7 @@ epoch: 10000 -- Parameters: W: tensor([0.2958]) b: tensor([9.6088]) -- loss 7.41
                         Tags
                     </p>
                     <p class="title has-text-weight-normal">
-                        14
+                        15
                     </p>
                 </div>
             </div>
@@ -1553,9 +1520,17 @@ epoch: 10000 -- Parameters: W: tensor([0.2958]) b: tensor([9.6088]) -- loss 7.41
                 <span class="level-item">Lecture</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">5</span>
+                <span class="level-item tag">6</span>
             </span>
         </a><ul><li>
+        <a class="level is-marginless" href="/categories/Lecture/CS224n/">
+            <span class="level-start">
+                <span class="level-item">CS224n</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
         <a class="level is-marginless" href="/categories/Lecture/CS231n/">
             <span class="level-start">
                 <span class="level-item">CS231n</span>
@@ -1695,7 +1670,7 @@ epoch: 10000 -- Parameters: W: tensor([0.2958]) b: tensor([9.6088]) -- loss 7.41
         <h3 class="menu-label">
             Tag Cloud
         </h3>
-        <a href="/tags/CS231n/" style="font-size: 15px;">CS231n</a> <a href="/tags/Classification-확률론적생성모형-Generative-생성모형-분류모델/" style="font-size: 10px;">Classification, 확률론적생성모형, Generative, 생성모형, 분류모델</a> <a href="/tags/Crawling-Web-Requests/" style="font-size: 10px;">Crawling, Web, Requests</a> <a href="/tags/Google-Cloud-Platform/" style="font-size: 10px;">Google Cloud Platform</a> <a href="/tags/TWIL/" style="font-size: 20px;">TWIL</a> <a href="/tags/Thread/" style="font-size: 10px;">Thread</a> <a href="/tags/datastructure/" style="font-size: 10px;">datastructure</a> <a href="/tags/datastructure-stack/" style="font-size: 10px;">datastructure, stack</a> <a href="/tags/mysql-MYSQL-database/" style="font-size: 10px;">mysql, MYSQL, database</a> <a href="/tags/nginx-proxy/" style="font-size: 10px;">nginx, proxy</a> <a href="/tags/pillow-Pillow-image/" style="font-size: 10px;">pillow, Pillow, image</a> <a href="/tags/scrapy-crawling-web/" style="font-size: 10px;">scrapy, crawling, web</a> <a href="/tags/summary/" style="font-size: 15px;">summary</a> <a href="/tags/자동화-selenium-webdriver/" style="font-size: 10px;">자동화, selenium, webdriver</a>
+        <a href="/tags/CS224n/" style="font-size: 10px;">CS224n</a> <a href="/tags/CS231n/" style="font-size: 13.33px;">CS231n</a> <a href="/tags/Classification-확률론적생성모형-Generative-생성모형-분류모델/" style="font-size: 10px;">Classification, 확률론적생성모형, Generative, 생성모형, 분류모델</a> <a href="/tags/Crawling-Web-Requests/" style="font-size: 10px;">Crawling, Web, Requests</a> <a href="/tags/Google-Cloud-Platform/" style="font-size: 10px;">Google Cloud Platform</a> <a href="/tags/TWIL/" style="font-size: 20px;">TWIL</a> <a href="/tags/Thread/" style="font-size: 10px;">Thread</a> <a href="/tags/datastructure/" style="font-size: 10px;">datastructure</a> <a href="/tags/datastructure-stack/" style="font-size: 10px;">datastructure, stack</a> <a href="/tags/mysql-MYSQL-database/" style="font-size: 10px;">mysql, MYSQL, database</a> <a href="/tags/nginx-proxy/" style="font-size: 10px;">nginx, proxy</a> <a href="/tags/pillow-Pillow-image/" style="font-size: 10px;">pillow, Pillow, image</a> <a href="/tags/scrapy-crawling-web/" style="font-size: 10px;">scrapy, crawling, web</a> <a href="/tags/summary/" style="font-size: 16.67px;">summary</a> <a href="/tags/자동화-selenium-webdriver/" style="font-size: 10px;">자동화, selenium, webdriver</a>
     </div>
 </div>
 
@@ -1706,6 +1681,25 @@ epoch: 10000 -- Parameters: W: tensor([0.2958]) b: tensor([9.6088]) -- loss 7.41
         <h3 class="menu-label">
             Recent
         </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/07/06/CS224n-Lecture01-Summary/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="CS224n-Lecture01-Summary">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-06T08:38:25.000Z">2019-07-06</time></div>
+                    <a href="/2019/07/06/CS224n-Lecture01-Summary/" class="has-link-black-ter is-size-6">CS224n-Lecture01-Summary</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Lecture/">Lecture</a> / <a class="has-link-grey -link" href="/categories/Lecture/CS224n/">CS224n</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -1783,25 +1777,6 @@ epoch: 10000 -- Parameters: W: tensor([0.2958]) b: tensor([9.6088]) -- loss 7.41
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/05/18/CS231n-Lecture04-Summary/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="[CS231n]Lecture04-Backprop/NeuralNetworks">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-05-18T14:21:08.000Z">2019-05-18</time></div>
-                    <a href="/2019/05/18/CS231n-Lecture04-Summary/" class="has-link-black-ter is-size-6">[CS231n]Lecture04-Backprop/NeuralNetworks</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Lecture/">Lecture</a> / <a class="has-link-grey -link" href="/categories/Lecture/CS231n/">CS231n</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1813,6 +1788,17 @@ epoch: 10000 -- Parameters: W: tensor([0.2958]) b: tensor([9.6088]) -- loss 7.41
             Archives
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/07/">
+                <span class="level-start">
+                    <span class="level-item">July 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/archives/2019/06/">

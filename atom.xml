@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://emjayahn.github.io/"/>
-  <updated>2019-06-26T06:16:42.810Z</updated>
+  <updated>2019-07-06T08:39:41.317Z</updated>
   <id>https://emjayahn.github.io/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CS224n-Lecture01-Summary</title>
+    <link href="https://emjayahn.github.io/2019/07/06/CS224n-Lecture01-Summary/"/>
+    <id>https://emjayahn.github.io/2019/07/06/CS224n-Lecture01-Summary/</id>
+    <published>2019-07-06T08:38:25.000Z</published>
+    <updated>2019-07-06T08:39:41.317Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="CS224n-Lecture-1-Introduction-and-Word-Vectors"><a href="#CS224n-Lecture-1-Introduction-and-Word-Vectors" class="headerlink" title="[CS224n] Lecture 1: Introduction and Word Vectors"></a>[CS224n] Lecture 1: Introduction and Word Vectors</h1><p>Standford University 의 CS224n 강의를 듣고 정리하는 글입니다.</p><h2 id="1-Human-Language-and-Word-Meaning"><a href="#1-Human-Language-and-Word-Meaning" class="headerlink" title="1. Human Language and Word Meaning"></a>1. Human Language and Word Meaning</h2><p><strong>Word meaning</strong> 의 뜻 : symbol → idea or thing : Denotational Semantics</p><p>우리가 ‘의자’라는 단어를 예로 들자면, 말하는 사람과 듣는 사람 모두 의자와 관련된 특정한 이미지와 아이디어 등을 생각해 볼 수 있다. 이렇게 단어에 대해 관념적인 것을 word meaning 이라고 할 수 있다. 그렇다면 컴퓨터에서 사용할 수 있는 <strong>word meaning</strong> 은 어떤 것이 있을까?</p><h3 id="In-Computer-Word-Representations"><a href="#In-Computer-Word-Representations" class="headerlink" title="In Computer Word Representations"></a>In Computer Word Representations</h3><ol><li>WordNet: synonym 과 hypernyms 의 집합으로 표현 (e.g: nltk wordnet)<ul><li>아주 귀한 dataset 이지만,</li><li>단점: Nuance (뉘앙스)를 담아내지 못함, 새로운 단어에 대해 사람이 직접 가공하여 추가해주어야 한다. 단어의 동의어에 대해 계산할 수 없음</li></ul></li><li>Discrete Symbols: One-hot-vectors<ul><li>단점 : 벡터의 차원이 우리가 가지고 있는 단어의 갯수만큼 커지게 된다. Corpus 의 구성 단어가 커질 수록 계산 해야하는 벡터 차원이 매우 커진다. 이는 컴퓨팅 자원의 부족으로 인한 현실적 구현의 어려움을 야기시킨다.</li><li>One-hot-Vector 는 Vector Space 에서 모두 서로 orthogonal (직교)한다. 즉, similarity 가 모두 0으로 단어간의 관계를 알기 힘들다.</li></ul></li><li>By CONTEXT: Word Vecttors<ul><li>“You shall know a word by the company it keeps” (J.R.Firth)</li><li>어떤 특정 단어 w 가 나온다는 것은, 그 주변 단어들(context)이  있기 때문이다.</li><li>Word Vectors == Word Embeddings == Word Representations == Distributed Representation</li></ul></li></ol><h2 id="2-Word2vec-Introduction"><a href="#2-Word2vec-Introduction" class="headerlink" title="2. Word2vec Introduction"></a>2. Word2vec Introduction</h2><p>Word2vec(Mikolov et al. 2013) 은 Word Vectors 를 만들기 위한 알고리즘 중 가장 기초 뼈대를 이루는 알고리즘이다.</p><ol><li>가지고 있는 텍스트 데이터를 구성하는 큰 CORPUS</li><li>Corpus 의 모든 단어는 RandomVector 로 시작한다.</li><li>각 position t 에 대해, 중심단어 c(center) 와 주변단어 o(outside) 를 생각할 수 있다.</li><li>중심단어 c 가 주어질 때, 주변단어 o 의 확률을 구하기 위해(skip-gram)(반대로도 가능(cbow): 주변단어가 주어질 때, 중심단어의 확률을 구하는 방법), 중심단어 c 와 주변단어 o, word 벡터들에 대해 similarity를 구한다.</li><li>위의 확률을 최대화 하기 위해 word vector 를 updating 한다.</li></ol><p><img src="Untitled-cc28ca48-12e4-4a20-a6c4-b0be86d339d8.png" alt></p><h2 id="3-Word2vec-objective-function-gradients"><a href="#3-Word2vec-objective-function-gradients" class="headerlink" title="3. Word2vec objective function gradients"></a>3. Word2vec objective function gradients</h2><p>문장의 특정 위치 t 에 대해 (t = 1, …, T), 중심단어w_j가 주어졌을때, 주변단어를 한정하는 window size m 에 대해  주변단어들을 예측하는 Likelihood 는 다음과 같습니다. likelihood 식을 해석해보면, 중심단어 w_t 에 대해 중심단어를 중심으로 window 사이즈 2m 개의 단어들의 확률을 모두 곱하고, T 개의 단어 갯수에 대해 또 다시 모두 곱합니다.</p><p>$$Likelihood\quad L(\theta)= \prod_{t=1}^{T}\prod_{-m \leq j \leq m}P(w_{t+j}|w_{t};\theta)$$</p><p>목적함수는 likelihood 를 바탕으로 minimize와 average, 계산 편의를 위해 log 를 씌웠다는 것외에 likelihood 와 동일하다.</p><p>$$objective function \quad J(\theta) = - \frac{1}{T}logL(\theta)=-\frac{1}{T}\sum_{t=1}^{T}\sum_{-m \leq j \leq m, j\neq0}logP(w_{t+j} | w_{t};\theta)$$</p><p>단어가 등장할 확률을 구하는 방법은 Softmax Function 을 활용합니다.</p><p><img src="Untitled-99acc04b-91fd-451c-868f-574d995778b3.png" alt></p><h3 id="Objective-Function-의-derivative"><a href="#Objective-Function-의-derivative" class="headerlink" title="Objective Function 의 derivative"></a>Objective Function 의 derivative</h3><p>Objective Function 과 단어 확률 (Softmax) 의 미분을 구하는 과정이다. </p><p><img src="Untitled-d45516b7-8024-457c-bda2-39092a1f6892.png" alt></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;CS224n-Lecture-1-Introduction-and-Word-Vectors&quot;&gt;&lt;a href=&quot;#CS224n-Lecture-1-Introduction-and-Word-Vectors&quot; class=&quot;headerlink&quot; title=&quot;
+      
+    
+    </summary>
+    
+      <category term="Lecture" scheme="https://emjayahn.github.io/categories/Lecture/"/>
+    
+      <category term="CS224n" scheme="https://emjayahn.github.io/categories/Lecture/CS224n/"/>
+    
+    
+      <category term="CS224n" scheme="https://emjayahn.github.io/tags/CS224n/"/>
+    
+      <category term="summary" scheme="https://emjayahn.github.io/tags/summary/"/>
+    
+  </entry>
   
   <entry>
     <title>[GCP] Computing Engine 환경설정</title>
@@ -112,9 +141,9 @@
       <category term="CS231n" scheme="https://emjayahn.github.io/categories/Lecture/CS231n/"/>
     
     
-      <category term="CS231n" scheme="https://emjayahn.github.io/tags/CS231n/"/>
-    
       <category term="summary" scheme="https://emjayahn.github.io/tags/summary/"/>
+    
+      <category term="CS231n" scheme="https://emjayahn.github.io/tags/CS231n/"/>
     
   </entry>
   
@@ -141,9 +170,9 @@
       <category term="CS231n" scheme="https://emjayahn.github.io/categories/Lecture/CS231n/"/>
     
     
-      <category term="CS231n" scheme="https://emjayahn.github.io/tags/CS231n/"/>
-    
       <category term="summary" scheme="https://emjayahn.github.io/tags/summary/"/>
+    
+      <category term="CS231n" scheme="https://emjayahn.github.io/tags/CS231n/"/>
     
   </entry>
   
@@ -170,9 +199,9 @@
       <category term="CS231n" scheme="https://emjayahn.github.io/categories/Lecture/CS231n/"/>
     
     
-      <category term="CS231n" scheme="https://emjayahn.github.io/tags/CS231n/"/>
-    
       <category term="summary" scheme="https://emjayahn.github.io/tags/summary/"/>
+    
+      <category term="CS231n" scheme="https://emjayahn.github.io/tags/CS231n/"/>
     
   </entry>
   
@@ -199,9 +228,9 @@
       <category term="CS231n" scheme="https://emjayahn.github.io/categories/Lecture/CS231n/"/>
     
     
-      <category term="CS231n" scheme="https://emjayahn.github.io/tags/CS231n/"/>
-    
       <category term="summary" scheme="https://emjayahn.github.io/tags/summary/"/>
+    
+      <category term="CS231n" scheme="https://emjayahn.github.io/tags/CS231n/"/>
     
   </entry>
   
@@ -490,30 +519,6 @@
       
         &lt;h1 id=&quot;181210-TWIL&quot;&gt;&lt;a href=&quot;#181210-TWIL&quot; class=&quot;headerlink&quot; title=&quot;181210 TWIL&quot;&gt;&lt;/a&gt;181210 TWIL&lt;/h1&gt;&lt;hr&gt;
 &lt;h2 id=&quot;To-Do-list&quot;&gt;&lt;a href=&quot;#To
-      
-    
-    </summary>
-    
-      <category term="Diary" scheme="https://emjayahn.github.io/categories/Diary/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>181209-TodayWhatILearned</title>
-    <link href="https://emjayahn.github.io/2018/12/09/181209-TodayWhatILearned/"/>
-    <id>https://emjayahn.github.io/2018/12/09/181209-TodayWhatILearned/</id>
-    <published>2018-12-09T14:39:51.000Z</published>
-    <updated>2018-12-09T14:45:11.229Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="181209-TWIL"><a href="#181209-TWIL" class="headerlink" title="181209 TWIL"></a>181209 TWIL</h1><hr><h2 id="오늘-한-일은-무엇인가"><a href="#오늘-한-일은-무엇인가" class="headerlink" title="오늘 한 일은 무엇인가"></a>오늘 한 일은 무엇인가</h2><ol><li>Classification 복습 (Entropy, DecisionTree)</li><li>MySQL Query Code Imporvement, CodeReview</li><li>Insurance Data regression</li><li>Algorithm 추가 과제 (2진수, 8진수, 16진수)</li></ol><hr><h2 id="내일-할-일은-무엇인가"><a href="#내일-할-일은-무엇인가" class="headerlink" title="내일 할 일은 무엇인가"></a>내일 할 일은 무엇인가</h2><ol><li>MySQl, NOSQL 복습, 정리</li><li>Insurance Regression 과정 정리, 알게된 것들 정리</li><li>Pandas 4장, 7장, 9장 정리</li><li>Algorithm 추가 과제 마무리</li><li>수학 12-5장까지 복습</li></ol><br>---## 무엇을 느꼈는가- Insuracne Data regression 을 진행하면서, 지난 프로젝트에서는 다가가지 못한 Step 들을 수행하였다. 잔차의 정규성을 검토하면서, 이를 발전 시킬 수 있는 방법에 대해 코드를 작성하였고, EDA 과정을 꼼꼼히 한 덕분인지, regression  formula 를 돌리는데 있어 각 스텝마다, 작은 근거들이 생겨났다.- 아직은 수업 자료에서 모든 내용을 담을 만큼 Performance 와 스텝간의 근거들이 명확하지 않기 때문에 공부할 것이 한참남았지만, 오늘 새로운 데이터셋을 좀더 꼼꼼히 EDA 를 하면서, 새롭게 알게되고, 적용할 수 있는 것들이 생겨 뿌듯했다.---]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;181209-TWIL&quot;&gt;&lt;a href=&quot;#181209-TWIL&quot; class=&quot;headerlink&quot; title=&quot;181209 TWIL&quot;&gt;&lt;/a&gt;181209 TWIL&lt;/h1&gt;&lt;hr&gt;
-&lt;h2 id=&quot;오늘-한-일은-무엇인가&quot;&gt;&lt;a href=&quot;#
       
     
     </summary>
