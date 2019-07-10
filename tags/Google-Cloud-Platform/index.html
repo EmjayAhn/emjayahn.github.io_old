@@ -167,7 +167,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    9 minutes read (About 1397 words)
+                    9 minutes read (About 1360 words)
                 </span>
                 
                 
@@ -252,10 +252,10 @@
 </ol>
 <p>CUDA 가 정상적으로 설치되었다면,  <code>$ nvidia-smi</code> 를 통해 자신의 gpu 상태를 확인 할 수 있습니다. 또한, <code>/usr/local/cuda/version.txt</code> 에 설치한 CUDA, 현재는 10.0의 version 을 확인 할 수 있습니다.</p>
 <h2 id="5-cuDNN-설치"><a href="#5-cuDNN-설치" class="headerlink" title="5. cuDNN 설치"></a>5. cuDNN 설치</h2><p>다음의 명령어를 통해 cuDNN 을 설치 할 수 있습니다.</p>
-<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo sh -c <span class="hljs-string">'echo "deb [http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64](http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64/) /" &gt;&gt; /etc/apt/sources.list.d/cuda.list'</span></span><br><span class="line">$ sudo apt update</span><br><span class="line">$ sudo apt install libcudnn7-dev</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo sh -c <span class="hljs-string">'echo "deb http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64 /" &gt;&gt; /etc/apt/sources.list.d/cuda.list'</span></span><br><span class="line">$ sudo apt update</span><br><span class="line">$ sudo apt install libcudnn7-dev</span><br></pre></td></tr></table></figure>
 
 <h2 id="6-Pytorch-설치"><a href="#6-Pytorch-설치" class="headerlink" title="6. Pytorch 설치"></a>6. Pytorch 설치</h2><ul>
-<li>우리는 서버가 https 프로토콜을 사용한다고 체크했으므로 -H  flag 를 주어 sudo pip3 를 활용해야합니다.<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo pip3 -H install [https://download.pytorch.org/whl/cu100/torch-1.1.0-cp36-cp36m-linux_x86_64.whl](https://download.pytorch.org/whl/cu100/torch-1.1.0-cp36-cp36m-linux_x86_64.whl)</span><br><span class="line">$ sudo pip3 -H install [https://download.pytorch.org/whl/cu100/torchvision-0.3.0-cp36-cp36m-linux_x86_64.whl](https://download.pytorch.org/whl/cu100/torchvision-0.3.0-cp36-cp36m-linux_x86_64.whl)</span><br></pre></td></tr></table></figure>
+<li>우리는 서버가 https 프로토콜을 사용한다고 체크했으므로 -H  flag 를 주어 sudo pip3 를 활용해야합니다.<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo pip3 -H install https://download.pytorch.org/whl/cu100/torch-1.1.0-cp36-cp36m-linux_x86_64.whl</span><br><span class="line">$ sudo pip3 -H install https://download.pytorch.org/whl/cu100/torchvision-0.3.0-cp36-cp36m-linux_x86_64.whl</span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
