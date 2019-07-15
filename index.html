@@ -191,16 +191,20 @@
 <hr>
 <p>위 설명을 코드로 풀어쓰면, 다음과 같습니다. 우리가 다음과 같은 for 문을 사용하면,</p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">for</span> element <span class="hljs-keyword">in</span> iterable_object:</span><br><span class="line">    print(element)</span><br></pre></td></tr></table></figure>
+
 <p>위 코드는 다음과 같이 파이썬 내부적으로 다음과 같이 동작하게 됩니다.</p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># iter() 함수를 호출해, iterator 를 생성하고,</span></span><br><span class="line">iterator_object = iter(iterable_object)</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">while</span> <span class="hljs-keyword">True</span>:</span><br><span class="line">    <span class="hljs-comment"># next() 함수를 호출해, element 를 받아옵니다.</span></span><br><span class="line">    <span class="hljs-keyword">try</span>:</span><br><span class="line">        element = next(iterator_object)</span><br><span class="line">        print(element)</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment"># element 가 없을 시, StopIteration Exception 발생</span></span><br><span class="line">    <span class="hljs-keyword">except</span>: StopIteration:</span><br><span class="line">        <span class="hljs-keyword">break</span></span><br></pre></td></tr></table></figure>
+
 <hr>
-<h2 id="3-이터러블-Iterable-이터레이터-Iterator-와-친해지기"><a href="#3-이터러블-Iterable-이터레이터-Iterator-와-친해지기" class="headerlink" title="3. 이터러블(Iterable), 이터레이터(Iterator)와 친해지기"></a>3. 이터러블(Iterable), 이터레이터(Iterator)와 친해지기</h2><h3 id="3-1-간단-버전"><a href="#3-1-간단-버전" class="headerlink" title="3-1. 간단 버전"></a>3-1. 간단 버전</h3><p>파이썬 이터러블(Iterable) 내장 데이터 구조인 list 를 활용하여, 실습해 봅니다.<br><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">&gt;&gt;&gt; </span>iterable_object = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]</span><br><span class="line"><span class="hljs-meta">&gt;&gt;&gt; </span>iterator_object = iter(iterable_object)</span><br><span class="line"><span class="hljs-meta">&gt;&gt;&gt; </span>iterator_object</span><br><span class="line">&lt;list_iterator object at <span class="hljs-number">0x104fe2278</span>&gt;</span><br><span class="line"><span class="hljs-meta">&gt;&gt;&gt; </span>next(iterator_object)</span><br><span class="line"><span class="hljs-number">1</span></span><br><span class="line"><span class="hljs-meta">&gt;&gt;&gt; </span>next(iterator_object)</span><br><span class="line"><span class="hljs-number">2</span></span><br><span class="line"><span class="hljs-meta">&gt;&gt;&gt; </span>next(iterator_object)</span><br><span class="line"><span class="hljs-number">3</span></span><br><span class="line"><span class="hljs-meta">&gt;&gt;&gt; </span>next(iterator_object)</span><br><span class="line"><span class="hljs-number">4</span></span><br><span class="line"><span class="hljs-meta">&gt;&gt;&gt; </span>next(iterator_object)</span><br><span class="line"><span class="hljs-number">5</span></span><br><span class="line"><span class="hljs-meta">&gt;&gt;&gt; </span>next(iterator_object)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="hljs-string">"&lt;stdin&gt;"</span>, line <span class="hljs-number">1</span>, <span class="hljs-keyword">in</span> &lt;module&gt;</span><br><span class="line">StopIteration</span><br></pre></td></tr></table></figure></p>
+<h2 id="3-이터러블-Iterable-이터레이터-Iterator-와-친해지기"><a href="#3-이터러블-Iterable-이터레이터-Iterator-와-친해지기" class="headerlink" title="3. 이터러블(Iterable), 이터레이터(Iterator)와 친해지기"></a>3. 이터러블(Iterable), 이터레이터(Iterator)와 친해지기</h2><h3 id="3-1-간단-버전"><a href="#3-1-간단-버전" class="headerlink" title="3-1. 간단 버전"></a>3-1. 간단 버전</h3><p>파이썬 이터러블(Iterable) 내장 데이터 구조인 list 를 활용하여, 실습해 봅니다. </p>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">&gt;&gt;&gt; </span>iterable_object = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]</span><br><span class="line"><span class="hljs-meta">&gt;&gt;&gt; </span>iterator_object = iter(iterable_object)</span><br><span class="line"><span class="hljs-meta">&gt;&gt;&gt; </span>iterator_object</span><br><span class="line">&lt;list_iterator object at <span class="hljs-number">0x104fe2278</span>&gt;</span><br><span class="line"><span class="hljs-meta">&gt;&gt;&gt; </span>next(iterator_object)</span><br><span class="line"><span class="hljs-number">1</span></span><br><span class="line"><span class="hljs-meta">&gt;&gt;&gt; </span>next(iterator_object)</span><br><span class="line"><span class="hljs-number">2</span></span><br><span class="line"><span class="hljs-meta">&gt;&gt;&gt; </span>next(iterator_object)</span><br><span class="line"><span class="hljs-number">3</span></span><br><span class="line"><span class="hljs-meta">&gt;&gt;&gt; </span>next(iterator_object)</span><br><span class="line"><span class="hljs-number">4</span></span><br><span class="line"><span class="hljs-meta">&gt;&gt;&gt; </span>next(iterator_object)</span><br><span class="line"><span class="hljs-number">5</span></span><br><span class="line"><span class="hljs-meta">&gt;&gt;&gt; </span>next(iterator_object)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="hljs-string">"&lt;stdin&gt;"</span>, line <span class="hljs-number">1</span>, <span class="hljs-keyword">in</span> &lt;module&gt;</span><br><span class="line">StopIteration</span><br></pre></td></tr></table></figure>
+
 <h3 id="3-2-나만의-iterable-iterator객체"><a href="#3-2-나만의-iterable-iterator객체" class="headerlink" title="3-2. 나만의 iterable, iterator객체"></a>3-2. 나만의 iterable, iterator객체</h3><p>다음의 코드는 이름과 나이를 받는 데이터 객체입니다. 루프를 돌면서 각각 순서에 맞는 (이름, 나이)형태로 데이터를 반환하는 Iterable 객체입니다. 같은 기능을 하는 더욱 효율적인 코드를 짤 수 있겠지만, 공부한 iterable 과 iterator 를 적용해보는 class 입니다.</p>
 <script src="https://gist.github.com/EmjayAhn/70e4232632f340a8f67e0ba1509029c5.js"></script>
 
 <hr>
 <h2 id="4-제너레이터-Generator"><a href="#4-제너레이터-Generator" class="headerlink" title="4. 제너레이터: Generator"></a>4. 제너레이터: Generator</h2><blockquote>
-<p>제너레이터(Generator)란?: <strong>특이한</strong> (공식 문서에 ~~~ iterator) 이터레이터(Iterator)</p>
+<p>제너레이터(Generator)란?: <strong>특이한</strong> (공식 문서에 <del>~</del> iterator) 이터레이터(Iterator)</p>
 </blockquote>
 <p><img src="generator_def.png" alt></p>
 <p>정의에서도 보다시피, 이터레이터(Iterator)입니다. 즉, <code>next()</code> 함수를 만나 동작하는 함수입니다. 이 때, 제너레이터(Generator) 를 일반 함수와 다르게 하는 것이 <code>yield</code> 라는 문법입니다. <code>yield</code> 는 일반 함수의 <code>return</code>과 같이 값을 반환 하지만, <code>return</code>과 다르게 해당 함수(generator)가 종료하지 않고, 그대로 유지됩니다. 다음 순서의 제너레이터(Generator)가 호출되면, 멈추었던 <code>yield</code> 자리에서 다시 함수가 동작하게 됩니다.<br><br></p>
@@ -212,12 +216,14 @@
 <hr>
 <h2 id="5-제너레이터-Generator-와-친해지기"><a href="#5-제너레이터-Generator-와-친해지기" class="headerlink" title="5. 제너레이터 (Generator)와 친해지기"></a>5. 제너레이터 (Generator)와 친해지기</h2><p>제너레이터를 사용한 코드가 메모리 사용량 측면에서 얼마나 효율적인지 확인해보겠습니다. 다음의 코드는 999999까지의 숫자를 제곱하여 return 해주는 함수입니다. 첫번째, 일반적인 함수는 end 숫자까지 for 문을 돌면서 그 결과를 저장한 뒤에 return 해줍니다. 두번째 generator 는 for 문이 돌 때, yield 에서 해당 데이터만 리턴하게 되므로, 메모리 사용에서 효율적입니다. 다음의 실험에서도 쉽게 비교할 수 있습니다.</p>
 <script src="https://gist.github.com/EmjayAhn/943cde0f7e9794f76272e531c8fffcca.js"></script>
-위 코드 실행결과: <br>
+<p>위 코드 실행결과: <br></p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Memory Usage when program start: 8.80859375</span><br><span class="line">Memory Usage when program end: 56.0390625</span><br></pre></td></tr></table></figure>
 
 <script src="https://gist.github.com/EmjayAhn/8ab50ebfdbf3adabeab8f07f20dd0e01.js"></script>
 
-<p>위 코드 실행결과: <br><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Memory Usage when program start: 8.78515625</span><br><span class="line">Memory Usage when program end: 8.78515625</span><br></pre></td></tr></table></figure></p>
+<p>위 코드 실행결과: <br></p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Memory Usage when program start: 8.78515625</span><br><span class="line">Memory Usage when program end: 8.78515625</span><br></pre></td></tr></table></figure>
+
 <hr>
 <h2 id="6-마무리"><a href="#6-마무리" class="headerlink" title="6. 마무리"></a>6. 마무리</h2><p>이번 짧은 글에서, Iterable, Iterator, Generator 를 비교해보면서 그 개념과 사용 예제를 간단하게 살펴 보았습니다. 이름에서부터 헷갈릴 수 있는 각 객체에 대한 내용을 이 글을 통해 조금이나마 정리해볼 수 있는 기회가 되셨으면 좋겠으며, 작은 도움이 되셨으면 합니다.</p>
 <hr>
@@ -301,8 +307,10 @@
 </ol>
 <p><img src="Untitled-cc28ca48-12e4-4a20-a6c4-b0be86d339d8.png" alt></p>
 <h2 id="3-Word2vec-objective-function-gradients"><a href="#3-Word2vec-objective-function-gradients" class="headerlink" title="3. Word2vec objective function gradients"></a>3. Word2vec objective function gradients</h2><p>문장의 특정 위치 t 에 대해 (t = 1, …, T), 중심단어w_j가 주어졌을때, 주변단어를 한정하는 window size m 에 대해  주변단어들을 예측하는 Likelihood 는 다음과 같습니다. likelihood 식을 해석해보면, 중심단어 w_t 에 대해 중심단어를 중심으로 window 사이즈 2m 개의 단어들의 확률을 모두 곱하고, T 개의 단어 갯수에 대해 또 다시 모두 곱합니다.</p>
-<script type="math/tex; mode=display">Likelihood\quad L(\theta)= \prod_{t=1}^{T}\prod_{-m \leq j \leq m}P(w_{t+j}|w_{t};\theta)</script><p>목적함수는 likelihood 를 바탕으로 minimize와 average, 계산 편의를 위해 log 를 씌웠다는 것외에 likelihood 와 동일하다.</p>
-<script type="math/tex; mode=display">objective function \quad J(\theta) = - \frac{1}{T}logL(\theta)=-\frac{1}{T}\sum_{t=1}^{T}\sum_{-m \leq j \leq m, j\neq0}logP(w_{t+j} | w_{t};\theta)</script><p>단어가 등장할 확률을 구하는 방법은 Softmax Function 을 활용합니다.</p>
+<p>$$Likelihood\quad L(\theta)= \prod_{t=1}^{T}\prod_{-m \leq j \leq m}P(w_{t+j}|w_{t};\theta)$$</p>
+<p>목적함수는 likelihood 를 바탕으로 minimize와 average, 계산 편의를 위해 log 를 씌웠다는 것외에 likelihood 와 동일하다.</p>
+<p>$$objective function \quad J(\theta) = - \frac{1}{T}logL(\theta)=-\frac{1}{T}\sum_{t=1}^{T}\sum_{-m \leq j \leq m, j\neq0}logP(w_{t+j} | w_{t};\theta)$$</p>
+<p>단어가 등장할 확률을 구하는 방법은 Softmax Function 을 활용합니다.</p>
 <p><img src="Untitled-99acc04b-91fd-451c-868f-574d995778b3.png" alt></p>
 <h3 id="Objective-Function-의-derivative"><a href="#Objective-Function-의-derivative" class="headerlink" title="Objective Function 의 derivative"></a>Objective Function 의 derivative</h3><p>Objective Function 과 단어 확률 (Softmax) 의 미분을 구하는 과정이다. </p>
 <p><img src="Untitled-d45516b7-8024-457c-bda2-39092a1f6892.png" alt></p>
@@ -378,16 +386,16 @@
 <ol>
 <li><p>위에서 생성한 인스턴스에 접속하기 위해, RSA key pair 를 이를 통해 접속 해 봅니다. 아래의 명령어를 이용해 키페어를 생성해 줍니다. 이 때, USERNAME 은 gcp에 등록한 이메일로 설정합니다.</p>
 <p> $ ssh-keygen -t rsa -f ~/.ssh/[KEYFILE_NAME] -C “[USERNAME]”</p>
-<p> example) $ ssh-keygen -t rsa -f ~/.ssh/gcp-key -C “myemail@mail.com”</p>
+<p> example) $ ssh-keygen -t rsa -f ~/.ssh/gcp-key -C “<a href="mailto:myemail@mail.com" target="_blank" rel="noopener">myemail@mail.com</a>“</p>
 </li>
 </ol>
 <p>앞으로 사용할 Password 를 입력하고, </p>
 <p>생성된 키페어는 <code>.ssh</code> 폴더 안에서 확인 할 수 있습니다. <code>.ssh/[KEYFILE_NAME].pub</code> 를 확인해 볼 수 있습니다.</p>
-<ol>
+<ol start="2">
 <li>생성한 키페어를 gcp 의 메타데이터 탭 → SSH 키에 등록합니다.</li>
 </ol>
 <p><img src="Untitled-ac2cd300-7176-46cc-92d2-aa405a955f85.png" alt></p>
-<ol>
+<ol start="3">
 <li><p>ssh 접속</p>
 <p> $ ssh -i ~/.ssh/[KEYFILE_NAME] [USERNAME]@[GCP외부IP]</p>
 </li>
@@ -395,11 +403,13 @@
 <h2 id="3-Python3-PIP-설치"><a href="#3-Python3-PIP-설치" class="headerlink" title="3. Python3, PIP 설치"></a>3. Python3, PIP 설치</h2><p>위에서 서버에 접속했다면, 서버의 개발환경을 설정해 주기만 하면 됩니다. python3 와 pip 부터 설치해 봅니다.</p>
 <ol>
 <li>locale 설정<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt install language-pack-ko</span><br><span class="line">$ sudo locale-gen ko_KR.UTF-8</span><br><span class="line"></span><br><span class="line">$ <span class="hljs-built_in">export</span> LC_ALL=<span class="hljs-string">"en_US.UTF-8"</span></span><br><span class="line">$ <span class="hljs-built_in">export</span> LC_CTYPE=<span class="hljs-string">"en_US.UTF-8"</span></span><br><span class="line">$ sudo dpkg-reconfigure locales</span><br></pre></td></tr></table></figure>
+
 </li>
 </ol>
 <p>en_US.UTF-8이 [*] 로 체크 되어 있는지까지 확인합니다.</p>
-<ol>
+<ol start="2">
 <li>Python3, PIP 설치<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt update</span><br><span class="line">$ sudo apt install python3-pip</span><br></pre></td></tr></table></figure>
+
 </li>
 </ol>
 <p>설치 후, <code>python3 --version</code> 으로 python 이 잘 설치 되었는지 확인합니다.</p>
@@ -408,47 +418,57 @@
 <li>먼저, 설치 파일을 다운로드 해줍니다.</li>
 </ol>
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 루트에서</span><br><span class="line">$ wget [http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64/](https://developer.nvidia.com/compute/cuda/10.0/Prod/local_installers/cuda-repo-ubuntu1804-10-0-local-10.0.130-410.48_1.0-1_amd64)</span><br></pre></td></tr></table></figure>
-<ol>
+
+<ol start="2">
 <li><code>ls</code> 로 cuda-repo-ubuntu1804-10-0-local-10.0.130-410.48_1.0-1_amd64.deb 이 잘 다운로드 되었는지 확인 해 줍니다. 다운로드 결과 <code>.deb</code> 확장자가 되어있지 않다면, 파일명에 .deb 를 뒤에 붙여 줍니다.</li>
 </ol>
 <p><code>mv cuda-repo-ubuntu1804-10-0-local-10.0.130-410.48_1.0-1_amd64 cuda-repo-ubuntu1804-10-0-local-10.0.130-410.48_1.0-1_amd64.deb</code></p>
-<ol>
+<ol start="3">
 <li>설치<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo dpkg -i cuda-repo-ubuntu1804-10-0-local-10.0.130-410.48_1.0-1_amd64.deb</span><br><span class="line">$ sudo apt add /var/cuda-repo-&lt;version&gt;/7fa2af80.pub</span><br><span class="line">$ sudo apt update</span><br><span class="line">$ sudo apt install cuda</span><br></pre></td></tr></table></figure>
+
 </li>
 </ol>
 <p>CUDA 가 정상적으로 설치되었다면,  <code>$ nvidia-smi</code> 를 통해 자신의 gpu 상태를 확인 할 수 있습니다. 또한, <code>/usr/local/cuda/version.txt</code> 에 설치한 CUDA, 현재는 10.0의 version 을 확인 할 수 있습니다.</p>
-<h2 id="5-cuDNN-설치"><a href="#5-cuDNN-설치" class="headerlink" title="5. cuDNN 설치"></a>5. cuDNN 설치</h2><p>다음의 명령어를 통해 cuDNN 을 설치 할 수 있습니다.<br><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo sh -c <span class="hljs-string">'echo "deb http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64 /" &gt;&gt; /etc/apt/sources.list.d/cuda.list'</span></span><br><span class="line">$ sudo apt update</span><br><span class="line">$ sudo apt install libcudnn7-dev</span><br></pre></td></tr></table></figure></p>
+<h2 id="5-cuDNN-설치"><a href="#5-cuDNN-설치" class="headerlink" title="5. cuDNN 설치"></a>5. cuDNN 설치</h2><p>다음의 명령어를 통해 cuDNN 을 설치 할 수 있습니다.</p>
+<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo sh -c <span class="hljs-string">'echo "deb http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64 /" &gt;&gt; /etc/apt/sources.list.d/cuda.list'</span></span><br><span class="line">$ sudo apt update</span><br><span class="line">$ sudo apt install libcudnn7-dev</span><br></pre></td></tr></table></figure>
+
 <h2 id="6-Pytorch-설치"><a href="#6-Pytorch-설치" class="headerlink" title="6. Pytorch 설치"></a>6. Pytorch 설치</h2><ul>
 <li>우리는 서버가 https 프로토콜을 사용한다고 체크했으므로 -H  flag 를 주어 sudo pip3 를 활용해야합니다.<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo pip3 -H install https://download.pytorch.org/whl/cu100/torch-1.1.0-cp36-cp36m-linux_x86_64.whl</span><br><span class="line">$ sudo pip3 -H install https://download.pytorch.org/whl/cu100/torchvision-0.3.0-cp36-cp36m-linux_x86_64.whl</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 <h2 id="7-Jupyter-Notebook-설치-및-환경설정"><a href="#7-Jupyter-Notebook-설치-및-환경설정" class="headerlink" title="7. Jupyter Notebook 설치 및 환경설정"></a>7. Jupyter Notebook 설치 및 환경설정</h2><ol>
 <li>Jupyter를 설치합니다.<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo -H pip3 install jupyter</span><br></pre></td></tr></table></figure>
+
 </li>
 </ol>
 <p>설치 후, <code>$ jupyter notebook</code> 으로 주피터 커널이 켜지는지 확인합니다.</p>
-<ol>
+<ol start="2">
 <li><p>주피터 config 파일을 생성합니다.</p>
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ jupyter notebook --generate-config</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>비밀번호를 생성합니다. 이 비밀번호는 지금 설치한 주피터 환경에 들어가기 위한 비밀번호 입니다.</p>
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ ipython</span><br><span class="line">from notebook.auth import passwd</span><br><span class="line">passwd()</span><br><span class="line">Enter Password: 사용할 비밀번호 입력</span><br><span class="line">Verify Password: 사용할 비밀번호 입력</span><br></pre></td></tr></table></figure>
+
 </li>
 </ol>
 <p>출력된 비밀번호 해쉬  <code>sha1: ~~~</code> 를 복사해 둡니다.</p>
-<ol>
+<ol start="4">
 <li>우리의 인스턴스는 https 프로토콜을 사용하므로, SSL 키파일을 생성해야 합니다.<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout cert.pem -out cert.pem</span><br></pre></td></tr></table></figure>
+
 </li>
 </ol>
 <p>위 명령어를 입력하고, 뒤따라 나오는 정보들을 입력하여, <code>.pem</code> 파일을 생성합니다.</p>
-<ol>
-<li><ol>
+<ol start="5">
+<li><ol start="2">
 <li>에서 생성한 config 파일 수정<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vi /home/[USERNAME]/.jupyter/jupyter_notebook_config.py</span><br></pre></td></tr></table></figure>
+
 </li>
 </ol>
 </li>
 </ol>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// config 파일에 다음의 내용을 추가합니다.</span><br><span class="line">c = get_config()</span><br><span class="line">c.NotebookApp.ip = &apos;내부아이피주소&apos;</span><br><span class="line">c.NotebookApp.open_browser=False</span><br><span class="line">c.NotebookApp.password=&apos;3에서 생성한 비밀번호 해쉬 sha1:~&apos;</span><br><span class="line">c.Notebook.certfile=&apos;4에서 생성한 .pem 파일 경로 /home/USERNAME/cert.pem&apos;</span><br></pre></td></tr></table></figure>
+
 <p>위까지 완료하게 되었으면, 주피터 서버를 열고,  <code>https://외부아이피:8888</code>  로 주피터를 접속 하는 것을 확인하시면 되겠습니다.</p>
 
         </div>
@@ -505,23 +525,26 @@
 <h2 id="Accuracy-정확도"><a href="#Accuracy-정확도" class="headerlink" title="Accuracy: 정확도"></a>Accuracy: 정확도</h2><ul>
 <li>전체 데이터에 대해 맞게 예측한 비율</li>
 </ul>
-<script type="math/tex; mode=display">
-\frac{TP+TN}{TP+FN+FP+TN}</script><h2 id="Precision-정밀도"><a href="#Precision-정밀도" class="headerlink" title="Precision: 정밀도"></a>Precision: 정밀도</h2><ul>
+<p>$$<br>\frac{TP+TN}{TP+FN+FP+TN}<br>$$</p>
+<h2 id="Precision-정밀도"><a href="#Precision-정밀도" class="headerlink" title="Precision: 정밀도"></a>Precision: 정밀도</h2><ul>
 <li>class 1 이라고 예측한 데이터 중, 실제로 class 1 인 데이터의 비율</li>
 </ul>
-<script type="math/tex; mode=display">\frac{TP}{TP+FP}</script><p>우리의 모델이 기본적인 decision이 class 0 이라고 생각할 때, class 1 은 특별한 경우를 detect 한 경우 일 것입니다. 이 때 class 1 이라고 알람을 울리는 우리의 모델이 얼마나 세밀하게 class를 구분 할 수 있는지의 정도를 수치화 한 것입니다.</p>
+<p>$$\frac{TP}{TP+FP}$$</p>
+<p>우리의 모델이 기본적인 decision이 class 0 이라고 생각할 때, class 1 은 특별한 경우를 detect 한 경우 일 것입니다. 이 때 class 1 이라고 알람을 울리는 우리의 모델이 얼마나 세밀하게 class를 구분 할 수 있는지의 정도를 수치화 한 것입니다.</p>
 <h2 id="Recall-재현율"><a href="#Recall-재현율" class="headerlink" title="Recall: 재현율"></a>Recall: 재현율</h2><ul>
 <li>실제로 class 1 인 데이터 중에 class 1 이라고 예측한 비율</li>
 <li>= Sensivity = TPR</li>
 </ul>
-<script type="math/tex; mode=display">\frac{TP}{TP+FN}</script><p>제가 기억하는 방식은, 자동차에 결함이 발견되서 recall 이 되어야 하는데 (실제 고장 데이터중) 얼마나 recall 됐는지로 생각합니다. </p>
+<p>$$\frac{TP}{TP+FN}$$</p>
+<p>제가 기억하는 방식은, 자동차에 결함이 발견되서 recall 이 되어야 하는데 (실제 고장 데이터중) 얼마나 recall 됐는지로 생각합니다. </p>
 <h2 id="Fall-out-위양성율"><a href="#Fall-out-위양성율" class="headerlink" title="Fall-out: 위양성율"></a>Fall-out: 위양성율</h2><ul>
 <li>실제로 class 1 이 아닌 데이터 중에 class 1이라고 예측한 비율</li>
 <li>낮을 수록 좋음</li>
 <li>= FPR = 1 - Specificity</li>
 <li>Specificity = 1 - Fall out</li>
 </ul>
-<script type="math/tex; mode=display">\frac{FP}{FP+TN}</script><p>실제로 양성데이터가 아닌 데이터에 대해서 우리의 모델이 양성이라고 잘못 예측한 비율을 말합니다. 억울한 데이터의 정도를 측정했다고 생각 할 수 있습니다.</p>
+<p>$$\frac{FP}{FP+TN}$$</p>
+<p>실제로 양성데이터가 아닌 데이터에 대해서 우리의 모델이 양성이라고 잘못 예측한 비율을 말합니다. 억울한 데이터의 정도를 측정했다고 생각 할 수 있습니다.</p>
 <h2 id="각-Metric-간의-상관관계"><a href="#각-Metric-간의-상관관계" class="headerlink" title="각 Metric 간의 상관관계"></a>각 Metric 간의 상관관계</h2><p>우리 모델의 decision function 을 f(x) 라 할 때, 우리는 f(x)의 결과와 threshold (decision point)를 기준으로 class를 구분합니다.</p>
 <ul>
 <li><p>Recall vs Fall-out : 양의 상관관계</p>
@@ -534,9 +557,11 @@
 <h2 id="F-beta-score"><a href="#F-beta-score" class="headerlink" title="F-beta score"></a>F-beta score</h2><ul>
 <li>precision 과 recall의 가중 조화평균</li>
 </ul>
-<script type="math/tex; mode=display">(\frac{1}{1+\beta^2}\frac{1}{precision} + \frac{\beta^2}{1+\beta^2}\frac{1}{recall})^{-1}</script><p>이처럼, 다양한 Metric 에 대해 우리가 초점을 맞추는 것에 따라 모델의 성능은 다르게 바라 볼 수 있습니다. 따라서 모델에 대해 성능을 평가하고 최종 모델을 선택함에 있어, 서로 다른 Metric 을 동시에 비교해야합니다. 이를 위해 precision 과 recall 을 precision 에 beta^2 만큼 가중하여 바라보는 스코어가 F beta score 입니다.</p>
+<p>$$(\frac{1}{1+\beta^2}\frac{1}{precision} + \frac{\beta^2}{1+\beta^2}\frac{1}{recall})^{-1}$$</p>
+<p>이처럼, 다양한 Metric 에 대해 우리가 초점을 맞추는 것에 따라 모델의 성능은 다르게 바라 볼 수 있습니다. 따라서 모델에 대해 성능을 평가하고 최종 모델을 선택함에 있어, 서로 다른 Metric 을 동시에 비교해야합니다. 이를 위해 precision 과 recall 을 precision 에 beta^2 만큼 가중하여 바라보는 스코어가 F beta score 입니다.</p>
 <p>이 중 beta=1 일 때, score 가 우리가 자주 보는 f1 score 입니다.</p>
-<script type="math/tex; mode=display">F_1=\frac{2*precision*recall}{precision+recall}</script><h2 id="ROC-Curve-Receiver-Operator-Characteristic-Curve"><a href="#ROC-Curve-Receiver-Operator-Characteristic-Curve" class="headerlink" title="ROC Curve: Receiver Operator Characteristic Curve"></a>ROC Curve: Receiver Operator Characteristic Curve</h2><ul>
+<p>$$F_1=\frac{2<em>precision</em>recall}{precision+recall}$$</p>
+<h2 id="ROC-Curve-Receiver-Operator-Characteristic-Curve"><a href="#ROC-Curve-Receiver-Operator-Characteristic-Curve" class="headerlink" title="ROC Curve: Receiver Operator Characteristic Curve"></a>ROC Curve: Receiver Operator Characteristic Curve</h2><ul>
 <li>Recall vs Fallout 의 plot (TPR vs FPR)</li>
 </ul>
 <p>위의 예시 처럼, 우리가 클래스를 판별하는 기준이 되는 threshold (decision point) 를 올리거나 내리면서, recall 과 fall out 은 바뀌게 됩니다. 이렇게 threshhold 를 변화 해 가면서, recall 과 fall out 을 plotting 한 것이 ROC curve 입니다.</p>
@@ -606,8 +631,7 @@
 </ul>
 <h1 id="1-Spark-shell"><a href="#1-Spark-shell" class="headerlink" title="1. Spark-shell"></a>1. Spark-shell</h1><h2 id="1-1-Introduction"><a href="#1-1-Introduction" class="headerlink" title="1-1. Introduction"></a>1-1. Introduction</h2><p>shell의 spark home directory 에서 다음 명령어를 통해 spark shell 을 진입할 수 있습니다.</p>
 <pre><code>$ cd /spark_home_directory/
-$ ./bin/spark-shell
-</code></pre><p><img src="Untitled-d3bd9451-d568-49aa-bf5a-0f6b7bf598d9.png" alt></p>
+$ ./bin/spark-shell</code></pre><p><img src="Untitled-d3bd9451-d568-49aa-bf5a-0f6b7bf598d9.png" alt></p>
 <ul>
 <li>sc : spark context</li>
 <li>spark : spark session</li>
@@ -616,14 +640,12 @@ $ ./bin/spark-shell
 <pre><code>$ jps
 // jps 명령어를 통해 현재 돌고 있는 spark process 를 확인할 수 있다. 
 // spark processor 가 jvm 을 바탕으로 돌기 때문에, jvm 프로세스가 도는 것을 확인하므로써
-// 확인 할 수 있는 것이다.
-</code></pre><p><a href="http://localhost:4040" target="_blank" rel="noopener">http://localhost:4040</a>, 즉 해당 서버의 ip:4040 포트를 통해서 드라이버에서 제공되는 웹 UI 를 확인할 수 있다. 이 웹 UI 를 통해 현재 작동하는 프로세서와 클러스터들을 관리 할 수 있다.</p>
+// 확인 할 수 있는 것이다.</code></pre><p><a href="http://localhost:4040" target="_blank" rel="noopener">http://localhost:4040</a>, 즉 해당 서버의 ip:4040 포트를 통해서 드라이버에서 제공되는 웹 UI 를 확인할 수 있다. 이 웹 UI 를 통해 현재 작동하는 프로세서와 클러스터들을 관리 할 수 있다.</p>
 <h2 id="1-2-RDD"><a href="#1-2-RDD" class="headerlink" title="1-2. RDD"></a>1-2. RDD</h2><p>spark는 data를 처리할 때, RDD 와 Spark SQL 을 통해서 data object 를 생성하고 이를 바탕으로 다양한 pipeline 으로 동작 할 수 있다. RDD 를 처음 접해보는 실습.</p>
 <pre><code>//scala shell
 val data = 1 to 10000
 val distData = sc.parallelize(data)
-distData.filter(_ &lt; 10).collect()
-</code></pre><ul>
+distData.filter(_ &lt; 10).collect()</code></pre><ul>
 <li><code>data</code> 가 RDD</li>
 <li>sc.parallelize의 return 형 역시 parallelize 된 RDD, 즉 distData 도 RDD</li>
 <li>마지막 command line 은 10보다 작은 data 에 대해 filtering 하고 각 executor 에서 실행된 자료를 collect()</li>
@@ -639,8 +661,7 @@ val data = sc.textFile(&quot;file_name&quot;)
 val distData = data.map(r =&gt; r + &quot;_experiment!!&quot;)
 
 // 앞선 map 이 수행되고, 각 element(data) 갯수를 세개 된다.
-distData.count
-</code></pre><p>여기서는 .count 가 action api 이므로, .count 가 수행될 때, 앞선 command 들이 수행되게 된다.</p>
+distData.count</code></pre><p>여기서는 .count 가 action api 이므로, .count 가 수행될 때, 앞선 command 들이 수행되게 된다.</p>
 <p><code>sc.textFile()</code> 의 경우 ‘\n’, newline 을 기준으로 element 를 RDD 에 담게 된다.</p>
 <p><code>RDD.toDebugString</code> 를 통해 해당 RDD 의 Lineage 를 확인 할 수 있다.</p>
 <ul>
@@ -665,8 +686,7 @@ newData.toDebugString
 // shuffle 로 인해 stage 가 2개가 되는 것을 확인 할 수 있다.(indentation)
 
 newData.count
-// action api 를 수행하여 앞선 command 를 모두 수행
-</code></pre><p><img src="Untitled-95d981bb-62a7-457f-9378-0b41db4d5b42.png" alt></p>
+// action api 를 수행하여 앞선 command 를 모두 수행</code></pre><p><img src="Untitled-95d981bb-62a7-457f-9378-0b41db4d5b42.png" alt></p>
 <p>위 command line 에 대한 DAG 를 웹 UI 를 통해 확인하면, 다음과 같이 stage 가 repartition을 기점으로 나누어 지는 것을 확인 할 수 있다.</p>
 <p><img src="Untitled-ef367f62-d6f5-47da-9086-cdaa914aa5d7.png" alt></p>
 <p>총 Partition의 갯수 (Task의 갯수)를 확인해 보면,  default 로 수행된 partition 2 개와, 우리가 설정해준 Partition 의 갯수인 10개를 합하여 12개인 것을 확인 할 수 있다.</p>
@@ -674,8 +694,7 @@ newData.count
 <p>여기서 한 스텝을 더 들어가보면, spark 만의 특이한 특징을 확인 할 수 있다.</p>
 <pre><code>// 위 코드에 이어서, newData 에 대해
 // newData RDD를 collect 해서 cli에 찍는 command 를 수행해보자.
-newData.collect.foreach(println)
-</code></pre><p>collect api 와 RDD의 element를 print 를 하는 action api 를 수행할 때, 지금까지 공부한 것으로 생각해 보면, text를 읽어서, 2개의 Partition 을 나누고, 다시 10개의 Partition 을 나누는 작업으로 이전의 12 개의 Task 와 다를게 없을 것 같은 느낌이다. 하지만 UI 를 통해 확인해보면, 10개의 Partition 으로 2개가 skipped 되었다고 확인할 수 있다. DAG 에서도, skipped 된 stage에 대해서 회색으로 확인된다.</p>
+newData.collect.foreach(println)</code></pre><p>collect api 와 RDD의 element를 print 를 하는 action api 를 수행할 때, 지금까지 공부한 것으로 생각해 보면, text를 읽어서, 2개의 Partition 을 나누고, 다시 10개의 Partition 을 나누는 작업으로 이전의 12 개의 Task 와 다를게 없을 것 같은 느낌이다. 하지만 UI 를 통해 확인해보면, 10개의 Partition 으로 2개가 skipped 되었다고 확인할 수 있다. DAG 에서도, skipped 된 stage에 대해서 회색으로 확인된다.</p>
 <p><img src="Untitled-6e461b14-8e34-4edb-91ad-6dd9ba2ba516.png" alt></p>
 <p><img src="Untitled-85afaaf0-58d6-4533-995d-c5ec919da985.png" alt></p>
 <p>이는 spark 에서 이 커맨드라인을 수행할 때, process 간 통신이 file 을 기반으로한 통신을 했기 때문이다. 제일 처음 <code>newData</code> 에 대해서 수행 될 때, 첫 stage 에서 shuffle 이 수행 될 때, 해당 파일을 각 executor 에서 shuffle write 을 하고 저장해두었다가, 두번째 stage 에서 shuffle  이 수행 될때, shuffle read 를 하는 방식으로 file을 기반으로 processor 가 통신하게 된다.</p>
@@ -694,8 +713,7 @@ distData.cache
 distData.take(5)
 
 // action : collect
-distData.collect
-</code></pre><p><code>distData.take(5)</code> 까지 한 결과를 UI 에서 cache 를 살펴보면, 다음과 같다.</p>
+distData.collect</code></pre><p><code>distData.take(5)</code> 까지 한 결과를 UI 에서 cache 를 살펴보면, 다음과 같다.</p>
 <p><img src="Untitled-54196c66-b41c-4216-af72-5a70b030b321.png" alt></p>
 <p>우리가 설정 한 것 처럼, RDD 의 이름이 myData 로 들어간것을 확인 할 수 있고 cache  역시 확인 할 수 있다. 하지만, Cached  된 비율을 확인하면 전체 RDD  에서 50% 만 된 것을 확인 할 수 있다. 반면에, <code>distData.collect</code> action 을 취하게 되면, Fraction Cached  가 100% 가 된 것을 확인 할 수 있다.</p>
 <p><img src="Untitled-8f50bedc-ace7-4c09-9450-fb277ee5830b.png" alt></p>
@@ -707,8 +725,7 @@ distData.collect
 val wordcountRDD = originalDataRDD.flatMap(line =&gt; line.split(&quot; &quot;))
                                         .map(word =&gt; (word, 1)).reduceByKey(_ + _)
 
-wordcountRDD.collect.foreach(println)
-</code></pre><ol>
+wordcountRDD.collect.foreach(println)</code></pre><ol>
 <li>originalDataRDD 에서 text-file을 읽고,</li>
 <li>line 마다 띄어쓰기를 기준으로 split 하고 이를 .flatMap 을 통해, flatten 하게 됩니다.</li>
 <li>그리고 .map 을 통해 (word, 1) tuple 형태로 mapping 합니다.</li>
@@ -775,7 +792,8 @@ wordcountRDD.collect.foreach(println)
 <p><img src="Untitled-5fec1f58-a947-449b-8d71-772aac9a6f3e.png" alt></p>
 <h3 id="1-4-Convolution-Layer-연산"><a href="#1-4-Convolution-Layer-연산" class="headerlink" title="1-4. Convolution Layer 연산"></a>1-4. Convolution Layer 연산</h3><p><img src="Untitled-2a8adbad-1f2a-4fac-898d-aac944438a1b.png" alt></p>
 <p>filter 가 이미지를 훑고 지나가면서 convolution 연산을 한 후, 나온 결과는 원본 이미지보다 그 크기가 작아지게 된다. 그 정도는 filter 의 크기와 filter 가 훑고 지나가는 간격인 stride 에 따라 바뀌게 된다. </p>
-<script type="math/tex; mode=display">output \;size = (N-F)/stride + 1</script><p><strong>문제점:</strong></p>
+<p>$$output ;size = (N-F)/stride + 1$$</p>
+<p><strong>문제점:</strong></p>
 <ol>
 <li><p>convolution 연산의 문제는 이미지의 모서리에 있는 정보는 가운데에 있는 이미지의 정보보다 적게 추출 되는 문제가 있다.(filter 가 모서리를 넘어서는 이동 할 수 없으므로)</p>
 </li>
@@ -786,7 +804,7 @@ wordcountRDD.collect.foreach(println)
 <h3 id="1-5-Padding"><a href="#1-5-Padding" class="headerlink" title="1-5. Padding"></a>1-5. Padding</h3><p>모서리에 정보를 얻기 위해 이미지이 외곽에 숫자를 채워 주는 방법. 이 때, 많이 사용하는 방법은 zero-padding. zero-padding 외에도 다양한 방법이 있다.</p>
 <h2 id="2-Pooling-Layer"><a href="#2-Pooling-Layer" class="headerlink" title="2. Pooling Layer"></a>2. Pooling Layer</h2><p>Parameter 의 갯수를 줄이기 위해, 우리가 ConvLayer 를 통해 뽑아낸 image 를 작게 만드는 Layer  이다. 즉, Downsampling 을 위한 것.</p>
 <p>Maxpooling 의 intuition : 앞선 layer filter 가 각 region  에서 얼마나 활성 되었는지 보는 것이다. </p>
-<h3 id="3-Typical-Architecture"><a href="#3-Typical-Architecture" class="headerlink" title="3. Typical Architecture"></a>3. Typical Architecture</h3><p>[[(Conv → RELU) <em> N → Pool] </em> M → (FC → RELU) * K ] → SOFTMAX</p>
+<h3 id="3-Typical-Architecture"><a href="#3-Typical-Architecture" class="headerlink" title="3. Typical Architecture"></a>3. Typical Architecture</h3><p>[[(Conv → RELU) * N → Pool] * M → (FC → RELU) * K ] → SOFTMAX</p>
 <ul>
 <li>N : ~ 5</li>
 <li>M : Large</li>
@@ -847,28 +865,32 @@ wordcountRDD.collect.foreach(println)
 <h2 id="1-Backpropagation"><a href="#1-Backpropagation" class="headerlink" title="1. Backpropagation"></a>1. Backpropagation</h2><h3 id="1-1-핵심"><a href="#1-1-핵심" class="headerlink" title="1-1. 핵심"></a>1-1. 핵심</h3><p>Backprop의 한줄요약: 각 parameter 에 대해 Loss Function 의 gradient 를 구하기 위해 사용하는 graphical representation of <strong>ChainRule</strong></p>
 <p>언뜻 보면 어려울 수 도 있지만, just ChainRule</p>
 <p><img src="Untitled-13d44613-a85b-4dcc-a807-8b114b0138c4.png" alt></p>
-<p>위의 그림을 예를 들어 살펴 보면, y 에 대한 f의 gradient 는 q에 대한 f의 gradient <em> y 에 대한 q 의 gradient 으로 볼 수 있다. 이를 해석하자면, f 에게 미치는 y 의 영향 = f 에게 미치는 q의 영향 </em> q 에게 미치는 y 의 영향으로 볼 수 있다.</p>
+<p>위의 그림을 예를 들어 살펴 보면, y 에 대한 f의 gradient 는 q에 대한 f의 gradient * y 에 대한 q 의 gradient 으로 볼 수 있다. 이를 해석하자면, f 에게 미치는 y 의 영향 = f 에게 미치는 q의 영향 * q 에게 미치는 y 의 영향으로 볼 수 있다.</p>
 <p>Backpropagation 의 가장 중요한 특징!!</p>
-<pre><code>gradient 를 구하기 위해 node 를 기준으로 앞과 뒤만 보면 된다.
-</code></pre><p><img src="Untitled-f2d8c1d9-1a28-4e16-8e35-83ff9f93045f.png" alt></p>
+<pre><code>gradient 를 구하기 위해 node 를 기준으로 앞과 뒤만 보면 된다.</code></pre><p><img src="Untitled-f2d8c1d9-1a28-4e16-8e35-83ff9f93045f.png" alt></p>
 <p>또한, 위 그림을 보게 되면, Forward passing 과 마찬가지로, Backprop 시에도, 이전 노드에서 전달 되는 Gradient 를 node 에서 local gradient 와의 연산으로 다음 Node 에 gradient 를 전달해 줄 수 있다.</p>
 <h3 id="1-2-Back-prop-시-각-node-의-역할"><a href="#1-2-Back-prop-시-각-node-의-역할" class="headerlink" title="1-2. Back prop 시, 각 node  의 역할"></a>1-2. Back prop 시, 각 node  의 역할</h3><p><img src="Untitled-7a11e194-ea07-4922-a7b5-aa4346476acb.png" alt></p>
 <ol>
-<li>Add gate : gradient distributor<ul>
+<li><p>Add gate : gradient distributor</p>
+<ul>
 <li>add gate 를 기점으로, 각 입력(forward 방향의 입력)의 gradient로 local gradient 를 구하면 1이므로, 전달 되는 gradient 와 각각 1씩 곱해져 전달 되게 된다. 이 현상을 보게 되면 동등하게 나눠주는 역할을 하므로 gradient distributor 라고 볼 수 있다.</li>
 </ul>
 </li>
 <li><p>Max gate : gradient router</p>
 <ul>
-<li>Max gate 는 gradient 를 한쪽에는 전체, 다른 쪽에는 0 을 준다.</li>
+<li><p>Max gate 는 gradient 를 한쪽에는 전체, 다른 쪽에는 0 을 준다.</p>
+</li>
 <li><p>해석적으로 보자면, max 연산을 통해 forward 방향에서 영향을 준 branch 에게 gradient 를 전달해 주는 것이 합적</p>
-<script type="math/tex; mode=display">max(x, y) = \begin{cases} x \quad\quad if \quad x > y \\\\ y \quad\quad if \quad x < y \end{cases}</script></li>
+<p>$$max(x, y) = \begin{cases} x \quad\quad if \quad x &gt; y \\ y \quad\quad if \quad x &lt; y \end{cases}$$</p>
+</li>
 <li><p>수식으로 보자면, x 에 대한 gradient, y 에 대한 gradient 가 각각 (1, 0), (0, 1)  로 local gradient 가 계산되기 때문이다.</p>
 </li>
-<li>gradient 가 전달될 길을 결정해주는 면에서, 네트워크에서 path 를 설정해 주는 router의 기능과 비슷하다.</li>
+<li><p>gradient 가 전달될 길을 결정해주는 면에서, 네트워크에서 path 를 설정해 주는 router의 기능과 비슷하다.</p>
+</li>
 </ul>
 </li>
-<li>Mul gate : gradient switcher + scaler<ul>
+<li><p>Mul gate : gradient switcher + scaler</p>
+<ul>
 <li>곱셈연산의 gradient 의 경우, x 에 대한 gradient 는 y 가 되므로, 서로 바꿔주는 역할을 한다. 이 때, forward 상에서의 결과 값으로 곱해주므로, scale 역할까지 함께 하게 된다.</li>
 </ul>
 </li>
@@ -938,8 +960,10 @@ wordcountRDD.collect.foreach(println)
 <li>Optimization : 위의 Loss Function 을 minimize 해서 가장 좋은 parameter (W) 를 찾는 과정</li>
 </ol>
 <h2 id="2-Loss-Function"><a href="#2-Loss-Function" class="headerlink" title="2. Loss Function"></a>2. Loss Function</h2><p>주어진 data 가 다음과 같을 때, </p>
-<script type="math/tex; mode=display">\{(x_i, y_i)\}_{i=1}^{N}</script><p> Loss 는 “Average of over examples” 즉, </p>
-<script type="math/tex; mode=display">L = \frac{1}{N}\sum_{i}L_i(f(x_i, W), y_i)</script><ul>
+<p>$${(x_i, y_i)}_{i=1}^{N}$$</p>
+<p> Loss 는 “Average of over examples” 즉, </p>
+<p>$$L = \frac{1}{N}\sum_{i}L_i(f(x_i, W), y_i)$$</p>
+<ul>
 <li>딥러닝 알고리즘의 General Setup<ul>
 <li>W 가 얼마나 좋고, 나쁜지를 정량화하는 손실함수 만들기</li>
 <li>W 공간을 탐색하면서  이 loss를 minimize 하는 W 를 찾기</li>
@@ -947,8 +971,10 @@ wordcountRDD.collect.foreach(println)
 </li>
 </ul>
 <h3 id="2-1-Loss-Example-Multiclass-SVM-Loss"><a href="#2-1-Loss-Example-Multiclass-SVM-Loss" class="headerlink" title="2-1. Loss Example: Multiclass SVM Loss"></a>2-1. Loss Example: Multiclass SVM Loss</h3><p>SVM Loss 는 다음과 같다. 주어진 data example (x_i, y_i) 에 대해서, score vector <strong>s</strong> 는 다음과 같다. </p>
-<script type="math/tex; mode=display">s = f(x_i, W)</script><p>이 때, SVM loss는 </p>
-<script type="math/tex; mode=display">L_i = \sum_{j\neq y_i}\begin{cases} 0 \quad\quad\quad\quad\quad\quad\quad if \;s_{y_i} \geq s_j +1 \\ s_j - s_{y_i} + 1 \quad\quad otherwise \end{cases} \\ = \sum_{j\neq y_i}max(0, s_j-s_{y_i}+ 1)</script><p>x_i 의 정답이 아닌 클래스의 score (s_j) + 1 (safety margin) 과 정답 클래스 score s_yi 를 비교하여, Loss 를 계산한다.</p>
+<p>$$s = f(x_i, W)$$</p>
+<p>이 때, SVM loss는 </p>
+<p>$$L_i = \sum_{j\neq y_i}\begin{cases} 0 \quad\quad\quad\quad\quad\quad\quad if ;s_{y_i} \geq s_j +1 \ s_j - s_{y_i} + 1 \quad\quad otherwise \end{cases} \ = \sum_{j\neq y_i}max(0, s_j-s_{y_i}+ 1)$$</p>
+<p>x_i 의 정답이 아닌 클래스의 score (s_j) + 1 (safety margin) 과 정답 클래스 score s_yi 를 비교하여, Loss 를 계산한다.</p>
 <p><img src="Untitled-d804129d-082d-4cfc-819c-4fd3e14ddf17.png" alt></p>
 <ol>
 <li>SVM Loss 의 최대, 최솟값은 ? min : 0, max :  infinite</li>
@@ -984,7 +1010,8 @@ wordcountRDD.collect.foreach(println)
 </ul>
 <h3 id="2-3-Loss-example-Softmax-Classifier-Multinomial-Logistic-Regression"><a href="#2-3-Loss-example-Softmax-Classifier-Multinomial-Logistic-Regression" class="headerlink" title="2-3 Loss example: Softmax Classifier (Multinomial Logistic Regression)"></a>2-3 Loss example: Softmax Classifier (Multinomial Logistic Regression)</h3><p>deeplearning 에서 훨씬 더 자주 보게 되는 loss 의 종류 중 하나이다.  위에서 살펴본 SVM loss 의 단점은 그 값 자체에 어떤 의미를 부여하기는 힘들다는 점이다. 반면에, Softmax Classifier 는 그 값 자체를 확률적 해석이 가능하기 때문이다. (cf. 콜모고로프의 공리를 통해 softmax 의 layer 의 output 이 확률로 해석 될 수 있다.)</p>
 <p>Softmax Function 은 다음과 같다.</p>
-<script type="math/tex; mode=display">P(Y=k|X=x_i) = \frac{e^{s_k}}{\sum_j e^{s_j}},\quad where \quad s = f(x_i;W)</script><h2 id="3-Opitmization"><a href="#3-Opitmization" class="headerlink" title="3. Opitmization"></a>3. Opitmization</h2><p>Optimization 을 한마디로 요약하자면, <strong>우리의  loss 를 최소화 하는 W 를 찾기</strong> 가 되겠다. 그 방법에는,</p>
+<p>$$P(Y=k|X=x_i) = \frac{e^{s_k}}{\sum_j e^{s_j}},\quad where \quad s = f(x_i;W)$$</p>
+<h2 id="3-Opitmization"><a href="#3-Opitmization" class="headerlink" title="3. Opitmization"></a>3. Opitmization</h2><p>Optimization 을 한마디로 요약하자면, <strong>우리의  loss 를 최소화 하는 W 를 찾기</strong> 가 되겠다. 그 방법에는,</p>
 <ul>
 <li>(바보 같은 접근인: 강의표현) Random Search</li>
 <li>Gradient 를 구하는 방법<ul>
@@ -1111,8 +1138,9 @@ wordcountRDD.collect.foreach(println)
 <p><img src="Untitled-1e7d1cc8-fcee-4215-a721-345c8f25e8f5.png" alt></p>
 <h2 id="5-Second-Classifier-Linear-Classifier"><a href="#5-Second-Classifier-Linear-Classifier" class="headerlink" title="5. Second Classifier : Linear Classifier"></a>5. Second Classifier : Linear Classifier</h2><p>Linear Classifier 는 Neural Network 의 기본 골격이다. (1) image data 와 W (parameters or weights) 을 통해 연산을 해주고, (2) function 을 통과해 Classification 을 해준다.</p>
 <p>특히 Linear Classifier 의 경우 아래 와 같이, (1) image data 와 W 를 dot product 를 해주고 (2) linear function f 를 통과한다.</p>
-<script type="math/tex; mode=display">f(x, W) = Wx</script><p><img src="Untitled-c15a20fd-b906-44ce-af25-6810bc57751a.png" alt></p>
-<h2 id="6-Reference"><a href="#6-Reference" class="headerlink" title="6. Reference"></a>6. Reference</h2><p><a href="https://www.youtube.com/watch?v=OoUX-nOEjG0&amp;list=PL3FW7Lu3i5JvHM8ljYj-zLfQRF3EO8sYv&amp;index=2" target="_blank" rel="noopener">Lecture 2 | Image Classification</a></p>
+<p>$$f(x, W) = Wx$$</p>
+<p><img src="Untitled-c15a20fd-b906-44ce-af25-6810bc57751a.png" alt></p>
+<h2 id="6-Reference"><a href="#6-Reference" class="headerlink" title="6. Reference"></a>6. Reference</h2><p><a href="https://www.youtube.com/watch?v=OoUX-nOEjG0&list=PL3FW7Lu3i5JvHM8ljYj-zLfQRF3EO8sYv&index=2" target="_blank" rel="noopener">Lecture 2 | Image Classification</a></p>
 <p><a href="http://cs231n.stanford.edu/syllabus.html" target="_blank" rel="noopener">Syllabus | CS 231N</a></p>
 
         </div>
@@ -1162,20 +1190,25 @@ wordcountRDD.collect.foreach(println)
 <li>이번 post 는 pytorch 를 활용해 기초적인 분류 모델링을 해보면서, pytorch에 익숙함을 높이는 것이 목적입니다.</li>
 </ul>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> torch</span><br><span class="line"><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn</span><br><span class="line"><span class="hljs-keyword">import</span> torch.nn.functional <span class="hljs-keyword">as</span> F</span><br><span class="line"><span class="hljs-keyword">import</span> torch.optim <span class="hljs-keyword">as</span> optim</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np</span><br><span class="line"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">import</span> warnings</span><br><span class="line">warnings.filterwarnings(<span class="hljs-string">"ignore"</span>)</span><br><span class="line">%matplotlib inline</span><br><span class="line">%config InlineBackend.figure_format = <span class="hljs-string">'retina'</span></span><br></pre></td></tr></table></figure>
+
 <h2 id="1-Binary-Classification"><a href="#1-Binary-Classification" class="headerlink" title="1. Binary Classification"></a>1. Binary Classification</h2><ol>
 <li>Modeling</li>
 <li>Sigmoid</li>
 <li>Loss : Binary Cross Entropy</li>
 </ol>
 <h3 id="1-1-Generate-Data"><a href="#1-1-Generate-Data" class="headerlink" title="1.1 Generate Data"></a>1.1 Generate Data</h3><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># plotting function</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">plot_scatter</span><span class="hljs-params">(W_, xy, labels)</span>:</span></span><br><span class="line">    <span class="hljs-keyword">for</span> k, color <span class="hljs-keyword">in</span> [(<span class="hljs-number">0</span>, <span class="hljs-string">'b'</span>), (<span class="hljs-number">1</span>, <span class="hljs-string">'r'</span>)]:</span><br><span class="line">        idx = labels.flatten() == k</span><br><span class="line">        plt.scatter(xy[idx, <span class="hljs-number">0</span>], xy[idx, <span class="hljs-number">1</span>], c=color)</span><br><span class="line">        </span><br><span class="line">    x1 = np.linspace(<span class="hljs-number">-0.1</span>, <span class="hljs-number">1.1</span>)</span><br><span class="line">    x2 = -W_[<span class="hljs-number">1</span>] / W_[<span class="hljs-number">2</span>] * x1 - W_[<span class="hljs-number">0</span>] / W_[<span class="hljs-number">2</span>]</span><br><span class="line">    plt.plot(x1, x2, <span class="hljs-string">'--k'</span>)</span><br><span class="line">    </span><br><span class="line">    plt.grid()</span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># Generate data</span></span><br><span class="line"></span><br><span class="line">W = np.array([<span class="hljs-number">-4.</span>/<span class="hljs-number">5</span>, <span class="hljs-number">3.</span>/<span class="hljs-number">4.</span>, <span class="hljs-number">1.0</span>])</span><br><span class="line"></span><br><span class="line">xy = np.random.rand(<span class="hljs-number">30</span>, <span class="hljs-number">2</span>)</span><br><span class="line">labels = np.zeros(len(xy))</span><br><span class="line">labels[W[<span class="hljs-number">0</span>] + W[<span class="hljs-number">1</span>] * xy[:, <span class="hljs-number">0</span>] + W[<span class="hljs-number">2</span>] * xy[:, <span class="hljs-number">1</span>] &gt; <span class="hljs-number">0</span>] = <span class="hljs-number">1</span></span><br></pre></td></tr></table></figure>
+
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plot_scatter(W, xy, labels)</span><br></pre></td></tr></table></figure>
+
 <p><img src="output_6_0.png" alt="png"></p>
 <h3 id="1-2-Train-data"><a href="#1-2-Train-data" class="headerlink" title="1.2 Train data"></a>1.2 Train data</h3><ul>
 <li>Generate 한 data 로 부터, x 축 값, y 축 값, augmented term 으로 3가지 column 을 만들어 train data 로 만들어 줍니다.</li>
 <li>또한 대응 되는 label 도 model 에 적합한 모양으로 바꾸어 줍니다.</li>
 </ul>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x_train = torch.FloatTensor([[<span class="hljs-number">1.0</span>, xval, yval] <span class="hljs-keyword">for</span> xval, yval <span class="hljs-keyword">in</span> xy])</span><br><span class="line">y_train = torch.FloatTensor(labels).view(<span class="hljs-number">-1</span>, <span class="hljs-number">1</span>)</span><br><span class="line">print(x_train[:<span class="hljs-number">5</span>])</span><br><span class="line">print(y_train[:<span class="hljs-number">5</span>])</span><br></pre></td></tr></table></figure>
+
 <pre><code>tensor([[1.0000, 0.0192, 0.6049],
         [1.0000, 0.0485, 0.2529],
         [1.0000, 0.2412, 0.9115],
@@ -1185,12 +1218,12 @@ tensor([[0.],
         [0.],
         [1.],
         [1.],
-        [1.]])
-</code></pre><h3 id="1-3-Modeling"><a href="#1-3-Modeling" class="headerlink" title="1.3 Modeling"></a>1.3 Modeling</h3><ul>
+        [1.]])</code></pre><h3 id="1-3-Modeling"><a href="#1-3-Modeling" class="headerlink" title="1.3 Modeling"></a>1.3 Modeling</h3><ul>
 <li>Linear Model 형태와 Sigmoid 함수, Loss function 은 cross entropy 를 활용해 모델링을 합니다.</li>
 <li>여기선, 내장되어있는 함수들을 되도록 사용하지 않고, Low level 로 코드를 작성해 보겠습니다.</li>
 </ul>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># Low level modeling</span></span><br><span class="line">parameter_W = torch.FloatTensor([[<span class="hljs-number">-0.5</span>, <span class="hljs-number">0.7</span>, <span class="hljs-number">1.8</span>]]).view(<span class="hljs-number">-1</span>, <span class="hljs-number">1</span>)</span><br><span class="line">parameter_W.requires_grad_(<span class="hljs-keyword">True</span>)</span><br><span class="line"></span><br><span class="line">optimizer = optim.SGD([parameter_W], lr=<span class="hljs-number">0.01</span>)</span><br><span class="line"></span><br><span class="line">epochs = <span class="hljs-number">10000</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, epochs + <span class="hljs-number">1</span>):</span><br><span class="line">    <span class="hljs-comment"># Prediction</span></span><br><span class="line">    y_hat = F.sigmoid(torch.matmul(x_train, parameter_W))</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-comment"># Loss function</span></span><br><span class="line">    loss = (-y_train * torch.log(y_hat) - (<span class="hljs-number">1</span> - y_train) * torch.log((<span class="hljs-number">1</span> - y_hat))).sum().mean()</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-comment"># Backprop &amp; update</span></span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    loss.backward()</span><br><span class="line">    optimizer.step()</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-keyword">if</span> epoch % <span class="hljs-number">1000</span> == <span class="hljs-number">0</span>:</span><br><span class="line">        print(<span class="hljs-string">"epoch &#123;&#125; -- loss &#123;&#125;"</span>.format(epoch, loss.data))</span><br></pre></td></tr></table></figure>
+
 <pre><code>epoch 1000 -- loss 6.368619441986084
 epoch 2000 -- loss 4.5249152183532715
 epoch 3000 -- loss 3.654862403869629
@@ -1200,33 +1233,38 @@ epoch 6000 -- loss 2.4800000190734863
 epoch 7000 -- loss 2.2651939392089844
 epoch 8000 -- loss 2.091233253479004
 epoch 9000 -- loss 1.9466761350631714
-epoch 10000 -- loss 1.8241318464279175
-</code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">parameter_W.data.numpy()</span><br></pre></td></tr></table></figure>
+epoch 10000 -- loss 1.8241318464279175</code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">parameter_W.data.numpy()</span><br></pre></td></tr></table></figure>
+
 <pre><code>array([[-16.748823],
        [ 16.618748],
-       [ 17.622692]], dtype=float32)
-</code></pre><ul>
+       [ 17.622692]], dtype=float32)</code></pre><ul>
 <li>아래 그림을 보면, Train이 잘 된 것을 알 수 있습니다.</li>
 </ul>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plot_scatter(parameter_W.data.numpy(), xy, labels)</span><br></pre></td></tr></table></figure>
+
 <p><img src="output_13_0.png" alt="png"></p>
 <h2 id="2-Multiclass-Classification"><a href="#2-Multiclass-Classification" class="headerlink" title="2. Multiclass Classification"></a>2. Multiclass Classification</h2><h3 id="2-1-Generate-Data"><a href="#2-1-Generate-Data" class="headerlink" title="2.1 Generate Data"></a>2.1 Generate Data</h3><ul>
 <li>이번에는 3개의 label 을 가지고 있는 classification 을 Modeling 해 보겠습니다.</li>
 <li>또한, High Level 로 pytorch 의 추상 클래스를 이용해 모델링 해보겠습니다.</li>
 </ul>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">plot_scatter</span><span class="hljs-params">(W1, W2, xy, labels)</span>:</span></span><br><span class="line">    <span class="hljs-keyword">for</span> k, color <span class="hljs-keyword">in</span> [(<span class="hljs-number">0</span>, <span class="hljs-string">'b'</span>), (<span class="hljs-number">1</span>, <span class="hljs-string">'r'</span>), (<span class="hljs-number">2</span>, <span class="hljs-string">'y'</span>)]:</span><br><span class="line">        idx = labels.flatten() == k</span><br><span class="line">        plt.scatter(xy[idx, <span class="hljs-number">0</span>], xy[idx, <span class="hljs-number">1</span>], c=color)</span><br><span class="line">        </span><br><span class="line">    x1 = np.linspace(<span class="hljs-number">-0.6</span>, <span class="hljs-number">1.6</span>)</span><br><span class="line">    x2 = -W1[<span class="hljs-number">1</span>] / W1[<span class="hljs-number">2</span>] * x1 - W1[<span class="hljs-number">0</span>] / W1[<span class="hljs-number">2</span>]</span><br><span class="line">    x3 = -W2[<span class="hljs-number">1</span>] / W2[<span class="hljs-number">2</span>] * x1 - W2[<span class="hljs-number">0</span>] / W2[<span class="hljs-number">2</span>]</span><br><span class="line">    plt.plot(x1, x2, <span class="hljs-string">'--k'</span>)</span><br><span class="line">    plt.plot(x1, x3, <span class="hljs-string">'--k'</span>)</span><br><span class="line">    </span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># Generate data</span></span><br><span class="line"></span><br><span class="line">W1 = np.array([<span class="hljs-number">-1</span>, <span class="hljs-number">3.</span>/<span class="hljs-number">4.</span>, <span class="hljs-number">1.0</span>])</span><br><span class="line">W2 = np.array([<span class="hljs-number">-1.</span>/<span class="hljs-number">5</span>, <span class="hljs-number">3.</span>/<span class="hljs-number">4.</span>, <span class="hljs-number">1.0</span>])</span><br><span class="line"></span><br><span class="line">xy = <span class="hljs-number">2</span> * np.random.rand(<span class="hljs-number">100</span>, <span class="hljs-number">2</span>) - <span class="hljs-number">0.5</span></span><br><span class="line">labels = np.zeros(len(xy))</span><br><span class="line">labels[(W1[<span class="hljs-number">0</span>] + W1[<span class="hljs-number">1</span>] * xy[:, <span class="hljs-number">0</span>] + W1[<span class="hljs-number">2</span>] * xy[:, <span class="hljs-number">1</span>] &gt; <span class="hljs-number">0</span>)] = <span class="hljs-number">1</span></span><br><span class="line">labels[(W2[<span class="hljs-number">0</span>] + W2[<span class="hljs-number">1</span>] * xy[:, <span class="hljs-number">0</span>] + W2[<span class="hljs-number">2</span>] * xy[:, <span class="hljs-number">1</span>] &lt; <span class="hljs-number">0</span>)] = <span class="hljs-number">2</span></span><br></pre></td></tr></table></figure>
+
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plot_scatter(W1, W2, xy, labels)</span><br></pre></td></tr></table></figure>
+
 <p><img src="output_18_0.png" alt="png"></p>
 <h3 id="2-2-Train-data"><a href="#2-2-Train-data" class="headerlink" title="2.2 Train data"></a>2.2 Train data</h3><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x_train = torch.FloatTensor([[<span class="hljs-number">1.0</span>, xval, yval] <span class="hljs-keyword">for</span> xval, yval <span class="hljs-keyword">in</span> xy])</span><br><span class="line">y_train = torch.LongTensor(labels)</span><br><span class="line">print(x_train[<span class="hljs-number">-5</span>:])</span><br><span class="line">print(y_train[<span class="hljs-number">-5</span>:])</span><br></pre></td></tr></table></figure>
+
 <pre><code>tensor([[ 1.0000,  0.9641,  1.3851],
         [ 1.0000, -0.4445,  1.0595],
         [ 1.0000,  1.0854, -0.1216],
         [ 1.0000,  0.8707,  0.1640],
         [ 1.0000,  0.7043,  1.3483]])
-tensor([1, 0, 0, 0, 1])
-</code></pre><h3 id="2-3-Modeling"><a href="#2-3-Modeling" class="headerlink" title="2.3 Modeling"></a>2.3 Modeling</h3><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MultiModel</span><span class="hljs-params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span></span><br><span class="line">        super().__init__()</span><br><span class="line">        self.linear = nn.Linear(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>)</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">forward</span><span class="hljs-params">(self, x)</span>:</span></span><br><span class="line">        <span class="hljs-keyword">return</span> self.linear(x)</span><br></pre></td></tr></table></figure>
+tensor([1, 0, 0, 0, 1])</code></pre><h3 id="2-3-Modeling"><a href="#2-3-Modeling" class="headerlink" title="2.3 Modeling"></a>2.3 Modeling</h3><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MultiModel</span><span class="hljs-params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span></span><br><span class="line">        super().__init__()</span><br><span class="line">        self.linear = nn.Linear(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>)</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">forward</span><span class="hljs-params">(self, x)</span>:</span></span><br><span class="line">        <span class="hljs-keyword">return</span> self.linear(x)</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">model = MultiModel()</span><br><span class="line"></span><br><span class="line">optimizer = optim.SGD(model.parameters(), lr=<span class="hljs-number">0.01</span>)</span><br><span class="line"></span><br><span class="line">epochs = <span class="hljs-number">10000</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, epochs + <span class="hljs-number">1</span>):</span><br><span class="line">    y_hat = model(x_train)</span><br><span class="line">    </span><br><span class="line">    loss = F.cross_entropy(y_hat, y_train)</span><br><span class="line">    </span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    loss.backward()</span><br><span class="line">    optimizer.step()</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-keyword">if</span> epoch % <span class="hljs-number">1000</span> == <span class="hljs-number">0</span>:</span><br><span class="line">        print(<span class="hljs-string">"epoch &#123;&#125; -- loss &#123;&#125;"</span>.format(epoch, loss.data))</span><br></pre></td></tr></table></figure>
+
 <pre><code>epoch 1000 -- loss 0.6635385155677795
 epoch 2000 -- loss 0.5513403415679932
 epoch 3000 -- loss 0.4890784025192261
@@ -1236,13 +1274,12 @@ epoch 6000 -- loss 0.39017024636268616
 epoch 7000 -- loss 0.369760125875473
 epoch 8000 -- loss 0.35262930393218994
 epoch 9000 -- loss 0.3379631042480469
-epoch 10000 -- loss 0.3252090811729431
-</code></pre><h3 id="2-4-Accuracy-계산"><a href="#2-4-Accuracy-계산" class="headerlink" title="2.4 Accuracy 계산"></a>2.4 Accuracy 계산</h3><ul>
+epoch 10000 -- loss 0.3252090811729431</code></pre><h3 id="2-4-Accuracy-계산"><a href="#2-4-Accuracy-계산" class="headerlink" title="2.4 Accuracy 계산"></a>2.4 Accuracy 계산</h3><ul>
 <li>Accuracy 가 96 % 로 비교적 잘 분류 된 것을 확인 할 수 있습니다.</li>
 </ul>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">accuracy = (torch.ByteTensor(model(x_train).max(dim=<span class="hljs-number">1</span>)[<span class="hljs-number">1</span>] == y_train)).sum().item() / len(y_train)</span><br><span class="line">print(<span class="hljs-string">"Accuracy: &#123;&#125;"</span>.format(accuracy))</span><br></pre></td></tr></table></figure>
-<pre><code>Accuracy: 0.96
-</code></pre>
+
+<pre><code>Accuracy: 0.96</code></pre>
         </div>
         
         
@@ -1792,8 +1829,6 @@ epoch 10000 -- loss 0.3252090811729431
                 </a>
                 <p class="is-size-7">
                 &copy; 2019 EmjayAhn(Minjae Ahn)&nbsp;
-                <!-- Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a
-                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a> -->
                 
                 </p>
             </div>
