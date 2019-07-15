@@ -212,8 +212,10 @@
 </ol>
 <p><img src="Untitled-cc28ca48-12e4-4a20-a6c4-b0be86d339d8.png" alt></p>
 <h2 id="3-Word2vec-objective-function-gradients"><a href="#3-Word2vec-objective-function-gradients" class="headerlink" title="3. Word2vec objective function gradients"></a>3. Word2vec objective function gradients</h2><p>문장의 특정 위치 t 에 대해 (t = 1, …, T), 중심단어w_j가 주어졌을때, 주변단어를 한정하는 window size m 에 대해  주변단어들을 예측하는 Likelihood 는 다음과 같습니다. likelihood 식을 해석해보면, 중심단어 w_t 에 대해 중심단어를 중심으로 window 사이즈 2m 개의 단어들의 확률을 모두 곱하고, T 개의 단어 갯수에 대해 또 다시 모두 곱합니다.</p>
-<script type="math/tex; mode=display">Likelihood\quad L(\theta)= \prod_{t=1}^{T}\prod_{-m \leq j \leq m}P(w_{t+j}|w_{t};\theta)</script><p>목적함수는 likelihood 를 바탕으로 minimize와 average, 계산 편의를 위해 log 를 씌웠다는 것외에 likelihood 와 동일하다.</p>
-<script type="math/tex; mode=display">objective function \quad J(\theta) = - \frac{1}{T}logL(\theta)=-\frac{1}{T}\sum_{t=1}^{T}\sum_{-m \leq j \leq m, j\neq0}logP(w_{t+j} | w_{t};\theta)</script><p>단어가 등장할 확률을 구하는 방법은 Softmax Function 을 활용합니다.</p>
+<p>$$Likelihood\quad L(\theta)= \prod_{t=1}^{T}\prod_{-m \leq j \leq m}P(w_{t+j}|w_{t};\theta)$$</p>
+<p>목적함수는 likelihood 를 바탕으로 minimize와 average, 계산 편의를 위해 log 를 씌웠다는 것외에 likelihood 와 동일하다.</p>
+<p>$$objective function \quad J(\theta) = - \frac{1}{T}logL(\theta)=-\frac{1}{T}\sum_{t=1}^{T}\sum_{-m \leq j \leq m, j\neq0}logP(w_{t+j} | w_{t};\theta)$$</p>
+<p>단어가 등장할 확률을 구하는 방법은 Softmax Function 을 활용합니다.</p>
 <p><img src="Untitled-99acc04b-91fd-451c-868f-574d995778b3.png" alt></p>
 <h3 id="Objective-Function-의-derivative"><a href="#Objective-Function-의-derivative" class="headerlink" title="Objective Function 의 derivative"></a>Objective Function 의 derivative</h3><p>Objective Function 과 단어 확률 (Softmax) 의 미분을 구하는 과정이다. </p>
 <p><img src="Untitled-d45516b7-8024-457c-bda2-39092a1f6892.png" alt></p>
@@ -278,7 +280,8 @@
 <p><img src="Untitled-5fec1f58-a947-449b-8d71-772aac9a6f3e.png" alt></p>
 <h3 id="1-4-Convolution-Layer-연산"><a href="#1-4-Convolution-Layer-연산" class="headerlink" title="1-4. Convolution Layer 연산"></a>1-4. Convolution Layer 연산</h3><p><img src="Untitled-2a8adbad-1f2a-4fac-898d-aac944438a1b.png" alt></p>
 <p>filter 가 이미지를 훑고 지나가면서 convolution 연산을 한 후, 나온 결과는 원본 이미지보다 그 크기가 작아지게 된다. 그 정도는 filter 의 크기와 filter 가 훑고 지나가는 간격인 stride 에 따라 바뀌게 된다. </p>
-<script type="math/tex; mode=display">output \;size = (N-F)/stride + 1</script><p><strong>문제점:</strong></p>
+<p>$$output ;size = (N-F)/stride + 1$$</p>
+<p><strong>문제점:</strong></p>
 <ol>
 <li><p>convolution 연산의 문제는 이미지의 모서리에 있는 정보는 가운데에 있는 이미지의 정보보다 적게 추출 되는 문제가 있다.(filter 가 모서리를 넘어서는 이동 할 수 없으므로)</p>
 </li>
@@ -289,7 +292,7 @@
 <h3 id="1-5-Padding"><a href="#1-5-Padding" class="headerlink" title="1-5. Padding"></a>1-5. Padding</h3><p>모서리에 정보를 얻기 위해 이미지이 외곽에 숫자를 채워 주는 방법. 이 때, 많이 사용하는 방법은 zero-padding. zero-padding 외에도 다양한 방법이 있다.</p>
 <h2 id="2-Pooling-Layer"><a href="#2-Pooling-Layer" class="headerlink" title="2. Pooling Layer"></a>2. Pooling Layer</h2><p>Parameter 의 갯수를 줄이기 위해, 우리가 ConvLayer 를 통해 뽑아낸 image 를 작게 만드는 Layer  이다. 즉, Downsampling 을 위한 것.</p>
 <p>Maxpooling 의 intuition : 앞선 layer filter 가 각 region  에서 얼마나 활성 되었는지 보는 것이다. </p>
-<h3 id="3-Typical-Architecture"><a href="#3-Typical-Architecture" class="headerlink" title="3. Typical Architecture"></a>3. Typical Architecture</h3><p>[[(Conv → RELU) <em> N → Pool] </em> M → (FC → RELU) * K ] → SOFTMAX</p>
+<h3 id="3-Typical-Architecture"><a href="#3-Typical-Architecture" class="headerlink" title="3. Typical Architecture"></a>3. Typical Architecture</h3><p>[[(Conv → RELU) * N → Pool] * M → (FC → RELU) * K ] → SOFTMAX</p>
 <ul>
 <li>N : ~ 5</li>
 <li>M : Large</li>
@@ -350,28 +353,32 @@
 <h2 id="1-Backpropagation"><a href="#1-Backpropagation" class="headerlink" title="1. Backpropagation"></a>1. Backpropagation</h2><h3 id="1-1-핵심"><a href="#1-1-핵심" class="headerlink" title="1-1. 핵심"></a>1-1. 핵심</h3><p>Backprop의 한줄요약: 각 parameter 에 대해 Loss Function 의 gradient 를 구하기 위해 사용하는 graphical representation of <strong>ChainRule</strong></p>
 <p>언뜻 보면 어려울 수 도 있지만, just ChainRule</p>
 <p><img src="Untitled-13d44613-a85b-4dcc-a807-8b114b0138c4.png" alt></p>
-<p>위의 그림을 예를 들어 살펴 보면, y 에 대한 f의 gradient 는 q에 대한 f의 gradient <em> y 에 대한 q 의 gradient 으로 볼 수 있다. 이를 해석하자면, f 에게 미치는 y 의 영향 = f 에게 미치는 q의 영향 </em> q 에게 미치는 y 의 영향으로 볼 수 있다.</p>
+<p>위의 그림을 예를 들어 살펴 보면, y 에 대한 f의 gradient 는 q에 대한 f의 gradient * y 에 대한 q 의 gradient 으로 볼 수 있다. 이를 해석하자면, f 에게 미치는 y 의 영향 = f 에게 미치는 q의 영향 * q 에게 미치는 y 의 영향으로 볼 수 있다.</p>
 <p>Backpropagation 의 가장 중요한 특징!!</p>
-<pre><code>gradient 를 구하기 위해 node 를 기준으로 앞과 뒤만 보면 된다.
-</code></pre><p><img src="Untitled-f2d8c1d9-1a28-4e16-8e35-83ff9f93045f.png" alt></p>
+<pre><code>gradient 를 구하기 위해 node 를 기준으로 앞과 뒤만 보면 된다.</code></pre><p><img src="Untitled-f2d8c1d9-1a28-4e16-8e35-83ff9f93045f.png" alt></p>
 <p>또한, 위 그림을 보게 되면, Forward passing 과 마찬가지로, Backprop 시에도, 이전 노드에서 전달 되는 Gradient 를 node 에서 local gradient 와의 연산으로 다음 Node 에 gradient 를 전달해 줄 수 있다.</p>
 <h3 id="1-2-Back-prop-시-각-node-의-역할"><a href="#1-2-Back-prop-시-각-node-의-역할" class="headerlink" title="1-2. Back prop 시, 각 node  의 역할"></a>1-2. Back prop 시, 각 node  의 역할</h3><p><img src="Untitled-7a11e194-ea07-4922-a7b5-aa4346476acb.png" alt></p>
 <ol>
-<li>Add gate : gradient distributor<ul>
+<li><p>Add gate : gradient distributor</p>
+<ul>
 <li>add gate 를 기점으로, 각 입력(forward 방향의 입력)의 gradient로 local gradient 를 구하면 1이므로, 전달 되는 gradient 와 각각 1씩 곱해져 전달 되게 된다. 이 현상을 보게 되면 동등하게 나눠주는 역할을 하므로 gradient distributor 라고 볼 수 있다.</li>
 </ul>
 </li>
 <li><p>Max gate : gradient router</p>
 <ul>
-<li>Max gate 는 gradient 를 한쪽에는 전체, 다른 쪽에는 0 을 준다.</li>
+<li><p>Max gate 는 gradient 를 한쪽에는 전체, 다른 쪽에는 0 을 준다.</p>
+</li>
 <li><p>해석적으로 보자면, max 연산을 통해 forward 방향에서 영향을 준 branch 에게 gradient 를 전달해 주는 것이 합적</p>
-<script type="math/tex; mode=display">max(x, y) = \begin{cases} x \quad\quad if \quad x > y \\\\ y \quad\quad if \quad x < y \end{cases}</script></li>
+<p>$$max(x, y) = \begin{cases} x \quad\quad if \quad x &gt; y \\ y \quad\quad if \quad x &lt; y \end{cases}$$</p>
+</li>
 <li><p>수식으로 보자면, x 에 대한 gradient, y 에 대한 gradient 가 각각 (1, 0), (0, 1)  로 local gradient 가 계산되기 때문이다.</p>
 </li>
-<li>gradient 가 전달될 길을 결정해주는 면에서, 네트워크에서 path 를 설정해 주는 router의 기능과 비슷하다.</li>
+<li><p>gradient 가 전달될 길을 결정해주는 면에서, 네트워크에서 path 를 설정해 주는 router의 기능과 비슷하다.</p>
+</li>
 </ul>
 </li>
-<li>Mul gate : gradient switcher + scaler<ul>
+<li><p>Mul gate : gradient switcher + scaler</p>
+<ul>
 <li>곱셈연산의 gradient 의 경우, x 에 대한 gradient 는 y 가 되므로, 서로 바꿔주는 역할을 한다. 이 때, forward 상에서의 결과 값으로 곱해주므로, scale 역할까지 함께 하게 된다.</li>
 </ul>
 </li>
@@ -441,8 +448,10 @@
 <li>Optimization : 위의 Loss Function 을 minimize 해서 가장 좋은 parameter (W) 를 찾는 과정</li>
 </ol>
 <h2 id="2-Loss-Function"><a href="#2-Loss-Function" class="headerlink" title="2. Loss Function"></a>2. Loss Function</h2><p>주어진 data 가 다음과 같을 때, </p>
-<script type="math/tex; mode=display">\{(x_i, y_i)\}_{i=1}^{N}</script><p> Loss 는 “Average of over examples” 즉, </p>
-<script type="math/tex; mode=display">L = \frac{1}{N}\sum_{i}L_i(f(x_i, W), y_i)</script><ul>
+<p>$${(x_i, y_i)}_{i=1}^{N}$$</p>
+<p> Loss 는 “Average of over examples” 즉, </p>
+<p>$$L = \frac{1}{N}\sum_{i}L_i(f(x_i, W), y_i)$$</p>
+<ul>
 <li>딥러닝 알고리즘의 General Setup<ul>
 <li>W 가 얼마나 좋고, 나쁜지를 정량화하는 손실함수 만들기</li>
 <li>W 공간을 탐색하면서  이 loss를 minimize 하는 W 를 찾기</li>
@@ -450,8 +459,10 @@
 </li>
 </ul>
 <h3 id="2-1-Loss-Example-Multiclass-SVM-Loss"><a href="#2-1-Loss-Example-Multiclass-SVM-Loss" class="headerlink" title="2-1. Loss Example: Multiclass SVM Loss"></a>2-1. Loss Example: Multiclass SVM Loss</h3><p>SVM Loss 는 다음과 같다. 주어진 data example (x_i, y_i) 에 대해서, score vector <strong>s</strong> 는 다음과 같다. </p>
-<script type="math/tex; mode=display">s = f(x_i, W)</script><p>이 때, SVM loss는 </p>
-<script type="math/tex; mode=display">L_i = \sum_{j\neq y_i}\begin{cases} 0 \quad\quad\quad\quad\quad\quad\quad if \;s_{y_i} \geq s_j +1 \\ s_j - s_{y_i} + 1 \quad\quad otherwise \end{cases} \\ = \sum_{j\neq y_i}max(0, s_j-s_{y_i}+ 1)</script><p>x_i 의 정답이 아닌 클래스의 score (s_j) + 1 (safety margin) 과 정답 클래스 score s_yi 를 비교하여, Loss 를 계산한다.</p>
+<p>$$s = f(x_i, W)$$</p>
+<p>이 때, SVM loss는 </p>
+<p>$$L_i = \sum_{j\neq y_i}\begin{cases} 0 \quad\quad\quad\quad\quad\quad\quad if ;s_{y_i} \geq s_j +1 \ s_j - s_{y_i} + 1 \quad\quad otherwise \end{cases} \ = \sum_{j\neq y_i}max(0, s_j-s_{y_i}+ 1)$$</p>
+<p>x_i 의 정답이 아닌 클래스의 score (s_j) + 1 (safety margin) 과 정답 클래스 score s_yi 를 비교하여, Loss 를 계산한다.</p>
 <p><img src="Untitled-d804129d-082d-4cfc-819c-4fd3e14ddf17.png" alt></p>
 <ol>
 <li>SVM Loss 의 최대, 최솟값은 ? min : 0, max :  infinite</li>
@@ -487,7 +498,8 @@
 </ul>
 <h3 id="2-3-Loss-example-Softmax-Classifier-Multinomial-Logistic-Regression"><a href="#2-3-Loss-example-Softmax-Classifier-Multinomial-Logistic-Regression" class="headerlink" title="2-3 Loss example: Softmax Classifier (Multinomial Logistic Regression)"></a>2-3 Loss example: Softmax Classifier (Multinomial Logistic Regression)</h3><p>deeplearning 에서 훨씬 더 자주 보게 되는 loss 의 종류 중 하나이다.  위에서 살펴본 SVM loss 의 단점은 그 값 자체에 어떤 의미를 부여하기는 힘들다는 점이다. 반면에, Softmax Classifier 는 그 값 자체를 확률적 해석이 가능하기 때문이다. (cf. 콜모고로프의 공리를 통해 softmax 의 layer 의 output 이 확률로 해석 될 수 있다.)</p>
 <p>Softmax Function 은 다음과 같다.</p>
-<script type="math/tex; mode=display">P(Y=k|X=x_i) = \frac{e^{s_k}}{\sum_j e^{s_j}},\quad where \quad s = f(x_i;W)</script><h2 id="3-Opitmization"><a href="#3-Opitmization" class="headerlink" title="3. Opitmization"></a>3. Opitmization</h2><p>Optimization 을 한마디로 요약하자면, <strong>우리의  loss 를 최소화 하는 W 를 찾기</strong> 가 되겠다. 그 방법에는,</p>
+<p>$$P(Y=k|X=x_i) = \frac{e^{s_k}}{\sum_j e^{s_j}},\quad where \quad s = f(x_i;W)$$</p>
+<h2 id="3-Opitmization"><a href="#3-Opitmization" class="headerlink" title="3. Opitmization"></a>3. Opitmization</h2><p>Optimization 을 한마디로 요약하자면, <strong>우리의  loss 를 최소화 하는 W 를 찾기</strong> 가 되겠다. 그 방법에는,</p>
 <ul>
 <li>(바보 같은 접근인: 강의표현) Random Search</li>
 <li>Gradient 를 구하는 방법<ul>
@@ -614,8 +626,9 @@
 <p><img src="Untitled-1e7d1cc8-fcee-4215-a721-345c8f25e8f5.png" alt></p>
 <h2 id="5-Second-Classifier-Linear-Classifier"><a href="#5-Second-Classifier-Linear-Classifier" class="headerlink" title="5. Second Classifier : Linear Classifier"></a>5. Second Classifier : Linear Classifier</h2><p>Linear Classifier 는 Neural Network 의 기본 골격이다. (1) image data 와 W (parameters or weights) 을 통해 연산을 해주고, (2) function 을 통과해 Classification 을 해준다.</p>
 <p>특히 Linear Classifier 의 경우 아래 와 같이, (1) image data 와 W 를 dot product 를 해주고 (2) linear function f 를 통과한다.</p>
-<script type="math/tex; mode=display">f(x, W) = Wx</script><p><img src="Untitled-c15a20fd-b906-44ce-af25-6810bc57751a.png" alt></p>
-<h2 id="6-Reference"><a href="#6-Reference" class="headerlink" title="6. Reference"></a>6. Reference</h2><p><a href="https://www.youtube.com/watch?v=OoUX-nOEjG0&amp;list=PL3FW7Lu3i5JvHM8ljYj-zLfQRF3EO8sYv&amp;index=2" target="_blank" rel="noopener">Lecture 2 | Image Classification</a></p>
+<p>$$f(x, W) = Wx$$</p>
+<p><img src="Untitled-c15a20fd-b906-44ce-af25-6810bc57751a.png" alt></p>
+<h2 id="6-Reference"><a href="#6-Reference" class="headerlink" title="6. Reference"></a>6. Reference</h2><p><a href="https://www.youtube.com/watch?v=OoUX-nOEjG0&list=PL3FW7Lu3i5JvHM8ljYj-zLfQRF3EO8sYv&index=2" target="_blank" rel="noopener">Lecture 2 | Image Classification</a></p>
 <p><a href="http://cs231n.stanford.edu/syllabus.html" target="_blank" rel="noopener">Syllabus | CS 231N</a></p>
 
         </div>
@@ -663,7 +676,8 @@
         <div class="content">
             <h1 id="Section-A-B-Summary"><a href="#Section-A-B-Summary" class="headerlink" title="Section A, B - Summary"></a>Section A, B - Summary</h1><p>이 글은 edwith(<a href="https://www.edwith.org/" target="_blank" rel="noopener">https://www.edwith.org/</a>)의 조경현 교수님의 딥러닝을 이용한 자연어 처리 (<a href="https://www.edwith.org/deepnlp/joinLectures/17363" target="_blank" rel="noopener">https://www.edwith.org/deepnlp/joinLectures/17363</a>)강의를 듣고 정리한 글입니다.</p>
 <h2 id="Section-A-Introduction"><a href="#Section-A-Introduction" class="headerlink" title="Section A. Introduction"></a>Section A. Introduction</h2><ul>
-<li>알고리즘의 정의 : 문제를 해결하기 위한 instruction 의 sequence</li>
+<li><p>알고리즘의 정의 : 문제를 해결하기 위한 instruction 의 sequence</p>
+</li>
 <li><p>Machine Learning Algorithm</p>
 <ol>
 <li><p>문제 정의 (optional) : 문제를 specific 하게 정의 하는 것 자체가 쉽지 않다.</p>
@@ -671,7 +685,8 @@
 </li>
 <li><p>Example들이 주어진다 → 데이터들</p>
 </li>
-<li>문제를 해결 할 수 있는 Train된 Machine Learning Model</li>
+<li><p>문제를 해결 할 수 있는 Train된 Machine Learning Model</p>
+</li>
 </ol>
 </li>
 </ul>
@@ -679,12 +694,14 @@
 <li><p>제공되는 것들:</p>
 <ol>
 <li><p>N 개의 pair 로 된 training set</p>
-<script type="math/tex; mode=display">D = {(x_1, y_1), ..., (x_N, y_N)}</script></li>
+<p> $$D = {(x_1, y_1), …, (x_N, y_N)}$$</p>
+</li>
 <li><p>Data 별 loss function</p>
 <ul>
 <li>Loss function 은 필요에 따라서 우리가 디자인 해야 할 때도 있다.</li>
 </ul>
-<script type="math/tex; mode=display">l(M(x), y) \geq 0</script></li>
+<p>$$l(M(x), y) \geq 0$$</p>
+</li>
 <li><p>Evaluation sets: Validation set과 test set</p>
 </li>
 </ol>
@@ -692,7 +709,8 @@
 <li>기존에 보지 못한 dataset 에도 trained model 이 잘 작동 하는지 확인하는 것이 필수</li>
 </ul>
 </li>
-<li>우리가 결정해야 하는 것들:<ol>
+<li><p>우리가 결정해야 하는 것들:</p>
+<ol>
 <li>Hypothesis sets: H1, H2 … :<ul>
 <li>모델, hyper parameter들이 다른 모델, 여러가지 실험 해보고 싶은 것들이 될 수 있다.</li>
 <li>가설을 잘 설정하는 것이 최종의 모델을 결정하는데 중요한 기초 작업</li>
@@ -704,7 +722,8 @@
 </li>
 </ol>
 </li>
-<li>결국, 우리가 해야 하는 것은<ol>
+<li><p>결국, 우리가 해야 하는 것은</p>
+<ol>
 <li>주어진 Training set 에서, hypothesis set 안의 각 Hm 마다 가장 좋은 모델을 찾는다.</li>
 <li>Trained Hm 중에서, Validation set 에서 가장 좋은 한 가지 모델을 결정한다.</li>
 <li>Reporting 을 위해 test set 에서 얼마나 좋은 성능을 나타내는지 확인한다.</li>
@@ -731,9 +750,11 @@
 <li><p>관점의 이동:</p>
 <ul>
 <li><p>어떤 주어진 data x 에 대하여 y 는 무엇일까? 를 생각하는 모델이 아니라,</p>
-<script type="math/tex; mode=display">f_\theta(x) = ?</script></li>
+<p>$$f_\theta(x) = ? $$</p>
+</li>
 <li><p>주어진 x 에 대해 y가 어떤 case 혹은 값일 확률로 생각한다.</p>
-<script type="math/tex; mode=display">p(y=y'|x) = ?</script></li>
+<p>$$p(y=y’|x) = ?$$</p>
+</li>
 </ul>
 </li>
 <li><p>Distribution based loss functions</p>
@@ -744,12 +765,15 @@
 <li>Multimodal linear Regression : Mixture of Gaussians</li>
 </ul>
 </li>
-<li>결국 Loss Function 은 다음과 같이 표현될 수 있다. Maximize logp</li>
+<li><p>결국 Loss Function 은 다음과 같이 표현될 수 있다. Maximize logp</p>
+</li>
 </ul>
-<script type="math/tex; mode=display">argmax_\theta \sum_{n=1}^{N} logp_\theta(y_n|x_n)</script><ul>
+<p>$$argmax_\theta \sum_{n=1}^{N} logp_\theta(y_n|x_n)$$</p>
+<ul>
 <li>= minimize L(theta):</li>
 </ul>
-<script type="math/tex; mode=display">L(\theta) = \sum_{n=1}^{N} l(M_\theta(x_n), y_n)=  -\sum_{n=1}^{N} logp_\theta(y_n|x_n)</script><h3 id="3-Optimization"><a href="#3-Optimization" class="headerlink" title="3. Optimization"></a>3. Optimization</h3><ul>
+<p>$$L(\theta) = \sum_{n=1}^{N} l(M_\theta(x_n), y_n)=  -\sum_{n=1}^{N} logp_\theta(y_n|x_n)$$</p>
+<h3 id="3-Optimization"><a href="#3-Optimization" class="headerlink" title="3. Optimization"></a>3. Optimization</h3><ul>
 <li>Optimization 방법<ul>
 <li>Optimization 방법에는 GD, SGD, Newton Method 등 다양한 방법이 있지만, Nerual Network 에서는 Gradient Descent 방법을 위주로 사용한다. 이 강의에서는 다루지 않았지만, Gradient Descent  방법 외의 다른 알고리즘들은 전제되는 가정들이 많고, Nerual Network 의 고차원에서는 그 가정을 만족하기가 쉽지 않다. (예를 들어, Newton Method 에서의 Hessian 행렬이 구해지기 위한 가정, computation 양 또한 매우 많다.) 이런 이유에서 Gradient Descent 방법을 사용한다.</li>
 </ul>
@@ -1453,23 +1477,7 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 <script src="/js/insight.js" defer></script>
 <link rel="stylesheet" href="/css/search.css">
-<link rel="stylesheet" href="/css/insight.css">
+<link rel="stylesheet" href="/css/insight.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
     
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>
