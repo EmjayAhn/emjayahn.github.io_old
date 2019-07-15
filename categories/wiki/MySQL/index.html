@@ -20,6 +20,7 @@
 <meta name="twitter:title" content="Emjay&#39;s DailyBlog">
 <meta name="twitter:description" content="공부한 것, 알게된 것을 기록하는 블로그입니다.">
 <meta name="twitter:image" content="https://emjayahn.github.io/images/og_image.png">
+<meta property="fb:app_id" content="jjminjae">
 
 
 
@@ -67,6 +68,15 @@
 
     
     
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128251719-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-128251719-1');
+</script>
+
 
     
     
@@ -190,18 +200,14 @@
 </li>
 </ul>
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="hljs-built_in">cd</span> usr/<span class="hljs-built_in">local</span>/mysql/bin</span><br></pre></td></tr></table></figure>
-
 <p>위 경로에서</p>
 <ul>
 <li>MySQL 서버에 접속<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo ./mysql -p</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql &gt;</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>패스워드 변경<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;ALTER USER <span class="hljs-string">'root'</span>@<span class="hljs-string">'localhost'</span> IDENTIFIED BY <span class="hljs-string">'바꾸고싶은 비밀번호'</span>;</span><br><span class="line">mysql&gt;FLUSH PRIVILEGES;</span><br><span class="line">mysql&gt;quit;</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 <h2 id="2-MySQL-Shell-Command"><a href="#2-MySQL-Shell-Command" class="headerlink" title="2. MySQL Shell Command"></a>2. MySQL Shell Command</h2><h3 id="1-DATABASE-생성-접속-삭제"><a href="#1-DATABASE-생성-접속-삭제" class="headerlink" title="(1) DATABASE 생성, 접속, 삭제"></a>(1) DATABASE 생성, 접속, 삭제</h3><ul>
@@ -222,7 +228,6 @@
 </li>
 <li><p>DB 지우기</p>
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; DROP DATABASE DBNAME;</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 <h3 id="2-TABLE-생성-추가-삭제"><a href="#2-TABLE-생성-추가-삭제" class="headerlink" title="(2) TABLE 생성, 추가, 삭제"></a>(2) TABLE 생성, 추가, 삭제</h3><ul>
@@ -238,31 +243,23 @@
 </li>
 <li><p>example2 : constraint가 있을 때,</p>
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; CREATE TABLE user2(</span><br><span class="line">  user_id INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">  name VARCHAR(20) NOT NULL,</span><br><span class="line">  email VARCHAR(30) UNIQUE NOT NULL,</span><br><span class="line">  age INT(3) DEFAULT<span class="hljs-string">'30'</span>,</span><br><span class="line">  rdate TIMESTAMP</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
-<br>
-<br>
-## (3) 수정
-### (3)-1. DATABASE 수정
-- DATABASE 의 **encoding** 수정
-<br>
-<br>
-- 현재 문자열 encoding 확인
+<p><br><br><br></p>
+<h2 id="3-수정"><a href="#3-수정" class="headerlink" title="(3) 수정"></a>(3) 수정</h2><h3 id="3-1-DATABASE-수정"><a href="#3-1-DATABASE-수정" class="headerlink" title="(3)-1. DATABASE 수정"></a>(3)-1. DATABASE 수정</h3><ul>
+<li>DATABASE 의 <strong>encoding</strong> 수정<br><br><br><br></li>
+<li><p>현재 문자열 encoding 확인</p>
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SHOW VARIABLES LIKE <span class="hljs-string">"CHARACTER_SET_DATABASE"</span>;</span><br></pre></td></tr></table></figure>
-
-<ul>
+</li>
 <li><p>mydb 데이터베이스의 문자열 인코딩을 <code>utf8</code> 로 변경</p>
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; ALTER DATABASE mydb CHARACTER_SET = utf8;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>user 데이터베이스의 문자열 인코딩을 <code>ascii</code> 로 변경</p>
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; ALTER DATABASE user CHARACTER_SET=ascii</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 <h3 id="3-2-TABLE-수정"><a href="#3-2-TABLE-수정" class="headerlink" title="(3)-2. TABLE 수정"></a>(3)-2. TABLE 수정</h3><ul>
 <li><code>user</code> 테이블에 <code>tmp</code>라는 컬럼명, <code>TEXT</code> 데이터 타입 컬럼을 추가<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; ALTER TABLE user ADD tmp TEXT;</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 

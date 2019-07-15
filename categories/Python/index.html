@@ -20,6 +20,7 @@
 <meta name="twitter:title" content="Emjay&#39;s DailyBlog">
 <meta name="twitter:description" content="공부한 것, 알게된 것을 기록하는 블로그입니다.">
 <meta name="twitter:image" content="https://emjayahn.github.io/images/og_image.png">
+<meta property="fb:app_id" content="jjminjae">
 
 
 
@@ -67,6 +68,15 @@
 
     
     
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128251719-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-128251719-1');
+</script>
+
 
     
     
@@ -202,20 +212,16 @@
 <hr>
 <p>위 설명을 코드로 풀어쓰면, 다음과 같습니다. 우리가 다음과 같은 for 문을 사용하면,</p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">for</span> element <span class="hljs-keyword">in</span> iterable_object:</span><br><span class="line">    print(element)</span><br></pre></td></tr></table></figure>
-
 <p>위 코드는 다음과 같이 파이썬 내부적으로 다음과 같이 동작하게 됩니다.</p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># iter() 함수를 호출해, iterator 를 생성하고,</span></span><br><span class="line">iterator_object = iter(iterable_object)</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">while</span> <span class="hljs-keyword">True</span>:</span><br><span class="line">    <span class="hljs-comment"># next() 함수를 호출해, element 를 받아옵니다.</span></span><br><span class="line">    <span class="hljs-keyword">try</span>:</span><br><span class="line">        element = next(iterator_object)</span><br><span class="line">        print(element)</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment"># element 가 없을 시, StopIteration Exception 발생</span></span><br><span class="line">    <span class="hljs-keyword">except</span>: StopIteration:</span><br><span class="line">        <span class="hljs-keyword">break</span></span><br></pre></td></tr></table></figure>
-
 <hr>
-<h2 id="3-이터러블-Iterable-이터레이터-Iterator-와-친해지기"><a href="#3-이터러블-Iterable-이터레이터-Iterator-와-친해지기" class="headerlink" title="3. 이터러블(Iterable), 이터레이터(Iterator)와 친해지기"></a>3. 이터러블(Iterable), 이터레이터(Iterator)와 친해지기</h2><h3 id="3-1-간단-버전"><a href="#3-1-간단-버전" class="headerlink" title="3-1. 간단 버전"></a>3-1. 간단 버전</h3><p>파이썬 이터러블(Iterable) 내장 데이터 구조인 list 를 활용하여, 실습해 봅니다. </p>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">&gt;&gt;&gt; </span>iterable_object = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]</span><br><span class="line"><span class="hljs-meta">&gt;&gt;&gt; </span>iterator_object = iter(iterable_object)</span><br><span class="line"><span class="hljs-meta">&gt;&gt;&gt; </span>iterator_object</span><br><span class="line">&lt;list_iterator object at <span class="hljs-number">0x104fe2278</span>&gt;</span><br><span class="line"><span class="hljs-meta">&gt;&gt;&gt; </span>next(iterator_object)</span><br><span class="line"><span class="hljs-number">1</span></span><br><span class="line"><span class="hljs-meta">&gt;&gt;&gt; </span>next(iterator_object)</span><br><span class="line"><span class="hljs-number">2</span></span><br><span class="line"><span class="hljs-meta">&gt;&gt;&gt; </span>next(iterator_object)</span><br><span class="line"><span class="hljs-number">3</span></span><br><span class="line"><span class="hljs-meta">&gt;&gt;&gt; </span>next(iterator_object)</span><br><span class="line"><span class="hljs-number">4</span></span><br><span class="line"><span class="hljs-meta">&gt;&gt;&gt; </span>next(iterator_object)</span><br><span class="line"><span class="hljs-number">5</span></span><br><span class="line"><span class="hljs-meta">&gt;&gt;&gt; </span>next(iterator_object)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="hljs-string">"&lt;stdin&gt;"</span>, line <span class="hljs-number">1</span>, <span class="hljs-keyword">in</span> &lt;module&gt;</span><br><span class="line">StopIteration</span><br></pre></td></tr></table></figure>
-
+<h2 id="3-이터러블-Iterable-이터레이터-Iterator-와-친해지기"><a href="#3-이터러블-Iterable-이터레이터-Iterator-와-친해지기" class="headerlink" title="3. 이터러블(Iterable), 이터레이터(Iterator)와 친해지기"></a>3. 이터러블(Iterable), 이터레이터(Iterator)와 친해지기</h2><h3 id="3-1-간단-버전"><a href="#3-1-간단-버전" class="headerlink" title="3-1. 간단 버전"></a>3-1. 간단 버전</h3><p>파이썬 이터러블(Iterable) 내장 데이터 구조인 list 를 활용하여, 실습해 봅니다.<br><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">&gt;&gt;&gt; </span>iterable_object = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]</span><br><span class="line"><span class="hljs-meta">&gt;&gt;&gt; </span>iterator_object = iter(iterable_object)</span><br><span class="line"><span class="hljs-meta">&gt;&gt;&gt; </span>iterator_object</span><br><span class="line">&lt;list_iterator object at <span class="hljs-number">0x104fe2278</span>&gt;</span><br><span class="line"><span class="hljs-meta">&gt;&gt;&gt; </span>next(iterator_object)</span><br><span class="line"><span class="hljs-number">1</span></span><br><span class="line"><span class="hljs-meta">&gt;&gt;&gt; </span>next(iterator_object)</span><br><span class="line"><span class="hljs-number">2</span></span><br><span class="line"><span class="hljs-meta">&gt;&gt;&gt; </span>next(iterator_object)</span><br><span class="line"><span class="hljs-number">3</span></span><br><span class="line"><span class="hljs-meta">&gt;&gt;&gt; </span>next(iterator_object)</span><br><span class="line"><span class="hljs-number">4</span></span><br><span class="line"><span class="hljs-meta">&gt;&gt;&gt; </span>next(iterator_object)</span><br><span class="line"><span class="hljs-number">5</span></span><br><span class="line"><span class="hljs-meta">&gt;&gt;&gt; </span>next(iterator_object)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="hljs-string">"&lt;stdin&gt;"</span>, line <span class="hljs-number">1</span>, <span class="hljs-keyword">in</span> &lt;module&gt;</span><br><span class="line">StopIteration</span><br></pre></td></tr></table></figure></p>
 <h3 id="3-2-나만의-iterable-iterator객체"><a href="#3-2-나만의-iterable-iterator객체" class="headerlink" title="3-2. 나만의 iterable, iterator객체"></a>3-2. 나만의 iterable, iterator객체</h3><p>다음의 코드는 이름과 나이를 받는 데이터 객체입니다. 루프를 돌면서 각각 순서에 맞는 (이름, 나이)형태로 데이터를 반환하는 Iterable 객체입니다. 같은 기능을 하는 더욱 효율적인 코드를 짤 수 있겠지만, 공부한 iterable 과 iterator 를 적용해보는 class 입니다.</p>
 <script src="https://gist.github.com/EmjayAhn/70e4232632f340a8f67e0ba1509029c5.js"></script>
 
 <hr>
 <h2 id="4-제너레이터-Generator"><a href="#4-제너레이터-Generator" class="headerlink" title="4. 제너레이터: Generator"></a>4. 제너레이터: Generator</h2><blockquote>
-<p>제너레이터(Generator)란?: <strong>특이한</strong> (공식 문서에 <del>~</del> iterator) 이터레이터(Iterator)</p>
+<p>제너레이터(Generator)란?: <strong>특이한</strong> (공식 문서에 ~~~ iterator) 이터레이터(Iterator)</p>
 </blockquote>
 <p><img src="generator_def.png" alt></p>
 <p>정의에서도 보다시피, 이터레이터(Iterator)입니다. 즉, <code>next()</code> 함수를 만나 동작하는 함수입니다. 이 때, 제너레이터(Generator) 를 일반 함수와 다르게 하는 것이 <code>yield</code> 라는 문법입니다. <code>yield</code> 는 일반 함수의 <code>return</code>과 같이 값을 반환 하지만, <code>return</code>과 다르게 해당 함수(generator)가 종료하지 않고, 그대로 유지됩니다. 다음 순서의 제너레이터(Generator)가 호출되면, 멈추었던 <code>yield</code> 자리에서 다시 함수가 동작하게 됩니다.<br><br></p>
@@ -227,14 +233,12 @@
 <hr>
 <h2 id="5-제너레이터-Generator-와-친해지기"><a href="#5-제너레이터-Generator-와-친해지기" class="headerlink" title="5. 제너레이터 (Generator)와 친해지기"></a>5. 제너레이터 (Generator)와 친해지기</h2><p>제너레이터를 사용한 코드가 메모리 사용량 측면에서 얼마나 효율적인지 확인해보겠습니다. 다음의 코드는 999999까지의 숫자를 제곱하여 return 해주는 함수입니다. 첫번째, 일반적인 함수는 end 숫자까지 for 문을 돌면서 그 결과를 저장한 뒤에 return 해줍니다. 두번째 generator 는 for 문이 돌 때, yield 에서 해당 데이터만 리턴하게 되므로, 메모리 사용에서 효율적입니다. 다음의 실험에서도 쉽게 비교할 수 있습니다.</p>
 <script src="https://gist.github.com/EmjayAhn/943cde0f7e9794f76272e531c8fffcca.js"></script>
-<p>위 코드 실행결과: <br></p>
+위 코드 실행결과: <br>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Memory Usage when program start: 8.80859375</span><br><span class="line">Memory Usage when program end: 56.0390625</span><br></pre></td></tr></table></figure>
 
 <script src="https://gist.github.com/EmjayAhn/8ab50ebfdbf3adabeab8f07f20dd0e01.js"></script>
 
-<p>위 코드 실행결과: <br></p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Memory Usage when program start: 8.78515625</span><br><span class="line">Memory Usage when program end: 8.78515625</span><br></pre></td></tr></table></figure>
-
+<p>위 코드 실행결과: <br><br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Memory Usage when program start: 8.78515625</span><br><span class="line">Memory Usage when program end: 8.78515625</span><br></pre></td></tr></table></figure></p>
 <hr>
 <h2 id="6-마무리"><a href="#6-마무리" class="headerlink" title="6. 마무리"></a>6. 마무리</h2><p>이번 짧은 글에서, Iterable, Iterator, Generator 를 비교해보면서 그 개념과 사용 예제를 간단하게 살펴 보았습니다. 이름에서부터 헷갈릴 수 있는 각 객체에 대한 내용을 이 글을 통해 조금이나마 정리해볼 수 있는 기회가 되셨으면 좋겠으며, 작은 도움이 되셨으면 합니다.</p>
 <hr>
@@ -299,9 +303,7 @@
 <li>ThreadPoolExecutor : API - 멀티스레드와 멀티프로세스 동일한 형태로 디자인(Pool 클래스만 변경하면됨)</li>
 </ul>
 <h3 id="threading-Thread-arguement"><a href="#threading-Thread-arguement" class="headerlink" title="threading.Thread() arguement"></a>threading.Thread() arguement</h3><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Thread(group=, target=, args= , kwargs=, *, daemon=<span class="hljs-keyword">None</span>)</span><br><span class="line"><span class="hljs-comment">#target= : 실제 스레드에서 돌아가게 될 함수</span></span><br><span class="line"><span class="hljs-comment">#args= : tuple 로 target 함수에 들어가게될 argument</span></span><br><span class="line"><span class="hljs-comment">#kwargs= : dictionary로 target 함수에 들어가게될 argument</span></span><br><span class="line"><span class="hljs-comment">#daemon : 데몬 스레드로 돌아갈지 여부</span></span><br></pre></td></tr></table></figure>
-
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#Thread 의 메소드</span></span><br><span class="line">start(): <span class="hljs-comment">#스레드의 실행, self 의 run() 메소드를 호출</span></span><br><span class="line">run(): <span class="hljs-comment">#스레드가 실제로 수행하게될 작업</span></span><br><span class="line">name : <span class="hljs-comment">#스레드의 이름</span></span><br><span class="line">threading.locals() : <span class="hljs-comment">#해당 스레드 내부에서 사용할 로컬 변수 지정</span></span><br></pre></td></tr></table></figure>
-
 
         </div>
         

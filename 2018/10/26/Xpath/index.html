@@ -21,6 +21,7 @@
 <meta name="twitter:title" content="Xpath">
 <meta name="twitter:description" content="xpath 공부한 내용을 스스로 보기 쉽게 정리한 글입니다.  1. xpath란? xpath = XML Path Language XML 문서의 element나 attribute의 value에 접근하기 위한 언어 XML 문서를 해석하기 위한 언어이므로, 기본적으로 path expression 이 바탕이 되어있다. 연산, 문자열 처리를 위한 라이브러리를 내장하">
 <meta name="twitter:image" content="https://emjayahn.github.io/images/og_image.png">
+<meta property="fb:app_id" content="jjminjae">
 
 
 
@@ -68,6 +69,15 @@
 
     
     
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128251719-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-128251719-1');
+</script>
+
 
     
     
@@ -193,7 +203,7 @@
 <li><code>.</code> : 현재 엘리먼트</li>
 <li><code>*</code> : 조건에 맞는 전체 하위 엘리먼트를 검색한다(css selector 에서 한칸 띄우는 것 과 같다)</li>
 <li><code>element[조건]</code> : 엘리먼트에 조건에 해당되는 것을 검색한다<ul>
-<li>(예) <code>p[2]</code> : p 엘리먼트 중 두번째 엘리먼트를 선택 *<em>주의:1부터 시작, 0이 아님 *</em></li>
+<li>(예) <code>p[2]</code> : p 엘리먼트 중 두번째 엘리먼트를 선택 <strong>주의:1부터 시작, 0이 아님 </strong></li>
 <li>(예) <code>[@(attribute_key=&quot;attribute_value&quot;)]</code> : 속성값으로 엘리먼트를 선택<br><code>[@id=&quot;main&quot;]</code> : “main” 이라는 id 를 선택<br><code>[@class=&quot;pp&quot;]</code> : “pp” 라는 class 를 선택</li>
 </ul>
 </li>
