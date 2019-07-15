@@ -185,16 +185,13 @@
 <li>Pytorch 를 사용하여 Modeling 과 loss function 등을 class 형태, 내장 loss 함수등을 사용해보겠습니다.</li>
 </ul>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> torch</span><br><span class="line"><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn</span><br><span class="line"><span class="hljs-keyword">import</span> torch.optim <span class="hljs-keyword">as</span> optim</span><br><span class="line"><span class="hljs-keyword">import</span> torch.nn.functional <span class="hljs-keyword">as</span> F</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np</span><br><span class="line"><span class="hljs-keyword">import</span> warnings</span><br><span class="line">warnings.filterwarnings(<span class="hljs-string">"ignore"</span>)</span><br><span class="line">%config InlineBackend.figure_format = <span class="hljs-string">'retina'</span></span><br><span class="line">%matplotlib inline</span><br></pre></td></tr></table></figure>
-
-<h2 id="1-Quadratic-Regression-Model"><a href="#1-Quadratic-Regression-Model" class="headerlink" title="1. Quadratic Regression Model"></a>1. Quadratic Regression Model</h2><p>$$<br>f(x) = w_0 + w_1x + w_2x^2<br>$$</p>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">x = np.linspace(<span class="hljs-number">-10</span>, <span class="hljs-number">10</span>, <span class="hljs-number">100</span>)</span><br><span class="line">y = x**<span class="hljs-number">2</span> + <span class="hljs-number">0.7</span> * x + <span class="hljs-number">3.0</span> + <span class="hljs-number">20</span> * np.random.rand(len(x))</span><br><span class="line"></span><br><span class="line">plt.plot(x, y, <span class="hljs-string">'o'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.xlabel(<span class="hljs-string">'x'</span>)</span><br><span class="line">plt.ylabel(<span class="hljs-string">'y'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
+<h2 id="1-Quadratic-Regression-Model"><a href="#1-Quadratic-Regression-Model" class="headerlink" title="1. Quadratic Regression Model"></a>1. Quadratic Regression Model</h2><script type="math/tex; mode=display">
+f(x) = w_0 + w_1x + w_2x^2</script><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">x = np.linspace(<span class="hljs-number">-10</span>, <span class="hljs-number">10</span>, <span class="hljs-number">100</span>)</span><br><span class="line">y = x**<span class="hljs-number">2</span> + <span class="hljs-number">0.7</span> * x + <span class="hljs-number">3.0</span> + <span class="hljs-number">20</span> * np.random.rand(len(x))</span><br><span class="line"></span><br><span class="line">plt.plot(x, y, <span class="hljs-string">'o'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.xlabel(<span class="hljs-string">'x'</span>)</span><br><span class="line">plt.ylabel(<span class="hljs-string">'y'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
 <p><img src="output_4_0.png" alt="png"></p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">x_train = torch.FloatTensor([[each_x**<span class="hljs-number">2</span>, each_x, <span class="hljs-number">1</span>] <span class="hljs-keyword">for</span> each_x <span class="hljs-keyword">in</span> x])</span><br><span class="line">y_train = torch.FloatTensor(y)</span><br><span class="line"></span><br><span class="line">print(<span class="hljs-string">"x_train shape: "</span>, x_train.shape)</span><br><span class="line">print(<span class="hljs-string">"y_train shape: "</span>, y_train.shape)</span><br></pre></td></tr></table></figure>
-
 <pre><code>x_train shape:  torch.Size([100, 3])
-y_train shape:  torch.Size([100])</code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">W = torch.zeros(<span class="hljs-number">3</span>, requires_grad=<span class="hljs-keyword">True</span>)</span><br><span class="line"></span><br><span class="line">optimizer = optim.SGD([W], lr=<span class="hljs-number">0.0001</span>)</span><br><span class="line"></span><br><span class="line">epochs = <span class="hljs-number">10000</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, epochs + <span class="hljs-number">1</span>):</span><br><span class="line">    hypothesis = x_train.matmul(W)</span><br><span class="line">    </span><br><span class="line">    loss = torch.mean((hypothesis - y_train) ** <span class="hljs-number">2</span>)</span><br><span class="line">    </span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    loss.backward()</span><br><span class="line">    optimizer.step()</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-keyword">if</span> epoch % <span class="hljs-number">1000</span> == <span class="hljs-number">0</span>:</span><br><span class="line">        print(<span class="hljs-string">"epoch: &#123;&#125; -- Parameters: W: &#123;&#125; -- loss &#123;&#125;"</span>.format(epoch, W.data, loss.data))</span><br></pre></td></tr></table></figure>
-
+y_train shape:  torch.Size([100])
+</code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">W = torch.zeros(<span class="hljs-number">3</span>, requires_grad=<span class="hljs-keyword">True</span>)</span><br><span class="line"></span><br><span class="line">optimizer = optim.SGD([W], lr=<span class="hljs-number">0.0001</span>)</span><br><span class="line"></span><br><span class="line">epochs = <span class="hljs-number">10000</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, epochs + <span class="hljs-number">1</span>):</span><br><span class="line">    hypothesis = x_train.matmul(W)</span><br><span class="line">    </span><br><span class="line">    loss = torch.mean((hypothesis - y_train) ** <span class="hljs-number">2</span>)</span><br><span class="line">    </span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    loss.backward()</span><br><span class="line">    optimizer.step()</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-keyword">if</span> epoch % <span class="hljs-number">1000</span> == <span class="hljs-number">0</span>:</span><br><span class="line">        print(<span class="hljs-string">"epoch: &#123;&#125; -- Parameters: W: &#123;&#125; -- loss &#123;&#125;"</span>.format(epoch, W.data, loss.data))</span><br></pre></td></tr></table></figure>
 <pre><code>epoch: 1000 -- Parameters: W: tensor([1.1738, 0.4943, 1.0699]) -- loss 85.30189514160156
 epoch: 2000 -- Parameters: W: tensor([1.1581, 0.4949, 2.0311]) -- loss 76.05414581298828
 epoch: 3000 -- Parameters: W: tensor([1.1437, 0.4949, 2.9105]) -- loss 68.31205749511719
@@ -204,35 +201,30 @@ epoch: 6000 -- Parameters: W: tensor([1.1075, 0.4949, 5.1250]) -- loss 51.861400
 epoch: 7000 -- Parameters: W: tensor([1.0974, 0.4949, 5.7414]) -- loss 48.058231353759766
 epoch: 8000 -- Parameters: W: tensor([1.0882, 0.4949, 6.3054]) -- loss 44.8742790222168
 epoch: 9000 -- Parameters: W: tensor([1.0798, 0.4949, 6.8214]) -- loss 42.20869445800781
-epoch: 10000 -- Parameters: W: tensor([1.0721, 0.4949, 7.2935]) -- loss 39.97709655761719</code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(x, y, <span class="hljs-string">'o'</span>, label=<span class="hljs-string">'train data'</span>)</span><br><span class="line">plt.plot(x, (x_train.data.matmul(W.data).numpy()), <span class="hljs-string">'-r'</span>, linewidth=<span class="hljs-number">3</span>, label=<span class="hljs-string">'fitted'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
+epoch: 10000 -- Parameters: W: tensor([1.0721, 0.4949, 7.2935]) -- loss 39.97709655761719
+</code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(x, y, <span class="hljs-string">'o'</span>, label=<span class="hljs-string">'train data'</span>)</span><br><span class="line">plt.plot(x, (x_train.data.matmul(W.data).numpy()), <span class="hljs-string">'-r'</span>, linewidth=<span class="hljs-number">3</span>, label=<span class="hljs-string">'fitted'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
 <p><img src="output_7_0.png" alt="png"></p>
-<h2 id="2-Cubic-Regression-Model"><a href="#2-Cubic-Regression-Model" class="headerlink" title="2. Cubic Regression Model"></a>2. Cubic Regression Model</h2><p>$$<br>f(x) = w_0 + w_1x + w_2x^2 + w_3x^3<br>$$</p>
-<h3 id="2-1-Generate-Toy-data"><a href="#2-1-Generate-Toy-data" class="headerlink" title="2.1 Generate Toy data"></a>2.1 Generate Toy data</h3><ul>
+<h2 id="2-Cubic-Regression-Model"><a href="#2-Cubic-Regression-Model" class="headerlink" title="2. Cubic Regression Model"></a>2. Cubic Regression Model</h2><script type="math/tex; mode=display">
+f(x) = w_0 + w_1x + w_2x^2 + w_3x^3</script><h3 id="2-1-Generate-Toy-data"><a href="#2-1-Generate-Toy-data" class="headerlink" title="2.1 Generate Toy data"></a>2.1 Generate Toy data</h3><ul>
 <li>100개의 data 를 생성합니다.</li>
 </ul>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x = np.linspace(<span class="hljs-number">-1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">100</span>)</span><br><span class="line">y = <span class="hljs-number">3</span>*x**<span class="hljs-number">3</span> - <span class="hljs-number">0.2</span> * x ** <span class="hljs-number">2</span> + <span class="hljs-number">0.7</span> * x + <span class="hljs-number">3</span> + <span class="hljs-number">0.5</span> * np.random.rand(len(x))</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(x, y, <span class="hljs-string">'o'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.xlabel(<span class="hljs-string">'x'</span>)</span><br><span class="line">plt.ylabel(<span class="hljs-string">'y'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
 <p><img src="output_11_0.png" alt="png"></p>
 <h3 id="2-2-Define-Model"><a href="#2-2-Define-Model" class="headerlink" title="2.2 Define Model"></a>2.2 Define Model</h3><ul>
 <li>x_train과 y_train 을 만들어줍니다.</li>
 </ul>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x_train = torch.FloatTensor([[xval**<span class="hljs-number">3</span>, xval**<span class="hljs-number">2</span>, xval, <span class="hljs-number">1</span>]<span class="hljs-keyword">for</span> xval <span class="hljs-keyword">in</span> x])</span><br><span class="line">y_train = torch.FloatTensor([y]).view(<span class="hljs-number">100</span>, <span class="hljs-number">-1</span>)</span><br><span class="line">y_train.shape</span><br></pre></td></tr></table></figure>
-
-<pre><code>torch.Size([100, 1])</code></pre><ul>
+<pre><code>torch.Size([100, 1])
+</code></pre><ul>
 <li>이번에 Model을 nn.Module 추상 클래스를 상속 받아, class 형태로 모델링 해보겠습니다.</li>
 </ul>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CubicModel</span><span class="hljs-params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span></span><br><span class="line">        super().__init__()</span><br><span class="line">        self.linear = nn.Linear(<span class="hljs-number">4</span>, <span class="hljs-number">1</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">forward</span><span class="hljs-params">(self, x)</span>:</span></span><br><span class="line">        <span class="hljs-keyword">return</span> self.linear(x)</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model = CubicModel()</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>train 시킬 때, loss 역시 nn.functional 에 있는 내장 mse loss 를 사용하여 보겠습니다.</li>
 </ul>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">optimizer = optim.SGD(model.parameters(), lr=<span class="hljs-number">0.001</span>)</span><br><span class="line"></span><br><span class="line">epochs = <span class="hljs-number">15000</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, epochs + <span class="hljs-number">1</span>):</span><br><span class="line">    hypothesis = model(x_train)</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-comment"># define loss</span></span><br><span class="line">    loss  = F.mse_loss(hypothesis, y_train)</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-comment"># Backprop &amp; update parameters</span></span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    loss.backward()</span><br><span class="line">    optimizer.step()</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-keyword">if</span> epoch % <span class="hljs-number">1500</span> == <span class="hljs-number">0</span>:</span><br><span class="line">        print(<span class="hljs-string">"epoch: &#123;&#125; -- loss &#123;&#125;"</span>.format(epoch, loss.data))</span><br></pre></td></tr></table></figure>
-
 <pre><code>epoch: 1500 -- loss 0.22306101024150848
 epoch: 3000 -- loss 0.11560291796922684
 epoch: 4500 -- loss 0.09848319739103317
@@ -242,29 +234,25 @@ epoch: 9000 -- loss 0.07452096790075302
 epoch: 10500 -- loss 0.06889640539884567
 epoch: 12000 -- loss 0.06398065388202667
 epoch: 13500 -- loss 0.05964164435863495
-epoch: 15000 -- loss 0.055785566568374634</code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(x, y, <span class="hljs-string">'o'</span>, label=<span class="hljs-string">'train data'</span>)</span><br><span class="line">plt.plot(x, model(x_train).data.numpy(), <span class="hljs-string">'-r'</span>, linewidth=<span class="hljs-number">3</span>, label=<span class="hljs-string">'fitted'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
+epoch: 15000 -- loss 0.055785566568374634
+</code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(x, y, <span class="hljs-string">'o'</span>, label=<span class="hljs-string">'train data'</span>)</span><br><span class="line">plt.plot(x, model(x_train).data.numpy(), <span class="hljs-string">'-r'</span>, linewidth=<span class="hljs-number">3</span>, label=<span class="hljs-string">'fitted'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
 <p><img src="output_19_0.png" alt="png"></p>
-<h2 id="3-Exponential-Regression-Model"><a href="#3-Exponential-Regression-Model" class="headerlink" title="3. Exponential Regression Model"></a>3. Exponential Regression Model</h2><p>$$<br>f(x) = e^{w_0x}<br>$$</p>
-<p>$$<br>g(x) = \ln f(x) = w_0x<br>$$</p>
-<ul>
+<h2 id="3-Exponential-Regression-Model"><a href="#3-Exponential-Regression-Model" class="headerlink" title="3. Exponential Regression Model"></a>3. Exponential Regression Model</h2><script type="math/tex; mode=display">
+f(x) = e^{w_0x}</script><script type="math/tex; mode=display">
+g(x) = \ln f(x) = w_0x</script><ul>
 <li>Exponential 의 경우, Linear Model 형태를 만들어 주기 위해, log 를 씌워 주워 train 을 시킨후, 다시 exponential 을 양변에 취해주는 형태로 modeling 을 하여야 한다.</li>
 </ul>
 <h3 id="3-1-Generate-Toy-data"><a href="#3-1-Generate-Toy-data" class="headerlink" title="3.1 Generate Toy data"></a>3.1 Generate Toy data</h3><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">np.random.seed(<span class="hljs-number">20190505</span>)</span><br><span class="line">x = np.linspace(<span class="hljs-number">-1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">50</span>)</span><br><span class="line">y = np.exp(<span class="hljs-number">2</span> * x) + <span class="hljs-number">0.2</span> * (<span class="hljs-number">2</span> * np.random.rand(len(x)) - <span class="hljs-number">1</span>)</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(x, y, <span class="hljs-string">'o'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.xlabel(<span class="hljs-string">'x'</span>)</span><br><span class="line">plt.ylabel(<span class="hljs-string">'y'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
 <p><img src="output_23_0.png" alt="png"></p>
 <h3 id="3-2-Define-Model"><a href="#3-2-Define-Model" class="headerlink" title="3.2 Define Model"></a>3.2 Define Model</h3><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x_train = torch.FloatTensor([[xval, <span class="hljs-number">1</span>] <span class="hljs-keyword">for</span> xval <span class="hljs-keyword">in</span> x])</span><br><span class="line">y_train = torch.FloatTensor([np.log(y)]).view(<span class="hljs-number">50</span>, <span class="hljs-number">-1</span>)</span><br><span class="line">y_train.shape</span><br></pre></td></tr></table></figure>
-
-<pre><code>torch.Size([50, 1])</code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ExpModel</span><span class="hljs-params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span></span><br><span class="line">        super().__init__()</span><br><span class="line">        self.linear = nn.Linear(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>)</span><br><span class="line">        </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">forward</span><span class="hljs-params">(self, x)</span>:</span></span><br><span class="line">        <span class="hljs-keyword">return</span> self.linear(x)</span><br></pre></td></tr></table></figure>
-
+<pre><code>torch.Size([50, 1])
+</code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ExpModel</span><span class="hljs-params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span></span><br><span class="line">        super().__init__()</span><br><span class="line">        self.linear = nn.Linear(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>)</span><br><span class="line">        </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">forward</span><span class="hljs-params">(self, x)</span>:</span></span><br><span class="line">        <span class="hljs-keyword">return</span> self.linear(x)</span><br></pre></td></tr></table></figure>
 <ul>
 <li>이번에는 optimize algorithm 중 Adam 을 사용해 보겠습니다.</li>
 <li>Adam 은 adaptive 하게 learning rate 를 조정해 주는 algorithm 입니다.</li>
 </ul>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">model = ExpModel()</span><br><span class="line"></span><br><span class="line">optimizer = optim.Adam(model.parameters())</span><br><span class="line"></span><br><span class="line">epochs = <span class="hljs-number">15000</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, epochs + <span class="hljs-number">1</span>):</span><br><span class="line">    hypothesis = model(x_train)</span><br><span class="line">    </span><br><span class="line">    loss = F.mse_loss(hypothesis, y_train)</span><br><span class="line">    </span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    loss.backward()</span><br><span class="line">    optimizer.step()</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-keyword">if</span> epoch % <span class="hljs-number">1000</span> == <span class="hljs-number">0</span>:</span><br><span class="line">        print(<span class="hljs-string">"epoch: &#123;&#125; -- loss &#123;&#125;"</span>.format(epoch, loss.data))</span><br></pre></td></tr></table></figure>
-
 <pre><code>epoch: 1000 -- loss 1.4807509183883667
 epoch: 2000 -- loss 0.6568859815597534
 epoch: 3000 -- loss 0.2930431365966797
@@ -279,21 +267,17 @@ epoch: 11000 -- loss 0.16775155067443848
 epoch: 12000 -- loss 0.16775155067443848
 epoch: 13000 -- loss 0.16775153577327728
 epoch: 14000 -- loss 0.1677515208721161
-epoch: 15000 -- loss 0.1677515208721161</code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(x, y, <span class="hljs-string">'o'</span>, label=<span class="hljs-string">'train data'</span>)</span><br><span class="line">plt.plot(x, np.exp(model(x_train).data.numpy()), <span class="hljs-string">'-r'</span>, linewidth=<span class="hljs-number">3</span>, label=<span class="hljs-string">'fitted'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
+epoch: 15000 -- loss 0.1677515208721161
+</code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(x, y, <span class="hljs-string">'o'</span>, label=<span class="hljs-string">'train data'</span>)</span><br><span class="line">plt.plot(x, np.exp(model(x_train).data.numpy()), <span class="hljs-string">'-r'</span>, linewidth=<span class="hljs-number">3</span>, label=<span class="hljs-string">'fitted'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
 <p><img src="output_29_0.png" alt="png"></p>
-<h2 id="4-Sine-amp-Cosine-Regression"><a href="#4-Sine-amp-Cosine-Regression" class="headerlink" title="4. Sine &amp; Cosine Regression"></a>4. Sine &amp; Cosine Regression</h2><p>$$<br>f(x) = w_0\cos(\pi x) + w_1\sin(\pi  x)<br>$$</p>
-<h3 id="4-1-Generate-Toy-data"><a href="#4-1-Generate-Toy-data" class="headerlink" title="4.1 Generate Toy data"></a>4.1 Generate Toy data</h3><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x = np.linspace(<span class="hljs-number">-2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">100</span>)</span><br><span class="line">y = <span class="hljs-number">2</span> * np.cos(np.pi * x) + <span class="hljs-number">1.5</span> * np.sin(np.pi * x) + <span class="hljs-number">2</span> * np.random.rand(len(x)) - <span class="hljs-number">1</span></span><br></pre></td></tr></table></figure>
-
+<h2 id="4-Sine-amp-Cosine-Regression"><a href="#4-Sine-amp-Cosine-Regression" class="headerlink" title="4. Sine &amp; Cosine Regression"></a>4. Sine &amp; Cosine Regression</h2><script type="math/tex; mode=display">
+f(x) = w_0\cos(\pi x) + w_1\sin(\pi  x)</script><h3 id="4-1-Generate-Toy-data"><a href="#4-1-Generate-Toy-data" class="headerlink" title="4.1 Generate Toy data"></a>4.1 Generate Toy data</h3><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x = np.linspace(<span class="hljs-number">-2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">100</span>)</span><br><span class="line">y = <span class="hljs-number">2</span> * np.cos(np.pi * x) + <span class="hljs-number">1.5</span> * np.sin(np.pi * x) + <span class="hljs-number">2</span> * np.random.rand(len(x)) - <span class="hljs-number">1</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(x, y, <span class="hljs-string">'o'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.xlabel(<span class="hljs-string">'x'</span>)</span><br><span class="line">plt.ylabel(<span class="hljs-string">'y'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
 <p><img src="output_33_0.png" alt="png"></p>
 <h3 id="4-2-Modeling"><a href="#4-2-Modeling" class="headerlink" title="4.2 Modeling"></a>4.2 Modeling</h3><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x_train = torch.FloatTensor([[np.cos(np.pi*xval), np.sin(np.pi*xval), <span class="hljs-number">1</span>] <span class="hljs-keyword">for</span> xval <span class="hljs-keyword">in</span> x])</span><br><span class="line">y_train = torch.FloatTensor(y).view(<span class="hljs-number">100</span>, <span class="hljs-number">-1</span>)</span><br><span class="line">y_train.shape</span><br></pre></td></tr></table></figure>
-
-<pre><code>torch.Size([100, 1])</code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SinCosModel</span><span class="hljs-params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span></span><br><span class="line">        super().__init__()</span><br><span class="line">        self.linear = nn.Linear(<span class="hljs-number">3</span>, <span class="hljs-number">1</span>)</span><br><span class="line">        </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">forward</span><span class="hljs-params">(self, x)</span>:</span></span><br><span class="line">        <span class="hljs-keyword">return</span> self.linear(x)</span><br></pre></td></tr></table></figure>
-
+<pre><code>torch.Size([100, 1])
+</code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SinCosModel</span><span class="hljs-params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span></span><br><span class="line">        super().__init__()</span><br><span class="line">        self.linear = nn.Linear(<span class="hljs-number">3</span>, <span class="hljs-number">1</span>)</span><br><span class="line">        </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">forward</span><span class="hljs-params">(self, x)</span>:</span></span><br><span class="line">        <span class="hljs-keyword">return</span> self.linear(x)</span><br></pre></td></tr></table></figure>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">model = SinCosModel()</span><br><span class="line"></span><br><span class="line">optimizer = optim.Adam(model.parameters())</span><br><span class="line"></span><br><span class="line">epochs = <span class="hljs-number">10000</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, epochs + <span class="hljs-number">1</span>):</span><br><span class="line">    hypothesis = model(x_train)</span><br><span class="line">    </span><br><span class="line">    loss = F.mse_loss(hypothesis, y_train)</span><br><span class="line">    </span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    loss.backward()</span><br><span class="line">    optimizer.step()</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-keyword">if</span> epoch % <span class="hljs-number">1000</span> == <span class="hljs-number">0</span>:</span><br><span class="line">        print(<span class="hljs-string">"epoch: &#123;&#125; -- loss &#123;&#125;"</span>.format(epoch, loss.data))</span><br></pre></td></tr></table></figure>
-
 <pre><code>epoch: 1000 -- loss 1.1333037614822388
 epoch: 2000 -- loss 0.45972707867622375
 epoch: 3000 -- loss 0.36056602001190186
@@ -303,8 +287,8 @@ epoch: 6000 -- loss 0.3566077947616577
 epoch: 7000 -- loss 0.3566077649593353
 epoch: 8000 -- loss 0.3566077947616577
 epoch: 9000 -- loss 0.3566077947616577
-epoch: 10000 -- loss 0.3566077649593353</code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(x, y, <span class="hljs-string">'o'</span>, label=<span class="hljs-string">'train data'</span>)</span><br><span class="line">plt.plot(x, model(x_train).data.numpy(), <span class="hljs-string">'-r'</span>, linewidth=<span class="hljs-number">3</span>, label=<span class="hljs-string">'fitted'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
+epoch: 10000 -- loss 0.3566077649593353
+</code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(x, y, <span class="hljs-string">'o'</span>, label=<span class="hljs-string">'train data'</span>)</span><br><span class="line">plt.plot(x, model(x_train).data.numpy(), <span class="hljs-string">'-r'</span>, linewidth=<span class="hljs-number">3</span>, label=<span class="hljs-string">'fitted'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
 <p><img src="output_38_0.png" alt="png"></p>
 
         </div>
@@ -354,15 +338,11 @@ epoch: 10000 -- loss 0.3566077649593353</code></pre><figure class="highlight pyt
 <li>이번 포스트의 목적은 Linear Model을 Pytorch을 통해 구현해보며, 개인적으로 Pytorch의 사용을 연습하며 적응력을 높여보는 것입니다.</li>
 </ul>
 <h2 id="Import-Library"><a href="#Import-Library" class="headerlink" title="Import Library"></a>Import Library</h2><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> torch</span><br><span class="line"><span class="hljs-keyword">import</span> torch.optim <span class="hljs-keyword">as</span> optim</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt</span><br><span class="line"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">import</span> warnings</span><br><span class="line">warnings.filterwarnings(<span class="hljs-string">"ignore"</span>)</span><br><span class="line">%config InlineBackend.figure_format = <span class="hljs-string">'retina'</span></span><br><span class="line">%matplotlib inline</span><br></pre></td></tr></table></figure>
-
 <h2 id="Generate-Toy-Data"><a href="#Generate-Toy-Data" class="headerlink" title="Generate Toy Data"></a>Generate Toy Data</h2><p>$ y = \frac{1}{3} x + 5 $ 와 약간의 noise 를 합쳐 100 개의 toy data를 만들겠습니다.</p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># Target Function</span></span><br><span class="line">f = <span class="hljs-keyword">lambda</span> x: <span class="hljs-number">1.0</span>/<span class="hljs-number">3.0</span> * x + <span class="hljs-number">5.0</span></span><br><span class="line"></span><br><span class="line">x = np.linspace(<span class="hljs-number">-40</span>, <span class="hljs-number">60</span>, <span class="hljs-number">100</span>)</span><br><span class="line">fx = f(x)</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(x, fx)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
 <p><img src="output_5_0.png" alt="png"></p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># y_train data with little noise</span></span><br><span class="line">y = fx + <span class="hljs-number">10</span> * np.random.rand(len(x))</span><br><span class="line"></span><br><span class="line">plt.plot(x, y, <span class="hljs-string">'o'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
 <p><img src="output_6_0.png" alt="png"></p>
 <h2 id="1-Gradient-Descent"><a href="#1-Gradient-Descent" class="headerlink" title="1. Gradient Descent"></a>1. Gradient Descent</h2><ol>
 <li>Model (hypothesis) 를 설정합니다.<br>(여기선, Linear Regression 이므로, $y = Wx + b$ 형태를 사용합니다.)</li>
@@ -371,17 +351,16 @@ epoch: 10000 -- loss 0.3566077649593353</code></pre><figure class="highlight pyt
 <li>parameter 를 update 합니다.</li>
 </ol>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x_train = torch.FloatTensor(x)</span><br><span class="line">y_train = torch.FloatTensor(y)</span><br><span class="line">print(<span class="hljs-string">"x_train Tensor shape: "</span>, x_train.shape)</span><br><span class="line">print(<span class="hljs-string">"y_train Tensor shape: "</span>, y_train.shape)</span><br></pre></td></tr></table></figure>
-
 <pre><code>x_train Tensor shape:  torch.Size([100])
-y_train Tensor shape:  torch.Size([100])</code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># train code</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-comment"># parameter setting &amp; initialize</span></span><br><span class="line">W = torch.zeros(<span class="hljs-number">1</span>, requires_grad=<span class="hljs-keyword">True</span>)</span><br><span class="line">b = torch.zeros(<span class="hljs-number">1</span>, requires_grad=<span class="hljs-keyword">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment"># optimizer setting</span></span><br><span class="line">optimizer = optim.SGD([W, b], lr=<span class="hljs-number">0.001</span>)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment"># total epochs</span></span><br><span class="line">epochs = <span class="hljs-number">3000</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, epochs + <span class="hljs-number">1</span>):</span><br><span class="line">    <span class="hljs-comment"># decide model(hypothesis)</span></span><br><span class="line">    model = W * x_train + b</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-comment"># loss function -&gt; MSE</span></span><br><span class="line">    loss = torch.mean((model - y_train)**<span class="hljs-number">2</span>)</span><br><span class="line">    </span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    loss.backward()</span><br><span class="line">    optimizer.step()</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-comment"># 10 epoch 마다 train loss 를 출력합니다.</span></span><br><span class="line">    <span class="hljs-keyword">if</span> epoch % <span class="hljs-number">500</span> == <span class="hljs-number">0</span>:</span><br><span class="line">        print(<span class="hljs-string">"epoch: &#123;&#125; -- Parameters: W: &#123;&#125; b: &#123;&#125; -- loss &#123;&#125;"</span>.format(epoch, W.data, b.data, loss.data))</span><br></pre></td></tr></table></figure>
-
+y_train Tensor shape:  torch.Size([100])
+</code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># train code</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-comment"># parameter setting &amp; initialize</span></span><br><span class="line">W = torch.zeros(<span class="hljs-number">1</span>, requires_grad=<span class="hljs-keyword">True</span>)</span><br><span class="line">b = torch.zeros(<span class="hljs-number">1</span>, requires_grad=<span class="hljs-keyword">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment"># optimizer setting</span></span><br><span class="line">optimizer = optim.SGD([W, b], lr=<span class="hljs-number">0.001</span>)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment"># total epochs</span></span><br><span class="line">epochs = <span class="hljs-number">3000</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, epochs + <span class="hljs-number">1</span>):</span><br><span class="line">    <span class="hljs-comment"># decide model(hypothesis)</span></span><br><span class="line">    model = W * x_train + b</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-comment"># loss function -&gt; MSE</span></span><br><span class="line">    loss = torch.mean((model - y_train)**<span class="hljs-number">2</span>)</span><br><span class="line">    </span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    loss.backward()</span><br><span class="line">    optimizer.step()</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-comment"># 10 epoch 마다 train loss 를 출력합니다.</span></span><br><span class="line">    <span class="hljs-keyword">if</span> epoch % <span class="hljs-number">500</span> == <span class="hljs-number">0</span>:</span><br><span class="line">        print(<span class="hljs-string">"epoch: &#123;&#125; -- Parameters: W: &#123;&#125; b: &#123;&#125; -- loss &#123;&#125;"</span>.format(epoch, W.data, b.data, loss.data))</span><br></pre></td></tr></table></figure>
 <pre><code>epoch: 500 -- Parameters: W: tensor([0.3709]) b: tensor([5.6408]) -- loss 22.728315353393555
 epoch: 1000 -- Parameters: W: tensor([0.3467]) b: tensor([7.9427]) -- loss 11.399767875671387
 epoch: 1500 -- Parameters: W: tensor([0.3368]) b: tensor([8.8829]) -- loss 9.51008415222168
 epoch: 2000 -- Parameters: W: tensor([0.3327]) b: tensor([9.2669]) -- loss 9.194862365722656
 epoch: 2500 -- Parameters: W: tensor([0.3311]) b: tensor([9.4237]) -- loss 9.142287254333496
-epoch: 3000 -- Parameters: W: tensor([0.3304]) b: tensor([9.4878]) -- loss 9.133516311645508</code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(x, y, <span class="hljs-string">'o'</span>, label=<span class="hljs-string">"train data"</span>)</span><br><span class="line">plt.plot(x_train.data.numpy(), W.data.numpy()*x + b.data.numpy(), label=<span class="hljs-string">'fitted'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
+epoch: 3000 -- Parameters: W: tensor([0.3304]) b: tensor([9.4878]) -- loss 9.133516311645508
+</code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(x, y, <span class="hljs-string">'o'</span>, label=<span class="hljs-string">"train data"</span>)</span><br><span class="line">plt.plot(x_train.data.numpy(), W.data.numpy()*x + b.data.numpy(), label=<span class="hljs-string">'fitted'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
 <p><img src="output_10_0.png" alt="png"></p>
 <h2 id="2-Stochastic-Gradient-Descent"><a href="#2-Stochastic-Gradient-Descent" class="headerlink" title="2. Stochastic Gradient Descent"></a>2. Stochastic Gradient Descent</h2><ol>
 <li>Model (hypothesis) Setting</li>
@@ -391,9 +370,7 @@ epoch: 3000 -- Parameters: W: tensor([0.3304]) b: tensor([9.4878]) -- loss 9.133
 <li>mini-batch 마다 W, b 업데이트</li>
 </ol>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># batch 를 generate 해주는 함수</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">generate_batch</span><span class="hljs-params">(batch_size, x_train, y_train)</span>:</span></span><br><span class="line">    <span class="hljs-keyword">assert</span> len(x_train) == len(y_train)</span><br><span class="line">    result_batches = []</span><br><span class="line">    x_size = len(x_train)</span><br><span class="line">    </span><br><span class="line">    shuffled_id = np.arange(x_size)</span><br><span class="line">    np.random.shuffle(shuffled_id)</span><br><span class="line">    shuffled_x_train = x_train[shuffled_id]</span><br><span class="line">    shuffled_y_train = y_train[shuffled_id]</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-keyword">for</span> start_idx <span class="hljs-keyword">in</span> range(<span class="hljs-number">0</span>, x_size, batch_size):</span><br><span class="line">        end_idx = start_idx + batch_size</span><br><span class="line">        batch = [shuffled_x_train[start_idx:end_idx], shuffled_y_train[start_idx:end_idx]]</span><br><span class="line">        result_batches.append(batch)</span><br><span class="line">    <span class="hljs-keyword">return</span> result_batches</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># train</span></span><br><span class="line">W = torch.zeros(<span class="hljs-number">1</span>, requires_grad=<span class="hljs-keyword">True</span>)</span><br><span class="line">b = torch.zeros(<span class="hljs-number">1</span>, requires_grad=<span class="hljs-keyword">True</span>)</span><br><span class="line"></span><br><span class="line">optimizer = optim.SGD([W, b], lr=<span class="hljs-number">0.001</span>)</span><br><span class="line"></span><br><span class="line">epochs = <span class="hljs-number">10000</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, epochs + <span class="hljs-number">1</span>):</span><br><span class="line">    <span class="hljs-keyword">for</span> x_batch, y_batch <span class="hljs-keyword">in</span> generate_batch(<span class="hljs-number">10</span>, x_train, y_train):</span><br><span class="line">        model = W * x_batch + b</span><br><span class="line">        loss = torch.mean((model - y_batch)**<span class="hljs-number">2</span>)</span><br><span class="line">        </span><br><span class="line">        optimizer.zero_grad()</span><br><span class="line">        loss.backward()</span><br><span class="line">        optimizer.step()</span><br><span class="line">        </span><br><span class="line">    <span class="hljs-keyword">if</span> epoch % <span class="hljs-number">500</span> == <span class="hljs-number">0</span>:</span><br><span class="line">        print(<span class="hljs-string">"epoch: &#123;&#125; -- Parameters: W: &#123;&#125; b: &#123;&#125; -- loss &#123;&#125;"</span>.format(epoch, W.data, b.data, loss.data))</span><br></pre></td></tr></table></figure>
-
 <pre><code>epoch: 500 -- Parameters: W: tensor([0.0890]) b: tensor([9.5399]) -- loss 162.1055450439453
 epoch: 1000 -- Parameters: W: tensor([0.3672]) b: tensor([9.5366]) -- loss 12.424881935119629
 epoch: 1500 -- Parameters: W: tensor([0.3560]) b: tensor([9.5097]) -- loss 7.826609134674072
@@ -413,14 +390,13 @@ epoch: 8000 -- Parameters: W: tensor([0.1423]) b: tensor([9.5220]) -- loss 32.56
 epoch: 8500 -- Parameters: W: tensor([0.7147]) b: tensor([9.5182]) -- loss 75.97190856933594
 epoch: 9000 -- Parameters: W: tensor([0.5170]) b: tensor([9.5289]) -- loss 39.07848358154297
 epoch: 9500 -- Parameters: W: tensor([0.3748]) b: tensor([9.5590]) -- loss 10.358983993530273
-epoch: 10000 -- Parameters: W: tensor([0.2958]) b: tensor([9.6088]) -- loss 7.410649299621582</code></pre><ul>
+epoch: 10000 -- Parameters: W: tensor([0.2958]) b: tensor([9.6088]) -- loss 7.410649299621582
+</code></pre><ul>
 <li>Stochasitic 하게 loss의 gradient 를 계산하여, parameter update를 하므로, loss 가 굉장히 oscilation 이 나타나며 감소하는 것을 볼 수 있다.</li>
 </ul>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(x, y, <span class="hljs-string">'o'</span>, label=<span class="hljs-string">"train data"</span>)</span><br><span class="line">plt.plot(x_train.data.numpy(), W.data.numpy()*x + b.data.numpy(), label=<span class="hljs-string">'fitted'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
 <p><img src="output_15_0.png" alt="png"></p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
 
         </div>
         
@@ -467,8 +443,7 @@ epoch: 10000 -- Parameters: W: tensor([0.2958]) b: tensor([9.6088]) -- loss 7.41
         <div class="content">
             <h1 id="Section-A-B-Summary"><a href="#Section-A-B-Summary" class="headerlink" title="Section A, B - Summary"></a>Section A, B - Summary</h1><p>이 글은 edwith(<a href="https://www.edwith.org/" target="_blank" rel="noopener">https://www.edwith.org/</a>)의 조경현 교수님의 딥러닝을 이용한 자연어 처리 (<a href="https://www.edwith.org/deepnlp/joinLectures/17363" target="_blank" rel="noopener">https://www.edwith.org/deepnlp/joinLectures/17363</a>)강의를 듣고 정리한 글입니다.</p>
 <h2 id="Section-A-Introduction"><a href="#Section-A-Introduction" class="headerlink" title="Section A. Introduction"></a>Section A. Introduction</h2><ul>
-<li><p>알고리즘의 정의 : 문제를 해결하기 위한 instruction 의 sequence</p>
-</li>
+<li>알고리즘의 정의 : 문제를 해결하기 위한 instruction 의 sequence</li>
 <li><p>Machine Learning Algorithm</p>
 <ol>
 <li><p>문제 정의 (optional) : 문제를 specific 하게 정의 하는 것 자체가 쉽지 않다.</p>
@@ -476,8 +451,7 @@ epoch: 10000 -- Parameters: W: tensor([0.2958]) b: tensor([9.6088]) -- loss 7.41
 </li>
 <li><p>Example들이 주어진다 → 데이터들</p>
 </li>
-<li><p>문제를 해결 할 수 있는 Train된 Machine Learning Model</p>
-</li>
+<li>문제를 해결 할 수 있는 Train된 Machine Learning Model</li>
 </ol>
 </li>
 </ul>
@@ -485,14 +459,12 @@ epoch: 10000 -- Parameters: W: tensor([0.2958]) b: tensor([9.6088]) -- loss 7.41
 <li><p>제공되는 것들:</p>
 <ol>
 <li><p>N 개의 pair 로 된 training set</p>
-<p> $$D = {(x_1, y_1), …, (x_N, y_N)}$$</p>
-</li>
+<script type="math/tex; mode=display">D = {(x_1, y_1), ..., (x_N, y_N)}</script></li>
 <li><p>Data 별 loss function</p>
 <ul>
 <li>Loss function 은 필요에 따라서 우리가 디자인 해야 할 때도 있다.</li>
 </ul>
-<p>$$l(M(x), y) \geq 0$$</p>
-</li>
+<script type="math/tex; mode=display">l(M(x), y) \geq 0</script></li>
 <li><p>Evaluation sets: Validation set과 test set</p>
 </li>
 </ol>
@@ -500,8 +472,7 @@ epoch: 10000 -- Parameters: W: tensor([0.2958]) b: tensor([9.6088]) -- loss 7.41
 <li>기존에 보지 못한 dataset 에도 trained model 이 잘 작동 하는지 확인하는 것이 필수</li>
 </ul>
 </li>
-<li><p>우리가 결정해야 하는 것들:</p>
-<ol>
+<li>우리가 결정해야 하는 것들:<ol>
 <li>Hypothesis sets: H1, H2 … :<ul>
 <li>모델, hyper parameter들이 다른 모델, 여러가지 실험 해보고 싶은 것들이 될 수 있다.</li>
 <li>가설을 잘 설정하는 것이 최종의 모델을 결정하는데 중요한 기초 작업</li>
@@ -513,8 +484,7 @@ epoch: 10000 -- Parameters: W: tensor([0.2958]) b: tensor([9.6088]) -- loss 7.41
 </li>
 </ol>
 </li>
-<li><p>결국, 우리가 해야 하는 것은</p>
-<ol>
+<li>결국, 우리가 해야 하는 것은<ol>
 <li>주어진 Training set 에서, hypothesis set 안의 각 Hm 마다 가장 좋은 모델을 찾는다.</li>
 <li>Trained Hm 중에서, Validation set 에서 가장 좋은 한 가지 모델을 결정한다.</li>
 <li>Reporting 을 위해 test set 에서 얼마나 좋은 성능을 나타내는지 확인한다.</li>
@@ -541,11 +511,9 @@ epoch: 10000 -- Parameters: W: tensor([0.2958]) b: tensor([9.6088]) -- loss 7.41
 <li><p>관점의 이동:</p>
 <ul>
 <li><p>어떤 주어진 data x 에 대하여 y 는 무엇일까? 를 생각하는 모델이 아니라,</p>
-<p>$$f_\theta(x) = ? $$</p>
-</li>
+<script type="math/tex; mode=display">f_\theta(x) = ?</script></li>
 <li><p>주어진 x 에 대해 y가 어떤 case 혹은 값일 확률로 생각한다.</p>
-<p>$$p(y=y’|x) = ?$$</p>
-</li>
+<script type="math/tex; mode=display">p(y=y'|x) = ?</script></li>
 </ul>
 </li>
 <li><p>Distribution based loss functions</p>
@@ -556,15 +524,12 @@ epoch: 10000 -- Parameters: W: tensor([0.2958]) b: tensor([9.6088]) -- loss 7.41
 <li>Multimodal linear Regression : Mixture of Gaussians</li>
 </ul>
 </li>
-<li><p>결국 Loss Function 은 다음과 같이 표현될 수 있다. Maximize logp</p>
-</li>
+<li>결국 Loss Function 은 다음과 같이 표현될 수 있다. Maximize logp</li>
 </ul>
-<p>$$argmax_\theta \sum_{n=1}^{N} logp_\theta(y_n|x_n)$$</p>
-<ul>
+<script type="math/tex; mode=display">argmax_\theta \sum_{n=1}^{N} logp_\theta(y_n|x_n)</script><ul>
 <li>= minimize L(theta):</li>
 </ul>
-<p>$$L(\theta) = \sum_{n=1}^{N} l(M_\theta(x_n), y_n)=  -\sum_{n=1}^{N} logp_\theta(y_n|x_n)$$</p>
-<h3 id="3-Optimization"><a href="#3-Optimization" class="headerlink" title="3. Optimization"></a>3. Optimization</h3><ul>
+<script type="math/tex; mode=display">L(\theta) = \sum_{n=1}^{N} l(M_\theta(x_n), y_n)=  -\sum_{n=1}^{N} logp_\theta(y_n|x_n)</script><h3 id="3-Optimization"><a href="#3-Optimization" class="headerlink" title="3. Optimization"></a>3. Optimization</h3><ul>
 <li>Optimization 방법<ul>
 <li>Optimization 방법에는 GD, SGD, Newton Method 등 다양한 방법이 있지만, Nerual Network 에서는 Gradient Descent 방법을 위주로 사용한다. 이 강의에서는 다루지 않았지만, Gradient Descent  방법 외의 다른 알고리즘들은 전제되는 가정들이 많고, Nerual Network 의 고차원에서는 그 가정을 만족하기가 쉽지 않다. (예를 들어, Newton Method 에서의 Hessian 행렬이 구해지기 위한 가정, computation 양 또한 매우 많다.) 이런 이유에서 Gradient Descent 방법을 사용한다.</li>
 </ul>
@@ -632,12 +597,15 @@ epoch: 10000 -- Parameters: W: tensor([0.2958]) b: tensor([9.6088]) -- loss 7.41
 </li>
 <li>이 세가지를 Terraform 을 활용해 생성하는 코드를 정리한다.</li>
 </ul>
-<h3 id="1-키페어-생성-Key-pair"><a href="#1-키페어-생성-Key-pair" class="headerlink" title="1. 키페어 생성 (Key pair)"></a>1. 키페어 생성 (Key pair)</h3><h4 id="1-1-Key-만들기"><a href="#1-1-Key-만들기" class="headerlink" title="1-1. Key 만들기"></a>1-1. Key 만들기</h4><pre><code>- 자신의 email로 ssh key 를 생성하여, key_name 이름으로 .ssh 폴더에 저장</code></pre><p><code>ssh-keygen -t rsa -b 4096 -C “email” -f “$HOME/.ssh/key_name” -N “”</code><br>    - 이렇게 생성된 key 는 /key_name/ 과 /key_name.pub/로 private key 와 public key가 생성된다.</p>
-<h4 id="1-2-Key-pair-생성"><a href="#1-2-Key-pair-생성" class="headerlink" title="1-2. Key pair 생성"></a>1-2. Key pair 생성</h4><pre><code>- `main.tf`  파일 생성</code></pre><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">`provider “aws” &#123;</span><br><span class="line">	# 이 region 은 seoul 을 의미한다</span><br><span class="line">	region = “ap-northeast-2”</span><br><span class="line">&#125;</span><br><span class="line">Resource “aws_key_pair” “resource_name” &#123;</span><br><span class="line">	# keygen 으로 생성한 key_name</span><br><span class="line">	key_name = &quot;key_name&quot;</span><br><span class="line">	public_key = &quot;$&#123;file(&quot;~/.ssh/key_name.pub&quot;)&#125;&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<pre><code>- apply 를 실행해, aws 키페어를 생성</code></pre><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ terraform init</span><br><span class="line">$ terraform plan</span><br><span class="line">$ terraform apply</span><br></pre></td></tr></table></figure>
-
-<pre><code>- destroy 를 실행해, aws 키페어를 삭제</code></pre><p><code>$ terraform destroy</code></p>
+<h3 id="1-키페어-생성-Key-pair"><a href="#1-키페어-생성-Key-pair" class="headerlink" title="1. 키페어 생성 (Key pair)"></a>1. 키페어 생성 (Key pair)</h3><h4 id="1-1-Key-만들기"><a href="#1-1-Key-만들기" class="headerlink" title="1-1. Key 만들기"></a>1-1. Key 만들기</h4><pre><code>- 자신의 email로 ssh key 를 생성하여, key_name 이름으로 .ssh 폴더에 저장
+</code></pre><p><code>ssh-keygen -t rsa -b 4096 -C “email” -f “$HOME/.ssh/key_name” -N “”</code></p>
+<pre><code>- 이렇게 생성된 key 는 /key_name/ 과 /key_name.pub/로 private key 와 public key가 생성된다.
+</code></pre><h4 id="1-2-Key-pair-생성"><a href="#1-2-Key-pair-생성" class="headerlink" title="1-2. Key pair 생성"></a>1-2. Key pair 생성</h4><pre><code>- `main.tf`  파일 생성
+</code></pre><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">`provider “aws” &#123;</span><br><span class="line">	# 이 region 은 seoul 을 의미한다</span><br><span class="line">	region = “ap-northeast-2”</span><br><span class="line">&#125;</span><br><span class="line">Resource “aws_key_pair” “resource_name” &#123;</span><br><span class="line">	# keygen 으로 생성한 key_name</span><br><span class="line">	key_name = &quot;key_name&quot;</span><br><span class="line">	public_key = &quot;$&#123;file(&quot;~/.ssh/key_name.pub&quot;)&#125;&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>- apply 를 실행해, aws 키페어를 생성
+</code></pre><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ terraform init</span><br><span class="line">$ terraform plan</span><br><span class="line">$ terraform apply</span><br></pre></td></tr></table></figure>
+<pre><code>- destroy 를 실행해, aws 키페어를 삭제
+</code></pre><p><code>$ terraform destroy</code></p>
 <h3 id="2-보안그룹-생성-Security-Group"><a href="#2-보안그룹-생성-Security-Group" class="headerlink" title="2. 보안그룹 생성 (Security Group)"></a>2. 보안그룹 생성 (Security Group)</h3><pre><code>- 보안그룹은 생성될 인스턴스의 정책을 설정하는 부분이다. 가장 대표적인 기능은 인바운드와 아웃바운드 port 를 설정할 수 있다.
 - 필요에 따라 port number 를 열어주면 된다.
 - `ingress` 는 인바운드, `egress` 는 아웃바운드 태그이다.
@@ -651,8 +619,8 @@ epoch: 10000 -- Parameters: W: tensor([0.2958]) b: tensor([9.6088]) -- loss 7.41
 ( /여기서는 DB의 경우, 다른 서버를 두고 사용하고 있으므로, 열어주지 않는다/ )
 
 
-- `main.tf`  파일 생성</code></pre><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">provider &quot;aws&quot; &#123;</span><br><span class="line">    region = &quot;ap-northeast-2&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">resource &quot;aws_security_group&quot; &quot;resource_name&quot; &#123;</span><br><span class="line">		name = &quot;보안그룹 이름&quot;</span><br><span class="line">		description = &quot;보안그룹의 설명&quot;</span><br><span class="line">		ingress &#123;</span><br><span class="line">			from_port = 22</span><br><span class="line">			to_port = 22</span><br><span class="line">			protocol = &quot;tcp&quot;</span><br><span class="line">			cidr_blocks = [&quot;0.0.0.0/0&quot;]</span><br><span class="line">		&#125;</span><br><span class="line">		ingress &#123;</span><br><span class="line">			from_port = 80</span><br><span class="line">			to_port = 80</span><br><span class="line">			protocol = &quot;tcp&quot;</span><br><span class="line">			cidr_blocks = [&quot;0.0.0.0/0&quot;]</span><br><span class="line">		&#125;</span><br><span class="line">		ingress &#123;</span><br><span class="line">			from_port = 8888</span><br><span class="line">			to_port = 8888</span><br><span class="line">			protocol = &quot;tcp&quot;</span><br><span class="line">			cidr_blocks = [&quot;0.0.0.0/0&quot;]</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+- `main.tf`  파일 생성
+</code></pre><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">provider &quot;aws&quot; &#123;</span><br><span class="line">    region = &quot;ap-northeast-2&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">resource &quot;aws_security_group&quot; &quot;resource_name&quot; &#123;</span><br><span class="line">		name = &quot;보안그룹 이름&quot;</span><br><span class="line">		description = &quot;보안그룹의 설명&quot;</span><br><span class="line">		ingress &#123;</span><br><span class="line">			from_port = 22</span><br><span class="line">			to_port = 22</span><br><span class="line">			protocol = &quot;tcp&quot;</span><br><span class="line">			cidr_blocks = [&quot;0.0.0.0/0&quot;]</span><br><span class="line">		&#125;</span><br><span class="line">		ingress &#123;</span><br><span class="line">			from_port = 80</span><br><span class="line">			to_port = 80</span><br><span class="line">			protocol = &quot;tcp&quot;</span><br><span class="line">			cidr_blocks = [&quot;0.0.0.0/0&quot;]</span><br><span class="line">		&#125;</span><br><span class="line">		ingress &#123;</span><br><span class="line">			from_port = 8888</span><br><span class="line">			to_port = 8888</span><br><span class="line">			protocol = &quot;tcp&quot;</span><br><span class="line">			cidr_blocks = [&quot;0.0.0.0/0&quot;]</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
 <li>마찬가지로, <code>init</code>, <code>plan</code>, <code>apply</code> 를 활용하여 보안그룹을 생성하고, <code>destroy</code> 로 제거한다.</li>
 </ul>
@@ -660,9 +628,10 @@ epoch: 10000 -- Parameters: W: tensor([0.2958]) b: tensor([9.6088]) -- loss 7.41
 - 여기선, EC2 중, linux ubuntu 18.04 버젼 을 활용한다. AWS 내에서 다른 종류의 인스턴스를 사용할 경우, ami 를 다른 값으로 사용하면 된다.
 - 또한, 다양한 인스턴스 유형중, t2.nano를 사용한다. 인스턴스 유형도 필요에 따라 다르게 설정하면 된다.
 
-- `main.tf`  파일 생성</code></pre><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">provider &quot;aws&quot; &#123;</span><br><span class="line">		region = &quot;ap-northeast-2&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">data &quot;aws_security_group&quot; &quot;resource1&quot; &#123;</span><br><span class="line">     name = &quot;security_group_name&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">resource &quot;aws_instance&quot; &quot;resource2&quot; &#123;</span><br><span class="line">		ami = &quot;ami-06e7b9c5e0c4dd014&quot;</span><br><span class="line">		instance_type = &quot;t2.nano&quot;</span><br><span class="line">		key_name = &quot;key_name&quot;</span><br><span class="line">		vpc_security_group_ids = [</span><br><span class="line">			 &quot;$&#123;data.aws_security_group.resource1.id&#125;&quot;</span><br><span class="line">		]</span><br><span class="line">		tags &#123;</span><br><span class="line">			Name = &quot;dss_instance&quot;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<pre><code>- `init`, `plan`, `apply` 를 활용하여  인스턴스를 생성하고, `destroy` 로 제거한다.</code></pre><h3 id="4-생성된-인스턴스-확인"><a href="#4-생성된-인스턴스-확인" class="headerlink" title="4. 생성된 인스턴스 확인"></a>4. 생성된 인스턴스 확인</h3><p><code>ssh -I ~/.ssh/key_name ubuntu@외부ip</code> 로 생성된 인스턴스를 확인하고, 활용할 수 있다.</p>
+- `main.tf`  파일 생성
+</code></pre><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">provider &quot;aws&quot; &#123;</span><br><span class="line">		region = &quot;ap-northeast-2&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">data &quot;aws_security_group&quot; &quot;resource1&quot; &#123;</span><br><span class="line">     name = &quot;security_group_name&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">resource &quot;aws_instance&quot; &quot;resource2&quot; &#123;</span><br><span class="line">		ami = &quot;ami-06e7b9c5e0c4dd014&quot;</span><br><span class="line">		instance_type = &quot;t2.nano&quot;</span><br><span class="line">		key_name = &quot;key_name&quot;</span><br><span class="line">		vpc_security_group_ids = [</span><br><span class="line">			 &quot;$&#123;data.aws_security_group.resource1.id&#125;&quot;</span><br><span class="line">		]</span><br><span class="line">		tags &#123;</span><br><span class="line">			Name = &quot;dss_instance&quot;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>- `init`, `plan`, `apply` 를 활용하여  인스턴스를 생성하고, `destroy` 로 제거한다.
+</code></pre><h3 id="4-생성된-인스턴스-확인"><a href="#4-생성된-인스턴스-확인" class="headerlink" title="4. 생성된 인스턴스 확인"></a>4. 생성된 인스턴스 확인</h3><p><code>ssh -I ~/.ssh/key_name ubuntu@외부ip</code> 로 생성된 인스턴스를 확인하고, 활용할 수 있다.</p>
 
         </div>
         
@@ -708,14 +677,9 @@ epoch: 10000 -- Parameters: W: tensor([0.2958]) b: tensor([9.6088]) -- loss 7.41
         </h1>
         <div class="content">
             <h1 id="190109-TWIL"><a href="#190109-TWIL" class="headerlink" title="190109 TWIL"></a>190109 TWIL</h1><hr>
-<h2 id="오늘-한-일은-무엇인가"><a href="#오늘-한-일은-무엇인가" class="headerlink" title="오늘 한 일은 무엇인가"></a>오늘 한 일은 무엇인가</h2><ol>
-<li>BLOG RENEWAL</li>
-</ol>
-<hr>
-<h2 id="내일-할-일은-무엇인가"><a href="#내일-할-일은-무엇인가" class="headerlink" title="내일 할 일은 무엇인가"></a>내일 할 일은 무엇인가</h2><ol>
+<h2 id="오늘-한-일은-무엇인가"><a href="#오늘-한-일은-무엇인가" class="headerlink" title="오늘 한 일은 무엇인가"></a>오늘 한 일은 무엇인가</h2><h2 id="1-BLOG-RENEWAL"><a href="#1-BLOG-RENEWAL" class="headerlink" title="1. BLOG RENEWAL"></a>1. BLOG RENEWAL</h2><h2 id="내일-할-일은-무엇인가"><a href="#내일-할-일은-무엇인가" class="headerlink" title="내일 할 일은 무엇인가"></a>내일 할 일은 무엇인가</h2><ol>
 <li>Graph모형 공부</li>
-<li>LinearAlgebra 1강, 2강<br>
-</li>
+<li>LinearAlgebra 1강, 2강<br><br></li>
 </ol>
 <hr>
 <h2 id="무엇을-느꼈는가"><a href="#무엇을-느꼈는가" class="headerlink" title="무엇을 느꼈는가"></a>무엇을 느꼈는가</h2><ul>
@@ -767,7 +731,7 @@ epoch: 10000 -- Parameters: W: tensor([0.2958]) b: tensor([9.6088]) -- loss 7.41
             
         </h1>
         <div class="content">
-            <p>** REBOOT **</p>
+            <p><strong> REBOOT </strong></p>
 <ul>
 <li>Text Classification Project 를 한다는 핑계로 그간 TodayWhatILearned의 작성을 하지 못했다.<br>프로젝트를 하는 동안은 매일 어떤 것을 공부할 계획이고, 어떤 공부를 했는지 남길 만한 내용이 없었던 것도 사실이다.<br>프로젝트 동안 미뤄뒀던 공부들, 보고싶었던 주제들을 이제 다시 새로운 마음가짐을 가지고 시작할 것이다.<br>새해가 밝은 만큼 블로그를 만들기 시작하면서 다짐했던 초심을 상기하자.</li>
 </ul>
@@ -778,15 +742,10 @@ epoch: 10000 -- Parameters: W: tensor([0.2958]) b: tensor([9.6088]) -- loss 7.41
 <hr>
 <h2 id="오늘-한-일은-무엇인가"><a href="#오늘-한-일은-무엇인가" class="headerlink" title="오늘 한 일은 무엇인가"></a>오늘 한 일은 무엇인가</h2><ol>
 <li>Graph모형 공부</li>
-<li>LinearAlgebra 1강, 2강<br>
-</li>
+<li>LinearAlgebra 1강, 2강<br><br></li>
 </ol>
 <hr>
-<h2 id="내일-할-일은-무엇인가"><a href="#내일-할-일은-무엇인가" class="headerlink" title="내일 할 일은 무엇인가"></a>내일 할 일은 무엇인가</h2><ol>
-<li>네트워크 추론 공부(수식 위주로 공부)</li>
-</ol>
-<hr>
-
+<h2 id="내일-할-일은-무엇인가"><a href="#내일-할-일은-무엇인가" class="headerlink" title="내일 할 일은 무엇인가"></a>내일 할 일은 무엇인가</h2><h2 id="1-네트워크-추론-공부-수식-위주로-공부"><a href="#1-네트워크-추론-공부-수식-위주로-공부" class="headerlink" title="1. 네트워크 추론 공부(수식 위주로 공부)"></a>1. 네트워크 추론 공부(수식 위주로 공부)</h2>
         </div>
         
         
@@ -831,14 +790,9 @@ epoch: 10000 -- Parameters: W: tensor([0.2958]) b: tensor([9.6088]) -- loss 7.41
         </h1>
         <div class="content">
             <h1 id="181225-TWIL"><a href="#181225-TWIL" class="headerlink" title="181225 TWIL"></a>181225 TWIL</h1><hr>
-<h2 id="오늘-한-일은-무엇인가"><a href="#오늘-한-일은-무엇인가" class="headerlink" title="오늘 한 일은 무엇인가"></a>오늘 한 일은 무엇인가</h2><ol>
-<li>(Project) Text Preprocessing</li>
-</ol>
-<hr>
-<h2 id="내일-할-일은-무엇인가"><a href="#내일-할-일은-무엇인가" class="headerlink" title="내일 할 일은 무엇인가"></a>내일 할 일은 무엇인가</h2><ol>
+<h2 id="오늘-한-일은-무엇인가"><a href="#오늘-한-일은-무엇인가" class="headerlink" title="오늘 한 일은 무엇인가"></a>오늘 한 일은 무엇인가</h2><h2 id="1-Project-Text-Preprocessing"><a href="#1-Project-Text-Preprocessing" class="headerlink" title="1. (Project) Text Preprocessing"></a>1. (Project) Text Preprocessing</h2><h2 id="내일-할-일은-무엇인가"><a href="#내일-할-일은-무엇인가" class="headerlink" title="내일 할 일은 무엇인가"></a>내일 할 일은 무엇인가</h2><ol>
 <li>(Project) Project 모임</li>
-<li>Linear Algebra 강의 2강, 3강 듣기<br>
-</li>
+<li>Linear Algebra 강의 2강, 3강 듣기<br><br></li>
 </ol>
 <hr>
 <h2 id="무엇을-느꼈는가"><a href="#무엇을-느꼈는가" class="headerlink" title="무엇을 느꼈는가"></a>무엇을 느꼈는가</h2><ul>
@@ -903,15 +857,10 @@ epoch: 10000 -- Parameters: W: tensor([0.2958]) b: tensor([9.6088]) -- loss 7.41
 <h2 id="내일-할-일은-무엇인가"><a href="#내일-할-일은-무엇인가" class="headerlink" title="내일 할 일은 무엇인가"></a>내일 할 일은 무엇인가</h2><ol>
 <li>Linear Algebra(Gilbert) 2강</li>
 <li>(Project) Classification Project</li>
-<li>Classification 개념 다시 보기<br>
-</li>
+<li>Classification 개념 다시 보기<br><br></li>
 </ol>
 <hr>
-<h2 id="무엇을-느꼈는가"><a href="#무엇을-느꼈는가" class="headerlink" title="무엇을 느꼈는가"></a>무엇을 느꼈는가</h2><ul>
-<li>즐기자</li>
-</ul>
-<hr>
-
+<h2 id="무엇을-느꼈는가"><a href="#무엇을-느꼈는가" class="headerlink" title="무엇을 느꼈는가"></a>무엇을 느꼈는가</h2><h2 id="즐기자"><a href="#즐기자" class="headerlink" title="- 즐기자"></a>- 즐기자</h2>
         </div>
         
         
@@ -971,8 +920,7 @@ epoch: 10000 -- Parameters: W: tensor([0.2958]) b: tensor([9.6088]) -- loss 7.41
 <li>(Study) 스터디원 블로그 개설, Flask에 비유한 WebApplication, MVC model 공부하기</li>
 <li>(Stydy) PROJECTmini WebApplication 계획 세우기</li>
 <li>(Project) EDA 짬짬히 계속하기</li>
-<li>SVM 공부<br>
-</li>
+<li>SVM 공부<br><br></li>
 </ol>
 <hr>
 <h2 id="무엇을-느꼈는가"><a href="#무엇을-느꼈는가" class="headerlink" title="무엇을 느꼈는가"></a>무엇을 느꼈는가</h2><ul>
@@ -1073,8 +1021,7 @@ epoch: 10000 -- Parameters: W: tensor([0.2958]) b: tensor([9.6088]) -- loss 7.41
 <li>Pandas 4장 공부</li>
 <li>Support Vector Machine 공부</li>
 <li>알고리즘 문제풀기</li>
-<li>NoSQL, MySQL syntax 정리<br>
-</li>
+<li>NoSQL, MySQL syntax 정리<br><br></li>
 </ol>
 <hr>
 <h2 id="무엇을-느꼈는가"><a href="#무엇을-느꼈는가" class="headerlink" title="무엇을 느꼈는가"></a>무엇을 느꼈는가</h2><ul>

@@ -197,8 +197,7 @@
 <p><img src="Untitled-5fec1f58-a947-449b-8d71-772aac9a6f3e.png" alt></p>
 <h3 id="1-4-Convolution-Layer-연산"><a href="#1-4-Convolution-Layer-연산" class="headerlink" title="1-4. Convolution Layer 연산"></a>1-4. Convolution Layer 연산</h3><p><img src="Untitled-2a8adbad-1f2a-4fac-898d-aac944438a1b.png" alt></p>
 <p>filter 가 이미지를 훑고 지나가면서 convolution 연산을 한 후, 나온 결과는 원본 이미지보다 그 크기가 작아지게 된다. 그 정도는 filter 의 크기와 filter 가 훑고 지나가는 간격인 stride 에 따라 바뀌게 된다. </p>
-<p>$$output ;size = (N-F)/stride + 1$$</p>
-<p><strong>문제점:</strong></p>
+<script type="math/tex; mode=display">output \;size = (N-F)/stride + 1</script><p><strong>문제점:</strong></p>
 <ol>
 <li><p>convolution 연산의 문제는 이미지의 모서리에 있는 정보는 가운데에 있는 이미지의 정보보다 적게 추출 되는 문제가 있다.(filter 가 모서리를 넘어서는 이동 할 수 없으므로)</p>
 </li>
@@ -209,7 +208,7 @@
 <h3 id="1-5-Padding"><a href="#1-5-Padding" class="headerlink" title="1-5. Padding"></a>1-5. Padding</h3><p>모서리에 정보를 얻기 위해 이미지이 외곽에 숫자를 채워 주는 방법. 이 때, 많이 사용하는 방법은 zero-padding. zero-padding 외에도 다양한 방법이 있다.</p>
 <h2 id="2-Pooling-Layer"><a href="#2-Pooling-Layer" class="headerlink" title="2. Pooling Layer"></a>2. Pooling Layer</h2><p>Parameter 의 갯수를 줄이기 위해, 우리가 ConvLayer 를 통해 뽑아낸 image 를 작게 만드는 Layer  이다. 즉, Downsampling 을 위한 것.</p>
 <p>Maxpooling 의 intuition : 앞선 layer filter 가 각 region  에서 얼마나 활성 되었는지 보는 것이다. </p>
-<h3 id="3-Typical-Architecture"><a href="#3-Typical-Architecture" class="headerlink" title="3. Typical Architecture"></a>3. Typical Architecture</h3><p>[[(Conv → RELU) * N → Pool] * M → (FC → RELU) * K ] → SOFTMAX</p>
+<h3 id="3-Typical-Architecture"><a href="#3-Typical-Architecture" class="headerlink" title="3. Typical Architecture"></a>3. Typical Architecture</h3><p>[[(Conv → RELU) <em> N → Pool] </em> M → (FC → RELU) * K ] → SOFTMAX</p>
 <ul>
 <li>N : ~ 5</li>
 <li>M : Large</li>
