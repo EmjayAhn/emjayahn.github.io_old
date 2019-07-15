@@ -191,7 +191,8 @@
 <li>Project 모임</li>
 <li>Pandas 라이브러리 정리</li>
 <li>miniProject Crawling 코드짜기</li>
-<li>A * 알고리즘 짜기<br><br></li>
+<li>A * 알고리즘 짜기<br>
+</li>
 </ol>
 <hr>
 <h2 id="무엇을-느꼈는가"><a href="#무엇을-느꼈는가" class="headerlink" title="무엇을 느꼈는가"></a>무엇을 느꼈는가</h2><ul>
@@ -253,7 +254,8 @@
 <h2 id="내일-할-일은-무엇인가"><a href="#내일-할-일은-무엇인가" class="headerlink" title="내일 할 일은 무엇인가"></a>내일 할 일은 무엇인가</h2><ol>
 <li>Database - MySQL 공부</li>
 <li>Pandas 라이브러리 살펴보기</li>
-<li>miniProject Crawling 주제 선정, 코드짜기<br><br></li>
+<li>miniProject Crawling 주제 선정, 코드짜기<br>
+</li>
 </ol>
 <hr>
 <h2 id="무엇을-느꼈는가"><a href="#무엇을-느꼈는가" class="headerlink" title="무엇을 느꼈는가"></a>무엇을 느꼈는가</h2><ul>
@@ -314,14 +316,18 @@
 </li>
 </ul>
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="hljs-built_in">cd</span> usr/<span class="hljs-built_in">local</span>/mysql/bin</span><br></pre></td></tr></table></figure>
+
 <p>위 경로에서</p>
 <ul>
 <li>MySQL 서버에 접속<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo ./mysql -p</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql &gt;</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>패스워드 변경<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;ALTER USER <span class="hljs-string">'root'</span>@<span class="hljs-string">'localhost'</span> IDENTIFIED BY <span class="hljs-string">'바꾸고싶은 비밀번호'</span>;</span><br><span class="line">mysql&gt;FLUSH PRIVILEGES;</span><br><span class="line">mysql&gt;quit;</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 <h2 id="2-MySQL-Shell-Command"><a href="#2-MySQL-Shell-Command" class="headerlink" title="2. MySQL Shell Command"></a>2. MySQL Shell Command</h2><h3 id="1-DATABASE-생성-접속-삭제"><a href="#1-DATABASE-생성-접속-삭제" class="headerlink" title="(1) DATABASE 생성, 접속, 삭제"></a>(1) DATABASE 생성, 접속, 삭제</h3><ul>
@@ -342,6 +348,7 @@
 </li>
 <li><p>DB 지우기</p>
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; DROP DATABASE DBNAME;</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 <h3 id="2-TABLE-생성-추가-삭제"><a href="#2-TABLE-생성-추가-삭제" class="headerlink" title="(2) TABLE 생성, 추가, 삭제"></a>(2) TABLE 생성, 추가, 삭제</h3><ul>
@@ -357,23 +364,31 @@
 </li>
 <li><p>example2 : constraint가 있을 때,</p>
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; CREATE TABLE user2(</span><br><span class="line">  user_id INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">  name VARCHAR(20) NOT NULL,</span><br><span class="line">  email VARCHAR(30) UNIQUE NOT NULL,</span><br><span class="line">  age INT(3) DEFAULT<span class="hljs-string">'30'</span>,</span><br><span class="line">  rdate TIMESTAMP</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
-<p><br><br><br></p>
-<h2 id="3-수정"><a href="#3-수정" class="headerlink" title="(3) 수정"></a>(3) 수정</h2><h3 id="3-1-DATABASE-수정"><a href="#3-1-DATABASE-수정" class="headerlink" title="(3)-1. DATABASE 수정"></a>(3)-1. DATABASE 수정</h3><ul>
-<li>DATABASE 의 <strong>encoding</strong> 수정<br><br><br><br></li>
-<li><p>현재 문자열 encoding 확인</p>
+<br>
+<br>
+## (3) 수정
+### (3)-1. DATABASE 수정
+- DATABASE 의 **encoding** 수정
+<br>
+<br>
+- 현재 문자열 encoding 확인
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SHOW VARIABLES LIKE <span class="hljs-string">"CHARACTER_SET_DATABASE"</span>;</span><br></pre></td></tr></table></figure>
-</li>
+
+<ul>
 <li><p>mydb 데이터베이스의 문자열 인코딩을 <code>utf8</code> 로 변경</p>
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; ALTER DATABASE mydb CHARACTER_SET = utf8;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>user 데이터베이스의 문자열 인코딩을 <code>ascii</code> 로 변경</p>
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; ALTER DATABASE user CHARACTER_SET=ascii</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 <h3 id="3-2-TABLE-수정"><a href="#3-2-TABLE-수정" class="headerlink" title="(3)-2. TABLE 수정"></a>(3)-2. TABLE 수정</h3><ul>
 <li><code>user</code> 테이블에 <code>tmp</code>라는 컬럼명, <code>TEXT</code> 데이터 타입 컬럼을 추가<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; ALTER TABLE user ADD tmp TEXT;</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 
@@ -431,7 +446,8 @@
 <hr>
 <h2 id="내일-할-일은-무엇인가"><a href="#내일-할-일은-무엇인가" class="headerlink" title="내일 할 일은 무엇인가"></a>내일 할 일은 무엇인가</h2><ol>
 <li>Project 모임</li>
-<li>데이터 전처리, 데이터들의 의미 파악, 예측할 delay 부분 정의하기<br><br></li>
+<li>데이터 전처리, 데이터들의 의미 파악, 예측할 delay 부분 정의하기<br>
+</li>
 </ol>
 <hr>
 <h2 id="무엇을-느꼈는가"><a href="#무엇을-느꼈는가" class="headerlink" title="무엇을 느꼈는가"></a>무엇을 느꼈는가</h2><ul>
@@ -492,7 +508,8 @@
 <h2 id="내일-할-일은-무엇인가"><a href="#내일-할-일은-무엇인가" class="headerlink" title="내일 할 일은 무엇인가"></a>내일 할 일은 무엇인가</h2><ol>
 <li>선형회귀분석 정리 (패키지 별로 특징, 메서드 파라미터 위주)</li>
 <li>데이터 전처리 부분 공부</li>
-<li>Test data 처리는 어떻게 하는 건지 공부해보기<br><br></li>
+<li>Test data 처리는 어떻게 하는 건지 공부해보기<br>
+</li>
 </ol>
 <hr>
 <h2 id="무엇을-느꼈는가"><a href="#무엇을-느꼈는가" class="headerlink" title="무엇을 느꼈는가"></a>무엇을 느꼈는가</h2><ul>
@@ -553,7 +570,8 @@
 </ol>
 <hr>
 <h2 id="내일-할-일은-무엇인가"><a href="#내일-할-일은-무엇인가" class="headerlink" title="내일 할 일은 무엇인가"></a>내일 할 일은 무엇인가</h2><ol>
-<li>‘추정’에서 수식 부분 다시 보기<br><br></li>
+<li>‘추정’에서 수식 부분 다시 보기<br>
+</li>
 </ol>
 <hr>
 <h2 id="무엇을-느꼈는가"><a href="#무엇을-느꼈는가" class="headerlink" title="무엇을 느꼈는가"></a>무엇을 느꼈는가</h2><ul>
@@ -613,7 +631,8 @@
 <hr>
 <h2 id="내일-할-일은-무엇인가"><a href="#내일-할-일은-무엇인가" class="headerlink" title="내일 할 일은 무엇인가"></a>내일 할 일은 무엇인가</h2><ol>
 <li>‘추정’에서 수식 부분 다시 보기</li>
-<li>(Study) 데이터 구조 강의 듣기<br><br></li>
+<li>(Study) 데이터 구조 강의 듣기<br>
+</li>
 </ol>
 <hr>
 <h2 id="무엇을-느꼈는가"><a href="#무엇을-느꼈는가" class="headerlink" title="무엇을 느꼈는가"></a>무엇을 느꼈는가</h2><ul>
@@ -621,7 +640,8 @@
 </li>
 <li><p>오늘은 수학을 공부하느라 프로그래밍은 하지 못했다. 중간에 졸린 걸 해소해보고자 블로그 테마 색깔 수정과 그 수정을 위해 블로그의 코드 구조를 본게 전부 였다. 30분 푹빠져서 하다가 주객전도 되지않으려 다음으로 미뤘다.</p>
 </li>
-<li>위 주제들에 관해 알게된 것도 많은 하루였고, 뿌듯한 하루였다.</li>
+<li><p>위 주제들에 관해 알게된 것도 많은 하루였고, 뿌듯한 하루였다.</p>
+</li>
 </ul>
 <hr>
 
@@ -729,30 +749,36 @@
 </ul>
 <h2 id="1-Install"><a href="#1-Install" class="headerlink" title="1. Install"></a>1. Install</h2><ul>
 <li>파이썬의 라이브러리 이므로 pip 으로 설치 할 수 있다.<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install scrapy</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 <h2 id="2-실습"><a href="#2-실습" class="headerlink" title="2. 실습"></a>2. 실습</h2><ul>
 <li>실습을 위해 <strong>import</strong> 할 것들</li>
 </ul>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> scrapy</span><br><span class="line"><span class="hljs-keyword">import</span> requests</span><br><span class="line"><span class="hljs-keyword">from</span> scrapy.http <span class="hljs-keyword">import</span> TextResponse</span><br></pre></td></tr></table></figure>
+
 <ol>
 <li>requests 를 통해 url 정보를 받아온다.</li>
 <li>TextResponse 를 통해 받아온 html 파일을 encoding 과 text형식으로 return</li>
 </ol>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">req = requests.get(<span class="hljs-string">"url_name"</span>)</span><br><span class="line">response = TextResponse(req.url, body=req.text, encoding=<span class="hljs-string">"utf-8"</span>)</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a = response.xpath(<span class="hljs-string">'xpath'</span>)</span><br><span class="line"><span class="hljs-comment"># xpath 로 지정한 엘리먼트를 가져온다.</span></span><br><span class="line">a_text = reponse.xpath(<span class="hljs-string">'xpath/text()'</span>)</span><br><span class="line"><span class="hljs-comment"># 엘리먼트의 text data 를 가져온다.</span></span><br><span class="line">a_text.extract()</span><br><span class="line"><span class="hljs-comment"># 엘리먼트의 text data들을 말그대로 extract 하여, list 형태로 return 해준다</span></span><br></pre></td></tr></table></figure>
+
 <h2 id="3-Scrapy-사용하기"><a href="#3-Scrapy-사용하기" class="headerlink" title="3. Scrapy 사용하기"></a>3. Scrapy 사용하기</h2><h3 id="1-scrapy-프로젝트-생성"><a href="#1-scrapy-프로젝트-생성" class="headerlink" title="(1) scrapy 프로젝트 생성"></a>(1) scrapy 프로젝트 생성</h3><ul>
 <li>shell command<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scrapy startproject crawler</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!scrapy startproject crawler</span><br></pre></td></tr></table></figure>
-<pre><code>New Scrapy project &#39;crawler&#39;, using template directory &#39;/Users/emjayahn/.pyenv/versions/3.7.0/envs/dss/lib/python3.7/site-packages/scrapy/templates/project&#39;, created in:
+
+<pre><code>New Scrapy project &apos;crawler&apos;, using template directory &apos;/Users/emjayahn/.pyenv/versions/3.7.0/envs/dss/lib/python3.7/site-packages/scrapy/templates/project&apos;, created in:
     /Users/emjayahn/Dev/DSS/TIL(markdown)/crawler
 
 You can start your first spider with:
     cd crawler
-    scrapy genspider example example.com
-</code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!tree crawler</span><br></pre></td></tr></table></figure>
+    scrapy genspider example example.com</code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!tree crawler</span><br></pre></td></tr></table></figure>
+
 <pre><code>crawler
 ├── crawler
 │   ├── __init__.py
@@ -766,8 +792,7 @@ You can start your first spider with:
 │       └── __pycache__
 └── scrapy.cfg
 
-4 directories, 7 files
-</code></pre><h3 id="2-Scrapy-기본-구조"><a href="#2-Scrapy-기본-구조" class="headerlink" title="(2) Scrapy 기본 구조"></a>(2) Scrapy 기본 구조</h3><ol>
+4 directories, 7 files</code></pre><h3 id="2-Scrapy-기본-구조"><a href="#2-Scrapy-기본-구조" class="headerlink" title="(2) Scrapy 기본 구조"></a>(2) Scrapy 기본 구조</h3><ol>
 <li><p>Spider</p>
 <ul>
 <li>크롤링 절차 정하기</li>
@@ -863,7 +888,7 @@ You can start your first spider with:
 <li><code>.</code> : 현재 엘리먼트</li>
 <li><code>*</code> : 조건에 맞는 전체 하위 엘리먼트를 검색한다(css selector 에서 한칸 띄우는 것 과 같다)</li>
 <li><code>element[조건]</code> : 엘리먼트에 조건에 해당되는 것을 검색한다<ul>
-<li>(예) <code>p[2]</code> : p 엘리먼트 중 두번째 엘리먼트를 선택 <strong>주의:1부터 시작, 0이 아님 </strong></li>
+<li>(예) <code>p[2]</code> : p 엘리먼트 중 두번째 엘리먼트를 선택 *<em>주의:1부터 시작, 0이 아님 *</em></li>
 <li>(예) <code>[@(attribute_key=&quot;attribute_value&quot;)]</code> : 속성값으로 엘리먼트를 선택<br><code>[@id=&quot;main&quot;]</code> : “main” 이라는 id 를 선택<br><code>[@class=&quot;pp&quot;]</code> : “pp” 라는 class 를 선택</li>
 </ul>
 </li>
