@@ -208,16 +208,16 @@
 <ol>
 <li><p>위에서 생성한 인스턴스에 접속하기 위해, RSA key pair 를 이를 통해 접속 해 봅니다. 아래의 명령어를 이용해 키페어를 생성해 줍니다. 이 때, USERNAME 은 gcp에 등록한 이메일로 설정합니다.</p>
 <p> $ ssh-keygen -t rsa -f ~/.ssh/[KEYFILE_NAME] -C “[USERNAME]”</p>
-<p> example) $ ssh-keygen -t rsa -f ~/.ssh/gcp-key -C “<a href="mailto:myemail@mail.com" target="_blank" rel="noopener">myemail@mail.com</a>“</p>
+<p> example) $ ssh-keygen -t rsa -f ~/.ssh/gcp-key -C “myemail@mail.com”</p>
 </li>
 </ol>
 <p>앞으로 사용할 Password 를 입력하고, </p>
 <p>생성된 키페어는 <code>.ssh</code> 폴더 안에서 확인 할 수 있습니다. <code>.ssh/[KEYFILE_NAME].pub</code> 를 확인해 볼 수 있습니다.</p>
-<ol start="2">
+<ol>
 <li>생성한 키페어를 gcp 의 메타데이터 탭 → SSH 키에 등록합니다.</li>
 </ol>
 <p><img src="Untitled-ac2cd300-7176-46cc-92d2-aa405a955f85.png" alt></p>
-<ol start="3">
+<ol>
 <li><p>ssh 접속</p>
 <p> $ ssh -i ~/.ssh/[KEYFILE_NAME] [USERNAME]@[GCP외부IP]</p>
 </li>
@@ -225,13 +225,11 @@
 <h2 id="3-Python3-PIP-설치"><a href="#3-Python3-PIP-설치" class="headerlink" title="3. Python3, PIP 설치"></a>3. Python3, PIP 설치</h2><p>위에서 서버에 접속했다면, 서버의 개발환경을 설정해 주기만 하면 됩니다. python3 와 pip 부터 설치해 봅니다.</p>
 <ol>
 <li>locale 설정<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt install language-pack-ko</span><br><span class="line">$ sudo locale-gen ko_KR.UTF-8</span><br><span class="line"></span><br><span class="line">$ <span class="hljs-built_in">export</span> LC_ALL=<span class="hljs-string">"en_US.UTF-8"</span></span><br><span class="line">$ <span class="hljs-built_in">export</span> LC_CTYPE=<span class="hljs-string">"en_US.UTF-8"</span></span><br><span class="line">$ sudo dpkg-reconfigure locales</span><br></pre></td></tr></table></figure>
-
 </li>
 </ol>
 <p>en_US.UTF-8이 [*] 로 체크 되어 있는지까지 확인합니다.</p>
-<ol start="2">
+<ol>
 <li>Python3, PIP 설치<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt update</span><br><span class="line">$ sudo apt install python3-pip</span><br></pre></td></tr></table></figure>
-
 </li>
 </ol>
 <p>설치 후, <code>python3 --version</code> 으로 python 이 잘 설치 되었는지 확인합니다.</p>
@@ -240,57 +238,47 @@
 <li>먼저, 설치 파일을 다운로드 해줍니다.</li>
 </ol>
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 루트에서</span><br><span class="line">$ wget [http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64/](https://developer.nvidia.com/compute/cuda/10.0/Prod/local_installers/cuda-repo-ubuntu1804-10-0-local-10.0.130-410.48_1.0-1_amd64)</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
+<ol>
 <li><code>ls</code> 로 cuda-repo-ubuntu1804-10-0-local-10.0.130-410.48_1.0-1_amd64.deb 이 잘 다운로드 되었는지 확인 해 줍니다. 다운로드 결과 <code>.deb</code> 확장자가 되어있지 않다면, 파일명에 .deb 를 뒤에 붙여 줍니다.</li>
 </ol>
 <p><code>mv cuda-repo-ubuntu1804-10-0-local-10.0.130-410.48_1.0-1_amd64 cuda-repo-ubuntu1804-10-0-local-10.0.130-410.48_1.0-1_amd64.deb</code></p>
-<ol start="3">
+<ol>
 <li>설치<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo dpkg -i cuda-repo-ubuntu1804-10-0-local-10.0.130-410.48_1.0-1_amd64.deb</span><br><span class="line">$ sudo apt add /var/cuda-repo-&lt;version&gt;/7fa2af80.pub</span><br><span class="line">$ sudo apt update</span><br><span class="line">$ sudo apt install cuda</span><br></pre></td></tr></table></figure>
-
 </li>
 </ol>
 <p>CUDA 가 정상적으로 설치되었다면,  <code>$ nvidia-smi</code> 를 통해 자신의 gpu 상태를 확인 할 수 있습니다. 또한, <code>/usr/local/cuda/version.txt</code> 에 설치한 CUDA, 현재는 10.0의 version 을 확인 할 수 있습니다.</p>
-<h2 id="5-cuDNN-설치"><a href="#5-cuDNN-설치" class="headerlink" title="5. cuDNN 설치"></a>5. cuDNN 설치</h2><p>다음의 명령어를 통해 cuDNN 을 설치 할 수 있습니다.</p>
-<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo sh -c <span class="hljs-string">'echo "deb http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64 /" &gt;&gt; /etc/apt/sources.list.d/cuda.list'</span></span><br><span class="line">$ sudo apt update</span><br><span class="line">$ sudo apt install libcudnn7-dev</span><br></pre></td></tr></table></figure>
-
+<h2 id="5-cuDNN-설치"><a href="#5-cuDNN-설치" class="headerlink" title="5. cuDNN 설치"></a>5. cuDNN 설치</h2><p>다음의 명령어를 통해 cuDNN 을 설치 할 수 있습니다.<br><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo sh -c <span class="hljs-string">'echo "deb http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64 /" &gt;&gt; /etc/apt/sources.list.d/cuda.list'</span></span><br><span class="line">$ sudo apt update</span><br><span class="line">$ sudo apt install libcudnn7-dev</span><br></pre></td></tr></table></figure></p>
 <h2 id="6-Pytorch-설치"><a href="#6-Pytorch-설치" class="headerlink" title="6. Pytorch 설치"></a>6. Pytorch 설치</h2><ul>
 <li>우리는 서버가 https 프로토콜을 사용한다고 체크했으므로 -H  flag 를 주어 sudo pip3 를 활용해야합니다.<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo pip3 -H install https://download.pytorch.org/whl/cu100/torch-1.1.0-cp36-cp36m-linux_x86_64.whl</span><br><span class="line">$ sudo pip3 -H install https://download.pytorch.org/whl/cu100/torchvision-0.3.0-cp36-cp36m-linux_x86_64.whl</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 <h2 id="7-Jupyter-Notebook-설치-및-환경설정"><a href="#7-Jupyter-Notebook-설치-및-환경설정" class="headerlink" title="7. Jupyter Notebook 설치 및 환경설정"></a>7. Jupyter Notebook 설치 및 환경설정</h2><ol>
 <li>Jupyter를 설치합니다.<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo -H pip3 install jupyter</span><br></pre></td></tr></table></figure>
-
 </li>
 </ol>
 <p>설치 후, <code>$ jupyter notebook</code> 으로 주피터 커널이 켜지는지 확인합니다.</p>
-<ol start="2">
+<ol>
 <li><p>주피터 config 파일을 생성합니다.</p>
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ jupyter notebook --generate-config</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>비밀번호를 생성합니다. 이 비밀번호는 지금 설치한 주피터 환경에 들어가기 위한 비밀번호 입니다.</p>
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ ipython</span><br><span class="line">from notebook.auth import passwd</span><br><span class="line">passwd()</span><br><span class="line">Enter Password: 사용할 비밀번호 입력</span><br><span class="line">Verify Password: 사용할 비밀번호 입력</span><br></pre></td></tr></table></figure>
-
 </li>
 </ol>
 <p>출력된 비밀번호 해쉬  <code>sha1: ~~~</code> 를 복사해 둡니다.</p>
-<ol start="4">
+<ol>
 <li>우리의 인스턴스는 https 프로토콜을 사용하므로, SSL 키파일을 생성해야 합니다.<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout cert.pem -out cert.pem</span><br></pre></td></tr></table></figure>
-
 </li>
 </ol>
 <p>위 명령어를 입력하고, 뒤따라 나오는 정보들을 입력하여, <code>.pem</code> 파일을 생성합니다.</p>
-<ol start="5">
-<li><ol start="2">
+<ol>
+<li><ol>
 <li>에서 생성한 config 파일 수정<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vi /home/[USERNAME]/.jupyter/jupyter_notebook_config.py</span><br></pre></td></tr></table></figure>
-
 </li>
 </ol>
 </li>
 </ol>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// config 파일에 다음의 내용을 추가합니다.</span><br><span class="line">c = get_config()</span><br><span class="line">c.NotebookApp.ip = &apos;내부아이피주소&apos;</span><br><span class="line">c.NotebookApp.open_browser=False</span><br><span class="line">c.NotebookApp.password=&apos;3에서 생성한 비밀번호 해쉬 sha1:~&apos;</span><br><span class="line">c.Notebook.certfile=&apos;4에서 생성한 .pem 파일 경로 /home/USERNAME/cert.pem&apos;</span><br></pre></td></tr></table></figure>
-
 <p>위까지 완료하게 되었으면, 주피터 서버를 열고,  <code>https://외부아이피:8888</code>  로 주피터를 접속 하는 것을 확인하시면 되겠습니다.</p>
 
         </div>
@@ -819,7 +807,8 @@
                 </a>
                 <p class="is-size-7">
                 &copy; 2019 EmjayAhn(Minjae Ahn)&nbsp;
-                Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                <!-- Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a> -->
                 
                 </p>
             </div>

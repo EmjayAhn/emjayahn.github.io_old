@@ -173,13 +173,14 @@
             <h1 id="확률론적-생성모형-Generative-Model"><a href="#확률론적-생성모형-Generative-Model" class="headerlink" title="확률론적 생성모형 (Generative Model)"></a>확률론적 생성모형 (Generative Model)</h1><h2 id="확률론적-생성모형의-기본-개념"><a href="#확률론적-생성모형의-기본-개념" class="headerlink" title="확률론적 생성모형의 기본 개념"></a>확률론적 생성모형의 기본 개념</h2><ul>
 <li><p>우리가 궁금한 것은 $ x $ (features) 들이 있을 떄, $ y $가 어떤 Class 인지 맞추는 것이다. 맞추기 위해서는 training set 으로 부터 각 Class 마다 $ P(y \mid x) $의 모형을 알아내야 한다.</p>
 </li>
-<li><p>베이즈 정리를 이용하여, $ y=C_k $일 때의 조건부 확률을 구할 수 있다.<br>$$<br>P(y = C_k \mid x) = \dfrac{P(x \mid y = C_k); P(y = C_k)}{P(x)}<br>$$</p>
-</li>
+<li><p>베이즈 정리를 이용하여, $ y=C_k $일 때의 조건부 확률을 구할 수 있다.</p>
+<script type="math/tex; mode=display">
+P(y = C_k \mid x) = \dfrac{P(x \mid y = C_k)\; P(y = C_k)}{P(x)}</script></li>
 <li><p>이 때, $ P(x \mid y = C_k) $<br>== <strong>Likelihood</strong><br>== y가 k라는 클래스 일 때, x의 확률을 구하는 것이 관건</p>
 </li>
 </ul>
 <h2 id="Likelihood-추정의-알고리즘"><a href="#Likelihood-추정의-알고리즘" class="headerlink" title="Likelihood 추정의 알고리즘"></a>Likelihood 추정의 알고리즘</h2><ol>
-<li>$ P(x \mid y = C_k) $ 가 ** 어떤 ** 확률분포를 따를 것이다라고 가정<br><br><br></li>
+<li>$ P(x \mid y = C_k) $ 가 <strong> 어떤 </strong> 확률분포를 따를 것이다라고 가정<br><br><br></li>
 <li>x의 특성에 따라 우리가 알고 있는 특정 확률분포를 따른다! 라고 가정<br><br><br></li>
 <li>Class k 를 만드는 data들을 통해 이 확률분포의 모수값을 구한다.<br><br><br></li>
 <li>모수값을 안다 == $ P(x \mid y = C_k) $ 의 pdf 를 알고 있다.<br><br><br></li>
@@ -764,7 +765,8 @@
                 </a>
                 <p class="is-size-7">
                 &copy; 2019 EmjayAhn(Minjae Ahn)&nbsp;
-                Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                <!-- Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a> -->
                 
                 </p>
             </div>
