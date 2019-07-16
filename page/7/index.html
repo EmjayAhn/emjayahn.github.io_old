@@ -244,36 +244,27 @@
 <li>또한, 다양한 이미지 확장자를 다룰수 있다. (예, jpg, png)</li>
 </ul>
 <h2 id="Pillow-install"><a href="#Pillow-install" class="headerlink" title="Pillow install"></a>Pillow install</h2><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install Pillow</span><br></pre></td></tr></table></figure>
-
 <h3 id="1-Import-Convention"><a href="#1-Import-Convention" class="headerlink" title="1. Import Convention"></a>1. Import Convention</h3><ul>
 <li>Pillow 를 사용하기에 앞서, Import 해야한다.<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 <h3 id="2-Pillow-메소드"><a href="#2-Pillow-메소드" class="headerlink" title="2. Pillow 메소드"></a>2. Pillow 메소드</h3><h4 id="1-open"><a href="#1-open" class="headerlink" title="(1) open()"></a>(1) open()</h4><ul>
 <li><p>이름 그대로, 경로와 파일 이름을 적어주면, 해당 이미지리턴하여 Variable 에 할당한다.</p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">image = Image.open(<span class="hljs-string">"imagefile_name"</span>)</span><br></pre></td></tr></table></figure>
-
 <h4 id="2-crop"><a href="#2-crop" class="headerlink" title="(2) crop()"></a>(2) crop()</h4></li>
-<li><p>이름 그대로, image 를 잘라준다. 이 때 Parameter 는 box형태로 들어가게 된다.</p>
-</li>
-<li><p>box 는 (left, upper, right, lower) 로 들어가게 된든데, pixel 단위로 들어가면 된다</p>
-</li>
+<li>이름 그대로, image 를 잘라준다. 이 때 Parameter 는 box형태로 들어가게 된다.</li>
+<li>box 는 (left, upper, right, lower) 로 들어가게 된든데, pixel 단위로 들어가면 된다</li>
 <li><p>이미지의 가장 왼쪽과 위쪽 라인을 기준으로, <br></p>
 <ul>
 <li>left px 만큼</li>
 <li>upper px 만큼</li>
 <li>(왼쪽을 기준으로) right px 만큼</li>
 <li>(위쪽을 기준으로) bottom px 만큼 <br><br>잘라, box 로 만들어 준다.<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">box = (<span class="hljs-number">10</span>, <span class="hljs-number">10</span>, <span class="hljs-number">110</span>, <span class="hljs-number">110</span>)</span><br><span class="line">image.crop(box)</span><br><span class="line"><span class="hljs-comment">### 이렇게 되면 가로세로 100px 만큼의 이미지가 만들어진다.</span></span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 <h4 id="3-thumbnail"><a href="#3-thumbnail" class="headerlink" title="(3) thumbnail()"></a>(3) thumbnail()</h4></li>
-<li><p>썸네일을 만들어준다.</p>
-</li>
-<li><p>썸네일의 활용 방안은 한 가지 사진을 어플리케이션 곳곳에서 사용한다고 할 때, 데이터 사이즈가 큰 원본 사진을 계속 해서 들고 다니며 사용하면 어플리케이션에 따라 메모리 낭비, 서버용량 낭비, 트래픽 낭비 등으로 이어질 수 있다. 따라서, 이미지의 데이터 크기와 해상도를 낮춰 사용할 수 있다.</p>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">image.thumbnail((pixel, pixel))</span><br><span class="line"><span class="hljs-comment">#thumbnail 메소드를 사용하여, 원하는 pixel 수로 줄일 수 있다.</span></span><br></pre></td></tr></table></figure>
-
+<li>썸네일을 만들어준다.</li>
+<li>썸네일의 활용 방안은 한 가지 사진을 어플리케이션 곳곳에서 사용한다고 할 때, 데이터 사이즈가 큰 원본 사진을 계속 해서 들고 다니며 사용하면 어플리케이션에 따라 메모리 낭비, 서버용량 낭비, 트래픽 낭비 등으로 이어질 수 있다. 따라서, 이미지의 데이터 크기와 해상도를 낮춰 사용할 수 있다.<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">image.thumbnail((pixel, pixel))</span><br><span class="line"><span class="hljs-comment">#thumbnail 메소드를 사용하여, 원하는 pixel 수로 줄일 수 있다.</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 
@@ -358,14 +349,14 @@
                 <time class="level-item has-text-grey" datetime="2018-10-24T03:02:50.000Z">2018-10-24</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/wiki/">wiki</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/wiki/Requests/">Requests</a>
+                <a class="has-link-grey -link" href="/categories/Python/">Python</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    4 minutes read (About 560 words)
+                    a minute read (About 216 words)
                 </span>
                 
                 
@@ -374,59 +365,23 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2018/10/24/Requests/">Requests</a>
+                <a class="has-link-black-ter" href="/2018/10/24/Thread/">Thread</a>
             
         </h1>
         <div class="content">
-            <h1 id="WEB-CRAWLING-1"><a href="#WEB-CRAWLING-1" class="headerlink" title="WEB CRAWLING 1"></a>WEB CRAWLING 1</h1><blockquote>
+            <h1 id="Thread"><a href="#Thread" class="headerlink" title="Thread"></a>Thread</h1><blockquote>
 <p>공부한 내용을 스스로 보기 쉽게 정리한 글입니다.</p>
+<ul>
+<li>파이썬 기본 : Single Thread (Main Thread)</li>
+<li>threading 모듈 : main thread에서 subthread 를 생성하여 진행하는 방식</li>
+<li>multiprocessing 모듈 : double cpu</li>
+</ul>
 </blockquote>
-<h2 id="Requests"><a href="#Requests" class="headerlink" title="Requests "></a>Requests <br></h2><ul>
-<li>Requests 패키지는 크롤링 하고자 하는 페이지를 url 값을 통해 가져와 객체로 변환 해주는 기능을 가지고 있다. <br></li>
-</ul>
-<h3 id="1-Installation"><a href="#1-Installation" class="headerlink" title="1. Installation"></a>1. Installation</h3><ul>
-<li>Requests 를 이용하기 위해 package 를 설치해준다.<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pip3 install requests</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<br>
-- request를 이용하면서, json 형식으로의 크롤링과, html 형식으로 css  selecting 을 위한 크롤링을 실습해 볼 것이므로, BeautifulSoup Package 역시 같이 설치해준다. (BeautifulSoup은 html parser 를 이용해보기 위함이다.)
-- python-forecastio 는 dark sky 의 api를 활용해 날씨 데이터를 받아올때 사용해보기 위해 설치한다.
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ pip3 install bs4</span><br><span class="line">$ pip3 install python-forecastio</span><br></pre></td></tr></table></figure>
-
 <ul>
-<li>import 할 것들<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> requests</span><br><span class="line"><span class="hljs-keyword">import</span> forecastio</span><br><span class="line"><span class="hljs-keyword">from</span> bs4 <span class="hljs-keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="hljs-keyword">from</span> pandas.io.json <span class="hljs-keyword">import</span> json_normalize</span><br></pre></td></tr></table></figure>
-
-</li>
+<li>ThreadPoolExecutor : API - 멀티스레드와 멀티프로세스 동일한 형태로 디자인(Pool 클래스만 변경하면됨)</li>
 </ul>
-<h3 id="2-jSON-Dark-Sky-api-활용-날씨정보-가져오기"><a href="#2-jSON-Dark-Sky-api-활용-날씨정보-가져오기" class="headerlink" title="2. [ jSON ] Dark Sky api 활용 날씨정보 가져오기"></a>2. [ jSON ] Dark Sky api 활용 날씨정보 가져오기</h3><ul>
-<li><p>DarkSky api 는 위도와 경도를 입력하면, 날씨 정보를 주는 api 이다.</p>
-</li>
-<li><p><a href="https://darsky.net/dev/" target="_blank" rel="noopener">https://darsky.net/dev/</a> 에 가입 후, TOKEN 을 받는다.</p>
-</li>
-<li><p>위에서 받은 개인의 TOKEN 을 활용해 url 을 먼저, formating을 해준다.</p>
-</li>
-<li><p>requests의 get 메소드를 활용해 url 의 정보를 받아온다.</p>
-</li>
-<li><p>받아온 정보를 requests 의 json 메소드로 json 형식으로 변환해준다.</p>
-</li>
-<li><p>json 을 확인하고 원하는 정보를 return 해준다.</p>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">forecast</span><span class="hljs-params">(lat, lng)</span>:</span></span><br><span class="line">  url = <span class="hljs-string">"https://api.darksky.net/forecast/&#123;&#125;/&#123;&#125;,&#123;&#125;"</span>.format(TOKEN, lat, lng)</span><br><span class="line">      response = requests.get(url)</span><br><span class="line">      json_obj = response.json()</span><br><span class="line">      <span class="hljs-keyword">return</span> json_obj[<span class="hljs-string">"hourly"</span>][<span class="hljs-string">"summary"</span>]</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h3 id="3-html-BS4-활용-html-selecting-해서-가져오기"><a href="#3-html-BS4-활용-html-selecting-해서-가져오기" class="headerlink" title="3. [ html ] BS4 활용 html selecting 해서 가져오기"></a>3. [ html ] BS4 활용 html selecting 해서 가져오기</h3><ul>
-<li>네이버의 실시간 검색순위 부분의 text 를 크롤링 해보자</li>
-<li>html 파일을 BS4 를 활용해 받아온뒤, CSS selecting 으로 원하는 text data 를 가져온다.</li>
-</ul>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">from</span> bs4 <span class="hljs-keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">naver</span><span class="hljs-params">()</span>:</span></span><br><span class="line">  url = <span class="hljs-string">"https://www.naver.com"</span></span><br><span class="line">  df = pd.DataFrame(columns=[<span class="hljs-string">"rank"</span>, <span class="hljs-string">"keyword"</span>])</span><br><span class="line">  response = requests.get(url)</span><br><span class="line">  dom = BeautifulSoup(response.content, <span class="hljs-string">"html.parser"</span>)</span><br><span class="line"></span><br><span class="line">  <span class="hljs-comment"># BeautifulSoup(markup, features, builder, parse_only, from_encoding, exclude_encodings)</span></span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">for</span> keyword <span class="hljs-keyword">in</span> keywords:</span><br><span class="line">        df.loc[len(df)] = &#123;</span><br><span class="line">            <span class="hljs-string">"rank"</span>:keyword.select_one(<span class="hljs-string">'.ah_r'</span>).text,</span><br><span class="line">            <span class="hljs-string">"keyword"</span>:keyword.select_one(<span class="hljs-string">'.ah_k'</span>).text</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="hljs-keyword">return</span> df</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>print(response.content)의 모양을 보자.</li>
-<li>따라서, BeautifulSoup 으로 html 형식으로 parsing 해주고, css 를 활용해 selecting 해준다.</li>
-<li>.select 는 여러개의 엘리먼트를 선택 -&gt; 결과가 리스트</li>
-<li>.select_one은 하나의 엘리먼트를 선택 -&gt; 결과가 하나의 객체</li>
-</ul>
+<h3 id="threading-Thread-arguement"><a href="#threading-Thread-arguement" class="headerlink" title="threading.Thread() arguement"></a>threading.Thread() arguement</h3><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Thread(group=, target=, args= , kwargs=, *, daemon=<span class="hljs-keyword">None</span>)</span><br><span class="line"><span class="hljs-comment">#target= : 실제 스레드에서 돌아가게 될 함수</span></span><br><span class="line"><span class="hljs-comment">#args= : tuple 로 target 함수에 들어가게될 argument</span></span><br><span class="line"><span class="hljs-comment">#kwargs= : dictionary로 target 함수에 들어가게될 argument</span></span><br><span class="line"><span class="hljs-comment">#daemon : 데몬 스레드로 돌아갈지 여부</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#Thread 의 메소드</span></span><br><span class="line">start(): <span class="hljs-comment">#스레드의 실행, self 의 run() 메소드를 호출</span></span><br><span class="line">run(): <span class="hljs-comment">#스레드가 실제로 수행하게될 작업</span></span><br><span class="line">name : <span class="hljs-comment">#스레드의 이름</span></span><br><span class="line">threading.locals() : <span class="hljs-comment">#해당 스레드 내부에서 사용할 로컬 변수 지정</span></span><br></pre></td></tr></table></figure>
 
         </div>
         
@@ -483,7 +438,6 @@
 </li>
 <li><p>Selenium Python Package 설치</p>
 <figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> sudo pip3 install selenium</span></span><br></pre></td></tr></table></figure>
-
 </li>
 </ol>
 <h2 id="1-셀레니움-사용해보기"><a href="#1-셀레니움-사용해보기" class="headerlink" title="1. 셀레니움 사용해보기"></a>1. 셀레니움 사용해보기</h2><ul>
@@ -507,7 +461,6 @@
 </li>
 <li><p>열려있는 window 탭 중, control 대상 window 로 바꾸기</p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">driver.switch_to_window(windows[<span class="hljs-number">0</span>])</span><br><span class="line"><span class="hljs-comment">#다시 원래 열었던 창으로 돌아가기</span></span><br><span class="line">driver.switch_to_window(main_window)</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 <h2 id="2-Alert-와-Confirm-다루기"><a href="#2-Alert-와-Confirm-다루기" class="headerlink" title="2. Alert 와 Confirm 다루기"></a>2. Alert 와 Confirm 다루기</h2><ul>
@@ -523,7 +476,6 @@
 </li>
 <li><p>Alert 창이 있으면 확인을 누르고, 없으면 없다고 리턴하기 (예외처리)</p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">try</span>:</span><br><span class="line">  alert = driver.switch_to.alert</span><br><span class="line">  alert.accept()</span><br><span class="line"><span class="hljs-keyword">except</span>:</span><br><span class="line">  print(<span class="hljs-string">"alert 가 없습니다."</span>)</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 <h3 id="2-Confirm"><a href="#2-Confirm" class="headerlink" title="(2) Confirm"></a>(2) Confirm</h3><ul>
@@ -532,33 +484,25 @@
 </li>
 <li><p>Confirm 창 확인 누르기 or 취소 누르기</p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">confirm = driver.switch_to.alert</span><br><span class="line"><span class="hljs-comment"># 확인</span></span><br><span class="line"><span class="hljs-comment"># confirm.accept()</span></span><br><span class="line"><span class="hljs-comment"># 취소</span></span><br><span class="line">confirm.dismiss()</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 <h2 id="3-입력창에-글씨-입력하기"><a href="#3-입력창에-글씨-입력하기" class="headerlink" title="3. 입력창에 글씨 입력하기"></a>3. 입력창에 글씨 입력하기</h2><ul>
 <li>이제부터 Selenium을 통해 특정 html 의 element 에 액션을 주려면,<br>각종 Selector 를 사용하여 html 상의 element을 셀렉팅 하고, 해당 element 에게 액션을 주어야한다.</li>
 </ul>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.find_element_by_css_selector(nameof cssselector).send_keys(<span class="hljs-string">"입력할 내용"</span>)</span><br></pre></td></tr></table></figure>
-
 <ul>
-<li>.find_element_by_css_selector 와 <br><br>.find_<b>elements</b>_
-by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 반면, elements 는 여러가지 element 를 셀렉팅 해서, 리스트 형식으로 Return 한다.</li>
+<li>.find_element_by_css_selector 와 <br><br>.find_<b>elements</b>_<br>by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 반면, elements 는 여러가지 element 를 셀렉팅 해서, 리스트 형식으로 Return 한다.</li>
 <li>따라서 이렇게 리스트 형식으로 Return 이 된 경우, List[0] 등과 같이 그 엘리먼트를 뒤에 지정해줘야된다. 즉,<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">driver.find_element_by_css_selector(nameof cssselector)</span><br><span class="line"><span class="hljs-comment">#위는 바로 selecting 이 된것이지만,</span></span><br><span class="line">driver.find_elements_by_css_selector(nameof cssselector)[<span class="hljs-number">0</span>]</span><br><span class="line"><span class="hljs-comment">#위는 뒤에 selecting 위해 list 의 요소를 선택 해주어야한다.</span></span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 <h2 id="4-버튼-클릭하기"><a href="#4-버튼-클릭하기" class="headerlink" title="4. 버튼 클릭하기"></a>4. 버튼 클릭하기</h2><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># 위의 방법처럼, element 를 선택해준다.</span></span><br><span class="line">driver.find_element_by_css_selector(<span class="hljs-string">"name of css selector"</span>).click()</span><br></pre></td></tr></table></figure>
-
 <h2 id="5-id-class-그-외의-attribute-값을-selecting-하는-법"><a href="#5-id-class-그-외의-attribute-값을-selecting-하는-법" class="headerlink" title="5. id, class, 그 외의 attribute 값을 selecting 하는 법"></a>5. id, class, 그 외의 attribute 값을 selecting 하는 법</h2><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">driver.find_element_by_css_selector(<span class="hljs-string">"name of css selector."</span>).click()</span><br><span class="line"><span class="hljs-comment"># id 의 경우 : #idname</span></span><br><span class="line"><span class="hljs-comment"># class 의 경우 : .classname</span></span><br><span class="line"><span class="hljs-comment"># 다른 attribute 의 경우 : [attribute = 'value']</span></span><br></pre></td></tr></table></figure>
-
 <h2 id="6-selecting-한-element-의-attribute-value-를-얻는-방법"><a href="#6-selecting-한-element-의-attribute-value-를-얻는-방법" class="headerlink" title="6. selecting 한 element 의 attribute value 를 얻는 방법"></a>6. selecting 한 element 의 attribute value 를 얻는 방법</h2><ul>
 <li>CSS로 선택한 element에 html 태그에는 다양한 attribute 들이 있을 수 있다. 이 중<br>attribute의 value에 접근 하고 싶을 때는 .get_attribute()메소드를 사용할 수 있다.<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.find_element_by_css_selector(<span class="hljs-string">"name of css selector"</span>).get_attribute(<span class="hljs-string">"attribute_name"</span>)</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 <h2 id="7-element-의-위치와-사이즈-구하기"><a href="#7-element-의-위치와-사이즈-구하기" class="headerlink" title="7. element 의 위치와, 사이즈 구하기"></a>7. element 의 위치와, 사이즈 구하기</h2><ul>
 <li>스크롤을 내리거나, 엘리먼트의 위치와 크기를 알고 싶을 때 사용할 수 있다.<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">element = driver.find_element_by_css_selector(<span class="hljs-string">"name of css selector"</span>)</span><br><span class="line">element.location</span><br><span class="line"><span class="hljs-comment">#element 의 좌측 상단의 위치가 pixel 단위로 x, y 값의 dictionary로 보여준다.</span></span><br><span class="line">element.size</span><br><span class="line"><span class="hljs-comment">#element 의 size 를 height, width를 pixel 단위로 dictionary로 보여준다.</span></span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 
@@ -585,14 +529,14 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
                 <time class="level-item has-text-grey" datetime="2018-10-24T03:02:50.000Z">2018-10-24</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/Python/">Python</a>
+                <a class="has-link-grey -link" href="/categories/wiki/">wiki</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/wiki/Requests/">Requests</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    a minute read (About 216 words)
+                    4 minutes read (About 560 words)
                 </span>
                 
                 
@@ -601,25 +545,52 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2018/10/24/Thread/">Thread</a>
+                <a class="has-link-black-ter" href="/2018/10/24/Requests/">Requests</a>
             
         </h1>
         <div class="content">
-            <h1 id="Thread"><a href="#Thread" class="headerlink" title="Thread"></a>Thread</h1><blockquote>
+            <h1 id="WEB-CRAWLING-1"><a href="#WEB-CRAWLING-1" class="headerlink" title="WEB CRAWLING 1"></a>WEB CRAWLING 1</h1><blockquote>
 <p>공부한 내용을 스스로 보기 쉽게 정리한 글입니다.</p>
-<ul>
-<li>파이썬 기본 : Single Thread (Main Thread)</li>
-<li>threading 모듈 : main thread에서 subthread 를 생성하여 진행하는 방식</li>
-<li>multiprocessing 모듈 : double cpu</li>
+<h2 id="Requests"><a href="#Requests" class="headerlink" title="Requests "></a>Requests <br></h2><ul>
+<li>Requests 패키지는 크롤링 하고자 하는 페이지를 url 값을 통해 가져와 객체로 변환 해주는 기능을 가지고 있다. <br></li>
 </ul>
 </blockquote>
-<ul>
-<li>ThreadPoolExecutor : API - 멀티스레드와 멀티프로세스 동일한 형태로 디자인(Pool 클래스만 변경하면됨)</li>
+<h3 id="1-Installation"><a href="#1-Installation" class="headerlink" title="1. Installation"></a>1. Installation</h3><ul>
+<li>Requests 를 이용하기 위해 package 를 설치해준다.<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pip3 install requests</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<h3 id="threading-Thread-arguement"><a href="#threading-Thread-arguement" class="headerlink" title="threading.Thread() arguement"></a>threading.Thread() arguement</h3><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Thread(group=, target=, args= , kwargs=, *, daemon=<span class="hljs-keyword">None</span>)</span><br><span class="line"><span class="hljs-comment">#target= : 실제 스레드에서 돌아가게 될 함수</span></span><br><span class="line"><span class="hljs-comment">#args= : tuple 로 target 함수에 들어가게될 argument</span></span><br><span class="line"><span class="hljs-comment">#kwargs= : dictionary로 target 함수에 들어가게될 argument</span></span><br><span class="line"><span class="hljs-comment">#daemon : 데몬 스레드로 돌아갈지 여부</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#Thread 의 메소드</span></span><br><span class="line">start(): <span class="hljs-comment">#스레드의 실행, self 의 run() 메소드를 호출</span></span><br><span class="line">run(): <span class="hljs-comment">#스레드가 실제로 수행하게될 작업</span></span><br><span class="line">name : <span class="hljs-comment">#스레드의 이름</span></span><br><span class="line">threading.locals() : <span class="hljs-comment">#해당 스레드 내부에서 사용할 로컬 변수 지정</span></span><br></pre></td></tr></table></figure>
-
+<p><br></p>
+<ul>
+<li>request를 이용하면서, json 형식으로의 크롤링과, html 형식으로 css  selecting 을 위한 크롤링을 실습해 볼 것이므로, BeautifulSoup Package 역시 같이 설치해준다. (BeautifulSoup은 html parser 를 이용해보기 위함이다.)</li>
+<li><p>python-forecastio 는 dark sky 의 api를 활용해 날씨 데이터를 받아올때 사용해보기 위해 설치한다.</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ pip3 install bs4</span><br><span class="line">$ pip3 install python-forecastio</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>import 할 것들</p>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> requests</span><br><span class="line"><span class="hljs-keyword">import</span> forecastio</span><br><span class="line"><span class="hljs-keyword">from</span> bs4 <span class="hljs-keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="hljs-keyword">from</span> pandas.io.json <span class="hljs-keyword">import</span> json_normalize</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="2-jSON-Dark-Sky-api-활용-날씨정보-가져오기"><a href="#2-jSON-Dark-Sky-api-활용-날씨정보-가져오기" class="headerlink" title="2. [ jSON ] Dark Sky api 활용 날씨정보 가져오기"></a>2. [ jSON ] Dark Sky api 활용 날씨정보 가져오기</h3><ul>
+<li>DarkSky api 는 위도와 경도를 입력하면, 날씨 정보를 주는 api 이다.</li>
+<li><p><a href="https://darsky.net/dev/" target="_blank" rel="noopener">https://darsky.net/dev/</a> 에 가입 후, TOKEN 을 받는다.</p>
+</li>
+<li><p>위에서 받은 개인의 TOKEN 을 활용해 url 을 먼저, formating을 해준다.</p>
+</li>
+<li>requests의 get 메소드를 활용해 url 의 정보를 받아온다.</li>
+<li>받아온 정보를 requests 의 json 메소드로 json 형식으로 변환해준다.</li>
+<li>json 을 확인하고 원하는 정보를 return 해준다.<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">forecast</span><span class="hljs-params">(lat, lng)</span>:</span></span><br><span class="line">  url = <span class="hljs-string">"https://api.darksky.net/forecast/&#123;&#125;/&#123;&#125;,&#123;&#125;"</span>.format(TOKEN, lat, lng)</span><br><span class="line">      response = requests.get(url)</span><br><span class="line">      json_obj = response.json()</span><br><span class="line">      <span class="hljs-keyword">return</span> json_obj[<span class="hljs-string">"hourly"</span>][<span class="hljs-string">"summary"</span>]</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="3-html-BS4-활용-html-selecting-해서-가져오기"><a href="#3-html-BS4-활용-html-selecting-해서-가져오기" class="headerlink" title="3. [ html ] BS4 활용 html selecting 해서 가져오기"></a>3. [ html ] BS4 활용 html selecting 해서 가져오기</h3><ul>
+<li>네이버의 실시간 검색순위 부분의 text 를 크롤링 해보자</li>
+<li>html 파일을 BS4 를 활용해 받아온뒤, CSS selecting 으로 원하는 text data 를 가져온다.</li>
+</ul>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">from</span> bs4 <span class="hljs-keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">naver</span><span class="hljs-params">()</span>:</span></span><br><span class="line">  url = <span class="hljs-string">"https://www.naver.com"</span></span><br><span class="line">  df = pd.DataFrame(columns=[<span class="hljs-string">"rank"</span>, <span class="hljs-string">"keyword"</span>])</span><br><span class="line">  response = requests.get(url)</span><br><span class="line">  dom = BeautifulSoup(response.content, <span class="hljs-string">"html.parser"</span>)</span><br><span class="line"></span><br><span class="line">  <span class="hljs-comment"># BeautifulSoup(markup, features, builder, parse_only, from_encoding, exclude_encodings)</span></span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">for</span> keyword <span class="hljs-keyword">in</span> keywords:</span><br><span class="line">        df.loc[len(df)] = &#123;</span><br><span class="line">            <span class="hljs-string">"rank"</span>:keyword.select_one(<span class="hljs-string">'.ah_r'</span>).text,</span><br><span class="line">            <span class="hljs-string">"keyword"</span>:keyword.select_one(<span class="hljs-string">'.ah_k'</span>).text</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="hljs-keyword">return</span> df</span><br></pre></td></tr></table></figure>
+<ul>
+<li>print(response.content)의 모양을 보자.</li>
+<li>따라서, BeautifulSoup 으로 html 형식으로 parsing 해주고, css 를 활용해 selecting 해준다.</li>
+<li>.select 는 여러개의 엘리먼트를 선택 -&gt; 결과가 리스트</li>
+<li>.select_one은 하나의 엘리먼트를 선택 -&gt; 결과가 하나의 객체</li>
+</ul>
 
         </div>
         
@@ -794,34 +765,24 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
 <p>공부한 내용을 스스로 보기 쉽게 정리한 글입니다.</p>
 </blockquote>
 <h2 id="Queue의-특징"><a href="#Queue의-특징" class="headerlink" title="Queue의 특징"></a>Queue의 특징</h2><ol>
-<li>내가 버스정류장에 서있다고 생각해보면, 버스 전용차선으로 버스가 줄지어 들어온다. 아무리 뒷차가 손님을 다 태웠다고해서, 앞에 버스가 아직 손님을 태우고 있으면 뒷 버스는 출발 하지 못한다. <br></li>
-</ol>
-<p><strong>이것이 바로 QUEUE</strong></p>
-<ol start="2">
+<li>내가 버스정류장에 서있다고 생각해보면, 버스 전용차선으로 버스가 줄지어 들어온다. 아무리 뒷차가 손님을 다 태웠다고해서, 앞에 버스가 아직 손님을 태우고 있으면 뒷 버스는 출발 하지 못한다. <br><br><strong>이것이 바로 QUEUE</strong></li>
 <li>FIFO : First In First Out == 선입선출 or 후입후출</li>
 <li>front와 rear 라는 index가 각각 구조의 맨 앞과 뒤를 가리키고 있다. Data는 rear로 들어가고, front 에서 나온다.</li>
 </ol>
 <h2 id="ADT"><a href="#ADT" class="headerlink" title="ADT"></a>ADT</h2><ol>
-<li>empty() 라는 메소드로 Queue 에 data가 있는지 없는지 확인하게 한다. empty 이면 True, not empty 이면, False 를 return 한다.<br></li>
+<li><p>empty() 라는 메소드로 Queue 에 data가 있는지 없는지 확인하게 한다. empty 이면 True, not empty 이면, False 를 return 한다.<br><br><strong>Queue.empty() returns Boolean</strong></p>
+</li>
+<li><p>enaueue(data) 메소드로 Queue의 rear 가 가리키고 있는 data 뒤에 data를 넣는다.<br><br><strong>Queue.enqueue (data) returns None</strong></p>
+</li>
+<li><p>dequeue() 메소드로 Queue의 front가 가리키고 있는 data를 반환하면서 삭제 된다.<br><br><strong>Queue.dequeue() returns data</strong></p>
+</li>
+<li><p>peek() 메소드로 Queue의 front가 가리키고 있는 data를 반환한다. peek은 어디까지나 확인하는 메소드 이므로, data가 삭제되지 않는다.<br><br><strong>Queue.peek() returns data</strong></p>
+</li>
 </ol>
-<p><strong>Queue.empty() returns Boolean</strong></p>
-<ol start="2">
-<li>enaueue(data) 메소드로 Queue의 rear 가 가리키고 있는 data 뒤에 data를 넣는다.<br></li>
-</ol>
-<p><strong>Queue.enqueue (data) returns None</strong></p>
-<ol start="3">
-<li>dequeue() 메소드로 Queue의 front가 가리키고 있는 data를 반환하면서 삭제 된다.<br></li>
-</ol>
-<p><strong>Queue.dequeue() returns data</strong></p>
-<ol start="4">
-<li>peek() 메소드로 Queue의 front가 가리키고 있는 data를 반환한다. peek은 어디까지나 확인하는 메소드 이므로, data가 삭제되지 않는다.<br></li>
-</ol>
-<p><strong>Queue.peek() returns data</strong></p>
 <h2 id="구현-1-by-python-list"><a href="#구현-1-by-python-list" class="headerlink" title="구현 1 : by python list"></a>구현 1 : by python list</h2><ul>
 <li>Queue 구조를 Python에 내장 되어 있는 list를 container 로 구현한다.</li>
 </ul>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Queue</span>:</span></span><br><span class="line">  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span></span><br><span class="line">    self.container=list()</span><br><span class="line"></span><br><span class="line">  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">empty</span><span class="hljs-params">(self)</span>:</span></span><br><span class="line">    <span class="hljs-comment"># ADT 를 따라서, 비어 있으면 return True 비어있지 않으면 return False</span></span><br><span class="line">    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> self.container:</span><br><span class="line">      <span class="hljs-keyword">return</span> <span class="hljs-keyword">True</span></span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-keyword">False</span></span><br><span class="line"></span><br><span class="line">  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">enqueue</span><span class="hljs-params">(self, data)</span>:</span></span><br><span class="line">    <span class="hljs-comment"># list 를 활용했으므로, list.append(data)를 활용할 수 있다.</span></span><br><span class="line">    self.container.append(data)</span><br><span class="line"></span><br><span class="line">  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">dequeue</span><span class="hljs-params">(self)</span>:</span></span><br><span class="line">    <span class="hljs-comment"># pop 역시 list.pop()을 활용할 수 있다.</span></span><br><span class="line">    <span class="hljs-keyword">return</span> self.container.pop(<span class="hljs-number">0</span>)</span><br><span class="line"></span><br><span class="line">  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">peek</span><span class="hljs-params">(self)</span>:</span></span><br><span class="line">    <span class="hljs-comment"># peek은 단지 front 에 어떤 데이터가 있는지 확인 하는 것 뿐이므로, 현재 리스트의 가장 앞 부분에 있는 data 를 확인하면 된다.</span></span><br><span class="line">    <span class="hljs-keyword">return</span> self.container[<span class="hljs-number">0</span>]</span><br></pre></td></tr></table></figure>
-
 <h2 id="구현-2"><a href="#구현-2" class="headerlink" title="구현 2 :"></a>구현 2 :</h2>
         </div>
         
@@ -868,34 +829,29 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
         <div class="content">
             <h1 id="Stack"><a href="#Stack" class="headerlink" title="Stack"></a>Stack</h1><blockquote>
 <p>공부한 내용을 스스로 보기 쉽게 정리한 글입니다.</p>
-</blockquote>
-<h2 id="Stack-의-특징"><a href="#Stack-의-특징" class="headerlink" title="Stack 의 특징"></a>Stack 의 특징</h2><ol>
+<h2 id="Stack-의-특징"><a href="#Stack-의-특징" class="headerlink" title="Stack 의 특징"></a>Stack 의 특징</h2></blockquote>
+<ol>
 <li>접시를 쌓듯이 데이터를 쌓아 올리는 모양의 데이터 구조</li>
 <li>LIFO : Last In First Out  == 후입선출 or 선입후출</li>
 <li>top index 가 항상 Stack의 가장 윗부분을 가리키고 있어, 우리는 top 위치만 볼 수 있다.</li>
 <li>단점 : stack 의 top 이 외에 밑에 쌓여져있는 데이터의 Search 가 안된다.</li>
 </ol>
 <h2 id="ADT"><a href="#ADT" class="headerlink" title="ADT"></a>ADT</h2><ol>
-<li>empty() 라는 메소드로 Stack 에 data가 있는지 없는지 확인하게 한다. empty 이면 True, not empty 이면, False 를 return 한다.<br></li>
+<li><p>empty() 라는 메소드로 Stack 에 data가 있는지 없는지 확인하게 한다. empty 이면 True, not empty 이면, False 를 return 한다.<br></p>
+<p><strong>Stack.empty() returns Boolean</strong></p>
+</li>
+<li><p>Stack의 top 위치에 데이터를 쌓는다.<br></p>
+<p><strong>Stack.push(data) returns None</strong></p>
+</li>
+<li><p>Stack의 top 위치에 있는 데이터를 삭제하면서 반환한다.<br></p>
+<p><strong>Stack.pop() returns data</strong></p>
+</li>
+<li>Stack의 top 위치에 있는 데이터를 반환하지만, 삭제하지 않는다. 어떤 데이터가 있는지 just 확인.<br><br><strong>Stack.peek() returns data</strong></li>
 </ol>
-<p>  <strong>Stack.empty() returns Boolean</strong></p>
-<ol start="2">
-<li>Stack의 top 위치에 데이터를 쌓는다.<br></li>
-</ol>
-<p>  <strong>Stack.push(data) returns None</strong></p>
-<ol start="3">
-<li>Stack의 top 위치에 있는 데이터를 삭제하면서 반환한다.<br></li>
-</ol>
-<p>  <strong>Stack.pop() returns data</strong></p>
-<ol start="4">
-<li>Stack의 top 위치에 있는 데이터를 반환하지만, 삭제하지 않는다. 어떤 데이터가 있는지 just 확인.<br></li>
-</ol>
-<p>  <strong>Stack.peek() returns data</strong></p>
 <h2 id="구현-1-by-python-list"><a href="#구현-1-by-python-list" class="headerlink" title="구현 1 : by python list"></a>구현 1 : by python list</h2><ul>
 <li>Stack 구조를 Python에 내장 되어 있는 list를 container 로 삼아 구현하게 되면, 그 구현은 매우매우 쉽다.</li>
 <li>Python의 List 자료형의 대단함을 그만큼 느낀다.</li>
 <li>이 때 List 의 index가 큰 쪽이 top 방향이다.<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Stack</span>:</span></span><br><span class="line">  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span></span><br><span class="line">    self.container=list()</span><br><span class="line"></span><br><span class="line">  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">empty</span><span class="hljs-params">(self)</span>:</span></span><br><span class="line">    <span class="hljs-comment"># ADT 를 따라서, 비어 있으면 return True 비어있지 않으면 return False</span></span><br><span class="line">    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> self.container:</span><br><span class="line">      <span class="hljs-keyword">return</span> <span class="hljs-keyword">True</span></span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-keyword">False</span></span><br><span class="line"></span><br><span class="line">  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">push</span><span class="hljs-params">(self, data)</span>:</span></span><br><span class="line">    <span class="hljs-comment"># list 를 활용했으므로, list.append(data)를 활용할 수 있다.</span></span><br><span class="line">    self.container.append(data)</span><br><span class="line"></span><br><span class="line">  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">pop</span><span class="hljs-params">(self)</span>:</span></span><br><span class="line">    <span class="hljs-comment"># pop 역시 list.pop()을 활용할 수 있다.</span></span><br><span class="line">    <span class="hljs-keyword">return</span> self.container.pop()</span><br><span class="line"></span><br><span class="line">  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">peek</span><span class="hljs-params">(self)</span>:</span></span><br><span class="line">    <span class="hljs-comment"># peek은 단지 top 에 어떤 데이터가 있는지 확인 하는 것 뿐이므로, 현재 리스트의 가장 마지막에 append 되어 있는 data를 확인하면 된다.</span></span><br><span class="line">    <span class="hljs-keyword">return</span> self.container[<span class="hljs-number">-1</span>]</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 <h2 id="구현-2"><a href="#구현-2" class="headerlink" title="구현 2 :"></a>구현 2 :</h2>

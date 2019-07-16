@@ -339,7 +339,7 @@
             
         </h1>
         <div class="content">
-            <h1 id="Classification-Metrics-분류-성능-지표"><a href="#Classification-Metrics-분류-성능-지표" class="headerlink" title="Classification Metrics: 분류 성능 지표"></a>Classification Metrics: 분류 성능 지표</h1><p>Kaggle Classification 의 Evaluation 에 자주 사용되는 ROC-AUC를 정리해보면서, 이번 기회에 분류모델에서 자주 사용되는 성능지표(Metric)을 간단하게 정리해봅니다. </p>
+            <h1 id="Classification-Metrics-분류-성능-지표"><a href="#Classification-Metrics-분류-성능-지표" class="headerlink" title="Classification Metrics: 분류 성능 지표"></a>Classification Metrics: 분류 성능 지표</h1><p>Kaggle Classification 의 Evaluation 에 자주 사용되는 ROC-AUC를 정리해보면서, 이번 기회에 분류모델에서 자주 사용되는 성능지표(Metric)을 간단하게 정리해봅니다.<br></p>
         </div>
         
         
@@ -378,7 +378,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    14 minutes read (About 2155 words)
+                    14 minutes read (About 2156 words)
                 </span>
                 
                 
@@ -400,111 +400,16 @@
 </ol>
 </li>
 </ul>
-<h1 id="1-Spark-shell"><a href="#1-Spark-shell" class="headerlink" title="1. Spark-shell"></a>1. Spark-shell</h1><h2 id="1-1-Introduction"><a href="#1-1-Introduction" class="headerlink" title="1-1. Introduction"></a>1-1. Introduction</h2><p>shell의 spark home directory 에서 다음 명령어를 통해 spark shell 을 진입할 수 있습니다.</p>
-<pre><code>$ cd /spark_home_directory/
-$ ./bin/spark-shell</code></pre><p><img src="Untitled-d3bd9451-d568-49aa-bf5a-0f6b7bf598d9.png" alt></p>
-<ul>
-<li>sc : spark context</li>
-<li>spark : spark session</li>
-</ul>
-<p>spark context 와 spark session 의 경우, spark shell에 띄우면서 내부적으로 선언된 변수명이다. </p>
-<pre><code>$ jps
-// jps 명령어를 통해 현재 돌고 있는 spark process 를 확인할 수 있다. 
-// spark processor 가 jvm 을 바탕으로 돌기 때문에, jvm 프로세스가 도는 것을 확인하므로써
-// 확인 할 수 있는 것이다.</code></pre><p><a href="http://localhost:4040" target="_blank" rel="noopener">http://localhost:4040</a>, 즉 해당 서버의 ip:4040 포트를 통해서 드라이버에서 제공되는 웹 UI 를 확인할 수 있다. 이 웹 UI 를 통해 현재 작동하는 프로세서와 클러스터들을 관리 할 수 있다.</p>
-<h2 id="1-2-RDD"><a href="#1-2-RDD" class="headerlink" title="1-2. RDD"></a>1-2. RDD</h2><p>spark는 data를 처리할 때, RDD 와 Spark SQL 을 통해서 data object 를 생성하고 이를 바탕으로 다양한 pipeline 으로 동작 할 수 있다. RDD 를 처음 접해보는 실습.</p>
-<pre><code>//scala shell
-val data = 1 to 10000
-val distData = sc.parallelize(data)
-distData.filter(_ &lt; 10).collect()</code></pre><ul>
-<li><code>data</code> 가 RDD</li>
-<li>sc.parallelize의 return 형 역시 parallelize 된 RDD, 즉 distData 도 RDD</li>
-<li>마지막 command line 은 10보다 작은 data 에 대해 filtering 하고 각 executor 에서 실행된 자료를 collect()</li>
-<li>spark 의 특징은 .collect() 와 같은 action api 가 실행될 때 모든 것이 실행되는 <strong>Lazy Evaluation (RDD)</strong>으로 동작한다.</li>
-</ul>
-<p>드라이버 웹 UI 를 통해 이를 확인 할 수 있다. 이전 command line 에서는 아무 동작도 일어나지 않다가 collect() action api 수행을 통해 실제로 command들이 수행되는 것을 확인 할 수 있다. local 에서 default 로 동작하기 때문에 2개의 partition 으로 동작하며, 어떤 shuffling 도 일어나지 않았기 때문에 1개의 stage 임을 확인 할 수 있다.</p>
-<p><img src="Untitled-a49c2d30-d7d2-43bf-a2d0-7a54ff94d0c6.png" alt></p>
-<pre><code>// scala shell
-// sc.textFile 을 통해 textfile, md 파일등을 읽어드릴 수 있다.
-val data = sc.textFile(&quot;file_name&quot;)
-
-// rdd 의 .map api 를 통해서 rdd 의 element 마다 
-val distData = data.map(r =&gt; r + &quot;_experiment!!&quot;)
-
-// 앞선 map 이 수행되고, 각 element(data) 갯수를 세개 된다.
-distData.count</code></pre><p>여기서는 .count 가 action api 이므로, .count 가 수행될 때, 앞선 command 들이 수행되게 된다.</p>
-<p><code>sc.textFile()</code> 의 경우 ‘\n’, newline 을 기준으로 element 를 RDD 에 담게 된다.</p>
-<p><code>RDD.toDebugString</code> 를 통해 해당 RDD 의 Lineage 를 확인 할 수 있다.</p>
-<ul>
-<li>가장 왼쪽에 있는 | 를 통해 stage 정보 역시 확인 할 수 있다. shuffle 이 일어나게 되면, stage가 바뀌므로, 서로 다른 stage  에 있는 command 의 경우, 다른 indent에 있게 된다.</li>
-</ul>
-<p><img src="Untitled-62b02b6f-4150-4dcf-8543-655381c951f7.png" alt></p>
-<p><code>RDD.getNumPartitions</code> 를 통해 해당 RDD의 Partition 갯수 (=Task 의 갯수), 즉 병렬화 수준을 확인 할 수 있다.</p>
-<p><img src="Untitled-a773c2aa-c715-4ccb-8b21-66eaaf1e22b3.png" alt></p>
-<h3 id="Shuffle"><a href="#Shuffle" class="headerlink" title="Shuffle!!"></a>Shuffle!!</h3><p>suffle 이 일어나는 경우는 api 마다 다양할 수 있다. 가장 기본적으로, 우리가 default partition 갯수를 변경하므로써 shuffle 이 일어나는 것을 확인 할 수 있다.</p>
-<pre><code>val data = sc.textFile(&quot;file_name&quot;)
-
-data.getNumPartitions
-// Partition 의 숫자를 확인해보면, default 이므로 2 인 것을 확인 할 수 있다.
-
-val newData = data.repartition(10)
-
-newData.getNumPartitions
-// Partition 갯수가 10로 변경된 것을 확인 할 수 있다.
-
-newData.toDebugString
-// newData 의 Lineage 를 확인하면, repartition 이 일어나면서 shuffle 이 되고,
-// shuffle 로 인해 stage 가 2개가 되는 것을 확인 할 수 있다.(indentation)
-
-newData.count
-// action api 를 수행하여 앞선 command 를 모두 수행</code></pre><p><img src="Untitled-95d981bb-62a7-457f-9378-0b41db4d5b42.png" alt></p>
-<p>위 command line 에 대한 DAG 를 웹 UI 를 통해 확인하면, 다음과 같이 stage 가 repartition을 기점으로 나누어 지는 것을 확인 할 수 있다.</p>
-<p><img src="Untitled-ef367f62-d6f5-47da-9086-cdaa914aa5d7.png" alt></p>
-<p>총 Partition의 갯수 (Task의 갯수)를 확인해 보면,  default 로 수행된 partition 2 개와, 우리가 설정해준 Partition 의 갯수인 10개를 합하여 12개인 것을 확인 할 수 있다.</p>
-<p><img src="Untitled-6bf929e7-3f6d-4f2f-8898-04ca7ba404b6.png" alt></p>
-<p>여기서 한 스텝을 더 들어가보면, spark 만의 특이한 특징을 확인 할 수 있다.</p>
-<pre><code>// 위 코드에 이어서, newData 에 대해
-// newData RDD를 collect 해서 cli에 찍는 command 를 수행해보자.
-newData.collect.foreach(println)</code></pre><p>collect api 와 RDD의 element를 print 를 하는 action api 를 수행할 때, 지금까지 공부한 것으로 생각해 보면, text를 읽어서, 2개의 Partition 을 나누고, 다시 10개의 Partition 을 나누는 작업으로 이전의 12 개의 Task 와 다를게 없을 것 같은 느낌이다. 하지만 UI 를 통해 확인해보면, 10개의 Partition 으로 2개가 skipped 되었다고 확인할 수 있다. DAG 에서도, skipped 된 stage에 대해서 회색으로 확인된다.</p>
-<p><img src="Untitled-6e461b14-8e34-4edb-91ad-6dd9ba2ba516.png" alt></p>
-<p><img src="Untitled-85afaaf0-58d6-4533-995d-c5ec919da985.png" alt></p>
-<p>이는 spark 에서 이 커맨드라인을 수행할 때, process 간 통신이 file 을 기반으로한 통신을 했기 때문이다. 제일 처음 <code>newData</code> 에 대해서 수행 될 때, 첫 stage 에서 shuffle 이 수행 될 때, 해당 파일을 각 executor 에서 shuffle write 을 하고 저장해두었다가, 두번째 stage 에서 shuffle  이 수행 될때, shuffle read 를 하는 방식으로 file을 기반으로 processor 가 통신하게 된다.</p>
-<p><img src="Untitled-310cc7d4-4e31-4362-bf74-f0e046a27052.png" alt></p>
-<p>따라서, spark 가 같은 command line 을 수행하게 되면 미리 shuffle write  된 file 을 읽기만 함으로써 앞선 stage 의 동일한 반복 작업을 수행하지 않게 되는 것이다. UI 를 확인 해보아도, shuffle read 만 수행 되었다. </p>
-<p><img src="Untitled-e89e6c5f-89f8-475c-af4a-78c1e3ae8377.png" alt></p>
-<h3 id="SaveFile"><a href="#SaveFile" class="headerlink" title="SaveFile!!!"></a>SaveFile!!!</h3><p><code>RDD.saveAsTextFile(&quot;directory_name&quot;)</code> api 를 활용하여, 어떤 처리가 끝난 RDD 를 저장할 수 있다. 이 때 주의 할 점은 parameter 에 들어 가는 것이 directory_name 이라는 것이다. 또한 partition 별로 파일이 저장된다. (e.g. 10개의 partition 이라면, 10개의 file이 저장된다.)</p>
-<h3 id="Cache"><a href="#Cache" class="headerlink" title="Cache!!!"></a>Cache!!!</h3><p>spark가 자랑하는 가장 큰 특징은, data(RDD) 를 memory에 cache  함으로써 처리의 속도가 매우 빠르다는 점이다. <code>RDD.cache</code> api 를 통해 memory 에 캐시할 수 있다. </p>
-<pre><code>// distData RDD 에 이름을 부여
-distData.name = &quot;myData&quot;
-
-// cache!
-distData.cache
-
-// action : 5 개의 data 를 가져옴
-distData.take(5)
-
-// action : collect
-distData.collect</code></pre><p><code>distData.take(5)</code> 까지 한 결과를 UI 에서 cache 를 살펴보면, 다음과 같다.</p>
-<p><img src="Untitled-54196c66-b41c-4216-af72-5a70b030b321.png" alt></p>
-<p>우리가 설정 한 것 처럼, RDD 의 이름이 myData 로 들어간것을 확인 할 수 있고 cache  역시 확인 할 수 있다. 하지만, Cached  된 비율을 확인하면 전체 RDD  에서 50% 만 된 것을 확인 할 수 있다. 반면에, <code>distData.collect</code> action 을 취하게 되면, Fraction Cached  가 100% 가 된 것을 확인 할 수 있다.</p>
-<p><img src="Untitled-8f50bedc-ace7-4c09-9450-fb277ee5830b.png" alt></p>
-<p>이는 우리의 action 에 따라 cache 할 용량이 달라 질 수 있기 때문이다. spark 입장에서 take(5) api 는 전체 RDD 중 5개의 element data 만 가져오면되고, 이 때 2개의 Partition 중 하나의 Partition 만 cache 해도 충분하기 때문에 Fraction Cached가 50%라고 나오는 것이다. 반면 collect api 는 collect 자체가 각 executor 에 있는 data 를 driver 로 모두 가져오는 것이므로 100% cache 하게 된다.</p>
-<p><strong>Cache 에서 중요한 것은, 각 executor 의 cache 를 위한 가용 메모리 공간이 해당 Partition의 용량보다 작을 경우, 저장 할 수 있는 용량만큼 저장되는 것이 아니라, 해당 Partition 은 아예 저장이 안되게 된다. 이 점은 Cache를 할 때, Partition 의 용량과 해당 Executor 의 가용 메모리 공간을 미리 파악하여, 설계해야 한다.</strong></p>
-<h3 id="Word-Count-예제"><a href="#Word-Count-예제" class="headerlink" title="Word Count 예제!!!"></a>Word Count 예제!!!</h3><p>우리가 데이터 분석을 할 때, 가장 basic 한 방법은 해당 데이터의 갯수를 세어 보는 것이다. 본 예제에서는 텍스트 파일을 읽어, 띄어쓰기를 바탕으로 word token을 나누고, 이를 세어보자.</p>
-<p>WordCount 예제는 매우 basic 한 코드이므로, 어떤 로직으로 돌아가는지 완벽한 이해와 코드작성이 필수라고 생각한다.</p>
-<pre><code>val originalDataRDD = sc.textFile(&quot;text-file&quot;)
-val wordcountRDD = originalDataRDD.flatMap(line =&gt; line.split(&quot; &quot;))
-                                        .map(word =&gt; (word, 1)).reduceByKey(_ + _)
-
-wordcountRDD.collect.foreach(println)</code></pre><ol>
-<li>originalDataRDD 에서 text-file을 읽고,</li>
-<li>line 마다 띄어쓰기를 기준으로 split 하고 이를 .flatMap 을 통해, flatten 하게 됩니다.</li>
-<li>그리고 .map 을 통해 (word, 1) tuple 형태로 mapping 합니다.</li>
-<li>.reduceByKey 를 통해 같은 word 에 대해 그 counting 갯수를 더하게 된 것을 RDD 로 return 하게 됩니다.</li>
-</ol>
-
         </div>
         
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2019/05/31/SPARK-BASIC-1/#more">Read More</a>
+                </div>
+            </div>
+        </div>
         
         
     </div>
@@ -533,7 +438,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
                 <span class="level-item has-text-grey">
                     
                     
-                    6 minutes read (About 874 words)
+                    6 minutes read (About 875 words)
                 </span>
                 
                 
@@ -549,46 +454,16 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
             <h1 id="Lecture-05-Convolutonal-Neural-Networks"><a href="#Lecture-05-Convolutonal-Neural-Networks" class="headerlink" title="Lecture 05: Convolutonal Neural Networks"></a>Lecture 05: Convolutonal Neural Networks</h1><ul>
 <li>이 글은, Standford University 의 CS231n 강의를 듣고 스스로 정리 목적을 위해 적은 글입니다.</li>
 </ul>
-<h2 id="1-Convolution-Layer"><a href="#1-Convolution-Layer" class="headerlink" title="1. Convolution Layer"></a>1. Convolution Layer</h2><h3 id="1-1-Fully-Connected-Layer-와-Convolution-Layer-의-비교"><a href="#1-1-Fully-Connected-Layer-와-Convolution-Layer-의-비교" class="headerlink" title="1-1. Fully Connected Layer 와 Convolution Layer 의 비교"></a>1-1. Fully Connected Layer 와 Convolution Layer 의 비교</h3><p>32 x 32 x 3 image 가 있다고 하자. network 에 주입하기 위해, 1 x 3072 로 핀 data 를 상상해 보자.</p>
-<p>Fully Connected Layer 의 경우, 아래 그림 처럼, Weight 과 dot product 가 수행되어, activation 값이 나오게 된다. 이 때, activation 의 갯수는 W 의 크기에 따른다.</p>
-<p><img src="Untitled-c7b225ec-cc03-4a1b-900f-558beebc21b5.png" alt></p>
-<p>Fully Connected Layer 의 경우, 사진이라는 공간적 구조(Spatial Structure) 가 중요한 data 에 대해, 공간적인 정보를 다 잃어버리는 문제가 발생한다. 공간적 정보를 보존하기 위해 Convolution Layer 를 사용한다. </p>
-<h3 id="1-2-Convolution-Layer-Overview"><a href="#1-2-Convolution-Layer-Overview" class="headerlink" title="1-2. Convolution Layer Overview"></a>1-2. Convolution Layer Overview</h3><p><img src="Untitled-7729c470-9f6b-4d19-9656-cc46c1dfb812.png" alt></p>
-<p>이 때, 실제 convolution 계산은 image 의 filter 크기 만큼의 matrix 를 vectorize 한 후, filter vector 와 dot product 로 수행한다고 한다. 따라서 이 때 헷갈리지 않도록 할 것은, 한번의 Convolution 연산 결과는 <strong>하나의 scalar value</strong> 가 된다. 따라서, 하나의 filter 가 이미지 한 장을 훑어 내려간다면, 원본 이미지보다는 조금 작은 depth 가 1인 <strong>activation map</strong> 이 결과로 나온다.</p>
-<p><img src="Untitled-fce64257-258e-4b3e-93ab-d0543662984f.png" alt></p>
-<p>따라서 activation map 의 깊이(channel 수)는, <strong>filter 의 갯수</strong> 와 동일하다. 여러개의 필터는 이미지의 각기 다른 특징을 추출하려는 의도에서 사용된다.</p>
-<p>그 후, 이 Convolution 의 결과인 activation map 을 비선형 함수(ReLU 등)에 통과 시킨다.</p>
-<p><strong>여러 유명한 ConvNet 들은 이렇게, Convolution Layer 와 비선형함수를 반복적으로 나열 한 Network  라고 볼수 있다</strong></p>
-<h3 id="1-3-Convolution-Layer-의-결과물"><a href="#1-3-Convolution-Layer-의-결과물" class="headerlink" title="1-3. Convolution Layer 의 결과물"></a>1-3. Convolution Layer 의 결과물</h3><p>이렇게 여러 계층의 Convolution Layer를 쌓는 것은, 가장 아래 Layer 부터 높은 Layer 까지 단순한 feature → 복잡한 feature 를 뽑아 내는 것으로 볼 수 있다.</p>
-<p><img src="Untitled-5fec1f58-a947-449b-8d71-772aac9a6f3e.png" alt></p>
-<h3 id="1-4-Convolution-Layer-연산"><a href="#1-4-Convolution-Layer-연산" class="headerlink" title="1-4. Convolution Layer 연산"></a>1-4. Convolution Layer 연산</h3><p><img src="Untitled-2a8adbad-1f2a-4fac-898d-aac944438a1b.png" alt></p>
-<p>filter 가 이미지를 훑고 지나가면서 convolution 연산을 한 후, 나온 결과는 원본 이미지보다 그 크기가 작아지게 된다. 그 정도는 filter 의 크기와 filter 가 훑고 지나가는 간격인 stride 에 따라 바뀌게 된다. </p>
-<p>$$output ;size = (N-F)/stride + 1$$</p>
-<p><strong>문제점:</strong></p>
-<ol>
-<li><p>convolution 연산의 문제는 이미지의 모서리에 있는 정보는 가운데에 있는 이미지의 정보보다 적게 추출 되는 문제가 있다.(filter 가 모서리를 넘어서는 이동 할 수 없으므로)</p>
-</li>
-<li><p>convolution layer 를 반복적으로 지나가다 보면, map의 크기가 매우 빠르게 작아지게 된다. </p>
-</li>
-</ol>
-<p>이를 위해 적용하는 것이 Padding 이다.</p>
-<h3 id="1-5-Padding"><a href="#1-5-Padding" class="headerlink" title="1-5. Padding"></a>1-5. Padding</h3><p>모서리에 정보를 얻기 위해 이미지이 외곽에 숫자를 채워 주는 방법. 이 때, 많이 사용하는 방법은 zero-padding. zero-padding 외에도 다양한 방법이 있다.</p>
-<h2 id="2-Pooling-Layer"><a href="#2-Pooling-Layer" class="headerlink" title="2. Pooling Layer"></a>2. Pooling Layer</h2><p>Parameter 의 갯수를 줄이기 위해, 우리가 ConvLayer 를 통해 뽑아낸 image 를 작게 만드는 Layer  이다. 즉, Downsampling 을 위한 것.</p>
-<p>Maxpooling 의 intuition : 앞선 layer filter 가 각 region  에서 얼마나 활성 되었는지 보는 것이다. </p>
-<h3 id="3-Typical-Architecture"><a href="#3-Typical-Architecture" class="headerlink" title="3. Typical Architecture"></a>3. Typical Architecture</h3><p>[[(Conv → RELU) * N → Pool] * M → (FC → RELU) * K ] → SOFTMAX</p>
-<ul>
-<li>N : ~ 5</li>
-<li>M : Large</li>
-<li>K : 0 ~ 2<ul>
-<li>ResNet, Google net 등은 이 방식을 훨씬더 뛰어넘음</li>
-</ul>
-</li>
-</ul>
-<h2 id="4-Reference"><a href="#4-Reference" class="headerlink" title="4. Reference"></a>4. Reference</h2><p><a href="https://www.youtube.com/watch?v=bNb2fEVKeEo" target="_blank" rel="noopener">Lecture 5 | Convolutinoal Neural Networks</a></p>
-<p><a href="http://cs231n.stanford.edu/syllabus.html" target="_blank" rel="noopener">Syllabus | CS 231N</a></p>
-
         </div>
         
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2019/05/20/CS231n-Lecture05-Summary/#more">Read More</a>
+                </div>
+            </div>
+        </div>
         
         
     </div>
@@ -617,7 +492,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
                 <span class="level-item has-text-grey">
                     
                     
-                    5 minutes read (About 806 words)
+                    5 minutes read (About 807 words)
                 </span>
                 
                 
@@ -633,55 +508,16 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
             <h1 id="Lecture-04-Backpropagation-and-Neural-Networks"><a href="#Lecture-04-Backpropagation-and-Neural-Networks" class="headerlink" title="Lecture 04: Backpropagation and Neural Networks"></a>Lecture 04: Backpropagation and Neural Networks</h1><ul>
 <li>이 글은, Standford University 의 CS231n 강의를 듣고 스스로 정리 목적을 위해 적은 글입니다.</li>
 </ul>
-<h2 id="1-Backpropagation"><a href="#1-Backpropagation" class="headerlink" title="1. Backpropagation"></a>1. Backpropagation</h2><h3 id="1-1-핵심"><a href="#1-1-핵심" class="headerlink" title="1-1. 핵심"></a>1-1. 핵심</h3><p>Backprop의 한줄요약: 각 parameter 에 대해 Loss Function 의 gradient 를 구하기 위해 사용하는 graphical representation of <strong>ChainRule</strong></p>
-<p>언뜻 보면 어려울 수 도 있지만, just ChainRule</p>
-<p><img src="Untitled-13d44613-a85b-4dcc-a807-8b114b0138c4.png" alt></p>
-<p>위의 그림을 예를 들어 살펴 보면, y 에 대한 f의 gradient 는 q에 대한 f의 gradient * y 에 대한 q 의 gradient 으로 볼 수 있다. 이를 해석하자면, f 에게 미치는 y 의 영향 = f 에게 미치는 q의 영향 * q 에게 미치는 y 의 영향으로 볼 수 있다.</p>
-<p>Backpropagation 의 가장 중요한 특징!!</p>
-<pre><code>gradient 를 구하기 위해 node 를 기준으로 앞과 뒤만 보면 된다.</code></pre><p><img src="Untitled-f2d8c1d9-1a28-4e16-8e35-83ff9f93045f.png" alt></p>
-<p>또한, 위 그림을 보게 되면, Forward passing 과 마찬가지로, Backprop 시에도, 이전 노드에서 전달 되는 Gradient 를 node 에서 local gradient 와의 연산으로 다음 Node 에 gradient 를 전달해 줄 수 있다.</p>
-<h3 id="1-2-Back-prop-시-각-node-의-역할"><a href="#1-2-Back-prop-시-각-node-의-역할" class="headerlink" title="1-2. Back prop 시, 각 node  의 역할"></a>1-2. Back prop 시, 각 node  의 역할</h3><p><img src="Untitled-7a11e194-ea07-4922-a7b5-aa4346476acb.png" alt></p>
-<ol>
-<li><p>Add gate : gradient distributor</p>
-<ul>
-<li>add gate 를 기점으로, 각 입력(forward 방향의 입력)의 gradient로 local gradient 를 구하면 1이므로, 전달 되는 gradient 와 각각 1씩 곱해져 전달 되게 된다. 이 현상을 보게 되면 동등하게 나눠주는 역할을 하므로 gradient distributor 라고 볼 수 있다.</li>
-</ul>
-</li>
-<li><p>Max gate : gradient router</p>
-<ul>
-<li><p>Max gate 는 gradient 를 한쪽에는 전체, 다른 쪽에는 0 을 준다.</p>
-</li>
-<li><p>해석적으로 보자면, max 연산을 통해 forward 방향에서 영향을 준 branch 에게 gradient 를 전달해 주는 것이 합적</p>
-<p>$$max(x, y) = \begin{cases} x \quad\quad if \quad x &gt; y \\ y \quad\quad if \quad x &lt; y \end{cases}$$</p>
-</li>
-<li><p>수식으로 보자면, x 에 대한 gradient, y 에 대한 gradient 가 각각 (1, 0), (0, 1)  로 local gradient 가 계산되기 때문이다.</p>
-</li>
-<li><p>gradient 가 전달될 길을 결정해주는 면에서, 네트워크에서 path 를 설정해 주는 router의 기능과 비슷하다.</p>
-</li>
-</ul>
-</li>
-<li><p>Mul gate : gradient switcher + scaler</p>
-<ul>
-<li>곱셈연산의 gradient 의 경우, x 에 대한 gradient 는 y 가 되므로, 서로 바꿔주는 역할을 한다. 이 때, forward 상에서의 결과 값으로 곱해주므로, scale 역할까지 함께 하게 된다.</li>
-</ul>
-</li>
-</ol>
-<h2 id="2-Neural-Networks"><a href="#2-Neural-Networks" class="headerlink" title="2. Neural Networks"></a>2. Neural Networks</h2><p>강의에서는 Neural Network 에 대한 intuition 을 위해, biological neuron 과 비교하였다. 모델 architecture 로서의 neuron 과 biological neuron 의 공통점은 다음과 같다.</p>
-<ol>
-<li>input impulse</li>
-<li>input axon → dendrite</li>
-<li>(cell body)activation &amp; activation function</li>
-<li>output axon</li>
-</ol>
-<p>이러한 비교는, 나의 개인적인 Neural Network에 대한 공부와 이해에 도움이 되지 않기에 큰 감동은 없다. </p>
-<ul>
-<li>4강에 대한 핵심 사항은, Backpropagation 에 대한 수식적 이해와 그 이해를 통해 Backpropagation 이 gradient를 구함에 있어, 얼마나 편한 representation 인지이다. 공부하며 어려웠던 것은, backprop in <strong>vectorized</strong> 에서, Jacobian Matrix 의 표현이 scalar  backprop 때와는 달리 한번에 머릿속으로 상상되지 않았기에, 손으로 써가며 따라 갔어야만 했다.</li>
-</ul>
-<h2 id="3-Reference"><a href="#3-Reference" class="headerlink" title="3. Reference"></a>3. Reference</h2><p><a href="https://www.youtube.com/watch?v=d14TUNcbn1k" target="_blank" rel="noopener">Lecture 4 | Introduction to Neural Networks</a></p>
-<p><a href="http://cs231n.stanford.edu/syllabus.html" target="_blank" rel="noopener">Syllabus | CS 231N</a></p>
-
         </div>
         
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2019/05/18/CS231n-Lecture04-Summary/#more">Read More</a>
+                </div>
+            </div>
+        </div>
         
         
     </div>
@@ -710,7 +546,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
                 <span class="level-item has-text-grey">
                     
                     
-                    11 minutes read (About 1647 words)
+                    11 minutes read (About 1648 words)
                 </span>
                 
                 
@@ -726,84 +562,16 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
             <h1 id="Lecture-03-Loss-Function-amp-Optimization"><a href="#Lecture-03-Loss-Function-amp-Optimization" class="headerlink" title="Lecture 03: Loss Function &amp; Optimization"></a>Lecture 03: Loss Function &amp; Optimization</h1><ul>
 <li>이 글은, Standford University 의 CS231n 강의를 듣고 스스로 정리 목적을 위해 적은 글입니다.</li>
 </ul>
-<h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h2><ol>
-<li>Loss Function : 우리가 가지고 있는 W matrix 가 <strong>얼마나 안좋은지 정량화(Quantify)</strong> </li>
-<li>Optimization : 위의 Loss Function 을 minimize 해서 가장 좋은 parameter (W) 를 찾는 과정</li>
-</ol>
-<h2 id="2-Loss-Function"><a href="#2-Loss-Function" class="headerlink" title="2. Loss Function"></a>2. Loss Function</h2><p>주어진 data 가 다음과 같을 때, </p>
-<p>$${(x_i, y_i)}_{i=1}^{N}$$</p>
-<p> Loss 는 “Average of over examples” 즉, </p>
-<p>$$L = \frac{1}{N}\sum_{i}L_i(f(x_i, W), y_i)$$</p>
-<ul>
-<li>딥러닝 알고리즘의 General Setup<ul>
-<li>W 가 얼마나 좋고, 나쁜지를 정량화하는 손실함수 만들기</li>
-<li>W 공간을 탐색하면서  이 loss를 minimize 하는 W 를 찾기</li>
-</ul>
-</li>
-</ul>
-<h3 id="2-1-Loss-Example-Multiclass-SVM-Loss"><a href="#2-1-Loss-Example-Multiclass-SVM-Loss" class="headerlink" title="2-1. Loss Example: Multiclass SVM Loss"></a>2-1. Loss Example: Multiclass SVM Loss</h3><p>SVM Loss 는 다음과 같다. 주어진 data example (x_i, y_i) 에 대해서, score vector <strong>s</strong> 는 다음과 같다. </p>
-<p>$$s = f(x_i, W)$$</p>
-<p>이 때, SVM loss는 </p>
-<p>$$L_i = \sum_{j\neq y_i}\begin{cases} 0 \quad\quad\quad\quad\quad\quad\quad if ;s_{y_i} \geq s_j +1 \ s_j - s_{y_i} + 1 \quad\quad otherwise \end{cases} \ = \sum_{j\neq y_i}max(0, s_j-s_{y_i}+ 1)$$</p>
-<p>x_i 의 정답이 아닌 클래스의 score (s_j) + 1 (safety margin) 과 정답 클래스 score s_yi 를 비교하여, Loss 를 계산한다.</p>
-<p><img src="Untitled-d804129d-082d-4cfc-819c-4fd3e14ddf17.png" alt></p>
-<ol>
-<li>SVM Loss 의 최대, 최솟값은 ? min : 0, max :  infinite</li>
-<li>W 를 작게 초기화 하면, s 가 거의 0에 가까워 진다. 이 때, SVM Loss 는 어떻게 예상되는가?<ul>
-<li>정답이 아닌 class, 즉 class - 1 개의 score 원소들을 순회하면서 모두 더할 때, score 는 0에 가깝고, 이를 average 취하면 <strong>class 갯수 - 1</strong> 만큼의 Loss 값이 나온다.</li>
-<li>이 특징은 debugging strategy 로 사용할 수 있다. 초기 loss 가 C-1 에 가깝지 않으면 bug 가 있는 것으로 의심해볼 수 있다.</li>
-</ul>
-</li>
-<li>만약 include j = y_i 이면, SVM Loss 는 어떻게 되는가? <ul>
-<li>Loss Funtion 이 바뀌는 것은 아니다. 단지 전체 loss의 minimum 이 1이 될 뿐이므로 해석의 관점에서 관례상 맞지 않아 정답 class 는 빼고 계산한다.</li>
-</ul>
-</li>
-<li>우리가 average 를 취하지 않으면?<ul>
-<li>이 역시 바뀌는 것이 없다. 전체 class 수는 정해져 있고, 이를 나누는 average 는 scaling 만 할 뿐이다.</li>
-</ul>
-</li>
-<li>Loss 를 max(0, s_j - s_yi + 1) ^2 를 사용하면?<ul>
-<li>이는 squared hinge function 으로 때에 따라서 사용할 수 있는 loss function 이다. 다른 Loss function 이며, 이는 위의 loss 와 다르게 해석 할 수 있다. 기존의 SVM loss 는 class score 가 각각 얼마나 차이가 나는지에 대해서는 고려하지 않는 것이라고 한다면, squared 가 들어감으로써, 차이가 많이 나는 score class 에 대해서는 좀더 가중하여 고려하겠다는 의미로 해석 할 수 있다.</li>
-</ul>
-</li>
-</ol>
-<h3 id="2-2-Regularization"><a href="#2-2-Regularization" class="headerlink" title="2-2. Regularization"></a>2-2. Regularization</h3><p>만약 위 Loss Function 에 대해서, L = 0 으로 만드는 W 를 찾았다고 할때, 과연 이 W 는 유일한가? 그렇지 않다. W 일 때, L=0  이라면, 2W 역시 L=0 이다. 또한 L을 0으로 만드는 다양한 W 중에서 단지  training  data 에만 fit 하는 classifier 를 원하는 것이 아니라, test data에서 좋은 성능을 발휘하는 classifier 를 찾기를 원한다. 이런 Overfitting 을 막기 위해서는 모델의 W 를 다른 의미에서 조절해줄 수 있는 <strong>Regularization</strong> term 을 추가할 수 있다.</p>
-<p><strong>즉, Model이 training set 에 완벽하게  fit 하지 못하도록 Model 의 복잡도에 penalty 를 부여하는 것을 말한다.</strong></p>
-<p><img src="Untitled-253fa150-bbe6-473f-bd43-e3fd6fe0009d.png" alt></p>
-<p>Regularization 의 종류들:</p>
-<ul>
-<li>L2 Regularization</li>
-<li>L1 Regularization</li>
-<li>Elastic net(L1 + L2)</li>
-<li>Max norm Regularization</li>
-<li>Dropout</li>
-<li>Batch normalization, stochastic depth</li>
-</ul>
-<h3 id="2-3-Loss-example-Softmax-Classifier-Multinomial-Logistic-Regression"><a href="#2-3-Loss-example-Softmax-Classifier-Multinomial-Logistic-Regression" class="headerlink" title="2-3 Loss example: Softmax Classifier (Multinomial Logistic Regression)"></a>2-3 Loss example: Softmax Classifier (Multinomial Logistic Regression)</h3><p>deeplearning 에서 훨씬 더 자주 보게 되는 loss 의 종류 중 하나이다.  위에서 살펴본 SVM loss 의 단점은 그 값 자체에 어떤 의미를 부여하기는 힘들다는 점이다. 반면에, Softmax Classifier 는 그 값 자체를 확률적 해석이 가능하기 때문이다. (cf. 콜모고로프의 공리를 통해 softmax 의 layer 의 output 이 확률로 해석 될 수 있다.)</p>
-<p>Softmax Function 은 다음과 같다.</p>
-<p>$$P(Y=k|X=x_i) = \frac{e^{s_k}}{\sum_j e^{s_j}},\quad where \quad s = f(x_i;W)$$</p>
-<h2 id="3-Opitmization"><a href="#3-Opitmization" class="headerlink" title="3. Opitmization"></a>3. Opitmization</h2><p>Optimization 을 한마디로 요약하자면, <strong>우리의  loss 를 최소화 하는 W 를 찾기</strong> 가 되겠다. 그 방법에는,</p>
-<ul>
-<li>(바보 같은 접근인: 강의표현) Random Search</li>
-<li>Gradient 를 구하는 방법<ul>
-<li>Numerical Gradient 수치적 접근 : 이 방법은 근사치를 구하는 것이며, 매우 느린 단점이 있다. 하지만, 쉽게 작성할 수 있다는 장점이 있다.</li>
-<li>Analytic Gradient 해석적 접근 : 미분식을 구해야하는 단점이 있다. 하지만 빠르고 정확하다.</li>
-</ul>
-</li>
-</ul>
-<p>실제로는, Analytic Gradient 방법을 사용한다. 하지만 debugging 을 위해 numerical gradient 를 사용한다. 이를 <strong>gradient check</strong>이라 한다.</p>
-<h3 id="3-1-Gradient-Descent-amp-Stochastic-Gradient-Descent"><a href="#3-1-Gradient-Descent-amp-Stochastic-Gradient-Descent" class="headerlink" title="3-1. Gradient Descent &amp; Stochastic Gradient Descent"></a>3-1. Gradient Descent &amp; Stochastic Gradient Descent</h3><p>Gradient Descent 를 방법을 이용해서 optimization 을 진행할 수 있다. 하지만 데이터의 숫자와 차원이 매우 큰 경우, parameter (W) 를 update 하는데 그 연산량이 매우 큰 단점과 위험이 있다. 이를 해결하기 위해 minibatch 를 사용하여 확률적 접근을 사용한다.</p>
-<h2 id="4-Image-Feature-Extraction"><a href="#4-Image-Feature-Extraction" class="headerlink" title="4. Image Feature Extraction"></a>4. Image Feature Extraction</h2><p>CNN 등이 등장하기 전에 Image 에서  Feature 를 뽑아내는 방법에 대해 소개한다. Feature를 뽑아내는 개념으로 생각할 수 도 있지만, Feature Transform 이라는 표현을 사용한다. </p>
-<ol>
-<li>Color Histogram :  이미지의 color distribution 을 사용하여 해당 이미지의 feature 로 사용할 수 있다. (출처: <a href="https://en.wikipedia.org/wiki/Color_histogram" target="_blank" rel="noopener">wikipedia</a> ) For digital images, a color histogram represents the number of pixels that have colors in each of a fixed list of color ranges, that span the image’s color space, the set of all possible colors.</li>
-<li>Histogram of Oriented Gradients (HoG) : CNN 이 등장하기 전, 매우 인기있는 Image Feature 중 하나라고 알고 있다. Edge 를 검출하는 방법이다. pixel 사이에, 값의 gradient 가 가장 큰 neighbor 가 edge 일 것이다라는 개념을 사용하여 edge 를 검출한다. 사진을 8 x 8 patch 를 만들어, 각 patch 마다 9 directional oriented gradients 를 계산하여, 이를 feature 로 사용하는 방법이다.</li>
-<li>Bag of Words : NLP 에서도 자주 사용되는 개념인 BoW 에서 차용한 개념으로, 이미지 데이터들에서 일정 크기의 patch 를 모아 clustering 을 통해 visual words (codebook)  을 만든다. 그리고 feature 뽑아내고 싶은 image 를 patch 형태로 바꾸고, codebook 에서 찾아 histogram 을 만들어 이를 feature 로 사용한다.</li>
-</ol>
-<h2 id="5-Reference"><a href="#5-Reference" class="headerlink" title="5. Reference"></a>5. Reference</h2><p><a href="https://www.youtube.com/watch?v=h7iBpEHGVNc" target="_blank" rel="noopener">Lecture 3 | Loss Functions and Optimization</a></p>
-<p><a href="http://cs231n.stanford.edu/syllabus.html" target="_blank" rel="noopener">Syllabus | CS 231N</a></p>
-
         </div>
         
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2019/05/16/CS231n-Lecture03-Summary/#more">Read More</a>
+                </div>
+            </div>
+        </div>
         
         
     </div>
@@ -832,7 +600,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
                 <span class="level-item has-text-grey">
                     
                     
-                    9 minutes read (About 1322 words)
+                    9 minutes read (About 1323 words)
                 </span>
                 
                 
@@ -848,74 +616,16 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
             <h1 id="Lecture-02-Image-Classification-Pipeline"><a href="#Lecture-02-Image-Classification-Pipeline" class="headerlink" title="Lecture 02: Image Classification Pipeline"></a>Lecture 02: Image Classification Pipeline</h1><ul>
 <li>이 글은, Standford University 의 CS231n 강의를 듣고 스스로 정리 목적을 위해 적은 글입니다.</li>
 </ul>
-<h2 id="1-Image-Classification-의-기본-TASK"><a href="#1-Image-Classification-의-기본-TASK" class="headerlink" title="1. Image Classification 의 기본 TASK"></a>1. Image Classification 의 기본 TASK</h2><p><img src="Untitled-dfb244ee-00d4-4801-9db3-2247269d65db.png" alt></p>
-<ul>
-<li>위 사진을 보고, → ‘CAT’ 혹은 ‘고양이’ 라고 classification</li>
-<li>자연스럽게 따라오는 문제는 <strong>“Sementic Gap”</strong> : 우리가 준 data (pixel 값  [0, 255]) 와 Label 간의  gap</li>
-<li>또한, 이 과정에서 극복해야 하는 Challenges<ul>
-<li>Viewpoint Variation ( 같은 객체에 대해 시점이 이동해도 robust)</li>
-<li>Illumination ( 빛, 밝기, 명암 등에도 robust)</li>
-<li>Deformation ( 다양한 Position, 형태의 변형에도 robust)</li>
-<li>Occlusion ( 다른 물체나 환경에 의해 가려지는 data 에도 robust)</li>
-<li>Background Clutter ( 배경과 비슷하게 보이는 객체에도 robust)</li>
-<li>Intraclass Variation ( 한 종류의 클랫스에도 다양한 색과 모습의 객체가 있을 수 있다.)</li>
-</ul>
-</li>
-</ul>
-<h2 id="2-기존의-시도와-New-Era"><a href="#2-기존의-시도와-New-Era" class="headerlink" title="2. 기존의 시도와 New Era"></a>2. 기존의 시도와 New Era</h2><ul>
-<li>Hard Coded Algorithm 과 여러 규칙 (rule-based로 해석된다) 들을 통해서 Image를 Classify 하는 노력들이 있어왔다. 이들의 문제는, (1) 위에 언급한 문제들이 Robust  하지 않다. (2) 객체가 달라지면, (고양이, 호랑이, 비행기 등) 객체마다 다 다른 규칙을 성립해줘야 한다. 즉 한마디로 요약하자면, Algorithm의 확장성이 없다.</li>
-<li>이런 문제에 좀더 강한 방법이 지금 우리가 공부하고 있는, <strong>Data-Driven Approach</strong><ol>
-<li>Image 와 Label pair 의 dataset 을 모은다.</li>
-<li>Machine Learning 알고리즘을 이용해 classifier 를 학습시킨다.</li>
-<li>Classifier 를 new images 에 테스트에 평가한다.</li>
-</ol>
-</li>
-</ul>
-<h2 id="3-First-Classifier-Nearest-Neighbor"><a href="#3-First-Classifier-Nearest-Neighbor" class="headerlink" title="3. First Classifier : Nearest Neighbor"></a>3. First Classifier : Nearest Neighbor</h2><h3 id="3-1-Nearest-Neighbor-의-기본-알고리즘"><a href="#3-1-Nearest-Neighbor-의-기본-알고리즘" class="headerlink" title="3-1. Nearest Neighbor 의 기본 알고리즘"></a>3-1. Nearest Neighbor 의 기본 알고리즘</h3><ol>
-<li>train set 에서의 모든 data 와 label 을 기억한다.</li>
-<li>test Image 와 <strong>가장 가까운</strong> train Image 의 label로 test image를 predict 한다.<ul>
-<li>이 때 ‘<strong>가장 가까운’</strong> 을 계산 할 때<strong>, L1 distance</strong> 와 <strong>L2 distance</strong> 가 쓰일 수 있다. 이 외에도, 다양한 distance 지표가 쓰일 수 있다.</li>
-</ul>
-</li>
-</ol>
-<h3 id="3-2-Nearest-Neighbor-Classifier-의-문제"><a href="#3-2-Nearest-Neighbor-Classifier-의-문제" class="headerlink" title="3-2. Nearest Neighbor Classifier 의 문제"></a>3-2. Nearest Neighbor Classifier 의 문제</h3><ul>
-<li>이미지 classification 에는 잘 사용되지 않는다.</li>
-<li>train 보다 predict 하는데 훨씬 오래 걸린다.<ul>
-<li>train 은 train data set 의 기억만 하면 되지만, predict 할 때는 전체 train data 에 대해 거리를 측정해야하고, sorting 해야하는 문제가 발생한다.</li>
-<li>Time Complexity - train O(1), predict O(N) (N은 train data 수)</li>
-</ul>
-</li>
-</ul>
-<p><img src="Untitled-2fdb78f0-11b7-49cf-99f8-164d6b79fc2c.png" alt></p>
-<p>위 그림을 보면, 연두색 공간에 노란색  class 가 포함 되어 있는 것을 볼 수 있다. 이는 generalize 면에서 부족한 모델이라고 볼 수 있다. 같은 알고리즘 이지만, 이를 해결 하는 방법은 K 개의 가까운 neighbor 로 부터 majority voting 을 받은 것으로 classify 를 하는 것이다.</p>
-<h3 id="3-3-K-Nearest-Neightbors"><a href="#3-3-K-Nearest-Neightbors" class="headerlink" title="3-3. K-Nearest Neightbors"></a>3-3. K-Nearest Neightbors</h3><p>Single Nearest 만 보는 것이 아니라, K 개의 가까운 point 의 투표를 통해 해당 test data  의 label 을 예측한다.</p>
-<ul>
-<li>이 때, Voting 하는 방법에는 majority voting ( 다수결 ) 과 weighted voting ( 가중치를 주어 투표: distance 가 가까운 것에 가중치를 준다.)</li>
-<li>가중치를 주는 방법에는 distance 가 커지면 곱해지는 weight 을 줄이는 방법으로 1 / (1+distance) 등을 weight 을 곱해준다.</li>
-</ul>
-<p><img src="Untitled-469c81dd-01a3-4934-8fec-429c34285d0e.png" alt></p>
-<h3 id="3-4-k-Nearest-Neighbor-on-images-NEVER-USED"><a href="#3-4-k-Nearest-Neighbor-on-images-NEVER-USED" class="headerlink" title="3-4. k-Nearest Neighbor on images NEVER USED"></a>3-4. k-Nearest Neighbor on images NEVER USED</h3><ul>
-<li>차원의 저주 문제</li>
-<li>knn 이 잘 동작하기 위해서는 dataset 공간을 조밀하게 커버할 만큼의 충분한 training space 가 필요하다. 하지만, data 의 차원이 늘어날 수록 그 충분한 data 의 수가 exponential 하게 늘어난다.</li>
-</ul>
-<h2 id="4-Setting-Hyperparameters"><a href="#4-Setting-Hyperparameters" class="headerlink" title="4. Setting Hyperparameters"></a>4. Setting Hyperparameters</h2><p>Model 최적의 hyperparameter 를 찾기 위해서는 data set 을 구분하여, unseened data 를 사용하여 성능 검증을 하고, model selection 을 해야한다. 이는 단순이 hyperparameter 를 찾는 용도 뿐만 아니라 우리가 세운 가설을 서로 비교 할 때는 data set 을 정확히 구분하고, test set 을 통해 비교하고, 선택해야한다. 그 방법에는 train, validation, test set 으로 dataset 을 나누는 방법과 cross validation 방법이 있다.</p>
-<ul>
-<li>첫 번째 방법으로는, Validation set 을 통해 hyperparameter(가설)를 검증하고 선택하여, Test set 을 사용하여 Evaluate 과 Reporting 등을 한다. 딥러닝 모델링에서는 이 방법으로 많이 사용한다.</li>
-</ul>
-<p><img src="Untitled-7d99fc52-7613-4bbf-8cfc-5e036f905602.png" alt></p>
-<ul>
-<li>두 번째 방법은, data set 의 크기가 크지 않을 때, Train set 안에서 folds 들을 나누어 각 fold 가 돌아가며 validation set 이 되며, 이들의 평균값으로 가설을 비교한다. 이는 딥러닝 모델에서는 적합하지 않은 형태이다. 모델 자체의 연산이 많은데다가, 같은 모델에 대해 많은 validation 이 효율적이지 않기 때문이다. 또한 data가 많지 않은 상태에서 딥러닝 모델을 선택하는 것은 옳지 않다.</li>
-</ul>
-<p><img src="Untitled-1e7d1cc8-fcee-4215-a721-345c8f25e8f5.png" alt></p>
-<h2 id="5-Second-Classifier-Linear-Classifier"><a href="#5-Second-Classifier-Linear-Classifier" class="headerlink" title="5. Second Classifier : Linear Classifier"></a>5. Second Classifier : Linear Classifier</h2><p>Linear Classifier 는 Neural Network 의 기본 골격이다. (1) image data 와 W (parameters or weights) 을 통해 연산을 해주고, (2) function 을 통과해 Classification 을 해준다.</p>
-<p>특히 Linear Classifier 의 경우 아래 와 같이, (1) image data 와 W 를 dot product 를 해주고 (2) linear function f 를 통과한다.</p>
-<p>$$f(x, W) = Wx$$</p>
-<p><img src="Untitled-c15a20fd-b906-44ce-af25-6810bc57751a.png" alt></p>
-<h2 id="6-Reference"><a href="#6-Reference" class="headerlink" title="6. Reference"></a>6. Reference</h2><p><a href="https://www.youtube.com/watch?v=OoUX-nOEjG0&list=PL3FW7Lu3i5JvHM8ljYj-zLfQRF3EO8sYv&index=2" target="_blank" rel="noopener">Lecture 2 | Image Classification</a></p>
-<p><a href="http://cs231n.stanford.edu/syllabus.html" target="_blank" rel="noopener">Syllabus | CS 231N</a></p>
-
         </div>
         
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2019/05/13/CS231n-Lecture02-Summary/#more">Read More</a>
+                </div>
+            </div>
+        </div>
         
         
     </div>
@@ -944,7 +654,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
                 <span class="level-item has-text-grey">
                     
                     
-                    5 minutes read (About 746 words)
+                    5 minutes read (About 747 words)
                 </span>
                 
                 
@@ -960,99 +670,16 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
             <h1 id="Basic-Classification-with-Pytorch"><a href="#Basic-Classification-with-Pytorch" class="headerlink" title="Basic Classification with Pytorch"></a>Basic Classification with Pytorch</h1><ul>
 <li>이번 post 는 pytorch 를 활용해 기초적인 분류 모델링을 해보면서, pytorch에 익숙함을 높이는 것이 목적입니다.</li>
 </ul>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> torch</span><br><span class="line"><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn</span><br><span class="line"><span class="hljs-keyword">import</span> torch.nn.functional <span class="hljs-keyword">as</span> F</span><br><span class="line"><span class="hljs-keyword">import</span> torch.optim <span class="hljs-keyword">as</span> optim</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np</span><br><span class="line"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">import</span> warnings</span><br><span class="line">warnings.filterwarnings(<span class="hljs-string">"ignore"</span>)</span><br><span class="line">%matplotlib inline</span><br><span class="line">%config InlineBackend.figure_format = <span class="hljs-string">'retina'</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="1-Binary-Classification"><a href="#1-Binary-Classification" class="headerlink" title="1. Binary Classification"></a>1. Binary Classification</h2><ol>
-<li>Modeling</li>
-<li>Sigmoid</li>
-<li>Loss : Binary Cross Entropy</li>
-</ol>
-<h3 id="1-1-Generate-Data"><a href="#1-1-Generate-Data" class="headerlink" title="1.1 Generate Data"></a>1.1 Generate Data</h3><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># plotting function</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">plot_scatter</span><span class="hljs-params">(W_, xy, labels)</span>:</span></span><br><span class="line">    <span class="hljs-keyword">for</span> k, color <span class="hljs-keyword">in</span> [(<span class="hljs-number">0</span>, <span class="hljs-string">'b'</span>), (<span class="hljs-number">1</span>, <span class="hljs-string">'r'</span>)]:</span><br><span class="line">        idx = labels.flatten() == k</span><br><span class="line">        plt.scatter(xy[idx, <span class="hljs-number">0</span>], xy[idx, <span class="hljs-number">1</span>], c=color)</span><br><span class="line">        </span><br><span class="line">    x1 = np.linspace(<span class="hljs-number">-0.1</span>, <span class="hljs-number">1.1</span>)</span><br><span class="line">    x2 = -W_[<span class="hljs-number">1</span>] / W_[<span class="hljs-number">2</span>] * x1 - W_[<span class="hljs-number">0</span>] / W_[<span class="hljs-number">2</span>]</span><br><span class="line">    plt.plot(x1, x2, <span class="hljs-string">'--k'</span>)</span><br><span class="line">    </span><br><span class="line">    plt.grid()</span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># Generate data</span></span><br><span class="line"></span><br><span class="line">W = np.array([<span class="hljs-number">-4.</span>/<span class="hljs-number">5</span>, <span class="hljs-number">3.</span>/<span class="hljs-number">4.</span>, <span class="hljs-number">1.0</span>])</span><br><span class="line"></span><br><span class="line">xy = np.random.rand(<span class="hljs-number">30</span>, <span class="hljs-number">2</span>)</span><br><span class="line">labels = np.zeros(len(xy))</span><br><span class="line">labels[W[<span class="hljs-number">0</span>] + W[<span class="hljs-number">1</span>] * xy[:, <span class="hljs-number">0</span>] + W[<span class="hljs-number">2</span>] * xy[:, <span class="hljs-number">1</span>] &gt; <span class="hljs-number">0</span>] = <span class="hljs-number">1</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plot_scatter(W, xy, labels)</span><br></pre></td></tr></table></figure>
-
-<p><img src="output_6_0.png" alt="png"></p>
-<h3 id="1-2-Train-data"><a href="#1-2-Train-data" class="headerlink" title="1.2 Train data"></a>1.2 Train data</h3><ul>
-<li>Generate 한 data 로 부터, x 축 값, y 축 값, augmented term 으로 3가지 column 을 만들어 train data 로 만들어 줍니다.</li>
-<li>또한 대응 되는 label 도 model 에 적합한 모양으로 바꾸어 줍니다.</li>
-</ul>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x_train = torch.FloatTensor([[<span class="hljs-number">1.0</span>, xval, yval] <span class="hljs-keyword">for</span> xval, yval <span class="hljs-keyword">in</span> xy])</span><br><span class="line">y_train = torch.FloatTensor(labels).view(<span class="hljs-number">-1</span>, <span class="hljs-number">1</span>)</span><br><span class="line">print(x_train[:<span class="hljs-number">5</span>])</span><br><span class="line">print(y_train[:<span class="hljs-number">5</span>])</span><br></pre></td></tr></table></figure>
-
-<pre><code>tensor([[1.0000, 0.0192, 0.6049],
-        [1.0000, 0.0485, 0.2529],
-        [1.0000, 0.2412, 0.9115],
-        [1.0000, 0.9764, 0.1665],
-        [1.0000, 0.9021, 0.5825]])
-tensor([[0.],
-        [0.],
-        [1.],
-        [1.],
-        [1.]])</code></pre><h3 id="1-3-Modeling"><a href="#1-3-Modeling" class="headerlink" title="1.3 Modeling"></a>1.3 Modeling</h3><ul>
-<li>Linear Model 형태와 Sigmoid 함수, Loss function 은 cross entropy 를 활용해 모델링을 합니다.</li>
-<li>여기선, 내장되어있는 함수들을 되도록 사용하지 않고, Low level 로 코드를 작성해 보겠습니다.</li>
-</ul>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># Low level modeling</span></span><br><span class="line">parameter_W = torch.FloatTensor([[<span class="hljs-number">-0.5</span>, <span class="hljs-number">0.7</span>, <span class="hljs-number">1.8</span>]]).view(<span class="hljs-number">-1</span>, <span class="hljs-number">1</span>)</span><br><span class="line">parameter_W.requires_grad_(<span class="hljs-keyword">True</span>)</span><br><span class="line"></span><br><span class="line">optimizer = optim.SGD([parameter_W], lr=<span class="hljs-number">0.01</span>)</span><br><span class="line"></span><br><span class="line">epochs = <span class="hljs-number">10000</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, epochs + <span class="hljs-number">1</span>):</span><br><span class="line">    <span class="hljs-comment"># Prediction</span></span><br><span class="line">    y_hat = F.sigmoid(torch.matmul(x_train, parameter_W))</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-comment"># Loss function</span></span><br><span class="line">    loss = (-y_train * torch.log(y_hat) - (<span class="hljs-number">1</span> - y_train) * torch.log((<span class="hljs-number">1</span> - y_hat))).sum().mean()</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-comment"># Backprop &amp; update</span></span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    loss.backward()</span><br><span class="line">    optimizer.step()</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-keyword">if</span> epoch % <span class="hljs-number">1000</span> == <span class="hljs-number">0</span>:</span><br><span class="line">        print(<span class="hljs-string">"epoch &#123;&#125; -- loss &#123;&#125;"</span>.format(epoch, loss.data))</span><br></pre></td></tr></table></figure>
-
-<pre><code>epoch 1000 -- loss 6.368619441986084
-epoch 2000 -- loss 4.5249152183532715
-epoch 3000 -- loss 3.654862403869629
-epoch 4000 -- loss 3.122910261154175
-epoch 5000 -- loss 2.7545464038848877
-epoch 6000 -- loss 2.4800000190734863
-epoch 7000 -- loss 2.2651939392089844
-epoch 8000 -- loss 2.091233253479004
-epoch 9000 -- loss 1.9466761350631714
-epoch 10000 -- loss 1.8241318464279175</code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">parameter_W.data.numpy()</span><br></pre></td></tr></table></figure>
-
-<pre><code>array([[-16.748823],
-       [ 16.618748],
-       [ 17.622692]], dtype=float32)</code></pre><ul>
-<li>아래 그림을 보면, Train이 잘 된 것을 알 수 있습니다.</li>
-</ul>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plot_scatter(parameter_W.data.numpy(), xy, labels)</span><br></pre></td></tr></table></figure>
-
-<p><img src="output_13_0.png" alt="png"></p>
-<h2 id="2-Multiclass-Classification"><a href="#2-Multiclass-Classification" class="headerlink" title="2. Multiclass Classification"></a>2. Multiclass Classification</h2><h3 id="2-1-Generate-Data"><a href="#2-1-Generate-Data" class="headerlink" title="2.1 Generate Data"></a>2.1 Generate Data</h3><ul>
-<li>이번에는 3개의 label 을 가지고 있는 classification 을 Modeling 해 보겠습니다.</li>
-<li>또한, High Level 로 pytorch 의 추상 클래스를 이용해 모델링 해보겠습니다.</li>
-</ul>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">plot_scatter</span><span class="hljs-params">(W1, W2, xy, labels)</span>:</span></span><br><span class="line">    <span class="hljs-keyword">for</span> k, color <span class="hljs-keyword">in</span> [(<span class="hljs-number">0</span>, <span class="hljs-string">'b'</span>), (<span class="hljs-number">1</span>, <span class="hljs-string">'r'</span>), (<span class="hljs-number">2</span>, <span class="hljs-string">'y'</span>)]:</span><br><span class="line">        idx = labels.flatten() == k</span><br><span class="line">        plt.scatter(xy[idx, <span class="hljs-number">0</span>], xy[idx, <span class="hljs-number">1</span>], c=color)</span><br><span class="line">        </span><br><span class="line">    x1 = np.linspace(<span class="hljs-number">-0.6</span>, <span class="hljs-number">1.6</span>)</span><br><span class="line">    x2 = -W1[<span class="hljs-number">1</span>] / W1[<span class="hljs-number">2</span>] * x1 - W1[<span class="hljs-number">0</span>] / W1[<span class="hljs-number">2</span>]</span><br><span class="line">    x3 = -W2[<span class="hljs-number">1</span>] / W2[<span class="hljs-number">2</span>] * x1 - W2[<span class="hljs-number">0</span>] / W2[<span class="hljs-number">2</span>]</span><br><span class="line">    plt.plot(x1, x2, <span class="hljs-string">'--k'</span>)</span><br><span class="line">    plt.plot(x1, x3, <span class="hljs-string">'--k'</span>)</span><br><span class="line">    </span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># Generate data</span></span><br><span class="line"></span><br><span class="line">W1 = np.array([<span class="hljs-number">-1</span>, <span class="hljs-number">3.</span>/<span class="hljs-number">4.</span>, <span class="hljs-number">1.0</span>])</span><br><span class="line">W2 = np.array([<span class="hljs-number">-1.</span>/<span class="hljs-number">5</span>, <span class="hljs-number">3.</span>/<span class="hljs-number">4.</span>, <span class="hljs-number">1.0</span>])</span><br><span class="line"></span><br><span class="line">xy = <span class="hljs-number">2</span> * np.random.rand(<span class="hljs-number">100</span>, <span class="hljs-number">2</span>) - <span class="hljs-number">0.5</span></span><br><span class="line">labels = np.zeros(len(xy))</span><br><span class="line">labels[(W1[<span class="hljs-number">0</span>] + W1[<span class="hljs-number">1</span>] * xy[:, <span class="hljs-number">0</span>] + W1[<span class="hljs-number">2</span>] * xy[:, <span class="hljs-number">1</span>] &gt; <span class="hljs-number">0</span>)] = <span class="hljs-number">1</span></span><br><span class="line">labels[(W2[<span class="hljs-number">0</span>] + W2[<span class="hljs-number">1</span>] * xy[:, <span class="hljs-number">0</span>] + W2[<span class="hljs-number">2</span>] * xy[:, <span class="hljs-number">1</span>] &lt; <span class="hljs-number">0</span>)] = <span class="hljs-number">2</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plot_scatter(W1, W2, xy, labels)</span><br></pre></td></tr></table></figure>
-
-<p><img src="output_18_0.png" alt="png"></p>
-<h3 id="2-2-Train-data"><a href="#2-2-Train-data" class="headerlink" title="2.2 Train data"></a>2.2 Train data</h3><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x_train = torch.FloatTensor([[<span class="hljs-number">1.0</span>, xval, yval] <span class="hljs-keyword">for</span> xval, yval <span class="hljs-keyword">in</span> xy])</span><br><span class="line">y_train = torch.LongTensor(labels)</span><br><span class="line">print(x_train[<span class="hljs-number">-5</span>:])</span><br><span class="line">print(y_train[<span class="hljs-number">-5</span>:])</span><br></pre></td></tr></table></figure>
-
-<pre><code>tensor([[ 1.0000,  0.9641,  1.3851],
-        [ 1.0000, -0.4445,  1.0595],
-        [ 1.0000,  1.0854, -0.1216],
-        [ 1.0000,  0.8707,  0.1640],
-        [ 1.0000,  0.7043,  1.3483]])
-tensor([1, 0, 0, 0, 1])</code></pre><h3 id="2-3-Modeling"><a href="#2-3-Modeling" class="headerlink" title="2.3 Modeling"></a>2.3 Modeling</h3><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MultiModel</span><span class="hljs-params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span></span><br><span class="line">        super().__init__()</span><br><span class="line">        self.linear = nn.Linear(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>)</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">forward</span><span class="hljs-params">(self, x)</span>:</span></span><br><span class="line">        <span class="hljs-keyword">return</span> self.linear(x)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">model = MultiModel()</span><br><span class="line"></span><br><span class="line">optimizer = optim.SGD(model.parameters(), lr=<span class="hljs-number">0.01</span>)</span><br><span class="line"></span><br><span class="line">epochs = <span class="hljs-number">10000</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, epochs + <span class="hljs-number">1</span>):</span><br><span class="line">    y_hat = model(x_train)</span><br><span class="line">    </span><br><span class="line">    loss = F.cross_entropy(y_hat, y_train)</span><br><span class="line">    </span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    loss.backward()</span><br><span class="line">    optimizer.step()</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-keyword">if</span> epoch % <span class="hljs-number">1000</span> == <span class="hljs-number">0</span>:</span><br><span class="line">        print(<span class="hljs-string">"epoch &#123;&#125; -- loss &#123;&#125;"</span>.format(epoch, loss.data))</span><br></pre></td></tr></table></figure>
-
-<pre><code>epoch 1000 -- loss 0.6635385155677795
-epoch 2000 -- loss 0.5513403415679932
-epoch 3000 -- loss 0.4890784025192261
-epoch 4000 -- loss 0.44675758481025696
-epoch 5000 -- loss 0.4151267111301422
-epoch 6000 -- loss 0.39017024636268616
-epoch 7000 -- loss 0.369760125875473
-epoch 8000 -- loss 0.35262930393218994
-epoch 9000 -- loss 0.3379631042480469
-epoch 10000 -- loss 0.3252090811729431</code></pre><h3 id="2-4-Accuracy-계산"><a href="#2-4-Accuracy-계산" class="headerlink" title="2.4 Accuracy 계산"></a>2.4 Accuracy 계산</h3><ul>
-<li>Accuracy 가 96 % 로 비교적 잘 분류 된 것을 확인 할 수 있습니다.</li>
-</ul>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">accuracy = (torch.ByteTensor(model(x_train).max(dim=<span class="hljs-number">1</span>)[<span class="hljs-number">1</span>] == y_train)).sum().item() / len(y_train)</span><br><span class="line">print(<span class="hljs-string">"Accuracy: &#123;&#125;"</span>.format(accuracy))</span><br></pre></td></tr></table></figure>
-
-<pre><code>Accuracy: 0.96</code></pre>
         </div>
         
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2019/05/06/Basic-Classification-with-Pytorch/#more">Read More</a>
+                </div>
+            </div>
+        </div>
         
         
     </div>

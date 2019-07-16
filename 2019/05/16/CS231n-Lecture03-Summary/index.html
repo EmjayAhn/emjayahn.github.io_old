@@ -7,19 +7,19 @@
 
 
 
-    <meta name="description" content="Lecture 03: Loss Function &amp;amp; Optimization 이 글은, Standford University 의 CS231n 강의를 듣고 스스로 정리 목적을 위해 적은 글입니다.  1. Introduction Loss Function : 우리가 가지고 있는 W matrix 가 얼마나 안좋은지 정량화(Quantify)  Optimizati">
-<meta name="keywords" content="CS231n,summary">
+    <meta name="description" content="Lecture 03: Loss Function &amp;amp; Optimization 이 글은, Standford University 의 CS231n 강의를 듣고 스스로 정리 목적을 위해 적은 글입니다.">
+<meta name="keywords" content="summary,CS231n">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[CS231n]Lecture03-LossFunction&#x2F;Optimization">
 <meta property="og:url" content="https://emjayahn.github.io/2019/05/16/CS231n-Lecture03-Summary/index.html">
 <meta property="og:site_name" content="Emjay&#39;s DailyBlog">
-<meta property="og:description" content="Lecture 03: Loss Function &amp;amp; Optimization 이 글은, Standford University 의 CS231n 강의를 듣고 스스로 정리 목적을 위해 적은 글입니다.  1. Introduction Loss Function : 우리가 가지고 있는 W matrix 가 얼마나 안좋은지 정량화(Quantify)  Optimizati">
+<meta property="og:description" content="Lecture 03: Loss Function &amp;amp; Optimization 이 글은, Standford University 의 CS231n 강의를 듣고 스스로 정리 목적을 위해 적은 글입니다.">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://emjayahn.github.io/images/og_image.png">
-<meta property="og:updated_time" content="2019-05-20T08:34:01.925Z">
+<meta property="og:updated_time" content="2019-07-16T15:54:49.510Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[CS231n]Lecture03-LossFunction&#x2F;Optimization">
-<meta name="twitter:description" content="Lecture 03: Loss Function &amp;amp; Optimization 이 글은, Standford University 의 CS231n 강의를 듣고 스스로 정리 목적을 위해 적은 글입니다.  1. Introduction Loss Function : 우리가 가지고 있는 W matrix 가 얼마나 안좋은지 정량화(Quantify)  Optimizati">
+<meta name="twitter:description" content="Lecture 03: Loss Function &amp;amp; Optimization 이 글은, Standford University 의 CS231n 강의를 듣고 스스로 정리 목적을 위해 적은 글입니다.">
 <meta name="twitter:image" content="https://emjayahn.github.io/images/og_image.png">
 <meta property="fb:app_id" content="jjminjae">
 
@@ -167,7 +167,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    11 minutes read (About 1647 words)
+                    11 minutes read (About 1648 words)
                 </span>
                 
                 
@@ -183,15 +183,14 @@
             <h1 id="Lecture-03-Loss-Function-amp-Optimization"><a href="#Lecture-03-Loss-Function-amp-Optimization" class="headerlink" title="Lecture 03: Loss Function &amp; Optimization"></a>Lecture 03: Loss Function &amp; Optimization</h1><ul>
 <li>이 글은, Standford University 의 CS231n 강의를 듣고 스스로 정리 목적을 위해 적은 글입니다.</li>
 </ul>
+<a id="more"></a>
 <h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h2><ol>
 <li>Loss Function : 우리가 가지고 있는 W matrix 가 <strong>얼마나 안좋은지 정량화(Quantify)</strong> </li>
 <li>Optimization : 위의 Loss Function 을 minimize 해서 가장 좋은 parameter (W) 를 찾는 과정</li>
 </ol>
 <h2 id="2-Loss-Function"><a href="#2-Loss-Function" class="headerlink" title="2. Loss Function"></a>2. Loss Function</h2><p>주어진 data 가 다음과 같을 때, </p>
-<p>$${(x_i, y_i)}_{i=1}^{N}$$</p>
-<p> Loss 는 “Average of over examples” 즉, </p>
-<p>$$L = \frac{1}{N}\sum_{i}L_i(f(x_i, W), y_i)$$</p>
-<ul>
+<script type="math/tex; mode=display">\{(x_i, y_i)\}_{i=1}^{N}</script><p> Loss 는 “Average of over examples” 즉, </p>
+<script type="math/tex; mode=display">L = \frac{1}{N}\sum_{i}L_i(f(x_i, W), y_i)</script><ul>
 <li>딥러닝 알고리즘의 General Setup<ul>
 <li>W 가 얼마나 좋고, 나쁜지를 정량화하는 손실함수 만들기</li>
 <li>W 공간을 탐색하면서  이 loss를 minimize 하는 W 를 찾기</li>
@@ -199,10 +198,8 @@
 </li>
 </ul>
 <h3 id="2-1-Loss-Example-Multiclass-SVM-Loss"><a href="#2-1-Loss-Example-Multiclass-SVM-Loss" class="headerlink" title="2-1. Loss Example: Multiclass SVM Loss"></a>2-1. Loss Example: Multiclass SVM Loss</h3><p>SVM Loss 는 다음과 같다. 주어진 data example (x_i, y_i) 에 대해서, score vector <strong>s</strong> 는 다음과 같다. </p>
-<p>$$s = f(x_i, W)$$</p>
-<p>이 때, SVM loss는 </p>
-<p>$$L_i = \sum_{j\neq y_i}\begin{cases} 0 \quad\quad\quad\quad\quad\quad\quad if ;s_{y_i} \geq s_j +1 \ s_j - s_{y_i} + 1 \quad\quad otherwise \end{cases} \ = \sum_{j\neq y_i}max(0, s_j-s_{y_i}+ 1)$$</p>
-<p>x_i 의 정답이 아닌 클래스의 score (s_j) + 1 (safety margin) 과 정답 클래스 score s_yi 를 비교하여, Loss 를 계산한다.</p>
+<script type="math/tex; mode=display">s = f(x_i, W)</script><p>이 때, SVM loss는 </p>
+<script type="math/tex; mode=display">L_i = \sum_{j\neq y_i}\begin{cases} 0 \quad\quad\quad\quad\quad\quad\quad if \;s_{y_i} \geq s_j +1 \\ s_j - s_{y_i} + 1 \quad\quad otherwise \end{cases} \\ = \sum_{j\neq y_i}max(0, s_j-s_{y_i}+ 1)</script><p>x_i 의 정답이 아닌 클래스의 score (s_j) + 1 (safety margin) 과 정답 클래스 score s_yi 를 비교하여, Loss 를 계산한다.</p>
 <p><img src="Untitled-d804129d-082d-4cfc-819c-4fd3e14ddf17.png" alt></p>
 <ol>
 <li>SVM Loss 의 최대, 최솟값은 ? min : 0, max :  infinite</li>
@@ -238,8 +235,7 @@
 </ul>
 <h3 id="2-3-Loss-example-Softmax-Classifier-Multinomial-Logistic-Regression"><a href="#2-3-Loss-example-Softmax-Classifier-Multinomial-Logistic-Regression" class="headerlink" title="2-3 Loss example: Softmax Classifier (Multinomial Logistic Regression)"></a>2-3 Loss example: Softmax Classifier (Multinomial Logistic Regression)</h3><p>deeplearning 에서 훨씬 더 자주 보게 되는 loss 의 종류 중 하나이다.  위에서 살펴본 SVM loss 의 단점은 그 값 자체에 어떤 의미를 부여하기는 힘들다는 점이다. 반면에, Softmax Classifier 는 그 값 자체를 확률적 해석이 가능하기 때문이다. (cf. 콜모고로프의 공리를 통해 softmax 의 layer 의 output 이 확률로 해석 될 수 있다.)</p>
 <p>Softmax Function 은 다음과 같다.</p>
-<p>$$P(Y=k|X=x_i) = \frac{e^{s_k}}{\sum_j e^{s_j}},\quad where \quad s = f(x_i;W)$$</p>
-<h2 id="3-Opitmization"><a href="#3-Opitmization" class="headerlink" title="3. Opitmization"></a>3. Opitmization</h2><p>Optimization 을 한마디로 요약하자면, <strong>우리의  loss 를 최소화 하는 W 를 찾기</strong> 가 되겠다. 그 방법에는,</p>
+<script type="math/tex; mode=display">P(Y=k|X=x_i) = \frac{e^{s_k}}{\sum_j e^{s_j}},\quad where \quad s = f(x_i;W)</script><h2 id="3-Opitmization"><a href="#3-Opitmization" class="headerlink" title="3. Opitmization"></a>3. Opitmization</h2><p>Optimization 을 한마디로 요약하자면, <strong>우리의  loss 를 최소화 하는 W 를 찾기</strong> 가 되겠다. 그 방법에는,</p>
 <ul>
 <li>(바보 같은 접근인: 강의표현) Random Search</li>
 <li>Gradient 를 구하는 방법<ul>
