@@ -8,7 +8,7 @@
 
 
     <meta name="description" content="[CS224n] Lecture 1: Introduction and Word VectorsStandford University 의 CS224n 강의를 듣고 정리하는 글입니다.">
-<meta name="keywords" content="CS224n,summary">
+<meta name="keywords" content="summary,CS224n">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[CS224n]Lecture01-WordVecs">
 <meta property="og:url" content="https://emjayahn.github.io/2019/07/06/CS224n-Lecture01-Summary/index.html">
@@ -969,7 +969,23 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 <script src="/js/insight.js" defer></script>
 <link rel="stylesheet" href="/css/search.css">
-<link rel="stylesheet" href="/css/insight.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<link rel="stylesheet" href="/css/insight.css">
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

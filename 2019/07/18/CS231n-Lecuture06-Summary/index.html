@@ -8,7 +8,7 @@
 
 
     <meta name="description" content="Lecture 06: Training Neural Networks part1 이 글은, Standford University 의 CS231n 강의를 듣고 스스로 정리 목적을 위해 적은 글입니다.">
-<meta name="keywords" content="summary,CS231n">
+<meta name="keywords" content="CS231n,summary">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[CS231n]Lecture06-Training Neural Networks part1">
 <meta property="og:url" content="https://emjayahn.github.io/2019/07/18/CS231n-Lecuture06-Summary/index.html">
@@ -16,7 +16,7 @@
 <meta property="og:description" content="Lecture 06: Training Neural Networks part1 이 글은, Standford University 의 CS231n 강의를 듣고 스스로 정리 목적을 위해 적은 글입니다.">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://emjayahn.github.io/images/og_emjay_image.png">
-<meta property="og:updated_time" content="2019-07-18T11:48:27.019Z">
+<meta property="og:updated_time" content="2019-07-18T11:55:58.882Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[CS231n]Lecture06-Training Neural Networks part1">
 <meta name="twitter:description" content="Lecture 06: Training Neural Networks part1 이 글은, Standford University 의 CS231n 강의를 듣고 스스로 정리 목적을 위해 적은 글입니다.">
@@ -237,7 +237,7 @@
 </ul>
 <p>Parametric Rectifier(PReLU) 라는 이름으로, 좀더 generalize 된 형태도 사용한다. $max(\alpha x, x)$ 형태로써, alpha 를 고정시키지 않고 학습시키는 형태이다.</p>
 <p>(5) Exponential Linear Units (ELU)</p>
-<p>$$f(x)=\begin{cases}x \quad\quad\quad\quad if\quad x&gt;0 \ \alpha(exp(x) -1) \quad if \quad x\leq 0 \end{cases}$$</p>
+<p>$$f(x)=\begin{cases}x \quad\quad\quad\quad if \quad x&gt;0 \<br>\alpha(exp(x) -1) \quad if \quad x\leq 0 \end{cases}$$</p>
 <p><img src="Untitled-b527e985-4c1c-475f-a01a-6f8bdb006ceb.png" alt></p>
 <p>(6) Maxout Neuron</p>
 <p>ReLU function 의 Generalize 된 형태라고 생각할 수 있다.</p>
@@ -1041,7 +1041,23 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 <script src="/js/insight.js" defer></script>
 <link rel="stylesheet" href="/css/search.css">
-<link rel="stylesheet" href="/css/insight.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<link rel="stylesheet" href="/css/insight.css">
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>
