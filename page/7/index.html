@@ -157,6 +157,84 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2018-10-26T13:02:50.000Z">2018-10-26</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/wiki/">wiki</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/wiki/Xpath/">Xpath</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    3 minutes read (About 393 words)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2018/10/26/Xpath/">Xpath</a>
+            
+        </h1>
+        <div class="content">
+            <h1 id="xpath"><a href="#xpath" class="headerlink" title="xpath"></a>xpath</h1><blockquote>
+<p>공부한 내용을 스스로 보기 쉽게 정리한 글입니다.</p>
+</blockquote>
+<h2 id="1-xpath란"><a href="#1-xpath란" class="headerlink" title="1. xpath란?"></a>1. xpath란?</h2><ul>
+<li>xpath = XML Path Language</li>
+<li>XML 문서의 element나 attribute의 value에 접근하기 위한 언어</li>
+<li>XML 문서를 해석하기 위한 언어이므로, 기본적으로 path expression 이 바탕이 되어있다.</li>
+<li>연산, 문자열 처리를 위한 라이브러리를 내장하고 있다.</li>
+</ul>
+<h2 id="2-Location-Path"><a href="#2-Location-Path" class="headerlink" title="2. Location Path"></a>2. Location Path</h2><ul>
+<li>element 를 찾으러 가는 것이므로, location을 나타내기 위한 연산자는 다음과 같다.</li>
+</ul>
+<ol>
+<li><code>element_name</code> : element_name 과 일치하는 모든 element를 선택한다.</li>
+<li><code>/</code> :<ul>
+<li>가장 처음 쓰는 <code>/</code>는 절대경로를 의미한다.</li>
+<li>Path 중간에 쓰는 <code>/</code>는 조건에 맞는 바로 다음 하위 엘리먼트를 검색한다. (css selector에서 <code>&gt;</code>와 같다)</li>
+</ul>
+</li>
+<li><code>//</code> : 가장 상위 엘리먼트</li>
+<li><code>.</code> : 현재 엘리먼트</li>
+<li><code>*</code> : 조건에 맞는 전체 하위 엘리먼트를 검색한다(css selector 에서 한칸 띄우는 것 과 같다)</li>
+<li><code>element[조건]</code> : 엘리먼트에 조건에 해당되는 것을 검색한다<ul>
+<li>(예) <code>p[2]</code> : p 엘리먼트 중 두번째 엘리먼트를 선택 *<em>주의:1부터 시작, 0이 아님 *</em></li>
+<li>(예) <code>[@(attribute_key=&quot;attribute_value&quot;)]</code> : 속성값으로 엘리먼트를 선택<br><code>[@id=&quot;main&quot;]</code> : “main” 이라는 id 를 선택<br><code>[@class=&quot;pp&quot;]</code> : “pp” 라는 class 를 선택</li>
+</ul>
+</li>
+<li><code>not(조건)</code> : 조건이 아닌 엘리먼트를 찾는다.</li>
+<li><code>/text()</code> : 해당 엘리먼트의 text 데이터를 가져온다</li>
+<li><code>/@attribute_name</code> : 해당 엘리먼트의 attribute_name 에 할당된 value 값을 가져옴<ul>
+<li><code>/@href</code> : 해당 엘리먼트의 href의 value 값을 가져옴</li>
+</ul>
+</li>
+</ol>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
                 <time class="level-item has-text-grey" datetime="2018-10-26T03:49:13.000Z">2018-10-26</time>
                 
                 <div class="level-item">
@@ -358,6 +436,140 @@
                 <time class="level-item has-text-grey" datetime="2018-10-24T03:02:50.000Z">2018-10-24</time>
                 
                 <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/wiki/">wiki</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/wiki/Selenium/">Selenium</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    6 minutes read (About 896 words)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2018/10/24/Selenium/">Selenium</a>
+            
+        </h1>
+        <div class="content">
+            <h1 id="Selenium"><a href="#Selenium" class="headerlink" title="Selenium"></a>Selenium</h1><blockquote>
+<p>공부한 내용을 스스로 보기 쉽게 정리한 글입니다.</p>
+<ul>
+<li>자동화 할 수 있는 프로그램</li>
+</ul>
+</blockquote>
+<h2 id="Install-Selenium"><a href="#Install-Selenium" class="headerlink" title="[ Install Selenium ]"></a>[ Install Selenium ]</h2><ol>
+<li><p>chrome driver 다운로드</p>
+<figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> mv ~/Download/chromedriver /usr/<span class="hljs-built_in">local</span>/bin</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Selenium Python Package 설치</p>
+<figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> sudo pip3 install selenium</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="1-셀레니움-사용해보기"><a href="#1-셀레니움-사용해보기" class="headerlink" title="1. 셀레니움 사용해보기"></a>1. 셀레니움 사용해보기</h2><ul>
+<li><p>import</p>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">from</span> selenium <span class="hljs-keyword">import</span> webdriver</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Open Browser (Chrome Driver)</p>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver = webdriver.Chrome()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>페이지 이동</p>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.get(url)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>브라우져 상에서 자바 스크립트 실행</p>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.execute_script(<span class="hljs-string">"window.scrollTo(300, 400)"</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>지금 control하고 있는 window 객체 확인</p>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">main_window = driver.current_window_handle</span><br><span class="line">main_window</span><br><span class="line"><span class="hljs-comment">#현재 control 하고 있는 window 의 객체를 리턴한다.</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>열려 있는 전체 window 탭 모두 확인</p>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">windows = driver.window_handles</span><br><span class="line">windows</span><br><span class="line"><span class="hljs-comment">#현재 열려있는 모든 탭의 객체를 리스트 형태로 리턴한다.</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>열려있는 window 탭 중, control 대상 window 로 바꾸기</p>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">driver.switch_to_window(windows[<span class="hljs-number">0</span>])</span><br><span class="line"><span class="hljs-comment">#다시 원래 열었던 창으로 돌아가기</span></span><br><span class="line">driver.switch_to_window(main_window)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="2-Alert-와-Confirm-다루기"><a href="#2-Alert-와-Confirm-다루기" class="headerlink" title="2. Alert 와 Confirm 다루기"></a>2. Alert 와 Confirm 다루기</h2><ul>
+<li>웹을 자동화해서 다니다보면, Alert 창이나 Confirm 창이 의도치 않게 나올 수 있다. 이를 다루는 방법은 다음과 같다.</li>
+<li>Alert와 Confirm 창의 차이는, <br><br>Alert 는 확인 창 하나만 있고, Confirm은 확인과 취소가 같이 있는 창이다.</li>
+</ul>
+<h3 id="1-Alert"><a href="#1-Alert" class="headerlink" title="(1) Alert"></a>(1) Alert</h3><ul>
+<li><p>Alert 띄우기</p>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">drive.switch_to_window(main_window)</span><br><span class="line">drive.execute_script(<span class="hljs-string">"alert('이게 alert 로 뜰겁니다.');"</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Alert 확인 누르기</p>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">alert = driver.switch_to.alert</span><br><span class="line">alert.accept()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Alert 창이 있으면 확인을 누르고, 없으면 없다고 리턴하기 (예외처리)</p>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">try</span>:</span><br><span class="line">  alert = driver.switch_to.alert</span><br><span class="line">  alert.accept()</span><br><span class="line"><span class="hljs-keyword">except</span>:</span><br><span class="line">  print(<span class="hljs-string">"alert 가 없습니다."</span>)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="2-Confirm"><a href="#2-Confirm" class="headerlink" title="(2) Confirm"></a>(2) Confirm</h3><ul>
+<li><p>Confirm 띄우기</p>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.execute_script(<span class="hljs-string">"confirm('이게 Confirm 창입니다.');"</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Confirm 창 확인 누르기 or 취소 누르기</p>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">confirm = driver.switch_to.alert</span><br><span class="line"><span class="hljs-comment"># 확인</span></span><br><span class="line"><span class="hljs-comment"># confirm.accept()</span></span><br><span class="line"><span class="hljs-comment"># 취소</span></span><br><span class="line">confirm.dismiss()</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="3-입력창에-글씨-입력하기"><a href="#3-입력창에-글씨-입력하기" class="headerlink" title="3. 입력창에 글씨 입력하기"></a>3. 입력창에 글씨 입력하기</h2><ul>
+<li>이제부터 Selenium을 통해 특정 html 의 element 에 액션을 주려면,<br>각종 Selector 를 사용하여 html 상의 element을 셀렉팅 하고, 해당 element 에게 액션을 주어야한다.</li>
+</ul>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.find_element_by_css_selector(nameof cssselector).send_keys(<span class="hljs-string">"입력할 내용"</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>.find_element_by_css_selector 와 <br><br>.find_<b>elements</b>_
+by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 반면, elements 는 여러가지 element 를 셀렉팅 해서, 리스트 형식으로 Return 한다.</li>
+<li>따라서 이렇게 리스트 형식으로 Return 이 된 경우, List[0] 등과 같이 그 엘리먼트를 뒤에 지정해줘야된다. 즉,<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">driver.find_element_by_css_selector(nameof cssselector)</span><br><span class="line"><span class="hljs-comment">#위는 바로 selecting 이 된것이지만,</span></span><br><span class="line">driver.find_elements_by_css_selector(nameof cssselector)[<span class="hljs-number">0</span>]</span><br><span class="line"><span class="hljs-comment">#위는 뒤에 selecting 위해 list 의 요소를 선택 해주어야한다.</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="4-버튼-클릭하기"><a href="#4-버튼-클릭하기" class="headerlink" title="4. 버튼 클릭하기"></a>4. 버튼 클릭하기</h2><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># 위의 방법처럼, element 를 선택해준다.</span></span><br><span class="line">driver.find_element_by_css_selector(<span class="hljs-string">"name of css selector"</span>).click()</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-id-class-그-외의-attribute-값을-selecting-하는-법"><a href="#5-id-class-그-외의-attribute-값을-selecting-하는-법" class="headerlink" title="5. id, class, 그 외의 attribute 값을 selecting 하는 법"></a>5. id, class, 그 외의 attribute 값을 selecting 하는 법</h2><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">driver.find_element_by_css_selector(<span class="hljs-string">"name of css selector."</span>).click()</span><br><span class="line"><span class="hljs-comment"># id 의 경우 : #idname</span></span><br><span class="line"><span class="hljs-comment"># class 의 경우 : .classname</span></span><br><span class="line"><span class="hljs-comment"># 다른 attribute 의 경우 : [attribute = 'value']</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="6-selecting-한-element-의-attribute-value-를-얻는-방법"><a href="#6-selecting-한-element-의-attribute-value-를-얻는-방법" class="headerlink" title="6. selecting 한 element 의 attribute value 를 얻는 방법"></a>6. selecting 한 element 의 attribute value 를 얻는 방법</h2><ul>
+<li>CSS로 선택한 element에 html 태그에는 다양한 attribute 들이 있을 수 있다. 이 중<br>attribute의 value에 접근 하고 싶을 때는 .get_attribute()메소드를 사용할 수 있다.<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.find_element_by_css_selector(<span class="hljs-string">"name of css selector"</span>).get_attribute(<span class="hljs-string">"attribute_name"</span>)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="7-element-의-위치와-사이즈-구하기"><a href="#7-element-의-위치와-사이즈-구하기" class="headerlink" title="7. element 의 위치와, 사이즈 구하기"></a>7. element 의 위치와, 사이즈 구하기</h2><ul>
+<li>스크롤을 내리거나, 엘리먼트의 위치와 크기를 알고 싶을 때 사용할 수 있다.<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">element = driver.find_element_by_css_selector(<span class="hljs-string">"name of css selector"</span>)</span><br><span class="line">element.location</span><br><span class="line"><span class="hljs-comment">#element 의 좌측 상단의 위치가 pixel 단위로 x, y 값의 dictionary로 보여준다.</span></span><br><span class="line">element.size</span><br><span class="line"><span class="hljs-comment">#element 의 size 를 height, width를 pixel 단위로 dictionary로 보여준다.</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2018-10-24T03:02:50.000Z">2018-10-24</time>
+                
+                <div class="level-item">
                 <a class="has-link-grey -link" href="/categories/wiki/">wiki</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/wiki/Requests/">Requests</a>
                 </div>
                 
@@ -486,140 +698,6 @@
 
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#Thread 의 메소드</span></span><br><span class="line">start(): <span class="hljs-comment">#스레드의 실행, self 의 run() 메소드를 호출</span></span><br><span class="line">run(): <span class="hljs-comment">#스레드가 실제로 수행하게될 작업</span></span><br><span class="line">name : <span class="hljs-comment">#스레드의 이름</span></span><br><span class="line">threading.locals() : <span class="hljs-comment">#해당 스레드 내부에서 사용할 로컬 변수 지정</span></span><br></pre></td></tr></table></figure>
 
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2018-10-24T03:02:50.000Z">2018-10-24</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/wiki/">wiki</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/wiki/Selenium/">Selenium</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    6 minutes read (About 896 words)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2018/10/24/Selenium/">Selenium</a>
-            
-        </h1>
-        <div class="content">
-            <h1 id="Selenium"><a href="#Selenium" class="headerlink" title="Selenium"></a>Selenium</h1><blockquote>
-<p>공부한 내용을 스스로 보기 쉽게 정리한 글입니다.</p>
-<ul>
-<li>자동화 할 수 있는 프로그램</li>
-</ul>
-</blockquote>
-<h2 id="Install-Selenium"><a href="#Install-Selenium" class="headerlink" title="[ Install Selenium ]"></a>[ Install Selenium ]</h2><ol>
-<li><p>chrome driver 다운로드</p>
-<figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> mv ~/Download/chromedriver /usr/<span class="hljs-built_in">local</span>/bin</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Selenium Python Package 설치</p>
-<figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> sudo pip3 install selenium</span></span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-<h2 id="1-셀레니움-사용해보기"><a href="#1-셀레니움-사용해보기" class="headerlink" title="1. 셀레니움 사용해보기"></a>1. 셀레니움 사용해보기</h2><ul>
-<li><p>import</p>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">from</span> selenium <span class="hljs-keyword">import</span> webdriver</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Open Browser (Chrome Driver)</p>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver = webdriver.Chrome()</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>페이지 이동</p>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.get(url)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>브라우져 상에서 자바 스크립트 실행</p>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.execute_script(<span class="hljs-string">"window.scrollTo(300, 400)"</span>)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>지금 control하고 있는 window 객체 확인</p>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">main_window = driver.current_window_handle</span><br><span class="line">main_window</span><br><span class="line"><span class="hljs-comment">#현재 control 하고 있는 window 의 객체를 리턴한다.</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>열려 있는 전체 window 탭 모두 확인</p>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">windows = driver.window_handles</span><br><span class="line">windows</span><br><span class="line"><span class="hljs-comment">#현재 열려있는 모든 탭의 객체를 리스트 형태로 리턴한다.</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>열려있는 window 탭 중, control 대상 window 로 바꾸기</p>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">driver.switch_to_window(windows[<span class="hljs-number">0</span>])</span><br><span class="line"><span class="hljs-comment">#다시 원래 열었던 창으로 돌아가기</span></span><br><span class="line">driver.switch_to_window(main_window)</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h2 id="2-Alert-와-Confirm-다루기"><a href="#2-Alert-와-Confirm-다루기" class="headerlink" title="2. Alert 와 Confirm 다루기"></a>2. Alert 와 Confirm 다루기</h2><ul>
-<li>웹을 자동화해서 다니다보면, Alert 창이나 Confirm 창이 의도치 않게 나올 수 있다. 이를 다루는 방법은 다음과 같다.</li>
-<li>Alert와 Confirm 창의 차이는, <br><br>Alert 는 확인 창 하나만 있고, Confirm은 확인과 취소가 같이 있는 창이다.</li>
-</ul>
-<h3 id="1-Alert"><a href="#1-Alert" class="headerlink" title="(1) Alert"></a>(1) Alert</h3><ul>
-<li><p>Alert 띄우기</p>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">drive.switch_to_window(main_window)</span><br><span class="line">drive.execute_script(<span class="hljs-string">"alert('이게 alert 로 뜰겁니다.');"</span>)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Alert 확인 누르기</p>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">alert = driver.switch_to.alert</span><br><span class="line">alert.accept()</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Alert 창이 있으면 확인을 누르고, 없으면 없다고 리턴하기 (예외처리)</p>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">try</span>:</span><br><span class="line">  alert = driver.switch_to.alert</span><br><span class="line">  alert.accept()</span><br><span class="line"><span class="hljs-keyword">except</span>:</span><br><span class="line">  print(<span class="hljs-string">"alert 가 없습니다."</span>)</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h3 id="2-Confirm"><a href="#2-Confirm" class="headerlink" title="(2) Confirm"></a>(2) Confirm</h3><ul>
-<li><p>Confirm 띄우기</p>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.execute_script(<span class="hljs-string">"confirm('이게 Confirm 창입니다.');"</span>)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Confirm 창 확인 누르기 or 취소 누르기</p>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">confirm = driver.switch_to.alert</span><br><span class="line"><span class="hljs-comment"># 확인</span></span><br><span class="line"><span class="hljs-comment"># confirm.accept()</span></span><br><span class="line"><span class="hljs-comment"># 취소</span></span><br><span class="line">confirm.dismiss()</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h2 id="3-입력창에-글씨-입력하기"><a href="#3-입력창에-글씨-입력하기" class="headerlink" title="3. 입력창에 글씨 입력하기"></a>3. 입력창에 글씨 입력하기</h2><ul>
-<li>이제부터 Selenium을 통해 특정 html 의 element 에 액션을 주려면,<br>각종 Selector 를 사용하여 html 상의 element을 셀렉팅 하고, 해당 element 에게 액션을 주어야한다.</li>
-</ul>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.find_element_by_css_selector(nameof cssselector).send_keys(<span class="hljs-string">"입력할 내용"</span>)</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>.find_element_by_css_selector 와 <br><br>.find_<b>elements</b>_
-by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 반면, elements 는 여러가지 element 를 셀렉팅 해서, 리스트 형식으로 Return 한다.</li>
-<li>따라서 이렇게 리스트 형식으로 Return 이 된 경우, List[0] 등과 같이 그 엘리먼트를 뒤에 지정해줘야된다. 즉,<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">driver.find_element_by_css_selector(nameof cssselector)</span><br><span class="line"><span class="hljs-comment">#위는 바로 selecting 이 된것이지만,</span></span><br><span class="line">driver.find_elements_by_css_selector(nameof cssselector)[<span class="hljs-number">0</span>]</span><br><span class="line"><span class="hljs-comment">#위는 뒤에 selecting 위해 list 의 요소를 선택 해주어야한다.</span></span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h2 id="4-버튼-클릭하기"><a href="#4-버튼-클릭하기" class="headerlink" title="4. 버튼 클릭하기"></a>4. 버튼 클릭하기</h2><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># 위의 방법처럼, element 를 선택해준다.</span></span><br><span class="line">driver.find_element_by_css_selector(<span class="hljs-string">"name of css selector"</span>).click()</span><br></pre></td></tr></table></figure>
-
-<h2 id="5-id-class-그-외의-attribute-값을-selecting-하는-법"><a href="#5-id-class-그-외의-attribute-값을-selecting-하는-법" class="headerlink" title="5. id, class, 그 외의 attribute 값을 selecting 하는 법"></a>5. id, class, 그 외의 attribute 값을 selecting 하는 법</h2><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">driver.find_element_by_css_selector(<span class="hljs-string">"name of css selector."</span>).click()</span><br><span class="line"><span class="hljs-comment"># id 의 경우 : #idname</span></span><br><span class="line"><span class="hljs-comment"># class 의 경우 : .classname</span></span><br><span class="line"><span class="hljs-comment"># 다른 attribute 의 경우 : [attribute = 'value']</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="6-selecting-한-element-의-attribute-value-를-얻는-방법"><a href="#6-selecting-한-element-의-attribute-value-를-얻는-방법" class="headerlink" title="6. selecting 한 element 의 attribute value 를 얻는 방법"></a>6. selecting 한 element 의 attribute value 를 얻는 방법</h2><ul>
-<li>CSS로 선택한 element에 html 태그에는 다양한 attribute 들이 있을 수 있다. 이 중<br>attribute의 value에 접근 하고 싶을 때는 .get_attribute()메소드를 사용할 수 있다.<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.find_element_by_css_selector(<span class="hljs-string">"name of css selector"</span>).get_attribute(<span class="hljs-string">"attribute_name"</span>)</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h2 id="7-element-의-위치와-사이즈-구하기"><a href="#7-element-의-위치와-사이즈-구하기" class="headerlink" title="7. element 의 위치와, 사이즈 구하기"></a>7. element 의 위치와, 사이즈 구하기</h2><ul>
-<li>스크롤을 내리거나, 엘리먼트의 위치와 크기를 알고 싶을 때 사용할 수 있다.<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">element = driver.find_element_by_css_selector(<span class="hljs-string">"name of css selector"</span>)</span><br><span class="line">element.location</span><br><span class="line"><span class="hljs-comment">#element 의 좌측 상단의 위치가 pixel 단위로 x, y 값의 dictionary로 보여준다.</span></span><br><span class="line">element.size</span><br><span class="line"><span class="hljs-comment">#element 의 size 를 height, width를 pixel 단위로 dictionary로 보여준다.</span></span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
 
         </div>
         
@@ -837,82 +915,6 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
 
 
 
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2018-10-22T13:18:03.548Z">2018-10-22</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/DataStructure/">DataStructure</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    3 minutes read (About 453 words)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2018/10/22/Stack/">Stack</a>
-            
-        </h1>
-        <div class="content">
-            <h1 id="Stack"><a href="#Stack" class="headerlink" title="Stack"></a>Stack</h1><blockquote>
-<p>공부한 내용을 스스로 보기 쉽게 정리한 글입니다.</p>
-</blockquote>
-<h2 id="Stack-의-특징"><a href="#Stack-의-특징" class="headerlink" title="Stack 의 특징"></a>Stack 의 특징</h2><ol>
-<li>접시를 쌓듯이 데이터를 쌓아 올리는 모양의 데이터 구조</li>
-<li>LIFO : Last In First Out  == 후입선출 or 선입후출</li>
-<li>top index 가 항상 Stack의 가장 윗부분을 가리키고 있어, 우리는 top 위치만 볼 수 있다.</li>
-<li>단점 : stack 의 top 이 외에 밑에 쌓여져있는 데이터의 Search 가 안된다.</li>
-</ol>
-<h2 id="ADT"><a href="#ADT" class="headerlink" title="ADT"></a>ADT</h2><ol>
-<li>empty() 라는 메소드로 Stack 에 data가 있는지 없는지 확인하게 한다. empty 이면 True, not empty 이면, False 를 return 한다.<br></li>
-</ol>
-<p>  <strong>Stack.empty() returns Boolean</strong></p>
-<ol start="2">
-<li>Stack의 top 위치에 데이터를 쌓는다.<br></li>
-</ol>
-<p>  <strong>Stack.push(data) returns None</strong></p>
-<ol start="3">
-<li>Stack의 top 위치에 있는 데이터를 삭제하면서 반환한다.<br></li>
-</ol>
-<p>  <strong>Stack.pop() returns data</strong></p>
-<ol start="4">
-<li>Stack의 top 위치에 있는 데이터를 반환하지만, 삭제하지 않는다. 어떤 데이터가 있는지 just 확인.<br></li>
-</ol>
-<p>  <strong>Stack.peek() returns data</strong></p>
-<h2 id="구현-1-by-python-list"><a href="#구현-1-by-python-list" class="headerlink" title="구현 1 : by python list"></a>구현 1 : by python list</h2><ul>
-<li>Stack 구조를 Python에 내장 되어 있는 list를 container 로 삼아 구현하게 되면, 그 구현은 매우매우 쉽다.</li>
-<li>Python의 List 자료형의 대단함을 그만큼 느낀다.</li>
-<li>이 때 List 의 index가 큰 쪽이 top 방향이다.<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Stack</span>:</span></span><br><span class="line">  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span></span><br><span class="line">    self.container=list()</span><br><span class="line"></span><br><span class="line">  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">empty</span><span class="hljs-params">(self)</span>:</span></span><br><span class="line">    <span class="hljs-comment"># ADT 를 따라서, 비어 있으면 return True 비어있지 않으면 return False</span></span><br><span class="line">    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> self.container:</span><br><span class="line">      <span class="hljs-keyword">return</span> <span class="hljs-keyword">True</span></span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-keyword">False</span></span><br><span class="line"></span><br><span class="line">  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">push</span><span class="hljs-params">(self, data)</span>:</span></span><br><span class="line">    <span class="hljs-comment"># list 를 활용했으므로, list.append(data)를 활용할 수 있다.</span></span><br><span class="line">    self.container.append(data)</span><br><span class="line"></span><br><span class="line">  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">pop</span><span class="hljs-params">(self)</span>:</span></span><br><span class="line">    <span class="hljs-comment"># pop 역시 list.pop()을 활용할 수 있다.</span></span><br><span class="line">    <span class="hljs-keyword">return</span> self.container.pop()</span><br><span class="line"></span><br><span class="line">  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">peek</span><span class="hljs-params">(self)</span>:</span></span><br><span class="line">    <span class="hljs-comment"># peek은 단지 top 에 어떤 데이터가 있는지 확인 하는 것 뿐이므로, 현재 리스트의 가장 마지막에 append 되어 있는 data를 확인하면 된다.</span></span><br><span class="line">    <span class="hljs-keyword">return</span> self.container[<span class="hljs-number">-1</span>]</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h2 id="구현-2"><a href="#구현-2" class="headerlink" title="구현 2 :"></a>구현 2 :</h2>
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
 
     
 <div class="card card-transparent">
@@ -981,7 +983,7 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
                         Posts
                     </p>
                     <p class="title has-text-weight-normal">
-                        73
+                        74
                     </p>
                 </div>
             </div>
@@ -1077,7 +1079,7 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
                 <span class="level-item">Lecture</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">6</span>
+                <span class="level-item tag">7</span>
             </span>
         </a><ul><li>
         <a class="level is-marginless" href="/categories/Lecture/CS224n/">
@@ -1093,7 +1095,7 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
                 <span class="level-item">CS231n</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">4</span>
+                <span class="level-item tag">5</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/categories/Lecture/딥러닝을-이용한-자연어-처리/">
@@ -1227,7 +1229,7 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
         <h3 class="menu-label">
             Tag Cloud
         </h3>
-        <a href="/tags/CS224n/" style="font-size: 10px;">CS224n</a> <a href="/tags/CS231n/" style="font-size: 13.33px;">CS231n</a> <a href="/tags/Classification-확률론적생성모형-Generative-생성모형-분류모델/" style="font-size: 10px;">Classification, 확률론적생성모형, Generative, 생성모형, 분류모델</a> <a href="/tags/Crawling-Web-Requests/" style="font-size: 10px;">Crawling, Web, Requests</a> <a href="/tags/Google-Cloud-Platform/" style="font-size: 10px;">Google Cloud Platform</a> <a href="/tags/TWIL/" style="font-size: 20px;">TWIL</a> <a href="/tags/Thread/" style="font-size: 10px;">Thread</a> <a href="/tags/datastructure/" style="font-size: 10px;">datastructure</a> <a href="/tags/datastructure-stack/" style="font-size: 10px;">datastructure, stack</a> <a href="/tags/mysql-MYSQL-database/" style="font-size: 10px;">mysql, MYSQL, database</a> <a href="/tags/nginx-proxy/" style="font-size: 10px;">nginx, proxy</a> <a href="/tags/pillow-Pillow-image/" style="font-size: 10px;">pillow, Pillow, image</a> <a href="/tags/scrapy-crawling-web/" style="font-size: 10px;">scrapy, crawling, web</a> <a href="/tags/summary/" style="font-size: 16.67px;">summary</a> <a href="/tags/자동화-selenium-webdriver/" style="font-size: 10px;">자동화, selenium, webdriver</a>
+        <a href="/tags/CS224n/" style="font-size: 10px;">CS224n</a> <a href="/tags/CS231n/" style="font-size: 15px;">CS231n</a> <a href="/tags/Classification-확률론적생성모형-Generative-생성모형-분류모델/" style="font-size: 10px;">Classification, 확률론적생성모형, Generative, 생성모형, 분류모델</a> <a href="/tags/Crawling-Web-Requests/" style="font-size: 10px;">Crawling, Web, Requests</a> <a href="/tags/Google-Cloud-Platform/" style="font-size: 10px;">Google Cloud Platform</a> <a href="/tags/TWIL/" style="font-size: 20px;">TWIL</a> <a href="/tags/Thread/" style="font-size: 10px;">Thread</a> <a href="/tags/datastructure/" style="font-size: 10px;">datastructure</a> <a href="/tags/datastructure-stack/" style="font-size: 10px;">datastructure, stack</a> <a href="/tags/mysql-MYSQL-database/" style="font-size: 10px;">mysql, MYSQL, database</a> <a href="/tags/nginx-proxy/" style="font-size: 10px;">nginx, proxy</a> <a href="/tags/pillow-Pillow-image/" style="font-size: 10px;">pillow, Pillow, image</a> <a href="/tags/scrapy-crawling-web/" style="font-size: 10px;">scrapy, crawling, web</a> <a href="/tags/summary/" style="font-size: 20px;">summary</a> <a href="/tags/자동화-selenium-webdriver/" style="font-size: 10px;">자동화, selenium, webdriver</a>
     </div>
 </div>
 
@@ -1238,6 +1240,25 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
         <h3 class="menu-label">
             Recent
         </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/07/18/CS231n-Lecuture06-Summary/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="[CS231n]Lecture06-Training Neural Networks part1">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-18T11:38:56.000Z">2019-07-18</time></div>
+                    <a href="/2019/07/18/CS231n-Lecuture06-Summary/" class="has-link-black-ter is-size-6">[CS231n]Lecture06-Training Neural Networks part1</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Lecture/">Lecture</a> / <a class="has-link-grey -link" href="/categories/Lecture/CS231n/">CS231n</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -1262,14 +1283,14 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
             
             <a href="/2019/07/06/CS224n-Lecture01-Summary/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="CS224n-Lecture01-Summary">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="[CS224n]Lecture01-WordVecs">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-06T08:38:25.000Z">2019-07-06</time></div>
-                    <a href="/2019/07/06/CS224n-Lecture01-Summary/" class="has-link-black-ter is-size-6">CS224n-Lecture01-Summary</a>
+                    <a href="/2019/07/06/CS224n-Lecture01-Summary/" class="has-link-black-ter is-size-6">[CS224n]Lecture01-WordVecs</a>
                     <p class="is-size-7 is-uppercase">
                         <a class="has-link-grey -link" href="/categories/Lecture/">Lecture</a> / <a class="has-link-grey -link" href="/categories/Lecture/CS224n/">CS224n</a>
                     </p>
@@ -1315,25 +1336,6 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/05/31/SPARK-BASIC-1/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="SPARK BASIC 1">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-05-31T12:07:52.000Z">2019-05-31</time></div>
-                    <a href="/2019/05/31/SPARK-BASIC-1/" class="has-link-black-ter is-size-6">SPARK BASIC 1</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/MachineLearning/">MachineLearning</a> / <a class="has-link-grey -link" href="/categories/MachineLearning/Apache-Spark/">Apache Spark</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1352,7 +1354,7 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
                     <span class="level-item">July 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">2</span>
+                    <span class="level-item tag">3</span>
                 </span>
             </a>
         </li>
@@ -1615,23 +1617,7 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 <script src="/js/insight.js" defer></script>
 <link rel="stylesheet" href="/css/search.css">
-<link rel="stylesheet" href="/css/insight.css">
+<link rel="stylesheet" href="/css/insight.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
     
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

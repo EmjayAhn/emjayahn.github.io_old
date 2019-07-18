@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://emjayahn.github.io/"/>
-  <updated>2019-07-15T17:00:30.522Z</updated>
+  <updated>2019-07-18T11:48:27.019Z</updated>
   <id>https://emjayahn.github.io/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>[CS231n]Lecture06-Training Neural Networks part1</title>
+    <link href="https://emjayahn.github.io/2019/07/18/CS231n-Lecuture06-Summary/"/>
+    <id>https://emjayahn.github.io/2019/07/18/CS231n-Lecuture06-Summary/</id>
+    <published>2019-07-18T11:38:56.000Z</published>
+    <updated>2019-07-18T11:48:27.019Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Lecture-06-Training-Neural-Networks-part1"><a href="#Lecture-06-Training-Neural-Networks-part1" class="headerlink" title="Lecture 06: Training Neural Networks part1"></a>Lecture 06: Training Neural Networks part1</h1><ul><li>이 글은, Standford University 의 CS231n 강의를 듣고 스스로 정리 목적을 위해 적은 글입니다.</li></ul><a id="more"></a><h2 id="1-One-time-setup"><a href="#1-One-time-setup" class="headerlink" title="1. One time setup"></a>1. One time setup</h2><h3 id="1-1-Activation-Functions"><a href="#1-1-Activation-Functions" class="headerlink" title="1-1. Activation Functions"></a>1-1. Activation Functions</h3><p>Activation Function 마다 각 특성과 trade off 가 있다. 많이 사용되는 activation function 이 있지만, LU 계열의 activation function 은 모두 실험의 parameter가 될 수 있다.</p><p>(1) Sigmoid</p><p>$$\sigma(x) = \frac{1}{1+e^{-x}}$$</p><p><img src="Untitled-f80c60bd-97fe-4db9-a0a3-3a8a8c38907c.png" alt></p><p>sigmoid function 의 경우, 수식의 특성상 실수 space 에 있는 값들을 [0, 1] 범위 내로 좁혀 주는 기능을 해, 역사적으로 오래된 activation function 이다. 하지만 다음과 같은 단점이 있다.</p><ul><li>단점<ul><li>일정 범위(Saturated 되는 범위)부터 gradient가 0에 가까워진다.</li><li>sigmoid 의 출력 결과가 zero-centered 가 되지 않는다.</li><li>minor 한 단점이지만, exponential 의 계산이 비효율적이다.(비싸다고 표현)</li></ul></li></ul><p>왜 <strong>zero-centered</strong> 가 중요한가?</p><p>$$f(\sum_iw_ix_i+b)$$</p><p>강의에서 설명해준 직관적인 방법이 매우 도움이 되었다.</p><p>Backpropagation 을 생각해 보게 되면, Neuron(Node) 안에서 local gradient 와 loss 에서 부터 오는 upstream gradient 가 곱해지게 된다. 위 식에서 w 에 대해 local gradient 를 구하면 x_i 가 되는 것을 확인 할 수 있다. 만약 xi 가 모두 양수라고 가정한다면, f()의 gradient 는 항상 양수 또는 음수이고, 이는 w 가 모두 같은 방향으로 움직인다는 것을 의미한다. 즉, 비효율적인 gradient update 라고 할 수 있다. </p><p>(2) hyper tangent : Tanh(x)</p><p>$$tanh(x)=\frac{e^{2x}-1}{e^{2x}+1}$$</p><p><img src="Untitled-c1d35d05-3ea2-49a8-9e8a-5c85bbc519a7.png" alt></p><p>위와 같은 zero-centered problem 을 해결하기 위해 tanh(x) 를 사용할 수 도 있다. (추가적으로, 수업시간에 언급은 없었으나, tanh의 등장배경을 설명하는 또다른 한가지는 sigmoid  와 tanh 의 gradient의 최댓값이 4배 차이가 나므로, backpropagation 에서 gradient vanishing 현상을 방지하는 기대효과로 설명하기도 한다.)하지만, 이 역시 sigmoid 처럼 saturate 되는 부분에서 gradient 가 0이 되는 현상이 아직 남아있다.</p><p>(3) ReLU</p><p>$$f(x) = max(0, x)$$</p><p><img src="Untitled-5850722c-4016-4335-b77a-d5237ed6d5b6.png" alt></p><p>ReLU 의 경우, 가장 우리가 많이 볼 수 있는 activation function 이다. 다음과 같은 장점이 있다고 설명한다.</p><ul><li>장점<ul><li>양수인 구간에서는 gradient 가 0이 되지 않고</li><li>계산이 효율적이다.</li><li>sigmoid 와 tanh 에 비해 실제로 6배 빠른 converge 성능을 보여준다.</li></ul></li><li>단점<ul><li>zero-centered output이 아니다.</li><li>0보다 작은 구간에서는 gradient 가 0이 된다.</li></ul></li></ul><p>(4) Leaky ReLU</p><p>$$f(x) = max(0.01x, x)$$</p><p><img src="Untitled-ed8a9855-d2ce-4756-93d5-e042e0a7b823.png" alt></p><p>0보다 작은 구간에서 ReLU 처럼 Saturate 되는 단점을 없애고자, 0보다 작은 구간에서 작은 gradient 를 주는 것이 Leary Relu 이다. </p><ul><li>장점<ul><li>양수 구간 뿐만아니라 음수 구간에서 gradient 를 작게 주어 gradient 가 0 이 되지 않게 한다.</li><li>ReLU function 과 마찬가지로, 계산이 효율적이고</li><li>sigmoid 와 tanh 에 비해 빠르게 수렴한다.</li></ul></li></ul><p>Parametric Rectifier(PReLU) 라는 이름으로, 좀더 generalize 된 형태도 사용한다. $max(\alpha x, x)$ 형태로써, alpha 를 고정시키지 않고 학습시키는 형태이다.</p><p>(5) Exponential Linear Units (ELU)</p><p>$$f(x)=\begin{cases}x \quad\quad\quad\quad if\quad x&gt;0 \ \alpha(exp(x) -1) \quad if \quad x\leq 0 \end{cases}$$</p><p><img src="Untitled-b527e985-4c1c-475f-a01a-6f8bdb006ceb.png" alt></p><p>(6) Maxout Neuron</p><p>ReLU function 의 Generalize 된 형태라고 생각할 수 있다.</p><p>$$max(w_1^{T}x + b_1, w_2^Tx + b_2)$$</p><p>하지만, 이 형태는 각 뉴런마다 두 배의 parameter를 가지고 그 output 값 간의 비교를 하므로, 연산량이 두배가 많아지는 단점이 있다.</p><p>(6) Summary</p><ul><li>ReLU 를 사용한다!</li><li>Leaky ReLU, Maxout, ELU 를 실험해볼 수 있다.</li><li>tanh 도 실험할 수 있지만, 큰 효능을 기대하기 힘들다</li><li><strong>Don’t Use sigmoid</strong></li></ul><h3 id="1-2-Data-Preprocessing"><a href="#1-2-Data-Preprocessing" class="headerlink" title="1-2. Data Preprocessing"></a>1-2. Data Preprocessing</h3><p>앞서 살펴 보았던 것 처럼, 입력 데이터에 있어서 zero-centered 가 매우 중요한 preprocessing key 라고 생각 할 수 있다. 머신러닝에서 처럼 다양한 normalized 기법과 whitening 기법들이 있지만, 뉴럴넷, 특히 이미지 데이터에 대해서는 zero-centered 까지만 전처리 해준다. 이는 모든 차원의 데이터가 같은 범위안에 있게 함으로써 각 차원이 equally contribute 하게 하기 위함이다.</p><p><img src="Untitled-417f2e92-c3d6-4bc1-825e-7dfc79a52956.png" alt></p><h3 id="1-3-Weight-Initialization"><a href="#1-3-Weight-Initialization" class="headerlink" title="1-3. Weight Initialization"></a>1-3. Weight Initialization</h3><p>우리가 설정하는 각 layer 의 weight 을 어떻게 초기화 해줄 것인가의 문제도 뉴럴넷의 학습과 성능에 영향이 있을 수 있다. 작은 gaussian random number 로 모든 weight 을 초기화 해 줄 경우, layer 를 지날 수록 activation function 을 거친 작은 output 과 초기화 된  작은 w 가 곱해져, 점차 그 분산이 작아 지는 것을 확인 할 수 있다. </p><p><img src="Untitled-96d3f546-0140-4ccf-b6b1-925eb79dba94.png" alt></p><p>따라서, 이런 가우시안 랜덤으로 초기화 해주는 것이 아닌 다른 초기화 방법이 등장하였다.</p><ul><li>Xavier Initialization &amp; He Initialization</li></ul><p>개인적으로 Xavier Initialization 과 He Initialization 을 간단하게 실험해 본 내용은 나의 github에 올려두었다. 비교군 설정에 있어, 미흡하지만 직관적으로 이해하기 쉽게 실험해 본 내용이다. 간단한 api 를 통해 구현하였기에, 자세한 수식과 개념은 해당 논문을 읽어보고, 정리해봐야겠다.</p><p>github: <a href="https://github.com/EmjayAhn/TIL/blob/master/03_Pytorch/02_xavier%26he.ipynb" target="_blank" rel="noopener">Xavier vs He experiment</a></p><h3 id="1-4-Batch-Normalization"><a href="#1-4-Batch-Normalization" class="headerlink" title="1-4. Batch Normalization"></a>1-4. Batch Normalization</h3><p>결국 우리는 모든 activation 이 unit gaussian form  이길 원한다. 위에서도 살펴 보았듯이, activation function  에 들어가기 전에 모든 fully connected layer 의 출력이 saturate 구간에 있게 하고 싶지 않은 것이다. 따라서, 주로 Batch Normalization 은 <strong>Fully Connected Layer 이후 비선형함수 전</strong> 또는 <strong>Convolution Layer 다음</strong> 에 들어가게 된다.</p><p>이 때, 주의 해야할 점은 Convolution Layer 다음에 들어가는 batch normalize 는 activation map 으로 나온 channel 별로 수행해주게 된다.</p><ol><li>batch mean 과 variance 는 각 차원별로 계산해 준다.</li><li>Normalize </li></ol><p>$$\hat{x}^{(k)} = \frac{x^{(k)}-E[x^{(k)}]}{\sqrt{Var[x^{(k)}]}}$$</p><p>앞서, batch normalization 의 목적은 network의 forward, backward pass 시 saturation 이 일어나지 않게 하기 위함이었습니다. 하지만 반면에, 이렇게 batch normalization 을 해준 이후에도 우리는 network 이 얼마나 해당 activation 을 얼마나 saturate 시킬지까지 학습 할 수 있다면 얼마나 좋을까요? 따라서 우리는 normalize 이후에 scaling factor 와 shifting factor 를 추가시켜, 얼마나 saturate 시킬지까지 학습할 수 있는 parameter 를 추가합니다.</p><p>$$y^{(k)} = \gamma^{(k)}\hat{x}^{(k)} + \beta^{k}$$</p><p>Batch Noramlization 에 대한 pseudo 알고리즘이다.</p><p><img src="Untitled-83e0b3e7-d764-4a19-9c28-9fe815096b28.png" alt></p><p>또한, 우리는 이렇게 학습한 batch mean 과 variance  를 학습 때 사용하며, testing (inference) 시에는 다시 계산하지 않는 것을 유의해야한다. testing 시에는 training 시 running average 등의 방식으로 고정된 mean과 variance 등을 사용할 수 있다.</p><h2 id="2-Training-Dynamics"><a href="#2-Training-Dynamics" class="headerlink" title="2. Training Dynamics"></a>2. Training Dynamics</h2><h3 id="2-1-Babysitting-the-Learning-Process"><a href="#2-1-Babysitting-the-Learning-Process" class="headerlink" title="2-1. Babysitting the Learning Process"></a>2-1. Babysitting the Learning Process</h3><ol><li><p>Preprocess the data</p></li><li><p>Build Model</p></li><li><p>Sanity check for model (e.g. weigh이 작을ㄹ 때, loss가 negative log likelihood 와 비슷한지, regularization term이 추가될때 loss 가 증가하는지 등)</p></li><li><p>(regularization term 을 사용하지 않고) 매우 작은 데이터에 대해서, train  을 돌렸을 때, loss 가 떨어지고, 금방 overfitting 되는지 확인</p><br>여기까지가 sanity check 이라면, 이제 본격적인 training!!<br></li><li><p>간단한 몇가지 실험을 통해 learning rate 을 정한다. 큰 값, 작은 값을 넣어보고, epoch 을 10까지 정도로 주었을 때, loss 가 주는 지 확인하여 대략적인 범위를 정한다.</p></li><li><p>Coarse search: learning rate 과 다른 hyper parameter 를 uniform 등과 같은 distribution 을 통해 random search 한다. 강의에서 말했던, 주의사항 : 범위의 양 끝에 가장 좋은 score 가 뿌려져 있다면, 다시 범위를 설정해야한다. 내가 처음 설정한 범위 끝단에 존재한다면 그 주변에서 다시 최적의 값이 존재 할 수 있기 때문이다.</p></li><li><p>Finer search: 최적의 값을 찾기 위해 세세하게 튜닝한다.</p></li></ol><h3 id="2-2-Hyperparameter-Optimization"><a href="#2-2-Hyperparameter-Optimization" class="headerlink" title="2-2. Hyperparameter Optimization"></a>2-2. Hyperparameter Optimization</h3><ul><li>많은 양의 Cross Validation 을 통해 성능을 비교, 검증하며 최적의 hyper parameter 를 찾아야한다!</li><li>Grid Search &lt;&lt; Random Search<ul><li>Random Sampling 을 통해 좀더 중요한 parameter 의 분포를 찾아 낼 수 있어, Random search 가 효과적</li></ul></li></ul><h2 id="3-Reference"><a href="#3-Reference" class="headerlink" title="3. Reference"></a>3. Reference</h2><p><a href="https://www.youtube.com/watch?v=wEoyxE0GP2M" target="_blank" rel="noopener">Lecture 6 | Training Neural Networks I</a></p><p><a href="http://cs231n.stanford.edu/syllabus.html" target="_blank" rel="noopener">Syllabus | CS 231N</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Lecture-06-Training-Neural-Networks-part1&quot;&gt;&lt;a href=&quot;#Lecture-06-Training-Neural-Networks-part1&quot; class=&quot;headerlink&quot; title=&quot;Lecture 06: Training Neural Networks part1&quot;&gt;&lt;/a&gt;Lecture 06: Training Neural Networks part1&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;이 글은, Standford University 의 CS231n 강의를 듣고 스스로 정리 목적을 위해 적은 글입니다.&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="Lecture" scheme="https://emjayahn.github.io/categories/Lecture/"/>
+    
+      <category term="CS231n" scheme="https://emjayahn.github.io/categories/Lecture/CS231n/"/>
+    
+    
+      <category term="summary" scheme="https://emjayahn.github.io/tags/summary/"/>
+    
+      <category term="CS231n" scheme="https://emjayahn.github.io/tags/CS231n/"/>
+    
+  </entry>
   
   <entry>
     <title>볼 때마다 헷갈리는 Iterable, Iterator, Generator 정리하기</title>
@@ -38,11 +66,11 @@
   </entry>
   
   <entry>
-    <title>CS224n-Lecture01-Summary</title>
+    <title>[CS224n]Lecture01-WordVecs</title>
     <link href="https://emjayahn.github.io/2019/07/06/CS224n-Lecture01-Summary/"/>
     <id>https://emjayahn.github.io/2019/07/06/CS224n-Lecture01-Summary/</id>
     <published>2019-07-06T08:38:25.000Z</published>
-    <updated>2019-07-15T16:56:37.494Z</updated>
+    <updated>2019-07-18T11:42:29.208Z</updated>
     
     <content type="html"><![CDATA[<h1 id="CS224n-Lecture-1-Introduction-and-Word-Vectors"><a href="#CS224n-Lecture-1-Introduction-and-Word-Vectors" class="headerlink" title="[CS224n] Lecture 1: Introduction and Word Vectors"></a>[CS224n] Lecture 1: Introduction and Word Vectors</h1><p>Standford University 의 CS224n 강의를 듣고 정리하는 글입니다.</p><a id="more"></a><h2 id="1-Human-Language-and-Word-Meaning"><a href="#1-Human-Language-and-Word-Meaning" class="headerlink" title="1. Human Language and Word Meaning"></a>1. Human Language and Word Meaning</h2><p><strong>Word meaning</strong> 의 뜻 : symbol → idea or thing : Denotational Semantics</p><p>우리가 ‘의자’라는 단어를 예로 들자면, 말하는 사람과 듣는 사람 모두 의자와 관련된 특정한 이미지와 아이디어 등을 생각해 볼 수 있다. 이렇게 단어에 대해 관념적인 것을 word meaning 이라고 할 수 있다. 그렇다면 컴퓨터에서 사용할 수 있는 <strong>word meaning</strong> 은 어떤 것이 있을까?</p><h3 id="In-Computer-Word-Representations"><a href="#In-Computer-Word-Representations" class="headerlink" title="In Computer Word Representations"></a>In Computer Word Representations</h3><ol><li>WordNet: synonym 과 hypernyms 의 집합으로 표현 (e.g: nltk wordnet)<ul><li>아주 귀한 dataset 이지만,</li><li>단점: Nuance (뉘앙스)를 담아내지 못함, 새로운 단어에 대해 사람이 직접 가공하여 추가해주어야 한다. 단어의 동의어에 대해 계산할 수 없음</li></ul></li><li>Discrete Symbols: One-hot-vectors<ul><li>단점 : 벡터의 차원이 우리가 가지고 있는 단어의 갯수만큼 커지게 된다. Corpus 의 구성 단어가 커질 수록 계산 해야하는 벡터 차원이 매우 커진다. 이는 컴퓨팅 자원의 부족으로 인한 현실적 구현의 어려움을 야기시킨다.</li><li>One-hot-Vector 는 Vector Space 에서 모두 서로 orthogonal (직교)한다. 즉, similarity 가 모두 0으로 단어간의 관계를 알기 힘들다.</li></ul></li><li>By CONTEXT: Word Vecttors<ul><li>“You shall know a word by the company it keeps” (J.R.Firth)</li><li>어떤 특정 단어 w 가 나온다는 것은, 그 주변 단어들(context)이  있기 때문이다.</li><li>Word Vectors == Word Embeddings == Word Representations == Distributed Representation</li></ul></li></ol><h2 id="2-Word2vec-Introduction"><a href="#2-Word2vec-Introduction" class="headerlink" title="2. Word2vec Introduction"></a>2. Word2vec Introduction</h2><p>Word2vec(Mikolov et al. 2013) 은 Word Vectors 를 만들기 위한 알고리즘 중 가장 기초 뼈대를 이루는 알고리즘이다.</p><ol><li>가지고 있는 텍스트 데이터를 구성하는 큰 CORPUS</li><li>Corpus 의 모든 단어는 RandomVector 로 시작한다.</li><li>각 position t 에 대해, 중심단어 c(center) 와 주변단어 o(outside) 를 생각할 수 있다.</li><li>중심단어 c 가 주어질 때, 주변단어 o 의 확률을 구하기 위해(skip-gram)(반대로도 가능(cbow): 주변단어가 주어질 때, 중심단어의 확률을 구하는 방법), 중심단어 c 와 주변단어 o, word 벡터들에 대해 similarity를 구한다.</li><li>위의 확률을 최대화 하기 위해 word vector 를 updating 한다.</li></ol><p><img src="Untitled-cc28ca48-12e4-4a20-a6c4-b0be86d339d8.png" alt></p><h2 id="3-Word2vec-objective-function-gradients"><a href="#3-Word2vec-objective-function-gradients" class="headerlink" title="3. Word2vec objective function gradients"></a>3. Word2vec objective function gradients</h2><p>문장의 특정 위치 t 에 대해 (t = 1, …, T), 중심단어w_j가 주어졌을때, 주변단어를 한정하는 window size m 에 대해  주변단어들을 예측하는 Likelihood 는 다음과 같습니다. likelihood 식을 해석해보면, 중심단어 w_t 에 대해 중심단어를 중심으로 window 사이즈 2m 개의 단어들의 확률을 모두 곱하고, T 개의 단어 갯수에 대해 또 다시 모두 곱합니다.</p><p>$$Likelihood\quad L(\theta)= \prod_{t=1}^{T}\prod_{-m \leq j \leq m}P(w_{t+j}|w_{t};\theta)$$</p><p>목적함수는 likelihood 를 바탕으로 minimize와 average, 계산 편의를 위해 log 를 씌웠다는 것외에 likelihood 와 동일하다.</p><p>$$objective function \quad J(\theta) = - \frac{1}{T}logL(\theta)=-\frac{1}{T}\sum_{t=1}^{T}\sum_{-m \leq j \leq m, j\neq0}logP(w_{t+j} | w_{t};\theta)$$</p><p>단어가 등장할 확률을 구하는 방법은 Softmax Function 을 활용합니다.</p><p><img src="Untitled-99acc04b-91fd-451c-868f-574d995778b3.png" alt></p><h3 id="Objective-Function-의-derivative"><a href="#Objective-Function-의-derivative" class="headerlink" title="Objective Function 의 derivative"></a>Objective Function 의 derivative</h3><p>Objective Function 과 단어 확률 (Softmax) 의 미분을 구하는 과정이다. </p><p><img src="Untitled-d45516b7-8024-457c-bda2-39092a1f6892.png" alt></p>]]></content>
     
@@ -481,30 +509,6 @@
       
         &lt;h1 id=&quot;181216-TWIL&quot;&gt;&lt;a href=&quot;#181216-TWIL&quot; class=&quot;headerlink&quot; title=&quot;181216 TWIL&quot;&gt;&lt;/a&gt;181216 TWIL&lt;/h1&gt;&lt;hr&gt;
 &lt;h2 id=&quot;오늘-한-일은-무엇인가&quot;&gt;&lt;a href=&quot;#
-      
-    
-    </summary>
-    
-      <category term="Diary" scheme="https://emjayahn.github.io/categories/Diary/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>181215-TodayWhatILearned</title>
-    <link href="https://emjayahn.github.io/2018/12/15/181215-TodayWhatILearned/"/>
-    <id>https://emjayahn.github.io/2018/12/15/181215-TodayWhatILearned/</id>
-    <published>2018-12-15T14:32:26.000Z</published>
-    <updated>2018-12-16T13:08:01.140Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="181210-TWIL"><a href="#181210-TWIL" class="headerlink" title="181210 TWIL"></a>181210 TWIL</h1><hr><h2 id="To-Do-list"><a href="#To-Do-list" class="headerlink" title="To-Do-list"></a>To-Do-list</h2><ol><li>DataThon 발표 준비</li><li>Pandas 4장 공부</li><li>알고리즘 문제풀기</li><li>(Study) 프로젝트 미니(웹어플리케이션) 준비</li><li>(Project) Classification Project Data EDA</li></ol><h2 id="오늘-한-일은-무엇인가"><a href="#오늘-한-일은-무엇인가" class="headerlink" title="오늘 한 일은 무엇인가"></a>오늘 한 일은 무엇인가</h2><ol><li>Datathon 발표준비</li><li>알고리즘 문제 풀기</li><li>(Study) 프로젝트 미니(웹어플리케이션) 준비</li></ol><hr><h2 id="내일-할-일은-무엇인가"><a href="#내일-할-일은-무엇인가" class="headerlink" title="내일 할 일은 무엇인가"></a>내일 할 일은 무엇인가</h2><ol><li>Pandas 4장 공부</li><li>Support Vector Machine 공부</li><li>알고리즘 문제풀기</li><li>NoSQL, MySQL syntax 정리<br></li></ol><hr><h2 id="무엇을-느꼈는가"><a href="#무엇을-느꼈는가" class="headerlink" title="무엇을 느꼈는가"></a>무엇을 느꼈는가</h2><ul><li>데이터톤 발표를 준비하면서, 제출했던 코드와 과정을 다시 살펴보니 Markdown 이나<br>주석이 부족함을 느꼈다. 다시 볼 때 좀더 편할 수 있도록, 코드와 과정을 다시 이어 나가는데 시간을 덜 소비하도록 나름 신경써서 작성하며 진행했는데, 다시 보려고 하니 머릿속에 있었던 것들이 다 작성되어 있지 않았다. 지금은 데이터톤에서 얼마 지나지 않았기 때문에, 기억에 남는 것이겠다. 하지만 추후에 다시 볼때는 기억이 나지 않아, 내가 작성한 코드와 문서임에도 불구하고 그 맥락을 이해하기 위해 처음부터 읽어 볼 것이다.</li><li>앞으로는 좀더 주석과 마크다운 문서에 신경을 많이 써야겠다. 짤막하게라도, 데이터 분석과정 중에 들었던 생각들을 작성해 놓아야, 그 시간이 지난뒤에 Develop 을 하던, 복기를 하던 계속 생각의 흐름을 이어 나갈 수 있을 것이다.</li><li><code>일일코딩</code>, <code>DailyCommit</code> 등에 관한 글을 읽었다. 개인의 다짐과도 비슷하고, 개인 프로젝트로 개발자들이 많이 하는 것 같다. 글을 읽은 직후에는 나도 하고 싶다는 생각을 했지만, 과연 할 수 있을 것인가 하며 반문을 하였다. 다짐의 문제라고 하기엔, 너무 정신 없는 나날을 보내고 있기에.. 도전할 것인지 하루만 더 고민해봐야겠다.</li></ul><hr>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;181210-TWIL&quot;&gt;&lt;a href=&quot;#181210-TWIL&quot; class=&quot;headerlink&quot; title=&quot;181210 TWIL&quot;&gt;&lt;/a&gt;181210 TWIL&lt;/h1&gt;&lt;hr&gt;
-&lt;h2 id=&quot;To-Do-list&quot;&gt;&lt;a href=&quot;#To
       
     
     </summary>
