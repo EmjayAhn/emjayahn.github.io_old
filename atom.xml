@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://emjayahn.github.io/"/>
-  <updated>2019-07-18T11:55:58.882Z</updated>
+  <updated>2019-07-22T04:14:58.353Z</updated>
   <id>https://emjayahn.github.io/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>[CS231n]Lecture07-Training Neural Networks part2</title>
+    <link href="https://emjayahn.github.io/2019/07/22/CS231n-Lecture07-Summary/"/>
+    <id>https://emjayahn.github.io/2019/07/22/CS231n-Lecture07-Summary/</id>
+    <published>2019-07-22T04:12:21.000Z</published>
+    <updated>2019-07-22T04:14:58.353Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Lecture-07-Training-Neural-Networks-part2"><a href="#Lecture-07-Training-Neural-Networks-part2" class="headerlink" title="Lecture 07: Training Neural Networks part2"></a>Lecture 07: Training Neural Networks part2</h1><ul><li>이 글은, Standford University 의 CS231n 강의를 듣고 스스로 정리 목적을 위해 적은 글입니다.</li></ul><a id="more"></a><h2 id="1-Fancier-Optimization"><a href="#1-Fancier-Optimization" class="headerlink" title="1. Fancier Optimization"></a>1. Fancier Optimization</h2><h3 id="1-1-Problems-with-SGD"><a href="#1-1-Problems-with-SGD" class="headerlink" title="1-1. Problems with SGD"></a>1-1. Problems with SGD</h3><ul><li>Loss function 의 gradient 방향이 고르지 못해, 지그재그 형태로 업데이트가 일어나고, 그 업데이트가 느리게 발생된다. 고차원으로 갈수록, 자주 만날 수 있는 문제.</li><li>Local Minima &amp; Saddle point: 높은 차원에서 생각해보면, Local Minima 는 고차원의 모든 gradient 방향에 대해 전부 loss 가 증가하는 방향이므로, 이 경우보다는 Saddle point 문제가 훨씬더 빈번하게 발생한다. Saddle point 의 경우 그 포인트 자체도 문제지만, 그 근처에서 gradient 가 매우 작기 때문에 update 를 해도 매우 느린 문제가 있다.</li><li>SGD 의 S - stochastic! : 미니 배치의 loss 를 가지고 전체 training loss 를 추정하는 것이므로, 노이즈가 포함된 추정일 수 밖에없다.</li></ul><h3 id="1-2-다양한-최적화-알고리즘-기법"><a href="#1-2-다양한-최적화-알고리즘-기법" class="headerlink" title="1-2. 다양한 최적화 알고리즘 기법"></a>1-2. 다양한 최적화 알고리즘 기법</h3><p>최적화 알고리즘은 간단하게 정리한다.</p><ul><li>SGD, SGD + Momentum, Nesterov Momentum : 진행방향과 그 gradient (Momentum) 을 더해 실제로 업데이트 될 방향을 정한다.</li><li>AdaGrad : 이전에 진행했던  gradient 를 제곱하여, 업데이트가 진행 될 수록 학습률을 작게해, 세밀하게 업데이트한다.</li><li>RMSProp : AdaGrad 가 gradient 를 제곱할 때, 학습의 후반부에 갈수록 gradient 가 0 에 가까워 지게 되므로, 제곱하는 term 의 비율을 설정해 0으로 가는 것을 막는다.</li><li>Adam : Momentum 방법과 AdaGrad를 합친 방법으로써, 학습률을 조절하면서, 속도를 조절하는 방법이다.</li></ul><h2 id="2-Regularization"><a href="#2-Regularization" class="headerlink" title="2. Regularization"></a>2. Regularization</h2><h3 id="2-1-Dropout"><a href="#2-1-Dropout" class="headerlink" title="2-1. Dropout"></a>2-1. Dropout</h3><p>앞선 강의에서 다양한 Regularization 방법들을 살펴 보았었다.L2, L1, Elastic Net 등. 이번 강의에서는 신경망에서 자주 사용되는 dropout 방법을 살펴본다. Dropout 이란 forward 진행시, 일부 뉴런을 0으로 만들어 버리는 것을 말한다. dropout layer 는 우리가 그 dropout rate 을 설정하므로써, 어떤 확률로 꺼질지 설정할 수 있다. dropout 은 먼저 각 뉴런이 서로 동화되는 것을 방지함으로써 다양한 표현방식을 지닐 수 있게 한다. 또한, dropout 은 여러 sub model 을 앙상블 하는 효과를 낼 수 있다.</p><p>Dropout Layer 를 사용할 시 주의 할 점은 evaluation, inference 시, 네트워크의 출력에 dropout 확률을 곱해주어야 한다는 점이다. 혹은 test 시에는 기존 출력을 그대로 사용하고, train 할 때 dropout확률로 나눠주는 방법이다. (keras 에는 후자로 구현되어있는 듯 하다.)</p><p>p.s. Batch Normalization 에 regularization 의 효과가 있으므로, 일반적으로 BN 과 dropout 을 같이 사용하지는 않는다. 하지만 dropout 에는 우리가 조절할 수 있는 dropout rate 이 있는 장점이 있다.</p><h3 id="2-2-Data-Augmentation"><a href="#2-2-Data-Augmentation" class="headerlink" title="2-2. Data Augmentation"></a>2-2. Data Augmentation</h3><p>신경망은 기본적으로 데이터가 많으면 많을 수록 학습에 유리한 이점이 있다. 따라서 우리가 가지고 있는 데이터를 조금씩 변형하여, 학습 데이터를 늘려주는 방법을 사용할 수 있다. horizontal flip이나, 사진에 일부분을 자르는 방법, Color jittering(이미지의  contrast, brightness 를 변형해준다)</p><h3 id="2-3-Drop-Connect"><a href="#2-3-Drop-Connect" class="headerlink" title="2-3.  Drop Connect"></a>2-3.  Drop Connect</h3><p>Activation 이 아닌, weight 을 확률적으로 0을 만들어 주는 방법</p><h3 id="2-4-Fractional-Max-Pooling"><a href="#2-4-Fractional-Max-Pooling" class="headerlink" title="2-4. Fractional Max Pooling"></a>2-4. Fractional Max Pooling</h3><p>고정된  Pooling window 를 랜덤으로 정하는 방법. 자주 사용되지는 않는다.</p><h2 id="3-Transfer-Learning"><a href="#3-Transfer-Learning" class="headerlink" title="3. Transfer Learning"></a>3. Transfer Learning</h2><p>유명한 모델과 깊은 네트워크는 대부분 많은량의 데이터와 많은 하드웨어 Resource와 시간이 투입되서 구축된다. 우리가 이 모델구조를 가져와 우리의 목적에 맞게 사용하려고 보면, 우리가 가지고 있는 데이터와 자원의 한계로 학습에 실패하거나 그 시간이 매우 오래 걸리곤 한다. Transfer Learning 은 기존에 학습되어있는 모델 구조와 그 weight 을 가져와, 마지막 Fully Connected Layer 를 우리의 task 에 맞게 수정하고 이 부분만 학습하는 개념을 말한다. </p><p><img src="Untitled-efed7ce8-fb60-4622-ad9c-c01d764a5308.png" alt></p><h2 id="4-Reference"><a href="#4-Reference" class="headerlink" title="4. Reference"></a>4. Reference</h2><p><a href="https://www.youtube.com/watch?v=_JB0AO7QxSA" target="_blank" rel="noopener">Lecture 7 | Training Neural Networks II</a></p><p><a href="http://cs231n.stanford.edu/syllabus.html" target="_blank" rel="noopener">Syllabus | CS 231N</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Lecture-07-Training-Neural-Networks-part2&quot;&gt;&lt;a href=&quot;#Lecture-07-Training-Neural-Networks-part2&quot; class=&quot;headerlink&quot; title=&quot;Lecture 07: Training Neural Networks part2&quot;&gt;&lt;/a&gt;Lecture 07: Training Neural Networks part2&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;이 글은, Standford University 의 CS231n 강의를 듣고 스스로 정리 목적을 위해 적은 글입니다.&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="Lecture" scheme="https://emjayahn.github.io/categories/Lecture/"/>
+    
+      <category term="CS231n" scheme="https://emjayahn.github.io/categories/Lecture/CS231n/"/>
+    
+    
+      <category term="summary" scheme="https://emjayahn.github.io/tags/summary/"/>
+    
+      <category term="CS231n" scheme="https://emjayahn.github.io/tags/CS231n/"/>
+    
+  </entry>
   
   <entry>
     <title>[CS231n]Lecture06-Training Neural Networks part1</title>
@@ -38,9 +66,9 @@
       <category term="CS231n" scheme="https://emjayahn.github.io/categories/Lecture/CS231n/"/>
     
     
-      <category term="CS231n" scheme="https://emjayahn.github.io/tags/CS231n/"/>
-    
       <category term="summary" scheme="https://emjayahn.github.io/tags/summary/"/>
+    
+      <category term="CS231n" scheme="https://emjayahn.github.io/tags/CS231n/"/>
     
   </entry>
   
@@ -85,9 +113,9 @@
       <category term="CS224n" scheme="https://emjayahn.github.io/categories/Lecture/CS224n/"/>
     
     
-      <category term="summary" scheme="https://emjayahn.github.io/tags/summary/"/>
-    
       <category term="CS224n" scheme="https://emjayahn.github.io/tags/CS224n/"/>
+    
+      <category term="summary" scheme="https://emjayahn.github.io/tags/summary/"/>
     
   </entry>
   
@@ -187,9 +215,9 @@
       <category term="CS231n" scheme="https://emjayahn.github.io/categories/Lecture/CS231n/"/>
     
     
-      <category term="CS231n" scheme="https://emjayahn.github.io/tags/CS231n/"/>
-    
       <category term="summary" scheme="https://emjayahn.github.io/tags/summary/"/>
+    
+      <category term="CS231n" scheme="https://emjayahn.github.io/tags/CS231n/"/>
     
   </entry>
   
@@ -215,9 +243,9 @@
       <category term="CS231n" scheme="https://emjayahn.github.io/categories/Lecture/CS231n/"/>
     
     
-      <category term="CS231n" scheme="https://emjayahn.github.io/tags/CS231n/"/>
-    
       <category term="summary" scheme="https://emjayahn.github.io/tags/summary/"/>
+    
+      <category term="CS231n" scheme="https://emjayahn.github.io/tags/CS231n/"/>
     
   </entry>
   
@@ -243,9 +271,9 @@
       <category term="CS231n" scheme="https://emjayahn.github.io/categories/Lecture/CS231n/"/>
     
     
-      <category term="CS231n" scheme="https://emjayahn.github.io/tags/CS231n/"/>
-    
       <category term="summary" scheme="https://emjayahn.github.io/tags/summary/"/>
+    
+      <category term="CS231n" scheme="https://emjayahn.github.io/tags/CS231n/"/>
     
   </entry>
   
@@ -271,9 +299,9 @@
       <category term="CS231n" scheme="https://emjayahn.github.io/categories/Lecture/CS231n/"/>
     
     
-      <category term="CS231n" scheme="https://emjayahn.github.io/tags/CS231n/"/>
-    
       <category term="summary" scheme="https://emjayahn.github.io/tags/summary/"/>
+    
+      <category term="CS231n" scheme="https://emjayahn.github.io/tags/CS231n/"/>
     
   </entry>
   
@@ -484,30 +512,6 @@
       
       
         &lt;h1 id=&quot;181220-TWIL&quot;&gt;&lt;a href=&quot;#181220-TWIL&quot; class=&quot;headerlink&quot; title=&quot;181220 TWIL&quot;&gt;&lt;/a&gt;181220 TWIL&lt;/h1&gt;&lt;hr&gt;
-&lt;h2 id=&quot;오늘-한-일은-무엇인가&quot;&gt;&lt;a href=&quot;#
-      
-    
-    </summary>
-    
-      <category term="Diary" scheme="https://emjayahn.github.io/categories/Diary/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>181216-TodayWhatILearned</title>
-    <link href="https://emjayahn.github.io/2018/12/16/181216-TodayWhatILearned/"/>
-    <id>https://emjayahn.github.io/2018/12/16/181216-TodayWhatILearned/</id>
-    <published>2018-12-16T13:01:09.000Z</published>
-    <updated>2018-12-16T13:23:02.493Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="181216-TWIL"><a href="#181216-TWIL" class="headerlink" title="181216 TWIL"></a>181216 TWIL</h1><hr><h2 id="오늘-한-일은-무엇인가"><a href="#오늘-한-일은-무엇인가" class="headerlink" title="오늘 한 일은 무엇인가"></a>오늘 한 일은 무엇인가</h2><ol><li>DataThon 발표</li><li>Perceptron 공부</li><li>(Project) Quara Dataset EDA<ul><li>question_text 에서 vectorize 하기전에 특징값들을 뽑아내기</li><li>나이브 베이지안 돌려보기</li></ul></li><li>(Study) 스터디때 나눌 WebApplication 의 구조, MVC model 나누기</li></ol><hr><h2 id="내일-할-일은-무엇인가"><a href="#내일-할-일은-무엇인가" class="headerlink" title="내일 할 일은 무엇인가"></a>내일 할 일은 무엇인가</h2><ol><li>(Study) 스터디원 블로그 개설, Flask에 비유한 WebApplication, MVC model 공부하기</li><li>(Stydy) PROJECTmini WebApplication 계획 세우기</li><li>(Project) EDA 짬짬히 계속하기</li><li>SVM 공부<br></li></ol><hr><h2 id="무엇을-느꼈는가"><a href="#무엇을-느꼈는가" class="headerlink" title="무엇을 느꼈는가"></a>무엇을 느꼈는가</h2><ul><li>Datathon에서 분석했던 내용을 발표하는 시간을 가졌다. 발표를 하면서 부족하다고 생각했던 점과 comment 를<br>잊기 전에 정리해본다.<ol><li>후기 및 생각과 느낌<ol><li>프레젠테이션 능력이 부족하다.<ul><li>긴장, 생각의 흐름을 말로 표현하는 것이 부족했다. 나름대로 이야기 할 것을 리스트업해갔지만, 잘 눈에 들어오지 않았다.</li><li>스크립트를 다 작성해가는 것이 좋은 것일까?</li></ul></li><li>프레젠테이션 혹은 데이터를 모르는 사람도 읽을 수 있는 마크다운 정리가 부족했다.<ul><li>데이터톤 당시 시간에 쫓기는 것도 있었고, 데이터를 분석하고 코드를 작성하면서 <code>나중에 하면 되겠지</code> 라고 생각했다.</li><li>결과는 제대로 마무리와 정리를 하지 못한 채로 제출했고, 이는 발표할 때 쓰는 자료로서는 0점에 가까웠다.</li><li>프로젝트나, 코드를 작성할 때 comment 를 좀더 세세하게 작성하도록 노력해야겠다.</li></ul></li></ol></li><li>지적해주신 comment<ol><li>Regression 에서 intercept 의 의미<ul><li>실제로 모델링한 결과를 현실 데이터에서 사용하기 위해서는 intercept 를 꼭 추가해야한다고 말씀해주셨다.</li><li>comment 를 듣자 마자, 조금 찾아봤을 때, intercept 가 error 의 mean 값을 잡아준다고 한다.</li><li>이 부분은 좀더 보충이 필요하다.</li><li>더미변수를 사용하지만, Intercept 의 효과에 대해서.. 단지 해석의 의미로만 상수항을 생각하였는데, 좀더 본질적인 이유가 있는 것 같다.</li><li>꼭 보충할 것!</li></ul></li><li>데이터를 분석하는 과정에서 insight를 얻었을 때, 이를 꼭 알기 쉽게 기록하라.<ul><li>개인적으로 느꼈던 후기와 생각에서와 비슷한 취지의 말씀이었다. 자신과 다른사람이 알 수 있게 insight 를 꼭 기록하라고 말씀하셨다.</li></ul></li><li>R square 를 기준으로 분석을 진행할 때는 조심하여야 한다.</li></ol></li></ol></li></ul><hr>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;181216-TWIL&quot;&gt;&lt;a href=&quot;#181216-TWIL&quot; class=&quot;headerlink&quot; title=&quot;181216 TWIL&quot;&gt;&lt;/a&gt;181216 TWIL&lt;/h1&gt;&lt;hr&gt;
 &lt;h2 id=&quot;오늘-한-일은-무엇인가&quot;&gt;&lt;a href=&quot;#
       
     

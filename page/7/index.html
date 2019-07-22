@@ -157,6 +157,130 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2018-10-26T14:04:20.000Z">2018-10-26</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/wiki/">wiki</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/wiki/Scrapy/">Scrapy</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    4 minutes read (About 526 words)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2018/10/26/Scrapy/">Scrapy</a>
+            
+        </h1>
+        <div class="content">
+            <h1 id="Scrapy"><a href="#Scrapy" class="headerlink" title="Scrapy"></a>Scrapy</h1><blockquote>
+<p>공부한 내용을 스스로 보기 쉽게 정리한 글입니다.</p>
+</blockquote>
+<ul>
+<li>Scrapy 라이브러리는 파이썬에서 제공하는 라이브러리로써, 대량의 페이지들의 Crawling을 손쉽게 해주는 라이브러리이다.</li>
+</ul>
+<h2 id="1-Install"><a href="#1-Install" class="headerlink" title="1. Install"></a>1. Install</h2><ul>
+<li>파이썬의 라이브러리 이므로 pip 으로 설치 할 수 있다.<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install scrapy</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="2-실습"><a href="#2-실습" class="headerlink" title="2. 실습"></a>2. 실습</h2><ul>
+<li>실습을 위해 <strong>import</strong> 할 것들</li>
+</ul>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> scrapy</span><br><span class="line"><span class="hljs-keyword">import</span> requests</span><br><span class="line"><span class="hljs-keyword">from</span> scrapy.http <span class="hljs-keyword">import</span> TextResponse</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>requests 를 통해 url 정보를 받아온다.</li>
+<li>TextResponse 를 통해 받아온 html 파일을 encoding 과 text형식으로 return</li>
+</ol>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">req = requests.get(<span class="hljs-string">"url_name"</span>)</span><br><span class="line">response = TextResponse(req.url, body=req.text, encoding=<span class="hljs-string">"utf-8"</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a = response.xpath(<span class="hljs-string">'xpath'</span>)</span><br><span class="line"><span class="hljs-comment"># xpath 로 지정한 엘리먼트를 가져온다.</span></span><br><span class="line">a_text = reponse.xpath(<span class="hljs-string">'xpath/text()'</span>)</span><br><span class="line"><span class="hljs-comment"># 엘리먼트의 text data 를 가져온다.</span></span><br><span class="line">a_text.extract()</span><br><span class="line"><span class="hljs-comment"># 엘리먼트의 text data들을 말그대로 extract 하여, list 형태로 return 해준다</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="3-Scrapy-사용하기"><a href="#3-Scrapy-사용하기" class="headerlink" title="3. Scrapy 사용하기"></a>3. Scrapy 사용하기</h2><h3 id="1-scrapy-프로젝트-생성"><a href="#1-scrapy-프로젝트-생성" class="headerlink" title="(1) scrapy 프로젝트 생성"></a>(1) scrapy 프로젝트 생성</h3><ul>
+<li>shell command<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scrapy startproject crawler</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!scrapy startproject crawler</span><br></pre></td></tr></table></figure>
+
+<pre><code>New Scrapy project &apos;crawler&apos;, using template directory &apos;/Users/emjayahn/.pyenv/versions/3.7.0/envs/dss/lib/python3.7/site-packages/scrapy/templates/project&apos;, created in:
+    /Users/emjayahn/Dev/DSS/TIL(markdown)/crawler
+
+You can start your first spider with:
+    cd crawler
+    scrapy genspider example example.com</code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!tree crawler</span><br></pre></td></tr></table></figure>
+
+<pre><code>crawler
+├── crawler
+│   ├── __init__.py
+│   ├── __pycache__
+│   ├── items.py
+│   ├── middlewares.py
+│   ├── pipelines.py
+│   ├── settings.py
+│   └── spiders
+│       ├── __init__.py
+│       └── __pycache__
+└── scrapy.cfg
+
+4 directories, 7 files</code></pre><h3 id="2-Scrapy-기본-구조"><a href="#2-Scrapy-기본-구조" class="headerlink" title="(2) Scrapy 기본 구조"></a>(2) Scrapy 기본 구조</h3><ol>
+<li><p>Spider</p>
+<ul>
+<li>크롤링 절차 정하기</li>
+<li>어떤 웹사이트들을 어떻게 크롤링 할 것인지 선언</li>
+<li>각각의 웹페이지의 어떤 부분을 스크래핑 할 것 인지 명시하는 클래스</li>
+</ul>
+</li>
+<li><p>items.py</p>
+<ul>
+<li>spider 가 크롤링한 data 들을 저장할 때, 사용자 정의 자료구조 클래스</li>
+<li>MVC : 중 Model 부분에 해당</li>
+<li>Feature 라고 생각</li>
+</ul>
+</li>
+<li><p>pipeline.py</p>
+<ul>
+<li>스크래핑한 데이터를 어떻게 처리할지 정의</li>
+<li>데이터에 한글이 포함되어 있을 때는 encoding=’utf-8’ utf-8인코딩이 필요</li>
+</ul>
+</li>
+<li><p>settings.py</p>
+<ul>
+<li>Spider, item, pipeline 의 세부 사항을 설정</li>
+<li>(예) 크롤링 빈도 등</li>
+<li>(예) robots.txt - ROBOTSTXT_OBEY=True</li>
+</ul>
+</li>
+</ol>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
                 <time class="level-item has-text-grey" datetime="2018-10-26T13:02:50.000Z">2018-10-26</time>
                 
                 <div class="level-item">
@@ -529,6 +653,65 @@
                 <time class="level-item has-text-grey" datetime="2018-10-24T03:02:50.000Z">2018-10-24</time>
                 
                 <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/Python/">Python</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    a minute read (About 216 words)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2018/10/24/Thread/">Thread</a>
+            
+        </h1>
+        <div class="content">
+            <h1 id="Thread"><a href="#Thread" class="headerlink" title="Thread"></a>Thread</h1><blockquote>
+<p>공부한 내용을 스스로 보기 쉽게 정리한 글입니다.</p>
+<ul>
+<li>파이썬 기본 : Single Thread (Main Thread)</li>
+<li>threading 모듈 : main thread에서 subthread 를 생성하여 진행하는 방식</li>
+<li>multiprocessing 모듈 : double cpu</li>
+</ul>
+</blockquote>
+<ul>
+<li>ThreadPoolExecutor : API - 멀티스레드와 멀티프로세스 동일한 형태로 디자인(Pool 클래스만 변경하면됨)</li>
+</ul>
+<h3 id="threading-Thread-arguement"><a href="#threading-Thread-arguement" class="headerlink" title="threading.Thread() arguement"></a>threading.Thread() arguement</h3><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Thread(group=, target=, args= , kwargs=, *, daemon=<span class="hljs-keyword">None</span>)</span><br><span class="line"><span class="hljs-comment">#target= : 실제 스레드에서 돌아가게 될 함수</span></span><br><span class="line"><span class="hljs-comment">#args= : tuple 로 target 함수에 들어가게될 argument</span></span><br><span class="line"><span class="hljs-comment">#kwargs= : dictionary로 target 함수에 들어가게될 argument</span></span><br><span class="line"><span class="hljs-comment">#daemon : 데몬 스레드로 돌아갈지 여부</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#Thread 의 메소드</span></span><br><span class="line">start(): <span class="hljs-comment">#스레드의 실행, self 의 run() 메소드를 호출</span></span><br><span class="line">run(): <span class="hljs-comment">#스레드가 실제로 수행하게될 작업</span></span><br><span class="line">name : <span class="hljs-comment">#스레드의 이름</span></span><br><span class="line">threading.locals() : <span class="hljs-comment">#해당 스레드 내부에서 사용할 로컬 변수 지정</span></span><br></pre></td></tr></table></figure>
+
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2018-10-24T03:02:50.000Z">2018-10-24</time>
+                
+                <div class="level-item">
                 <a class="has-link-grey -link" href="/categories/wiki/">wiki</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/wiki/Selenium/">Selenium</a>
                 </div>
                 
@@ -639,65 +822,6 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
 
 </li>
 </ul>
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2018-10-24T03:02:50.000Z">2018-10-24</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/Python/">Python</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    a minute read (About 216 words)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2018/10/24/Thread/">Thread</a>
-            
-        </h1>
-        <div class="content">
-            <h1 id="Thread"><a href="#Thread" class="headerlink" title="Thread"></a>Thread</h1><blockquote>
-<p>공부한 내용을 스스로 보기 쉽게 정리한 글입니다.</p>
-<ul>
-<li>파이썬 기본 : Single Thread (Main Thread)</li>
-<li>threading 모듈 : main thread에서 subthread 를 생성하여 진행하는 방식</li>
-<li>multiprocessing 모듈 : double cpu</li>
-</ul>
-</blockquote>
-<ul>
-<li>ThreadPoolExecutor : API - 멀티스레드와 멀티프로세스 동일한 형태로 디자인(Pool 클래스만 변경하면됨)</li>
-</ul>
-<h3 id="threading-Thread-arguement"><a href="#threading-Thread-arguement" class="headerlink" title="threading.Thread() arguement"></a>threading.Thread() arguement</h3><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Thread(group=, target=, args= , kwargs=, *, daemon=<span class="hljs-keyword">None</span>)</span><br><span class="line"><span class="hljs-comment">#target= : 실제 스레드에서 돌아가게 될 함수</span></span><br><span class="line"><span class="hljs-comment">#args= : tuple 로 target 함수에 들어가게될 argument</span></span><br><span class="line"><span class="hljs-comment">#kwargs= : dictionary로 target 함수에 들어가게될 argument</span></span><br><span class="line"><span class="hljs-comment">#daemon : 데몬 스레드로 돌아갈지 여부</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#Thread 의 메소드</span></span><br><span class="line">start(): <span class="hljs-comment">#스레드의 실행, self 의 run() 메소드를 호출</span></span><br><span class="line">run(): <span class="hljs-comment">#스레드가 실제로 수행하게될 작업</span></span><br><span class="line">name : <span class="hljs-comment">#스레드의 이름</span></span><br><span class="line">threading.locals() : <span class="hljs-comment">#해당 스레드 내부에서 사용할 로컬 변수 지정</span></span><br></pre></td></tr></table></figure>
-
 
         </div>
         
@@ -839,82 +963,6 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
 
 
 
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2018-10-22T13:49:03.552Z">2018-10-22</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/DataStructure/">DataStructure</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    3 minutes read (About 476 words)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2018/10/22/Queue/">Queue</a>
-            
-        </h1>
-        <div class="content">
-            <h1 id="Queue"><a href="#Queue" class="headerlink" title="Queue"></a>Queue</h1><blockquote>
-<p>공부한 내용을 스스로 보기 쉽게 정리한 글입니다.</p>
-</blockquote>
-<h2 id="Queue의-특징"><a href="#Queue의-특징" class="headerlink" title="Queue의 특징"></a>Queue의 특징</h2><ol>
-<li>내가 버스정류장에 서있다고 생각해보면, 버스 전용차선으로 버스가 줄지어 들어온다. 아무리 뒷차가 손님을 다 태웠다고해서, 앞에 버스가 아직 손님을 태우고 있으면 뒷 버스는 출발 하지 못한다. <br></li>
-</ol>
-<p><strong>이것이 바로 QUEUE</strong></p>
-<ol start="2">
-<li>FIFO : First In First Out == 선입선출 or 후입후출</li>
-<li>front와 rear 라는 index가 각각 구조의 맨 앞과 뒤를 가리키고 있다. Data는 rear로 들어가고, front 에서 나온다.</li>
-</ol>
-<h2 id="ADT"><a href="#ADT" class="headerlink" title="ADT"></a>ADT</h2><ol>
-<li>empty() 라는 메소드로 Queue 에 data가 있는지 없는지 확인하게 한다. empty 이면 True, not empty 이면, False 를 return 한다.<br></li>
-</ol>
-<p><strong>Queue.empty() returns Boolean</strong></p>
-<ol start="2">
-<li>enaueue(data) 메소드로 Queue의 rear 가 가리키고 있는 data 뒤에 data를 넣는다.<br></li>
-</ol>
-<p><strong>Queue.enqueue (data) returns None</strong></p>
-<ol start="3">
-<li>dequeue() 메소드로 Queue의 front가 가리키고 있는 data를 반환하면서 삭제 된다.<br></li>
-</ol>
-<p><strong>Queue.dequeue() returns data</strong></p>
-<ol start="4">
-<li>peek() 메소드로 Queue의 front가 가리키고 있는 data를 반환한다. peek은 어디까지나 확인하는 메소드 이므로, data가 삭제되지 않는다.<br></li>
-</ol>
-<p><strong>Queue.peek() returns data</strong></p>
-<h2 id="구현-1-by-python-list"><a href="#구현-1-by-python-list" class="headerlink" title="구현 1 : by python list"></a>구현 1 : by python list</h2><ul>
-<li>Queue 구조를 Python에 내장 되어 있는 list를 container 로 구현한다.</li>
-</ul>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Queue</span>:</span></span><br><span class="line">  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span></span><br><span class="line">    self.container=list()</span><br><span class="line"></span><br><span class="line">  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">empty</span><span class="hljs-params">(self)</span>:</span></span><br><span class="line">    <span class="hljs-comment"># ADT 를 따라서, 비어 있으면 return True 비어있지 않으면 return False</span></span><br><span class="line">    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> self.container:</span><br><span class="line">      <span class="hljs-keyword">return</span> <span class="hljs-keyword">True</span></span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-keyword">False</span></span><br><span class="line"></span><br><span class="line">  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">enqueue</span><span class="hljs-params">(self, data)</span>:</span></span><br><span class="line">    <span class="hljs-comment"># list 를 활용했으므로, list.append(data)를 활용할 수 있다.</span></span><br><span class="line">    self.container.append(data)</span><br><span class="line"></span><br><span class="line">  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">dequeue</span><span class="hljs-params">(self)</span>:</span></span><br><span class="line">    <span class="hljs-comment"># pop 역시 list.pop()을 활용할 수 있다.</span></span><br><span class="line">    <span class="hljs-keyword">return</span> self.container.pop(<span class="hljs-number">0</span>)</span><br><span class="line"></span><br><span class="line">  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">peek</span><span class="hljs-params">(self)</span>:</span></span><br><span class="line">    <span class="hljs-comment"># peek은 단지 front 에 어떤 데이터가 있는지 확인 하는 것 뿐이므로, 현재 리스트의 가장 앞 부분에 있는 data 를 확인하면 된다.</span></span><br><span class="line">    <span class="hljs-keyword">return</span> self.container[<span class="hljs-number">0</span>]</span><br></pre></td></tr></table></figure>
-
-<h2 id="구현-2"><a href="#구현-2" class="headerlink" title="구현 2 :"></a>구현 2 :</h2>
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
 
     
 <div class="card card-transparent">
@@ -983,7 +1031,7 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
                         Posts
                     </p>
                     <p class="title has-text-weight-normal">
-                        74
+                        75
                     </p>
                 </div>
             </div>
@@ -1079,7 +1127,7 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
                 <span class="level-item">Lecture</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">7</span>
+                <span class="level-item tag">8</span>
             </span>
         </a><ul><li>
         <a class="level is-marginless" href="/categories/Lecture/CS224n/">
@@ -1095,7 +1143,7 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
                 <span class="level-item">CS231n</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">5</span>
+                <span class="level-item tag">6</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/categories/Lecture/딥러닝을-이용한-자연어-처리/">
@@ -1229,7 +1277,7 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
         <h3 class="menu-label">
             Tag Cloud
         </h3>
-        <a href="/tags/CS224n/" style="font-size: 10px;">CS224n</a> <a href="/tags/CS231n/" style="font-size: 15px;">CS231n</a> <a href="/tags/Classification-확률론적생성모형-Generative-생성모형-분류모델/" style="font-size: 10px;">Classification, 확률론적생성모형, Generative, 생성모형, 분류모델</a> <a href="/tags/Crawling-Web-Requests/" style="font-size: 10px;">Crawling, Web, Requests</a> <a href="/tags/Google-Cloud-Platform/" style="font-size: 10px;">Google Cloud Platform</a> <a href="/tags/TWIL/" style="font-size: 20px;">TWIL</a> <a href="/tags/Thread/" style="font-size: 10px;">Thread</a> <a href="/tags/datastructure/" style="font-size: 10px;">datastructure</a> <a href="/tags/datastructure-stack/" style="font-size: 10px;">datastructure, stack</a> <a href="/tags/mysql-MYSQL-database/" style="font-size: 10px;">mysql, MYSQL, database</a> <a href="/tags/nginx-proxy/" style="font-size: 10px;">nginx, proxy</a> <a href="/tags/pillow-Pillow-image/" style="font-size: 10px;">pillow, Pillow, image</a> <a href="/tags/scrapy-crawling-web/" style="font-size: 10px;">scrapy, crawling, web</a> <a href="/tags/summary/" style="font-size: 20px;">summary</a> <a href="/tags/자동화-selenium-webdriver/" style="font-size: 10px;">자동화, selenium, webdriver</a>
+        <a href="/tags/CS224n/" style="font-size: 10px;">CS224n</a> <a href="/tags/CS231n/" style="font-size: 15px;">CS231n</a> <a href="/tags/Classification-확률론적생성모형-Generative-생성모형-분류모델/" style="font-size: 10px;">Classification, 확률론적생성모형, Generative, 생성모형, 분류모델</a> <a href="/tags/Crawling-Web-Requests/" style="font-size: 10px;">Crawling, Web, Requests</a> <a href="/tags/Google-Cloud-Platform/" style="font-size: 10px;">Google Cloud Platform</a> <a href="/tags/TWIL/" style="font-size: 15px;">TWIL</a> <a href="/tags/Thread/" style="font-size: 10px;">Thread</a> <a href="/tags/datastructure/" style="font-size: 10px;">datastructure</a> <a href="/tags/datastructure-stack/" style="font-size: 10px;">datastructure, stack</a> <a href="/tags/mysql-MYSQL-database/" style="font-size: 10px;">mysql, MYSQL, database</a> <a href="/tags/nginx-proxy/" style="font-size: 10px;">nginx, proxy</a> <a href="/tags/pillow-Pillow-image/" style="font-size: 10px;">pillow, Pillow, image</a> <a href="/tags/scrapy-crawling-web/" style="font-size: 10px;">scrapy, crawling, web</a> <a href="/tags/summary/" style="font-size: 20px;">summary</a> <a href="/tags/자동화-selenium-webdriver/" style="font-size: 10px;">자동화, selenium, webdriver</a>
     </div>
 </div>
 
@@ -1240,6 +1288,25 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
         <h3 class="menu-label">
             Recent
         </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/07/22/CS231n-Lecture07-Summary/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="[CS231n]Lecture07-Training Neural Networks part2">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-22T04:12:21.000Z">2019-07-22</time></div>
+                    <a href="/2019/07/22/CS231n-Lecture07-Summary/" class="has-link-black-ter is-size-6">[CS231n]Lecture07-Training Neural Networks part2</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Lecture/">Lecture</a> / <a class="has-link-grey -link" href="/categories/Lecture/CS231n/">CS231n</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -1317,25 +1384,6 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/06/03/Classification-Metrics/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="Classification Metrics">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-06-03T03:18:57.000Z">2019-06-03</time></div>
-                    <a href="/2019/06/03/Classification-Metrics/" class="has-link-black-ter is-size-6">Classification Metrics</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/MachineLearning/">MachineLearning</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1354,7 +1402,7 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
                     <span class="level-item">July 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">3</span>
+                    <span class="level-item tag">4</span>
                 </span>
             </a>
         </li>
