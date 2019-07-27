@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://emjayahn.github.io/"/>
-  <updated>2019-07-26T11:42:10.039Z</updated>
+  <updated>2019-07-27T13:04:17.767Z</updated>
   <id>https://emjayahn.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>쉽게 쓰여진 Decorator</title>
+    <link href="https://emjayahn.github.io/2019/07/27/decorator/"/>
+    <id>https://emjayahn.github.io/2019/07/27/decorator/</id>
+    <published>2019-07-27T09:46:17.000Z</published>
+    <updated>2019-07-27T13:04:17.767Z</updated>
+    
+    <content type="html"><![CDATA[<p>오픈소스나, 다른 사람들이 만든 코드를 재수정한 코드, 제가 짠 코드에 대해 다양한 디버깅과 좀 더 다른 기능을 추가하고 싶을 때, 우리는 Decorator 를 자주 접하게 됩니다. Python 실력을 한층 업그레이드 하기 위함과, 코딩의 또 다른 목적이이 <code>귀차니즘의 해결</code> 이라고 생각할 때 Decorator 에 대한 이해는 그 시작 관문이 됩니다. 이번 글에서는 이 Decorator 에 대한 개념을 쉽게 설명하려고 노력하였습니다.</p><a id="more"></a><p>많은 책들에서 Decorator 의 설명을 본격적으로 들어가기에 앞서, python에서의 변수의 범위와 전역변수, 지역변수, 자유변수 등을 설명하고, 자칫 정신을 혼미하게 만들 수 있는 클로져(closure)를 설명한 뒤에 Decorator 를 만나게 됩니다. 물론 모두 Decorator 에서만아니라 파이썬을 다루고, 컴퓨터 과학을 공부하며, 필수적으로 알아야하는 중요한 개념이긴 하나, 이번 글에서는 예제들을 통해 Decorator 를 짜는 방법과 어떻게 구동이 되는지 실용적인 개념에 대해 요약 정리하려고 합니다.</p><h2 id="1-Decorator란"><a href="#1-Decorator란" class="headerlink" title="1. Decorator란?"></a>1. Decorator란?</h2><blockquote><p>Decorator : <strong>호출 가능한</strong> <strong>객체</strong> 로써, <strong>호출 가능한 객체</strong>를 입력으로 받아, <strong>호출 가능한 객체</strong> 를 반환하는 함수</p></blockquote><p>Decorator 를 만들 때, 가장 첫번째로 성립해야하는 구조가 위처럼, Decorator 기능을 하게 될 함수가 호출 가능해야하고, 입력에 호출 가능한 객체를 받아, 반환하는 객체도 호출 가능한 객체로 반환 해주어야 합니다.<br><br><br>위의 정의를 만족하는 세상에서 가장 간단한 Decorator 를 다음의 예제코드로 만들 수 있습니다.</p><script src="https://gist.github.com/EmjayAhn/f0cd4bafba347e3d046b5a742ffc57db.js"></script><p>위의 코드의 결과는 <code>Hi, Hi</code> 가 출력되는 아무 기능이 없는 본 함수와 decorator 입니다. 위와 같은 기능을 하는, Decorator 문법을 지킨 코드는 다음과 같습니다.</p><script src="https://gist.github.com/EmjayAhn/6fbcfcfa64bd107f0e7875867c28aa37.js"></script><p>두 코드는 같은 기능을 하지만, 앞서 정의된 <code>dumb_decorator</code> 가 첫번째에서는 꾸미려고하는 say_hi 함수를 <code>dumb_decorator</code>에 입력으로 넣어주어 코드를 실행 시켜 주었으며, 두번째에서는 꾸미려고하는 say_hi 함수의 선언시 <code>@dumb_decorator</code> 를 먼저 적어주고, 꾸며진 함수 <code>say_hi()</code> 를 실행하는 점에서 차이가 있습니다.</p><h2 id="2-Decorator를-Decorator-처럼"><a href="#2-Decorator를-Decorator-처럼" class="headerlink" title="2. Decorator를 Decorator 처럼"></a>2. Decorator를 Decorator 처럼</h2><p>1에서 Decorator의 핵심적인 구조를 살펴보았습니다. 이제 본격적인 Decorator를 본격적인 Decorator 로 사용하기 위해선, decorator 내부에 입력함수를 감싸주는 wrapper 함수가 필요합니다. 예제로 살펴보겠습니다. </p><script src="https://gist.github.com/EmjayAhn/bc8e34c19ebb87446aec5c7645c80f55.js"></script><p>첫번째 예제와 다른 점이라곤, 우리가 꾸미려고 하는 decorator 함수 안에 내부 wrapper 함수를 추가해줌으로써, 우리가 꾸미려는 내용을 선언해주었습니다. </p><h2 id="3-Decorator-의-장점"><a href="#3-Decorator-의-장점" class="headerlink" title="3. Decorator 의 장점?"></a>3. Decorator 의 장점?</h2><p>위에 본 예제를 극단적인 case 로 몰고 가보죠. 우리가 꾸며야할 함수가 많다고 상상해 보겠습니다. 기존에 잘 동작하던 프로그램이 있을 때, 프로그램의 로그가 궁금하다던가, 신경망을 학습시키는 코드에 대해 각 layer 의 gradient 나 출력값을 보고 싶을 수 있습니다. 우리가 decorator 를 사용하지 않는다면, 첫번째 코드 예시 처럼 일일히 다 실행시켜주어야 하는 문제가 발생합니다. 우리는 사용하려고 하는 함수를 선언할때 <code>@decorator</code> 를 붙여 줌으로써, 이러한 <code>귀차니즘</code>을 해결할 수 있습니다. 예제를 통해 살펴보겠습니다.<br><br><br>기존에도 잘 돌아가는 프로그램 3개의 log 를 찍어야 하는 순간이 찾아왔다고 가정합니다. generator 를 사용하는 것과 그렇지 않은 것을 비교해봄으로써 generator 의 고마움을 느껴볼 수 있습니다. 이번 예제에서는 간단하게 그 log 를 프로그램 return 형의 글자(character) 수로 생각해보죠.</p><script src="https://gist.github.com/EmjayAhn/c004ae8798e378a07a94c3b0d33e4814.js"></script><p>기존에 존재하던 프로그램이 <code>program_1</code>, <code>program_2</code>, <code>program_3</code> 이라고 생각해보고, 추가적으로 우리가 my_decorator 라는 코드를 통해 각 프로그램의 로그(여기선, charater 수)를 찍어야 하는 task 가 주어졌습니다. 우리가 decorator 를 알기 전이라면, 위와 같이 코드를 작성해 준 후,<br>실행부분에서 각 프로그램을 decorator 에 넣어주어, 꾸며진 결과 객체를 가지고, 이를 다시 실행해주는 행동을 반복해 주어야 합니다. 이제 decorator 의 고마움을 느껴볼 차례입니다.</p><script src="https://gist.github.com/EmjayAhn/1088964a6c8d53a668b45fe6a6f1e9c7.js"></script><h2 id="4-마치며"><a href="#4-마치며" class="headerlink" title="4. 마치며"></a>4. 마치며</h2><p>간단한 예제를 통해 Decorator 가 어떻게 동작하는지, 어떻게 구성해야하는지 핵심적인 부분이 이해됐길 바랍니다. 조금더 공부할 수 있는 키워드는 <code>클로져 (closure)</code>, <code>free variable</code> 등이 있을 수 있습니다. 위 키워드의 공부를 통해 조금더 자유로운 generator 설계를 할 수 있을 것으로 믿습니다.</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;오픈소스나, 다른 사람들이 만든 코드를 재수정한 코드, 제가 짠 코드에 대해 다양한 디버깅과 좀 더 다른 기능을 추가하고 싶을 때, 우리는 Decorator 를 자주 접하게 됩니다. Python 실력을 한층 업그레이드 하기 위함과, 코딩의 또 다른 목적이이 &lt;code&gt;귀차니즘의 해결&lt;/code&gt; 이라고 생각할 때 Decorator 에 대한 이해는 그 시작 관문이 됩니다. 이번 글에서는 이 Decorator 에 대한 개념을 쉽게 설명하려고 노력하였습니다.&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Python" scheme="https://emjayahn.github.io/categories/Python/"/>
+    
+    
+      <category term="python" scheme="https://emjayahn.github.io/tags/python/"/>
+    
+      <category term="decorator" scheme="https://emjayahn.github.io/tags/decorator/"/>
+    
+      <category term="데코레이터" scheme="https://emjayahn.github.io/tags/%EB%8D%B0%EC%BD%94%EB%A0%88%EC%9D%B4%ED%84%B0/"/>
+    
+  </entry>
   
   <entry>
     <title>[CS231n]Lecture09-CNN Architectures</title>
@@ -38,9 +64,9 @@
       <category term="CS231n" scheme="https://emjayahn.github.io/categories/Lecture/CS231n/"/>
     
     
-      <category term="CS231n" scheme="https://emjayahn.github.io/tags/CS231n/"/>
-    
       <category term="summary" scheme="https://emjayahn.github.io/tags/summary/"/>
+    
+      <category term="CS231n" scheme="https://emjayahn.github.io/tags/CS231n/"/>
     
   </entry>
   
@@ -66,9 +92,9 @@
       <category term="CS231n" scheme="https://emjayahn.github.io/categories/Lecture/CS231n/"/>
     
     
-      <category term="CS231n" scheme="https://emjayahn.github.io/tags/CS231n/"/>
-    
       <category term="summary" scheme="https://emjayahn.github.io/tags/summary/"/>
+    
+      <category term="CS231n" scheme="https://emjayahn.github.io/tags/CS231n/"/>
     
   </entry>
   
@@ -94,9 +120,9 @@
       <category term="CS231n" scheme="https://emjayahn.github.io/categories/Lecture/CS231n/"/>
     
     
-      <category term="CS231n" scheme="https://emjayahn.github.io/tags/CS231n/"/>
-    
       <category term="summary" scheme="https://emjayahn.github.io/tags/summary/"/>
+    
+      <category term="CS231n" scheme="https://emjayahn.github.io/tags/CS231n/"/>
     
   </entry>
   
@@ -105,7 +131,7 @@
     <link href="https://emjayahn.github.io/2019/07/15/iterator-generator/"/>
     <id>https://emjayahn.github.io/2019/07/15/iterator-generator/</id>
     <published>2019-07-15T14:03:23.000Z</published>
-    <updated>2019-07-15T17:00:30.522Z</updated>
+    <updated>2019-07-27T11:44:11.726Z</updated>
     
     <content type="html"><![CDATA[<h1 id="Iterable-vs-Iterator-vs-Generator"><a href="#Iterable-vs-Iterator-vs-Generator" class="headerlink" title="Iterable vs Iterator vs Generator"></a>Iterable vs Iterator vs Generator</h1><hr><p>다른 분들의 코드를 읽을 때마다, 내가 사용할 때마다, 헷갈리는 Iterable, Iterator, Generator를 이번 글을 작성해보면서, 마지막으로! (라는 다짐으로) 정리해봅니다. 잘 알고 있는 개념이라고 생각했지만, 다른 사람들로부터의 질문을 받았을 때, 나의 설명이 만족스럽지 못해 ‘아 내가 더 정확히 알아야 한다’ 는 메타인지로부터 출발하는 글입니다.</p><a id="more"></a><br>파이썬의 장점으로 꼽히는, '사용하기 쉬운 데이터 구조'들 덕분에 우리는 루프를 돌아야하는 알고리즘에 대해 손쉽게 코드를 작성 할 수 있습니다. 하지만, 때로는 나만의 객체(class)를 만들고 그 객체가 파이썬에 내장 되어있는 데이터 구조 처럼, 동작하기를 바랍니다.<br>요즘 들어, 제가 짜는 코드에서 이 욕구는 신경망 모델링을 할 때, 신경망 모델 객체에 데이터의 배치를 feeding 하는 객체를 생성하고 싶을 때, 넘쳐나게 됩니다. 이럴 때, 파이썬에 대한 기본 개념이 잘 잡혀있지 않은 상태에서 복잡한 코드를 짜려고 하는 시도를 하니, 신경망 모델 자체의 구조에 대해서도 복잡한데 이런 루프를 돌면서 반복적으로 일정 데이터를 넘겨주기 위한 간단한 기능을 가진 코드에 대해서도 비효율적으로 작성하게 됩니다. 이런 제 자신의 문제를 해결하기 위해 이번 기회에 Iterator 와 Generator 에 대해 확실하게 정리해보려고 합니다. (feat. 예제코드)<hr><h2 id="1-이터러블-Iterable"><a href="#1-이터러블-Iterable" class="headerlink" title="1. 이터러블: Iterable"></a>1. 이터러블: Iterable</h2><blockquote><p>Iterable 객체란? : 객체 안에 있는 원소(element)를 하나씩 반환 가능한 객체</p></blockquote><p><img src="iterable_def.png" alt></p><p>파이썬이 제공하는 대부분의 내장 데이터 구조는 이터러블(Iterable)한 객체 입니다. 뿐만 아니라 우리가 만든 객체(class)도 Iterable 객체가 될 수 있습니다. 이터러블(Iterable)객체는 for 문과 같은 루프 뿐만 아니라, zip이나 map 과 같은 순서대로 처리할 입력이 필요한 곳에서도 사용 될 수 있습니다.<br><br><br><br>이터러블(Iterable) 객체는 <code>iter()</code> 라는 함수의 입력으로 들어갑니다. <code>iter()</code> 라는 함수는 다음에 설명될 이터레이터(Iterator)를 반환합니다.</p><hr><h2 id="2-이터레이터-Iterator"><a href="#2-이터레이터-Iterator" class="headerlink" title="2. 이터레이터: Iterator"></a>2. 이터레이터: Iterator</h2><blockquote><p>Iterator 객체란? : Iterator의 <code>__next__()</code> 나 내장 함수인 <code>next()</code>를 부르면서, 원소(element)를 순차적으로 반환 할 숫 있는 객체</p></blockquote><p><img src="iterator_def.png" alt></p><p>앞서, 설명드린대로 이터레이터(Iterator)는 iter()라는 함수가 <strong>반환</strong>하는 객체입니다. 그리고, 이터레이터(Iterator)는 반복적으로 <code>__next__()</code>나, <code>next()</code> 함수의 입력으로 들어가 호출하여, <code>next()</code>의 return 값인 원소(element)를 최종적으로 반환합니다.<br><br><br>이터레이터(Iterator)가 다음 원소를 계속 반환하다가, 끝에 다달아 반환할 원소가 없을 경우 예외문인 <code>StopIteration</code>이 발생하게 됩니다.<br><br><br>즉, 정리하면, <br><br>Iterable 객체 A → iter(A) → Iterator 객체 B → next(B) → element (data)</p><hr><blockquote><p>Question? 우리는 list 같은 이터러블(Iterable) 객체와 for 문을 쓰면서 한번도 iter() 나 next()를 보지 못했는뎁쇼????<br>파이썬의 for 문은 이터러블(Iterable) 객체를 만나, 내부적으로 <code>iter()</code> 함수를 호출하여, 이터레이터(Iterator)를 생성합니다. 이 생성된 이터레이터(Iterator)가 루프가 실행되면서 <code>next()</code> 를 호출하며 반복적인 데이터를 뽑아 낼 수 있게 되는 것입니다. 그리고 모든 원소가 뽑아지고 난 뒤에는 <code>StopIteration</code> 이 발생하며, for 문이 종료 됩니다.</p></blockquote><hr><p>위 설명을 코드로 풀어쓰면, 다음과 같습니다. 우리가 다음과 같은 for 문을 사용하면,</p><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">for</span> element <span class="hljs-keyword">in</span> iterable_object:</span><br><span class="line">    print(element)</span><br></pre></td></tr></table></figure><p>위 코드는 다음과 같이 파이썬 내부적으로 다음과 같이 동작하게 됩니다.</p><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># iter() 함수를 호출해, iterator 를 생성하고,</span></span><br><span class="line">iterator_object = iter(iterable_object)</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">while</span> <span class="hljs-keyword">True</span>:</span><br><span class="line">    <span class="hljs-comment"># next() 함수를 호출해, element 를 받아옵니다.</span></span><br><span class="line">    <span class="hljs-keyword">try</span>:</span><br><span class="line">        element = next(iterator_object)</span><br><span class="line">        print(element)</span><br><span class="line"></span><br><span class="line">    <span class="hljs-comment"># element 가 없을 시, StopIteration Exception 발생</span></span><br><span class="line">    <span class="hljs-keyword">except</span>: StopIteration:</span><br><span class="line">        <span class="hljs-keyword">break</span></span><br></pre></td></tr></table></figure><hr><h2 id="3-이터러블-Iterable-이터레이터-Iterator-와-친해지기"><a href="#3-이터러블-Iterable-이터레이터-Iterator-와-친해지기" class="headerlink" title="3. 이터러블(Iterable), 이터레이터(Iterator)와 친해지기"></a>3. 이터러블(Iterable), 이터레이터(Iterator)와 친해지기</h2><h3 id="3-1-간단-버전"><a href="#3-1-간단-버전" class="headerlink" title="3-1. 간단 버전"></a>3-1. 간단 버전</h3><p>파이썬 이터러블(Iterable) 내장 데이터 구조인 list 를 활용하여, 실습해 봅니다. </p><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">&gt;&gt;&gt; </span>iterable_object = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]</span><br><span class="line"><span class="hljs-meta">&gt;&gt;&gt; </span>iterator_object = iter(iterable_object)</span><br><span class="line"><span class="hljs-meta">&gt;&gt;&gt; </span>iterator_object</span><br><span class="line">&lt;list_iterator object at <span class="hljs-number">0x104fe2278</span>&gt;</span><br><span class="line"><span class="hljs-meta">&gt;&gt;&gt; </span>next(iterator_object)</span><br><span class="line"><span class="hljs-number">1</span></span><br><span class="line"><span class="hljs-meta">&gt;&gt;&gt; </span>next(iterator_object)</span><br><span class="line"><span class="hljs-number">2</span></span><br><span class="line"><span class="hljs-meta">&gt;&gt;&gt; </span>next(iterator_object)</span><br><span class="line"><span class="hljs-number">3</span></span><br><span class="line"><span class="hljs-meta">&gt;&gt;&gt; </span>next(iterator_object)</span><br><span class="line"><span class="hljs-number">4</span></span><br><span class="line"><span class="hljs-meta">&gt;&gt;&gt; </span>next(iterator_object)</span><br><span class="line"><span class="hljs-number">5</span></span><br><span class="line"><span class="hljs-meta">&gt;&gt;&gt; </span>next(iterator_object)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="hljs-string">"&lt;stdin&gt;"</span>, line <span class="hljs-number">1</span>, <span class="hljs-keyword">in</span> &lt;module&gt;</span><br><span class="line">StopIteration</span><br></pre></td></tr></table></figure><h3 id="3-2-나만의-iterable-iterator객체"><a href="#3-2-나만의-iterable-iterator객체" class="headerlink" title="3-2. 나만의 iterable, iterator객체"></a>3-2. 나만의 iterable, iterator객체</h3><p>다음의 코드는 이름과 나이를 받는 데이터 객체입니다. 루프를 돌면서 각각 순서에 맞는 (이름, 나이)형태로 데이터를 반환하는 Iterable 객체입니다. 같은 기능을 하는 더욱 효율적인 코드를 짤 수 있겠지만, 공부한 iterable 과 iterator 를 적용해보는 class 입니다.</p><script src="https://gist.github.com/EmjayAhn/70e4232632f340a8f67e0ba1509029c5.js"></script><hr><h2 id="4-제너레이터-Generator"><a href="#4-제너레이터-Generator" class="headerlink" title="4. 제너레이터: Generator"></a>4. 제너레이터: Generator</h2><blockquote><p>제너레이터(Generator)란?: <strong>특이한</strong> (공식 문서에 <del>~</del> iterator) 이터레이터(Iterator)</p></blockquote><p><img src="generator_def.png" alt></p><p>정의에서도 보다시피, 이터레이터(Iterator)입니다. 즉, <code>next()</code> 함수를 만나 동작하는 함수입니다. 이 때, 제너레이터(Generator) 를 일반 함수와 다르게 하는 것이 <code>yield</code> 라는 문법입니다. <code>yield</code> 는 일반 함수의 <code>return</code>과 같이 값을 반환 하지만, <code>return</code>과 다르게 해당 함수(generator)가 종료하지 않고, 그대로 유지됩니다. 다음 순서의 제너레이터(Generator)가 호출되면, 멈추었던 <code>yield</code> 자리에서 다시 함수가 동작하게 됩니다.<br><br></p><p>요약하자면, <br><br>제너레이터(Generator) → next(제너레이터) → 제너레이터 함수 실행 → <code>yield</code>를 만나 next(제너레이터가) 호출된 곳으로 값을 반환 (제너레이터 종료 ❌) → 다시 next(제너레이터) → 멈추었던 <code>yield</code>부터 재실행 </p><hr><blockquote><p>Question? 이런 특이하고, 어렵고, 처음엔 익숙하지 않은 제너레이터(Generator)를 왜 때문에 쓰는 겁죠???<br>제너레이터는 메모리를 아끼기 위해서 사용합니다!!! 다음의 코드에서 메모리 사용량의 비교를 통해 살펴 보겠습니다.</p></blockquote><hr><h2 id="5-제너레이터-Generator-와-친해지기"><a href="#5-제너레이터-Generator-와-친해지기" class="headerlink" title="5. 제너레이터 (Generator)와 친해지기"></a>5. 제너레이터 (Generator)와 친해지기</h2><p>제너레이터를 사용한 코드가 메모리 사용량 측면에서 얼마나 효율적인지 확인해보겠습니다. 다음의 코드는 999999까지의 숫자를 제곱하여 return 해주는 함수입니다. 첫번째, 일반적인 함수는 end 숫자까지 for 문을 돌면서 그 결과를 저장한 뒤에 return 해줍니다. 두번째 generator 는 for 문이 돌 때, yield 에서 해당 데이터만 리턴하게 되므로, 메모리 사용에서 효율적입니다. 다음의 실험에서도 쉽게 비교할 수 있습니다.</p><script src="https://gist.github.com/EmjayAhn/943cde0f7e9794f76272e531c8fffcca.js"></script><p>위 코드 실행결과: <br></p><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Memory Usage when program start: 8.80859375</span><br><span class="line">Memory Usage when program end: 56.0390625</span><br></pre></td></tr></table></figure><script src="https://gist.github.com/EmjayAhn/8ab50ebfdbf3adabeab8f07f20dd0e01.js"></script><p>위 코드 실행결과: <br></p><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Memory Usage when program start: 8.78515625</span><br><span class="line">Memory Usage when program end: 8.78515625</span><br></pre></td></tr></table></figure><hr><h2 id="6-마무리"><a href="#6-마무리" class="headerlink" title="6. 마무리"></a>6. 마무리</h2><p>이번 짧은 글에서, Iterable, Iterator, Generator 를 비교해보면서 그 개념과 사용 예제를 간단하게 살펴 보았습니다. 이름에서부터 헷갈릴 수 있는 각 객체에 대한 내용을 이 글을 통해 조금이나마 정리해볼 수 있는 기회가 되셨으면 좋겠으며, 작은 도움이 되셨으면 합니다.</p><hr><h2 id="7-Reference"><a href="#7-Reference" class="headerlink" title="7. Reference"></a>7. Reference</h2><ul><li><a href="https://docs.python.org/3.7/glossary.html#term-generator" target="_blank" rel="noopener">Python documentation: generator</a></li><li><a href="https://docs.python.org/3.7/glossary.html#term-iterable" target="_blank" rel="noopener">Python documentation: iterable</a></li><li><a href="https://docs.python.org/3.7/glossary.html#term-iterator" target="_blank" rel="noopener">Python documentation: iterator</a></li></ul>]]></content>
     
@@ -118,6 +144,20 @@
     
       <category term="Python" scheme="https://emjayahn.github.io/categories/Python/"/>
     
+    
+      <category term="python" scheme="https://emjayahn.github.io/tags/python/"/>
+    
+      <category term="iterator" scheme="https://emjayahn.github.io/tags/iterator/"/>
+    
+      <category term="generator" scheme="https://emjayahn.github.io/tags/generator/"/>
+    
+      <category term="iterable" scheme="https://emjayahn.github.io/tags/iterable/"/>
+    
+      <category term="이터레이터" scheme="https://emjayahn.github.io/tags/%EC%9D%B4%ED%84%B0%EB%A0%88%EC%9D%B4%ED%84%B0/"/>
+    
+      <category term="제너레이터" scheme="https://emjayahn.github.io/tags/%EC%A0%9C%EB%84%88%EB%A0%88%EC%9D%B4%ED%84%B0/"/>
+    
+      <category term="이터러블" scheme="https://emjayahn.github.io/tags/%EC%9D%B4%ED%84%B0%EB%9F%AC%EB%B8%94/"/>
     
   </entry>
   
@@ -141,9 +181,9 @@
       <category term="CS224n" scheme="https://emjayahn.github.io/categories/Lecture/CS224n/"/>
     
     
-      <category term="summary" scheme="https://emjayahn.github.io/tags/summary/"/>
-    
       <category term="CS224n" scheme="https://emjayahn.github.io/tags/CS224n/"/>
+    
+      <category term="summary" scheme="https://emjayahn.github.io/tags/summary/"/>
     
   </entry>
   
@@ -243,9 +283,9 @@
       <category term="CS231n" scheme="https://emjayahn.github.io/categories/Lecture/CS231n/"/>
     
     
-      <category term="CS231n" scheme="https://emjayahn.github.io/tags/CS231n/"/>
-    
       <category term="summary" scheme="https://emjayahn.github.io/tags/summary/"/>
+    
+      <category term="CS231n" scheme="https://emjayahn.github.io/tags/CS231n/"/>
     
   </entry>
   
@@ -271,9 +311,9 @@
       <category term="CS231n" scheme="https://emjayahn.github.io/categories/Lecture/CS231n/"/>
     
     
-      <category term="CS231n" scheme="https://emjayahn.github.io/tags/CS231n/"/>
-    
       <category term="summary" scheme="https://emjayahn.github.io/tags/summary/"/>
+    
+      <category term="CS231n" scheme="https://emjayahn.github.io/tags/CS231n/"/>
     
   </entry>
   
@@ -299,9 +339,9 @@
       <category term="CS231n" scheme="https://emjayahn.github.io/categories/Lecture/CS231n/"/>
     
     
-      <category term="CS231n" scheme="https://emjayahn.github.io/tags/CS231n/"/>
-    
       <category term="summary" scheme="https://emjayahn.github.io/tags/summary/"/>
+    
+      <category term="CS231n" scheme="https://emjayahn.github.io/tags/CS231n/"/>
     
   </entry>
   
@@ -327,9 +367,9 @@
       <category term="CS231n" scheme="https://emjayahn.github.io/categories/Lecture/CS231n/"/>
     
     
-      <category term="CS231n" scheme="https://emjayahn.github.io/tags/CS231n/"/>
-    
       <category term="summary" scheme="https://emjayahn.github.io/tags/summary/"/>
+    
+      <category term="CS231n" scheme="https://emjayahn.github.io/tags/CS231n/"/>
     
   </entry>
   
@@ -493,30 +533,6 @@
         &lt;p&gt;** REBOOT **&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Text Classification Project 를 한다는 핑계로 그간 TodayWhatILearned의 작성을 하지 못했다.&lt;br&gt;프로젝트를 하는 동안은 매일 어떤 것을 공부할 계획이고, 어떤 공
-      
-    
-    </summary>
-    
-      <category term="Diary" scheme="https://emjayahn.github.io/categories/Diary/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>181225-TodayWhatILearned</title>
-    <link href="https://emjayahn.github.io/2018/12/26/181225-TodayWhatILearned/"/>
-    <id>https://emjayahn.github.io/2018/12/26/181225-TodayWhatILearned/</id>
-    <published>2018-12-25T16:15:58.000Z</published>
-    <updated>2018-12-25T16:32:57.028Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="181225-TWIL"><a href="#181225-TWIL" class="headerlink" title="181225 TWIL"></a>181225 TWIL</h1><hr><h2 id="오늘-한-일은-무엇인가"><a href="#오늘-한-일은-무엇인가" class="headerlink" title="오늘 한 일은 무엇인가"></a>오늘 한 일은 무엇인가</h2><ol><li>(Project) Text Preprocessing</li></ol><hr><h2 id="내일-할-일은-무엇인가"><a href="#내일-할-일은-무엇인가" class="headerlink" title="내일 할 일은 무엇인가"></a>내일 할 일은 무엇인가</h2><ol><li>(Project) Project 모임</li><li>Linear Algebra 강의 2강, 3강 듣기<br></li></ol><hr><h2 id="무엇을-느꼈는가"><a href="#무엇을-느꼈는가" class="headerlink" title="무엇을 느꼈는가"></a>무엇을 느꼈는가</h2><ul><li>모든 전처리가 그렇겠지만, 텍스트 데이터의 전처리는 유독 할게 많다. 실제 사람이 사용하는 언어 데이터이다 보니,<br>예외사항들이 많고 모델 성능에 이 전처리들이 큰 영향을 미친다고 하기에, 열심히 전처리를 하고 있다.</li><li>오늘은 embedding 데이터를 활용해 줄임말들 (I’d, We’re 등) 늘려주는 작업을(I would, We are 등) 해줬다.<br>기존에 짰던 영어이냐 아니냐를 분류하려고 만든 알고리즘의 성능이 위 작업을 통해 좀 더 좋아질 것이라 예상된다. 또한<br>오늘 한 작업이 main modeling 을 하기 위해 진행할 Tokenizing 에도 좋은 영향을 줄 것이다. Stopwords 들을<br>빼거나 더할 때도, What’s 보다는 What is 로 늘려주었을 때, 훨씬더 세밀해 질 것이다.</li><li>내일은 spelling 체크, 띄어쓰기 체크해서 올바르게 고쳐주는 작업을 해야한다. 그리고, Baseline 모델을<br>잡기 위해 본격적인 modeling 에 들어가야한다.</li></ul><hr>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;181225-TWIL&quot;&gt;&lt;a href=&quot;#181225-TWIL&quot; class=&quot;headerlink&quot; title=&quot;181225 TWIL&quot;&gt;&lt;/a&gt;181225 TWIL&lt;/h1&gt;&lt;hr&gt;
-&lt;h2 id=&quot;오늘-한-일은-무엇인가&quot;&gt;&lt;a href=&quot;#
       
     
     </summary>
