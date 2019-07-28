@@ -4,7 +4,6 @@
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
 <title>Requests - Emjay&#39;s DailyBlog</title>
 <meta name="naver-site-verification" content="139bdfd66b5dc8101d114c24fabb93c84d0dd64d">
-<meta name="google-site-verification" content="h2dQ7zSfKklOiEvVXk3LPBDTqfN9_Yu-K-AubjBHD5Q">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="al:ios:url" content="applinks://docs">
 <meta property="al:ios:app_store_id" content="12345">
@@ -268,16 +267,16 @@
     <div class="level post-navigation is-flex-wrap is-mobile">
         
         <div class="level-start">
-            <a class="level level-item has-link-grey  article-nav-prev" href="/2018/10/24/Thread/">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2018/10/24/Selenium/">
                 <i class="level-item fas fa-chevron-left"></i>
-                <span class="level-item">Thread</span>
+                <span class="level-item">Selenium</span>
             </a>
         </div>
         
         
         <div class="level-end">
-            <a class="level level-item has-link-grey  article-nav-next" href="/2018/10/24/181024-TodayWhatILearned/">
-                <span class="level-item">181024 TodayWhatILearned</span>
+            <a class="level level-item has-link-grey  article-nav-next" href="/2018/10/24/Thread/">
+                <span class="level-item">Thread</span>
                 <i class="level-item fas fa-chevron-right"></i>
             </a>
         </div>
@@ -987,7 +986,23 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 <script src="/js/insight.js" defer></script>
 <link rel="stylesheet" href="/css/search.css">
-<link rel="stylesheet" href="/css/insight.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<link rel="stylesheet" href="/css/insight.css">
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>
