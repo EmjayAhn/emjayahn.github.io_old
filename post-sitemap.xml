@@ -1,0 +1,627 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="sitemap.xsl"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+    <url>
+        <loc>https://emjayahn.github.io</loc>
+        <changefreq>daily</changefreq>
+        <priority>1</priority>
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2019/07/27/decorator/</loc>
+        <lastmod>2019-07-28T00:55:28.878Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2019/07/15/iterator-generator/</loc>
+        <lastmod>2019-07-27T11:44:11.726Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2019/07/26/CS231n-Lecture09-Summary/</loc>
+        <lastmod>2019-07-26T11:42:10.039Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2019/07/22/CS231n-Lecture07-Summary/</loc>
+        <lastmod>2019-07-22T04:14:58.353Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2019/07/18/CS231n-Lecuture06-Summary/</loc>
+        <lastmod>2019-07-18T11:55:58.882Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2019/07/06/CS224n-Lecture01-Summary/</loc>
+        <lastmod>2019-07-18T11:42:29.208Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2019/01/10/Provision/</loc>
+        <lastmod>2019-07-16T15:56:29.861Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2019/05/03/Lecture-%EB%94%A5%EB%9F%AC%EB%8B%9D%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%9E%90%EC%97%B0%EC%96%B4-%EC%B2%98%EB%A6%AC-Section-A-B/</loc>
+        <lastmod>2019-07-16T15:56:16.339Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2019/05/03/Linear-Regression-with-Pytorch/</loc>
+        <lastmod>2019-07-16T15:56:04.686Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2019/05/04/Linear-Model-with-Pytorch/</loc>
+        <lastmod>2019-07-16T15:55:51.735Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2019/05/06/Basic-Classification-with-Pytorch/</loc>
+        <lastmod>2019-07-16T15:55:30.227Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2019/05/13/CS231n-Lecture02-Summary/</loc>
+        <lastmod>2019-07-16T15:54:55.188Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2019/05/16/CS231n-Lecture03-Summary/</loc>
+        <lastmod>2019-07-16T15:54:49.510Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2019/05/18/CS231n-Lecture04-Summary/</loc>
+        <lastmod>2019-07-16T15:54:39.293Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2019/05/20/CS231n-Lecture05-Summary/</loc>
+        <lastmod>2019-07-16T15:54:25.440Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2019/05/31/SPARK-BASIC-1/</loc>
+        <lastmod>2019-07-16T15:53:55.275Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2019/06/03/Classification-Metrics/</loc>
+        <lastmod>2019-07-15T16:57:48.397Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2019/06/17/gcp-setting/</loc>
+        <lastmod>2019-07-15T16:56:59.085Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/10/24/Thread/</loc>
+        <lastmod>2019-07-15T14:04:01.306Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2019/01/09/190109-TodayWhatILearned/</loc>
+        <lastmod>2019-06-25T07:05:10.983Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2019/01/08/190108-TodayWhatILearned/</loc>
+        <lastmod>2019-01-08T11:41:04.351Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/12/26/181225-TodayWhatILearned/</loc>
+        <lastmod>2018-12-25T16:32:57.028Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/12/20/181220-TodayWhatILearned/</loc>
+        <lastmod>2018-12-20T14:40:01.203Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/12/16/181216-TodayWhatILearned/</loc>
+        <lastmod>2018-12-16T13:23:02.493Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/12/08/181208-TodayWhatILearned/</loc>
+        <lastmod>2018-12-16T13:16:17.165Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/12/11/181211-TodayWhatILearned/</loc>
+        <lastmod>2018-12-16T13:08:06.994Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/12/15/181215-TodayWhatILearned/</loc>
+        <lastmod>2018-12-16T13:08:01.140Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/12/09/181209-TodayWhatILearned/</loc>
+        <lastmod>2018-12-09T14:45:11.229Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/12/07/181207-TodayWhatILearned/</loc>
+        <lastmod>2018-12-08T13:54:28.160Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/12/05/181205-TodayWhatILearned/</loc>
+        <lastmod>2018-12-05T14:54:22.274Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/12/05/Generative-Model/</loc>
+        <lastmod>2018-12-05T00:21:28.338Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/12/04/181204-TodayWhatILearned/</loc>
+        <lastmod>2018-12-05T00:18:58.519Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/12/03/181203-TodayWhatILearned/</loc>
+        <lastmod>2018-12-03T14:34:34.729Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/11/29/181129-TodayWhatILearned-1/</loc>
+        <lastmod>2018-11-29T14:11:41.165Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/11/23/math-cheatsheet/</loc>
+        <lastmod>2018-11-29T14:04:01.940Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/10/26/Xpath/</loc>
+        <lastmod>2018-11-29T14:03:48.176Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/10/22/Stack/</loc>
+        <lastmod>2018-11-29T14:03:12.458Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/10/24/Selenium/</loc>
+        <lastmod>2018-11-29T14:03:05.332Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/10/26/Scrapy/</loc>
+        <lastmod>2018-11-29T14:02:39.426Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/10/24/Requests/</loc>
+        <lastmod>2018-11-29T14:02:02.858Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/10/25/Pillow/</loc>
+        <lastmod>2018-11-29T14:01:32.649Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/11/23/numpy-cheatsheet/</loc>
+        <lastmod>2018-11-29T14:01:11.843Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/11/01/MySQL/</loc>
+        <lastmod>2018-11-29T14:01:03.954Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/11/29/NGINX/</loc>
+        <lastmod>2018-11-29T14:00:09.249Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/11/27/181127-TodayWhatILearned/</loc>
+        <lastmod>2018-11-28T23:11:52.448Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/11/28/181128-TodayWhatILearned/</loc>
+        <lastmod>2018-11-28T14:35:26.989Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/11/26/181126-TodayWhatILearned/</loc>
+        <lastmod>2018-11-26T14:11:56.956Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/11/25/181125-TodayWhatILearned/</loc>
+        <lastmod>2018-11-26T02:21:28.276Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/11/23/181123-TodayWhatILearned/</loc>
+        <lastmod>2018-11-23T14:30:53.637Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/11/21/181121-TodayWhatILearned/</loc>
+        <lastmod>2018-11-21T14:49:49.833Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/11/20/181120-TodayWhatILearned/</loc>
+        <lastmod>2018-11-20T14:13:14.388Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/11/19/181119-TodayWhatILearned/</loc>
+        <lastmod>2018-11-19T13:48:49.367Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/11/14/181114-TodayWhatILearned/</loc>
+        <lastmod>2018-11-14T13:05:24.610Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/11/12/181112-TodayWhatILearned/</loc>
+        <lastmod>2018-11-12T14:49:02.762Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/11/11/181111-TodayWhatILearned/</loc>
+        <lastmod>2018-11-12T07:47:55.277Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/11/10/181110-TodayWhatILearned/</loc>
+        <lastmod>2018-11-10T13:24:15.964Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/11/09/181109-TodayWhatILearned/</loc>
+        <lastmod>2018-11-09T14:23:02.860Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/11/08/181108-TodayWhatILearned/</loc>
+        <lastmod>2018-11-08T13:20:45.978Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/11/07/181107-TodayWhatILearned/</loc>
+        <lastmod>2018-11-08T11:19:43.338Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/11/05/181105-TodayWhatILearned/</loc>
+        <lastmod>2018-11-05T13:35:12.039Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/11/04/181104-TodayWhatILearned/</loc>
+        <lastmod>2018-11-04T14:10:26.054Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/11/03/181103-TodayWhatILearned/</loc>
+        <lastmod>2018-11-03T13:39:37.686Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/11/02/181102-TodayWhatILearned/</loc>
+        <lastmod>2018-11-02T13:01:45.304Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/11/01/181101-TodayWhatILearned/</loc>
+        <lastmod>2018-11-01T14:20:02.441Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/10/31/181031-TodayWhatILearned/</loc>
+        <lastmod>2018-10-31T14:27:39.155Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/10/30/181030-TodayWhatILearned/</loc>
+        <lastmod>2018-10-30T14:26:50.227Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/10/29/181029-TodayWhatILearned/</loc>
+        <lastmod>2018-10-29T14:31:15.814Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/10/28/181028-TodayWhatILearned/</loc>
+        <lastmod>2018-10-29T14:25:13.521Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/10/27/181027-TodayWhatILearned/</loc>
+        <lastmod>2018-10-28T13:09:52.766Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/10/26/181026-TodayWhatILearned/</loc>
+        <lastmod>2018-10-26T14:46:49.969Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/10/25/181025-TodayWhatILearned/</loc>
+        <lastmod>2018-10-26T04:13:17.230Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/10/24/181024-TodayWhatILearned/</loc>
+        <lastmod>2018-10-26T04:13:11.870Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/10/23/181023-TodayWhatILearned/</loc>
+        <lastmod>2018-10-26T04:13:04.507Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/10/22/181022-TodayWhatILearned/</loc>
+        <lastmod>2018-10-26T04:12:53.705Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/10/19/181019_TodayWhatILearned/</loc>
+        <lastmod>2018-10-26T04:12:47.977Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/10/18/181018-TodayWhatILearned/</loc>
+        <lastmod>2018-10-26T04:12:34.775Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/10/22/Queue/</loc>
+        <lastmod>2018-10-25T12:35:12.781Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+</urlset>
+<!-- XML Sitemap generated by Hexo SEO Friendly Sitemap Generator -->

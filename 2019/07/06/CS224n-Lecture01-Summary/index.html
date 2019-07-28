@@ -183,6 +183,7 @@
         <div class="content">
             <h1 id="CS224n-Lecture-1-Introduction-and-Word-Vectors"><a href="#CS224n-Lecture-1-Introduction-and-Word-Vectors" class="headerlink" title="[CS224n] Lecture 1: Introduction and Word Vectors"></a>[CS224n] Lecture 1: Introduction and Word Vectors</h1><p>Standford University 의 CS224n 강의를 듣고 정리하는 글입니다.</p>
 <a id="more"></a>
+
 <h2 id="1-Human-Language-and-Word-Meaning"><a href="#1-Human-Language-and-Word-Meaning" class="headerlink" title="1. Human Language and Word Meaning"></a>1. Human Language and Word Meaning</h2><p><strong>Word meaning</strong> 의 뜻 : symbol → idea or thing : Denotational Semantics</p>
 <p>우리가 ‘의자’라는 단어를 예로 들자면, 말하는 사람과 듣는 사람 모두 의자와 관련된 특정한 이미지와 아이디어 등을 생각해 볼 수 있다. 이렇게 단어에 대해 관념적인 것을 word meaning 이라고 할 수 있다. 그렇다면 컴퓨터에서 사용할 수 있는 <strong>word meaning</strong> 은 어떤 것이 있을까?</p>
 <h3 id="In-Computer-Word-Representations"><a href="#In-Computer-Word-Representations" class="headerlink" title="In Computer Word Representations"></a>In Computer Word Representations</h3><ol>
@@ -213,8 +214,10 @@
 </ol>
 <p><img src="Untitled-cc28ca48-12e4-4a20-a6c4-b0be86d339d8.png" alt></p>
 <h2 id="3-Word2vec-objective-function-gradients"><a href="#3-Word2vec-objective-function-gradients" class="headerlink" title="3. Word2vec objective function gradients"></a>3. Word2vec objective function gradients</h2><p>문장의 특정 위치 t 에 대해 (t = 1, …, T), 중심단어w_j가 주어졌을때, 주변단어를 한정하는 window size m 에 대해  주변단어들을 예측하는 Likelihood 는 다음과 같습니다. likelihood 식을 해석해보면, 중심단어 w_t 에 대해 중심단어를 중심으로 window 사이즈 2m 개의 단어들의 확률을 모두 곱하고, T 개의 단어 갯수에 대해 또 다시 모두 곱합니다.</p>
-<script type="math/tex; mode=display">Likelihood\quad L(\theta)= \prod_{t=1}^{T}\prod_{-m \leq j \leq m}P(w_{t+j}|w_{t};\theta)</script><p>목적함수는 likelihood 를 바탕으로 minimize와 average, 계산 편의를 위해 log 를 씌웠다는 것외에 likelihood 와 동일하다.</p>
-<script type="math/tex; mode=display">objective function \quad J(\theta) = - \frac{1}{T}logL(\theta)=-\frac{1}{T}\sum_{t=1}^{T}\sum_{-m \leq j \leq m, j\neq0}logP(w_{t+j} | w_{t};\theta)</script><p>단어가 등장할 확률을 구하는 방법은 Softmax Function 을 활용합니다.</p>
+<p>$$Likelihood\quad L(\theta)= \prod_{t=1}^{T}\prod_{-m \leq j \leq m}P(w_{t+j}|w_{t};\theta)$$</p>
+<p>목적함수는 likelihood 를 바탕으로 minimize와 average, 계산 편의를 위해 log 를 씌웠다는 것외에 likelihood 와 동일하다.</p>
+<p>$$objective function \quad J(\theta) = - \frac{1}{T}logL(\theta)=-\frac{1}{T}\sum_{t=1}^{T}\sum_{-m \leq j \leq m, j\neq0}logP(w_{t+j} | w_{t};\theta)$$</p>
+<p>단어가 등장할 확률을 구하는 방법은 Softmax Function 을 활용합니다.</p>
 <p><img src="Untitled-99acc04b-91fd-451c-868f-574d995778b3.png" alt></p>
 <h3 id="Objective-Function-의-derivative"><a href="#Objective-Function-의-derivative" class="headerlink" title="Objective Function 의 derivative"></a>Objective Function 의 derivative</h3><p>Objective Function 과 단어 확률 (Softmax) 의 미분을 구하는 과정이다. </p>
 <p><img src="Untitled-d45516b7-8024-457c-bda2-39092a1f6892.png" alt></p>

@@ -183,8 +183,10 @@
         <div class="content">
             <h1 id="Section-A-B-Summary"><a href="#Section-A-B-Summary" class="headerlink" title="Section A, B - Summary"></a>Section A, B - Summary</h1><p>이 글은 edwith(<a href="https://www.edwith.org/" target="_blank" rel="noopener">https://www.edwith.org/</a>)의 조경현 교수님의 딥러닝을 이용한 자연어 처리 (<a href="https://www.edwith.org/deepnlp/joinLectures/17363" target="_blank" rel="noopener">https://www.edwith.org/deepnlp/joinLectures/17363</a>)강의를 듣고 정리한 글입니다.</p>
 <a id="more"></a>
+
 <h2 id="Section-A-Introduction"><a href="#Section-A-Introduction" class="headerlink" title="Section A. Introduction"></a>Section A. Introduction</h2><ul>
-<li>알고리즘의 정의 : 문제를 해결하기 위한 instruction 의 sequence</li>
+<li><p>알고리즘의 정의 : 문제를 해결하기 위한 instruction 의 sequence</p>
+</li>
 <li><p>Machine Learning Algorithm</p>
 <ol>
 <li><p>문제 정의 (optional) : 문제를 specific 하게 정의 하는 것 자체가 쉽지 않다.</p>
@@ -192,7 +194,8 @@
 </li>
 <li><p>Example들이 주어진다 → 데이터들</p>
 </li>
-<li>문제를 해결 할 수 있는 Train된 Machine Learning Model</li>
+<li><p>문제를 해결 할 수 있는 Train된 Machine Learning Model</p>
+</li>
 </ol>
 </li>
 </ul>
@@ -200,12 +203,14 @@
 <li><p>제공되는 것들:</p>
 <ol>
 <li><p>N 개의 pair 로 된 training set</p>
-<script type="math/tex; mode=display">D = {(x_1, y_1), ..., (x_N, y_N)}</script></li>
+<p> $$D = {(x_1, y_1), …, (x_N, y_N)}$$</p>
+</li>
 <li><p>Data 별 loss function</p>
 <ul>
 <li>Loss function 은 필요에 따라서 우리가 디자인 해야 할 때도 있다.</li>
 </ul>
-<script type="math/tex; mode=display">l(M(x), y) \geq 0</script></li>
+<p>$$l(M(x), y) \geq 0$$</p>
+</li>
 <li><p>Evaluation sets: Validation set과 test set</p>
 </li>
 </ol>
@@ -213,7 +218,8 @@
 <li>기존에 보지 못한 dataset 에도 trained model 이 잘 작동 하는지 확인하는 것이 필수</li>
 </ul>
 </li>
-<li>우리가 결정해야 하는 것들:<ol>
+<li><p>우리가 결정해야 하는 것들:</p>
+<ol>
 <li>Hypothesis sets: H1, H2 … :<ul>
 <li>모델, hyper parameter들이 다른 모델, 여러가지 실험 해보고 싶은 것들이 될 수 있다.</li>
 <li>가설을 잘 설정하는 것이 최종의 모델을 결정하는데 중요한 기초 작업</li>
@@ -225,7 +231,8 @@
 </li>
 </ol>
 </li>
-<li>결국, 우리가 해야 하는 것은<ol>
+<li><p>결국, 우리가 해야 하는 것은</p>
+<ol>
 <li>주어진 Training set 에서, hypothesis set 안의 각 Hm 마다 가장 좋은 모델을 찾는다.</li>
 <li>Trained Hm 중에서, Validation set 에서 가장 좋은 한 가지 모델을 결정한다.</li>
 <li>Reporting 을 위해 test set 에서 얼마나 좋은 성능을 나타내는지 확인한다.</li>
@@ -252,9 +259,11 @@
 <li><p>관점의 이동:</p>
 <ul>
 <li><p>어떤 주어진 data x 에 대하여 y 는 무엇일까? 를 생각하는 모델이 아니라,</p>
-<script type="math/tex; mode=display">f_\theta(x) = ?</script></li>
+<p>$$f_\theta(x) = ? $$</p>
+</li>
 <li><p>주어진 x 에 대해 y가 어떤 case 혹은 값일 확률로 생각한다.</p>
-<script type="math/tex; mode=display">p(y=y'|x) = ?</script></li>
+<p>$$p(y=y’|x) = ?$$</p>
+</li>
 </ul>
 </li>
 <li><p>Distribution based loss functions</p>
@@ -265,12 +274,15 @@
 <li>Multimodal linear Regression : Mixture of Gaussians</li>
 </ul>
 </li>
-<li>결국 Loss Function 은 다음과 같이 표현될 수 있다. Maximize logp</li>
+<li><p>결국 Loss Function 은 다음과 같이 표현될 수 있다. Maximize logp</p>
+</li>
 </ul>
-<script type="math/tex; mode=display">argmax_\theta \sum_{n=1}^{N} logp_\theta(y_n|x_n)</script><ul>
+<p>$$argmax_\theta \sum_{n=1}^{N} logp_\theta(y_n|x_n)$$</p>
+<ul>
 <li>= minimize L(theta):</li>
 </ul>
-<script type="math/tex; mode=display">L(\theta) = \sum_{n=1}^{N} l(M_\theta(x_n), y_n)=  -\sum_{n=1}^{N} logp_\theta(y_n|x_n)</script><h3 id="3-Optimization"><a href="#3-Optimization" class="headerlink" title="3. Optimization"></a>3. Optimization</h3><ul>
+<p>$$L(\theta) = \sum_{n=1}^{N} l(M_\theta(x_n), y_n)=  -\sum_{n=1}^{N} logp_\theta(y_n|x_n)$$</p>
+<h3 id="3-Optimization"><a href="#3-Optimization" class="headerlink" title="3. Optimization"></a>3. Optimization</h3><ul>
 <li>Optimization 방법<ul>
 <li>Optimization 방법에는 GD, SGD, Newton Method 등 다양한 방법이 있지만, Nerual Network 에서는 Gradient Descent 방법을 위주로 사용한다. 이 강의에서는 다루지 않았지만, Gradient Descent  방법 외의 다른 알고리즘들은 전제되는 가정들이 많고, Nerual Network 의 고차원에서는 그 가정을 만족하기가 쉽지 않다. (예를 들어, Newton Method 에서의 Hessian 행렬이 구해지기 위한 가정, computation 양 또한 매우 많다.) 이런 이유에서 Gradient Descent 방법을 사용한다.</li>
 </ul>

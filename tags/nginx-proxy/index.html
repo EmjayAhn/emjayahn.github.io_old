@@ -197,8 +197,10 @@
 <li>일종의 <code>proxy server</code> 역할을 해주는 것이 <code>nginx</code></li>
 </ul>
 <h2 id="1-Install-Nginx"><a href="#1-Install-Nginx" class="headerlink" title="1. Install Nginx"></a>1. Install Nginx</h2><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br><span class="line">$ sudo apt-get install nginx</span><br></pre></td></tr></table></figure>
+
 <h2 id="2-Manage-the-Nginx-Process"><a href="#2-Manage-the-Nginx-Process" class="headerlink" title="2. Manage the Nginx Process"></a>2. Manage the Nginx Process</h2><ul>
 <li>nginx Process<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#start Nginx</span></span><br><span class="line">$ sudo systemctl start nginx</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">#stop nginx</span></span><br><span class="line">$ sudo systemctl stop nginx</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">#restart nginx</span></span><br><span class="line">$ sudo systemctl restart nginx</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">#check status nginx</span></span><br><span class="line">$ sudo systemctl status nginx</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment"># reload nginx</span></span><br><span class="line">$ sudo systemctl reload nginx</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 <h2 id="3-Structure"><a href="#3-Structure" class="headerlink" title="3. Structure"></a>3. Structure</h2><ul>
@@ -218,13 +220,20 @@
 </ul>
 <h2 id="4-Nginx-Configuration"><a href="#4-Nginx-Configuration" class="headerlink" title="4. Nginx Configuration"></a>4. Nginx Configuration</h2><h3 id="4-1-static-file-serving"><a href="#4-1-static-file-serving" class="headerlink" title="4.1 static file serving"></a>4.1 static file serving</h3><p><code>/etc/nginx/sites-available/default</code> 파일 수정</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">  location / &#123;</span><br><span class="line">    root /path/to/html ;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  location /images/ &#123;</span><br><span class="line">    root /path/to/image;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h3 id="4-2-proxy-server"><a href="#4-2-proxy-server" class="headerlink" title="4.2 proxy server"></a>4.2 proxy server</h3><ul>
 <li><p>port 별로 설정이 가능하다</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">  # default 는 80 port (http default)</span><br><span class="line">  # 8080 port 에 대해서</span><br><span class="line">  listen 8080;</span><br><span class="line">  location / &#123;</span><br><span class="line">    proxy_pass http://localhost:8080;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>여러개의 포트를 연결<br>```<br>server {<br>listen 8080;<br>listen 80;</p>
-<p>location / {<br>  proxy_pass <a href="http://localhost:8080" target="_blank" rel="noopener">http://localhost:8080</a>;<br>}<br>}</p>
-</li>
+<li><p>여러개의 포트를 연결</p>
+<pre><code>server {
+listen 8080;
+listen 80;
+
+location / {
+  proxy_pass http://localhost:8080;
+}
+}</code></pre></li>
 </ul>
 
         </div>
