@@ -1,1 +1,3 @@
 User-agent: *
+Allow: /
+Sitemap: https://emjayahn.github.io/sitemap.xml
