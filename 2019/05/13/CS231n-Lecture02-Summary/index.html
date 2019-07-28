@@ -5,11 +5,18 @@
 <title>[CS231n]Lecture02-Image Classification Pipeline - Emjay&#39;s DailyBlog</title>
 <meta name="naver-site-verification" content="139bdfd66b5dc8101d114c24fabb93c84d0dd64d">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta property="al:ios:url" content="applinks://docs">
+<meta property="al:ios:app_store_id" content="12345">
+<meta property="al:ios:app_name" content="App Links">
+<meta property="al:android:url" content="applinks://docs">
+<meta property="al:android:app_name" content="App Links">
+<meta property="al:android:package" content="org.applinks">
+<meta property="al:web:url" content="http://applinks.org/documentation">
 
 <link rel="canonical" href="https://emjayahn.github.io/2019/05/13/cs231n-lecture02-summary/">
 
     <meta name="description" content="Lecture 02: Image Classification Pipeline 이 글은, Standford University 의 CS231n 강의를 듣고 스스로 정리 목적을 위해 적은 글입니다.">
-<meta name="keywords" content="CS231n,summary">
+<meta name="keywords" content="summary,CS231n">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[CS231n]Lecture02-Image Classification Pipeline">
 <meta property="og:url" content="https://emjayahn.github.io/2019/05/13/CS231n-Lecture02-Summary/index.html">
@@ -185,6 +192,7 @@
 <li>이 글은, Standford University 의 CS231n 강의를 듣고 스스로 정리 목적을 위해 적은 글입니다.</li>
 </ul>
 <a id="more"></a>
+
 <h2 id="1-Image-Classification-의-기본-TASK"><a href="#1-Image-Classification-의-기본-TASK" class="headerlink" title="1. Image Classification 의 기본 TASK"></a>1. Image Classification 의 기본 TASK</h2><p><img src="Untitled-dfb244ee-00d4-4801-9db3-2247269d65db.png" alt></p>
 <ul>
 <li>위 사진을 보고, → ‘CAT’ 혹은 ‘고양이’ 라고 classification</li>
@@ -246,8 +254,9 @@
 <p><img src="Untitled-1e7d1cc8-fcee-4215-a721-345c8f25e8f5.png" alt></p>
 <h2 id="5-Second-Classifier-Linear-Classifier"><a href="#5-Second-Classifier-Linear-Classifier" class="headerlink" title="5. Second Classifier : Linear Classifier"></a>5. Second Classifier : Linear Classifier</h2><p>Linear Classifier 는 Neural Network 의 기본 골격이다. (1) image data 와 W (parameters or weights) 을 통해 연산을 해주고, (2) function 을 통과해 Classification 을 해준다.</p>
 <p>특히 Linear Classifier 의 경우 아래 와 같이, (1) image data 와 W 를 dot product 를 해주고 (2) linear function f 를 통과한다.</p>
-<script type="math/tex; mode=display">f(x, W) = Wx</script><p><img src="Untitled-c15a20fd-b906-44ce-af25-6810bc57751a.png" alt></p>
-<h2 id="6-Reference"><a href="#6-Reference" class="headerlink" title="6. Reference"></a>6. Reference</h2><p><a href="https://www.youtube.com/watch?v=OoUX-nOEjG0&amp;list=PL3FW7Lu3i5JvHM8ljYj-zLfQRF3EO8sYv&amp;index=2" target="_blank" rel="noopener">Lecture 2 | Image Classification</a></p>
+<p>$$f(x, W) = Wx$$</p>
+<p><img src="Untitled-c15a20fd-b906-44ce-af25-6810bc57751a.png" alt></p>
+<h2 id="6-Reference"><a href="#6-Reference" class="headerlink" title="6. Reference"></a>6. Reference</h2><p><a href="https://www.youtube.com/watch?v=OoUX-nOEjG0&list=PL3FW7Lu3i5JvHM8ljYj-zLfQRF3EO8sYv&index=2" target="_blank" rel="noopener">Lecture 2 | Image Classification</a></p>
 <p><a href="http://cs231n.stanford.edu/syllabus.html" target="_blank" rel="noopener">Syllabus | CS 231N</a></p>
 
         </div>
