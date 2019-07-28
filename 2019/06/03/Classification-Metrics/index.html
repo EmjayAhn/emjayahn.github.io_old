@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head><meta name="generator" content="Hexo 3.9.0">
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
 <title>Classification Metrics - Emjay, 오늘도 새롭게</title>
@@ -30,7 +30,7 @@
 <meta property="og:url" content="https://emjayahn.github.io/2019/06/03/Classification-Metrics/index.html">
 <meta property="og:site_name" content="Emjay, 오늘도 새롭게">
 <meta property="og:description" content="Classification Metrics: 분류 성능 지표Kaggle Classification 의 Evaluation 에 자주 사용되는 ROC-AUC를 정리해보면서, 이번 기회에 분류모델에서 자주 사용되는 성능지표(Metric)을 간단하게 정리해봅니다.">
-<meta property="og:locale" content="ko">
+<meta property="og:locale" content="en">
 <meta property="og:image" content="https://emjayahn.github.io/images/og_emjay_image.png">
 <meta property="og:updated_time" content="2019-07-15T16:57:48.397Z">
 <meta name="twitter:card" content="summary">
@@ -155,7 +155,7 @@
                 
                 
                 
-                <a class="navbar-item search" title="검색" href="javascript:;">
+                <a class="navbar-item search" title="Search" href="javascript:;">
                     <i class="fas fa-search"></i>
                 </a>
                 
@@ -183,7 +183,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    9분 읽기 (나에 대하여 1323 단어)
+                    9 minutes read (About 1323 words)
                 </span>
                 
                 
@@ -196,9 +196,7 @@
             
         </h1>
         <div class="content">
-            <h1 id="Classification-Metrics-분류-성능-지표"><a href="#Classification-Metrics-분류-성능-지표" class="headerlink" title="Classification Metrics: 분류 성능 지표"></a>Classification Metrics: 분류 성능 지표</h1><p>Kaggle Classification 의 Evaluation 에 자주 사용되는 ROC-AUC를 정리해보면서, 이번 기회에 분류모델에서 자주 사용되는 성능지표(Metric)을 간단하게 정리해봅니다. </p>
-<a id="more"></a>
-<p>Confusion Matrix 에서 비롯되는 Metric 들은 이를 이미지로 기억하는 것이 효율적입니다.</p>
+            <h1 id="Classification-Metrics-분류-성능-지표"><a href="#Classification-Metrics-분류-성능-지표" class="headerlink" title="Classification Metrics: 분류 성능 지표"></a>Classification Metrics: 분류 성능 지표</h1><p>Kaggle Classification 의 Evaluation 에 자주 사용되는 ROC-AUC를 정리해보면서, 이번 기회에 분류모델에서 자주 사용되는 성능지표(Metric)을 간단하게 정리해봅니다.<br><a id="more"></a><br>Confusion Matrix 에서 비롯되는 Metric 들은 이를 이미지로 기억하는 것이 효율적입니다.</p>
 <h2 id="Confusion-Matrix"><a href="#Confusion-Matrix" class="headerlink" title="Confusion Matrix"></a>Confusion Matrix</h2><p>confusion matrix  는 해당 데이터의 정답 클래스(y_true) 와 모델의 예측 클래스(y_pred)의 일치 여부를 갯수로 센 표입니다. 주로, 정답 클래스는 행으로(row), 예측 클래스는 열로(columns) 표현합니다. </p>
 <p><img src="Untitled-170ac3e3-8259-4e1a-80e5-647b5bd326fd.png" alt></p>
 <ul>
@@ -209,26 +207,23 @@
 <h2 id="Accuracy-정확도"><a href="#Accuracy-정확도" class="headerlink" title="Accuracy: 정확도"></a>Accuracy: 정확도</h2><ul>
 <li>전체 데이터에 대해 맞게 예측한 비율</li>
 </ul>
-<p>$$<br>\frac{TP+TN}{TP+FN+FP+TN}<br>$$</p>
-<h2 id="Precision-정밀도"><a href="#Precision-정밀도" class="headerlink" title="Precision: 정밀도"></a>Precision: 정밀도</h2><ul>
+<script type="math/tex; mode=display">
+\frac{TP+TN}{TP+FN+FP+TN}</script><h2 id="Precision-정밀도"><a href="#Precision-정밀도" class="headerlink" title="Precision: 정밀도"></a>Precision: 정밀도</h2><ul>
 <li>class 1 이라고 예측한 데이터 중, 실제로 class 1 인 데이터의 비율</li>
 </ul>
-<p>$$\frac{TP}{TP+FP}$$</p>
-<p>우리의 모델이 기본적인 decision이 class 0 이라고 생각할 때, class 1 은 특별한 경우를 detect 한 경우 일 것입니다. 이 때 class 1 이라고 알람을 울리는 우리의 모델이 얼마나 세밀하게 class를 구분 할 수 있는지의 정도를 수치화 한 것입니다.</p>
+<script type="math/tex; mode=display">\frac{TP}{TP+FP}</script><p>우리의 모델이 기본적인 decision이 class 0 이라고 생각할 때, class 1 은 특별한 경우를 detect 한 경우 일 것입니다. 이 때 class 1 이라고 알람을 울리는 우리의 모델이 얼마나 세밀하게 class를 구분 할 수 있는지의 정도를 수치화 한 것입니다.</p>
 <h2 id="Recall-재현율"><a href="#Recall-재현율" class="headerlink" title="Recall: 재현율"></a>Recall: 재현율</h2><ul>
 <li>실제로 class 1 인 데이터 중에 class 1 이라고 예측한 비율</li>
 <li>= Sensivity = TPR</li>
 </ul>
-<p>$$\frac{TP}{TP+FN}$$</p>
-<p>제가 기억하는 방식은, 자동차에 결함이 발견되서 recall 이 되어야 하는데 (실제 고장 데이터중) 얼마나 recall 됐는지로 생각합니다. </p>
+<script type="math/tex; mode=display">\frac{TP}{TP+FN}</script><p>제가 기억하는 방식은, 자동차에 결함이 발견되서 recall 이 되어야 하는데 (실제 고장 데이터중) 얼마나 recall 됐는지로 생각합니다. </p>
 <h2 id="Fall-out-위양성율"><a href="#Fall-out-위양성율" class="headerlink" title="Fall-out: 위양성율"></a>Fall-out: 위양성율</h2><ul>
 <li>실제로 class 1 이 아닌 데이터 중에 class 1이라고 예측한 비율</li>
 <li>낮을 수록 좋음</li>
 <li>= FPR = 1 - Specificity</li>
 <li>Specificity = 1 - Fall out</li>
 </ul>
-<p>$$\frac{FP}{FP+TN}$$</p>
-<p>실제로 양성데이터가 아닌 데이터에 대해서 우리의 모델이 양성이라고 잘못 예측한 비율을 말합니다. 억울한 데이터의 정도를 측정했다고 생각 할 수 있습니다.</p>
+<script type="math/tex; mode=display">\frac{FP}{FP+TN}</script><p>실제로 양성데이터가 아닌 데이터에 대해서 우리의 모델이 양성이라고 잘못 예측한 비율을 말합니다. 억울한 데이터의 정도를 측정했다고 생각 할 수 있습니다.</p>
 <h2 id="각-Metric-간의-상관관계"><a href="#각-Metric-간의-상관관계" class="headerlink" title="각 Metric 간의 상관관계"></a>각 Metric 간의 상관관계</h2><p>우리 모델의 decision function 을 f(x) 라 할 때, 우리는 f(x)의 결과와 threshold (decision point)를 기준으로 class를 구분합니다.</p>
 <ul>
 <li><p>Recall vs Fall-out : 양의 상관관계</p>
@@ -241,11 +236,9 @@
 <h2 id="F-beta-score"><a href="#F-beta-score" class="headerlink" title="F-beta score"></a>F-beta score</h2><ul>
 <li>precision 과 recall의 가중 조화평균</li>
 </ul>
-<p>$$(\frac{1}{1+\beta^2}\frac{1}{precision} + \frac{\beta^2}{1+\beta^2}\frac{1}{recall})^{-1}$$</p>
-<p>이처럼, 다양한 Metric 에 대해 우리가 초점을 맞추는 것에 따라 모델의 성능은 다르게 바라 볼 수 있습니다. 따라서 모델에 대해 성능을 평가하고 최종 모델을 선택함에 있어, 서로 다른 Metric 을 동시에 비교해야합니다. 이를 위해 precision 과 recall 을 precision 에 beta^2 만큼 가중하여 바라보는 스코어가 F beta score 입니다.</p>
+<script type="math/tex; mode=display">(\frac{1}{1+\beta^2}\frac{1}{precision} + \frac{\beta^2}{1+\beta^2}\frac{1}{recall})^{-1}</script><p>이처럼, 다양한 Metric 에 대해 우리가 초점을 맞추는 것에 따라 모델의 성능은 다르게 바라 볼 수 있습니다. 따라서 모델에 대해 성능을 평가하고 최종 모델을 선택함에 있어, 서로 다른 Metric 을 동시에 비교해야합니다. 이를 위해 precision 과 recall 을 precision 에 beta^2 만큼 가중하여 바라보는 스코어가 F beta score 입니다.</p>
 <p>이 중 beta=1 일 때, score 가 우리가 자주 보는 f1 score 입니다.</p>
-<p>$$F_1=\frac{2<em>precision</em>recall}{precision+recall}$$</p>
-<h2 id="ROC-Curve-Receiver-Operator-Characteristic-Curve"><a href="#ROC-Curve-Receiver-Operator-Characteristic-Curve" class="headerlink" title="ROC Curve: Receiver Operator Characteristic Curve"></a>ROC Curve: Receiver Operator Characteristic Curve</h2><ul>
+<script type="math/tex; mode=display">F_1=\frac{2*precision*recall}{precision+recall}</script><h2 id="ROC-Curve-Receiver-Operator-Characteristic-Curve"><a href="#ROC-Curve-Receiver-Operator-Characteristic-Curve" class="headerlink" title="ROC Curve: Receiver Operator Characteristic Curve"></a>ROC Curve: Receiver Operator Characteristic Curve</h2><ul>
 <li>Recall vs Fallout 의 plot (TPR vs FPR)</li>
 </ul>
 <p>위의 예시 처럼, 우리가 클래스를 판별하는 기준이 되는 threshold (decision point) 를 올리거나 내리면서, recall 과 fall out 은 바뀌게 됩니다. 이렇게 threshhold 를 변화 해 가면서, recall 과 fall out 을 plotting 한 것이 ROC curve 입니다.</p>
@@ -302,7 +295,7 @@
 
 <div class="card">
     <div class="card-content">
-        <h3 class="title is-5 has-text-weight-normal">댓글</h3>
+        <h3 class="title is-5 has-text-weight-normal">Comments</h3>
         
 <div id="lv-container" data-id="city" data-uid="MTAyMC80MjIzMS8xODc3OA==">
     <script type="text/javascript">
@@ -363,7 +356,7 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        포스트
+                        Posts
                     </p>
                     <p class="title has-text-weight-normal">
                         77
@@ -373,7 +366,7 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        카테고리
+                        Categories
                     </p>
                     <p class="title has-text-weight-normal">
                         21
@@ -383,7 +376,7 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        태그
+                        Tags
                     </p>
                     <p class="title has-text-weight-normal">
                         24
@@ -393,7 +386,7 @@
         </nav>
         <div class="level">
             <a class="level-item button is-link is-rounded" href="https://github.com/emjayahn" target="_blank">
-                팔로우</a>
+                Follow</a>
         </div>
         
         
@@ -429,7 +422,7 @@
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                카테고리
+                Categories
             </h3>
             <ul class="menu-list">
             <li>
@@ -610,7 +603,7 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            태그 클라우드
+            Tag Cloud
         </h3>
         <a href="/tags/CS224n/" style="font-size: 10px;">CS224n</a> <a href="/tags/CS231n/" style="font-size: 17.5px;">CS231n</a> <a href="/tags/Classification-확률론적생성모형-Generative-생성모형-분류모델/" style="font-size: 10px;">Classification, 확률론적생성모형, Generative, 생성모형, 분류모델</a> <a href="/tags/Crawling-Web-Requests/" style="font-size: 10px;">Crawling, Web, Requests</a> <a href="/tags/Google-Cloud-Platform/" style="font-size: 10px;">Google Cloud Platform</a> <a href="/tags/TWIL/" style="font-size: 15px;">TWIL</a> <a href="/tags/Thread/" style="font-size: 10px;">Thread</a> <a href="/tags/datastructure/" style="font-size: 10px;">datastructure</a> <a href="/tags/datastructure-stack/" style="font-size: 10px;">datastructure, stack</a> <a href="/tags/decorator/" style="font-size: 10px;">decorator</a> <a href="/tags/generator/" style="font-size: 10px;">generator</a> <a href="/tags/iterable/" style="font-size: 10px;">iterable</a> <a href="/tags/iterator/" style="font-size: 10px;">iterator</a> <a href="/tags/mysql-MYSQL-database/" style="font-size: 10px;">mysql, MYSQL, database</a> <a href="/tags/nginx-proxy/" style="font-size: 10px;">nginx, proxy</a> <a href="/tags/pillow-Pillow-image/" style="font-size: 10px;">pillow, Pillow, image</a> <a href="/tags/python/" style="font-size: 12.5px;">python</a> <a href="/tags/scrapy-crawling-web/" style="font-size: 10px;">scrapy, crawling, web</a> <a href="/tags/summary/" style="font-size: 20px;">summary</a> <a href="/tags/데코레이터/" style="font-size: 10px;">데코레이터</a> <a href="/tags/이터러블/" style="font-size: 10px;">이터러블</a> <a href="/tags/이터레이터/" style="font-size: 10px;">이터레이터</a> <a href="/tags/자동화-selenium-webdriver/" style="font-size: 10px;">자동화, selenium, webdriver</a> <a href="/tags/제너레이터/" style="font-size: 10px;">제너레이터</a>
     </div>
@@ -621,7 +614,7 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            최근 글
+            Recent
         </h3>
         
         <article class="media">
@@ -727,14 +720,14 @@
     <div class="card-content">
         <div class="menu">
         <h3 class="menu-label">
-            아카이브
+            Archives
         </h3>
         <ul class="menu-list">
         
         <li>
             <a class="level is-marginless" href="/archives/2019/07/">
                 <span class="level-start">
-                    <span class="level-item">7월 2019</span>
+                    <span class="level-item">July 2019</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">6</span>
@@ -745,7 +738,7 @@
         <li>
             <a class="level is-marginless" href="/archives/2019/06/">
                 <span class="level-start">
-                    <span class="level-item">6월 2019</span>
+                    <span class="level-item">June 2019</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">2</span>
@@ -756,7 +749,7 @@
         <li>
             <a class="level is-marginless" href="/archives/2019/05/">
                 <span class="level-start">
-                    <span class="level-item">5월 2019</span>
+                    <span class="level-item">May 2019</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">9</span>
@@ -767,7 +760,7 @@
         <li>
             <a class="level is-marginless" href="/archives/2019/01/">
                 <span class="level-start">
-                    <span class="level-item">1월 2019</span>
+                    <span class="level-item">January 2019</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">3</span>
@@ -778,7 +771,7 @@
         <li>
             <a class="level is-marginless" href="/archives/2018/12/">
                 <span class="level-start">
-                    <span class="level-item">12월 2018</span>
+                    <span class="level-item">December 2018</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">12</span>
@@ -789,7 +782,7 @@
         <li>
             <a class="level is-marginless" href="/archives/2018/11/">
                 <span class="level-start">
-                    <span class="level-item">11월 2018</span>
+                    <span class="level-item">November 2018</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">25</span>
@@ -800,7 +793,7 @@
         <li>
             <a class="level is-marginless" href="/archives/2018/10/">
                 <span class="level-start">
-                    <span class="level-item">10월 2018</span>
+                    <span class="level-item">October 2018</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">20</span>
@@ -875,7 +868,7 @@
 </footer>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
-<script>moment.locale("ko");</script>
+<script>moment.locale("en");</script>
 
 
     
@@ -975,7 +968,7 @@ document.addEventListener('DOMContentLoaded', function () {
     <div class="searchbox ins-search">
     <div class="searchbox-container ins-search-container">
         <div class="searchbox-input-wrapper">
-            <input type="text" class="searchbox-input ins-search-input" placeholder="입력 하세요...">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
             <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
         </div>
         <div class="searchbox-result-wrapper ins-section-wrapper">
@@ -987,11 +980,11 @@ document.addEventListener('DOMContentLoaded', function () {
     (function (window) {
         var INSIGHT_CONFIG = {
             TRANSLATION: {
-                POSTS: '포스트',
-                PAGES: '페이지',
-                CATEGORIES: '카테고리',
-                TAGS: '태그',
-                UNTITLED: '(제목없음)',
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
             },
             CONTENT_URL: '/content.json',
         };

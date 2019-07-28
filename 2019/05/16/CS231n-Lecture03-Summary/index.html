@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head><meta name="generator" content="Hexo 3.9.0">
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
 <title>[CS231n]Lecture03-LossFunction/Optimization - Emjay, 오늘도 새롭게</title>
@@ -30,7 +30,7 @@
 <meta property="og:url" content="https://emjayahn.github.io/2019/05/16/CS231n-Lecture03-Summary/index.html">
 <meta property="og:site_name" content="Emjay, 오늘도 새롭게">
 <meta property="og:description" content="Lecture 03: Loss Function &amp;amp; Optimization 이 글은, Standford University 의 CS231n 강의를 듣고 스스로 정리 목적을 위해 적은 글입니다.">
-<meta property="og:locale" content="ko">
+<meta property="og:locale" content="en">
 <meta property="og:image" content="https://emjayahn.github.io/images/og_emjay_image.png">
 <meta property="og:updated_time" content="2019-07-16T15:54:49.510Z">
 <meta name="twitter:card" content="summary">
@@ -155,7 +155,7 @@
                 
                 
                 
-                <a class="navbar-item search" title="검색" href="javascript:;">
+                <a class="navbar-item search" title="Search" href="javascript:;">
                     <i class="fas fa-search"></i>
                 </a>
                 
@@ -183,7 +183,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    11분 읽기 (나에 대하여 1648 단어)
+                    11 minutes read (About 1648 words)
                 </span>
                 
                 
@@ -200,17 +200,13 @@
 <li>이 글은, Standford University 의 CS231n 강의를 듣고 스스로 정리 목적을 위해 적은 글입니다.</li>
 </ul>
 <a id="more"></a>
-
-
 <h2 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1. Introduction"></a>1. Introduction</h2><ol>
 <li>Loss Function : 우리가 가지고 있는 W matrix 가 <strong>얼마나 안좋은지 정량화(Quantify)</strong> </li>
 <li>Optimization : 위의 Loss Function 을 minimize 해서 가장 좋은 parameter (W) 를 찾는 과정</li>
 </ol>
 <h2 id="2-Loss-Function"><a href="#2-Loss-Function" class="headerlink" title="2. Loss Function"></a>2. Loss Function</h2><p>주어진 data 가 다음과 같을 때, </p>
-<p>$${(x_i, y_i)}_{i=1}^{N}$$</p>
-<p> Loss 는 “Average of over examples” 즉, </p>
-<p>$$L = \frac{1}{N}\sum_{i}L_i(f(x_i, W), y_i)$$</p>
-<ul>
+<script type="math/tex; mode=display">\{(x_i, y_i)\}_{i=1}^{N}</script><p> Loss 는 “Average of over examples” 즉, </p>
+<script type="math/tex; mode=display">L = \frac{1}{N}\sum_{i}L_i(f(x_i, W), y_i)</script><ul>
 <li>딥러닝 알고리즘의 General Setup<ul>
 <li>W 가 얼마나 좋고, 나쁜지를 정량화하는 손실함수 만들기</li>
 <li>W 공간을 탐색하면서  이 loss를 minimize 하는 W 를 찾기</li>
@@ -218,10 +214,8 @@
 </li>
 </ul>
 <h3 id="2-1-Loss-Example-Multiclass-SVM-Loss"><a href="#2-1-Loss-Example-Multiclass-SVM-Loss" class="headerlink" title="2-1. Loss Example: Multiclass SVM Loss"></a>2-1. Loss Example: Multiclass SVM Loss</h3><p>SVM Loss 는 다음과 같다. 주어진 data example (x_i, y_i) 에 대해서, score vector <strong>s</strong> 는 다음과 같다. </p>
-<p>$$s = f(x_i, W)$$</p>
-<p>이 때, SVM loss는 </p>
-<p>$$L_i = \sum_{j\neq y_i}\begin{cases} 0 \quad\quad\quad\quad\quad\quad\quad if ;s_{y_i} \geq s_j +1 \ s_j - s_{y_i} + 1 \quad\quad otherwise \end{cases} \ = \sum_{j\neq y_i}max(0, s_j-s_{y_i}+ 1)$$</p>
-<p>x_i 의 정답이 아닌 클래스의 score (s_j) + 1 (safety margin) 과 정답 클래스 score s_yi 를 비교하여, Loss 를 계산한다.</p>
+<script type="math/tex; mode=display">s = f(x_i, W)</script><p>이 때, SVM loss는 </p>
+<script type="math/tex; mode=display">L_i = \sum_{j\neq y_i}\begin{cases} 0 \quad\quad\quad\quad\quad\quad\quad if \;s_{y_i} \geq s_j +1 \\ s_j - s_{y_i} + 1 \quad\quad otherwise \end{cases} \\ = \sum_{j\neq y_i}max(0, s_j-s_{y_i}+ 1)</script><p>x_i 의 정답이 아닌 클래스의 score (s_j) + 1 (safety margin) 과 정답 클래스 score s_yi 를 비교하여, Loss 를 계산한다.</p>
 <p><img src="Untitled-d804129d-082d-4cfc-819c-4fd3e14ddf17.png" alt></p>
 <ol>
 <li>SVM Loss 의 최대, 최솟값은 ? min : 0, max :  infinite</li>
@@ -257,8 +251,7 @@
 </ul>
 <h3 id="2-3-Loss-example-Softmax-Classifier-Multinomial-Logistic-Regression"><a href="#2-3-Loss-example-Softmax-Classifier-Multinomial-Logistic-Regression" class="headerlink" title="2-3 Loss example: Softmax Classifier (Multinomial Logistic Regression)"></a>2-3 Loss example: Softmax Classifier (Multinomial Logistic Regression)</h3><p>deeplearning 에서 훨씬 더 자주 보게 되는 loss 의 종류 중 하나이다.  위에서 살펴본 SVM loss 의 단점은 그 값 자체에 어떤 의미를 부여하기는 힘들다는 점이다. 반면에, Softmax Classifier 는 그 값 자체를 확률적 해석이 가능하기 때문이다. (cf. 콜모고로프의 공리를 통해 softmax 의 layer 의 output 이 확률로 해석 될 수 있다.)</p>
 <p>Softmax Function 은 다음과 같다.</p>
-<p>$$P(Y=k|X=x_i) = \frac{e^{s_k}}{\sum_j e^{s_j}},\quad where \quad s = f(x_i;W)$$</p>
-<h2 id="3-Opitmization"><a href="#3-Opitmization" class="headerlink" title="3. Opitmization"></a>3. Opitmization</h2><p>Optimization 을 한마디로 요약하자면, <strong>우리의  loss 를 최소화 하는 W 를 찾기</strong> 가 되겠다. 그 방법에는,</p>
+<script type="math/tex; mode=display">P(Y=k|X=x_i) = \frac{e^{s_k}}{\sum_j e^{s_j}},\quad where \quad s = f(x_i;W)</script><h2 id="3-Opitmization"><a href="#3-Opitmization" class="headerlink" title="3. Opitmization"></a>3. Opitmization</h2><p>Optimization 을 한마디로 요약하자면, <strong>우리의  loss 를 최소화 하는 W 를 찾기</strong> 가 되겠다. 그 방법에는,</p>
 <ul>
 <li>(바보 같은 접근인: 강의표현) Random Search</li>
 <li>Gradient 를 구하는 방법<ul>
@@ -328,7 +321,7 @@
 
 <div class="card">
     <div class="card-content">
-        <h3 class="title is-5 has-text-weight-normal">댓글</h3>
+        <h3 class="title is-5 has-text-weight-normal">Comments</h3>
         
 <div id="lv-container" data-id="city" data-uid="MTAyMC80MjIzMS8xODc3OA==">
     <script type="text/javascript">
@@ -389,7 +382,7 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        포스트
+                        Posts
                     </p>
                     <p class="title has-text-weight-normal">
                         77
@@ -399,7 +392,7 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        카테고리
+                        Categories
                     </p>
                     <p class="title has-text-weight-normal">
                         21
@@ -409,7 +402,7 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        태그
+                        Tags
                     </p>
                     <p class="title has-text-weight-normal">
                         24
@@ -419,7 +412,7 @@
         </nav>
         <div class="level">
             <a class="level-item button is-link is-rounded" href="https://github.com/emjayahn" target="_blank">
-                팔로우</a>
+                Follow</a>
         </div>
         
         
@@ -455,7 +448,7 @@
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                카테고리
+                Categories
             </h3>
             <ul class="menu-list">
             <li>
@@ -636,7 +629,7 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            태그 클라우드
+            Tag Cloud
         </h3>
         <a href="/tags/CS224n/" style="font-size: 10px;">CS224n</a> <a href="/tags/CS231n/" style="font-size: 17.5px;">CS231n</a> <a href="/tags/Classification-확률론적생성모형-Generative-생성모형-분류모델/" style="font-size: 10px;">Classification, 확률론적생성모형, Generative, 생성모형, 분류모델</a> <a href="/tags/Crawling-Web-Requests/" style="font-size: 10px;">Crawling, Web, Requests</a> <a href="/tags/Google-Cloud-Platform/" style="font-size: 10px;">Google Cloud Platform</a> <a href="/tags/TWIL/" style="font-size: 15px;">TWIL</a> <a href="/tags/Thread/" style="font-size: 10px;">Thread</a> <a href="/tags/datastructure/" style="font-size: 10px;">datastructure</a> <a href="/tags/datastructure-stack/" style="font-size: 10px;">datastructure, stack</a> <a href="/tags/decorator/" style="font-size: 10px;">decorator</a> <a href="/tags/generator/" style="font-size: 10px;">generator</a> <a href="/tags/iterable/" style="font-size: 10px;">iterable</a> <a href="/tags/iterator/" style="font-size: 10px;">iterator</a> <a href="/tags/mysql-MYSQL-database/" style="font-size: 10px;">mysql, MYSQL, database</a> <a href="/tags/nginx-proxy/" style="font-size: 10px;">nginx, proxy</a> <a href="/tags/pillow-Pillow-image/" style="font-size: 10px;">pillow, Pillow, image</a> <a href="/tags/python/" style="font-size: 12.5px;">python</a> <a href="/tags/scrapy-crawling-web/" style="font-size: 10px;">scrapy, crawling, web</a> <a href="/tags/summary/" style="font-size: 20px;">summary</a> <a href="/tags/데코레이터/" style="font-size: 10px;">데코레이터</a> <a href="/tags/이터러블/" style="font-size: 10px;">이터러블</a> <a href="/tags/이터레이터/" style="font-size: 10px;">이터레이터</a> <a href="/tags/자동화-selenium-webdriver/" style="font-size: 10px;">자동화, selenium, webdriver</a> <a href="/tags/제너레이터/" style="font-size: 10px;">제너레이터</a>
     </div>
@@ -647,7 +640,7 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            최근 글
+            Recent
         </h3>
         
         <article class="media">
@@ -753,14 +746,14 @@
     <div class="card-content">
         <div class="menu">
         <h3 class="menu-label">
-            아카이브
+            Archives
         </h3>
         <ul class="menu-list">
         
         <li>
             <a class="level is-marginless" href="/archives/2019/07/">
                 <span class="level-start">
-                    <span class="level-item">7월 2019</span>
+                    <span class="level-item">July 2019</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">6</span>
@@ -771,7 +764,7 @@
         <li>
             <a class="level is-marginless" href="/archives/2019/06/">
                 <span class="level-start">
-                    <span class="level-item">6월 2019</span>
+                    <span class="level-item">June 2019</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">2</span>
@@ -782,7 +775,7 @@
         <li>
             <a class="level is-marginless" href="/archives/2019/05/">
                 <span class="level-start">
-                    <span class="level-item">5월 2019</span>
+                    <span class="level-item">May 2019</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">9</span>
@@ -793,7 +786,7 @@
         <li>
             <a class="level is-marginless" href="/archives/2019/01/">
                 <span class="level-start">
-                    <span class="level-item">1월 2019</span>
+                    <span class="level-item">January 2019</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">3</span>
@@ -804,7 +797,7 @@
         <li>
             <a class="level is-marginless" href="/archives/2018/12/">
                 <span class="level-start">
-                    <span class="level-item">12월 2018</span>
+                    <span class="level-item">December 2018</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">12</span>
@@ -815,7 +808,7 @@
         <li>
             <a class="level is-marginless" href="/archives/2018/11/">
                 <span class="level-start">
-                    <span class="level-item">11월 2018</span>
+                    <span class="level-item">November 2018</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">25</span>
@@ -826,7 +819,7 @@
         <li>
             <a class="level is-marginless" href="/archives/2018/10/">
                 <span class="level-start">
-                    <span class="level-item">10월 2018</span>
+                    <span class="level-item">October 2018</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">20</span>
@@ -901,7 +894,7 @@
 </footer>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
-<script>moment.locale("ko");</script>
+<script>moment.locale("en");</script>
 
 
     
@@ -1001,7 +994,7 @@ document.addEventListener('DOMContentLoaded', function () {
     <div class="searchbox ins-search">
     <div class="searchbox-container ins-search-container">
         <div class="searchbox-input-wrapper">
-            <input type="text" class="searchbox-input ins-search-input" placeholder="입력 하세요...">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
             <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
         </div>
         <div class="searchbox-result-wrapper ins-section-wrapper">
@@ -1013,11 +1006,11 @@ document.addEventListener('DOMContentLoaded', function () {
     (function (window) {
         var INSIGHT_CONFIG = {
             TRANSLATION: {
-                POSTS: '포스트',
-                PAGES: '페이지',
-                CATEGORIES: '카테고리',
-                TAGS: '태그',
-                UNTITLED: '(제목없음)',
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
             },
             CONTENT_URL: '/content.json',
         };

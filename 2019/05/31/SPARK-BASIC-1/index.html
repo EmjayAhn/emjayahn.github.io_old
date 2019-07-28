@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head><meta name="generator" content="Hexo 3.9.0">
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
 <title>SPARK BASIC 1 - Emjay, 오늘도 새롭게</title>
@@ -30,7 +30,7 @@
 <meta property="og:url" content="https://emjayahn.github.io/2019/05/31/SPARK-BASIC-1/index.html">
 <meta property="og:site_name" content="Emjay, 오늘도 새롭게">
 <meta property="og:description" content="Apache Spark Basic 1 SPARK 를 공부하면서 실습 과정을 정리해서 남깁니다. 실습환경 CentOS Spark 2.4.3 Hadoop 2.7">
-<meta property="og:locale" content="ko">
+<meta property="og:locale" content="en">
 <meta property="og:image" content="https://emjayahn.github.io/images/og_emjay_image.png">
 <meta property="og:updated_time" content="2019-07-16T15:53:55.275Z">
 <meta name="twitter:card" content="summary">
@@ -155,7 +155,7 @@
                 
                 
                 
-                <a class="navbar-item search" title="검색" href="javascript:;">
+                <a class="navbar-item search" title="Search" href="javascript:;">
                     <i class="fas fa-search"></i>
                 </a>
                 
@@ -183,7 +183,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    14분 읽기 (나에 대하여 2156 단어)
+                    14 minutes read (About 2156 words)
                 </span>
                 
                 
@@ -206,10 +206,10 @@
 </li>
 </ul>
 <a id="more"></a>
-
 <h1 id="1-Spark-shell"><a href="#1-Spark-shell" class="headerlink" title="1. Spark-shell"></a>1. Spark-shell</h1><h2 id="1-1-Introduction"><a href="#1-1-Introduction" class="headerlink" title="1-1. Introduction"></a>1-1. Introduction</h2><p>shell의 spark home directory 에서 다음 명령어를 통해 spark shell 을 진입할 수 있습니다.</p>
 <pre><code>$ cd /spark_home_directory/
-$ ./bin/spark-shell</code></pre><p><img src="Untitled-d3bd9451-d568-49aa-bf5a-0f6b7bf598d9.png" alt></p>
+$ ./bin/spark-shell
+</code></pre><p><img src="Untitled-d3bd9451-d568-49aa-bf5a-0f6b7bf598d9.png" alt></p>
 <ul>
 <li>sc : spark context</li>
 <li>spark : spark session</li>
@@ -218,12 +218,14 @@ $ ./bin/spark-shell</code></pre><p><img src="Untitled-d3bd9451-d568-49aa-bf5a-0f
 <pre><code>$ jps
 // jps 명령어를 통해 현재 돌고 있는 spark process 를 확인할 수 있다. 
 // spark processor 가 jvm 을 바탕으로 돌기 때문에, jvm 프로세스가 도는 것을 확인하므로써
-// 확인 할 수 있는 것이다.</code></pre><p><a href="http://localhost:4040" target="_blank" rel="noopener">http://localhost:4040</a>, 즉 해당 서버의 ip:4040 포트를 통해서 드라이버에서 제공되는 웹 UI 를 확인할 수 있다. 이 웹 UI 를 통해 현재 작동하는 프로세서와 클러스터들을 관리 할 수 있다.</p>
+// 확인 할 수 있는 것이다.
+</code></pre><p><a href="http://localhost:4040" target="_blank" rel="noopener">http://localhost:4040</a>, 즉 해당 서버의 ip:4040 포트를 통해서 드라이버에서 제공되는 웹 UI 를 확인할 수 있다. 이 웹 UI 를 통해 현재 작동하는 프로세서와 클러스터들을 관리 할 수 있다.</p>
 <h2 id="1-2-RDD"><a href="#1-2-RDD" class="headerlink" title="1-2. RDD"></a>1-2. RDD</h2><p>spark는 data를 처리할 때, RDD 와 Spark SQL 을 통해서 data object 를 생성하고 이를 바탕으로 다양한 pipeline 으로 동작 할 수 있다. RDD 를 처음 접해보는 실습.</p>
 <pre><code>//scala shell
 val data = 1 to 10000
 val distData = sc.parallelize(data)
-distData.filter(_ &lt; 10).collect()</code></pre><ul>
+distData.filter(_ &lt; 10).collect()
+</code></pre><ul>
 <li><code>data</code> 가 RDD</li>
 <li>sc.parallelize의 return 형 역시 parallelize 된 RDD, 즉 distData 도 RDD</li>
 <li>마지막 command line 은 10보다 작은 data 에 대해 filtering 하고 각 executor 에서 실행된 자료를 collect()</li>
@@ -239,7 +241,8 @@ val data = sc.textFile(&quot;file_name&quot;)
 val distData = data.map(r =&gt; r + &quot;_experiment!!&quot;)
 
 // 앞선 map 이 수행되고, 각 element(data) 갯수를 세개 된다.
-distData.count</code></pre><p>여기서는 .count 가 action api 이므로, .count 가 수행될 때, 앞선 command 들이 수행되게 된다.</p>
+distData.count
+</code></pre><p>여기서는 .count 가 action api 이므로, .count 가 수행될 때, 앞선 command 들이 수행되게 된다.</p>
 <p><code>sc.textFile()</code> 의 경우 ‘\n’, newline 을 기준으로 element 를 RDD 에 담게 된다.</p>
 <p><code>RDD.toDebugString</code> 를 통해 해당 RDD 의 Lineage 를 확인 할 수 있다.</p>
 <ul>
@@ -264,7 +267,8 @@ newData.toDebugString
 // shuffle 로 인해 stage 가 2개가 되는 것을 확인 할 수 있다.(indentation)
 
 newData.count
-// action api 를 수행하여 앞선 command 를 모두 수행</code></pre><p><img src="Untitled-95d981bb-62a7-457f-9378-0b41db4d5b42.png" alt></p>
+// action api 를 수행하여 앞선 command 를 모두 수행
+</code></pre><p><img src="Untitled-95d981bb-62a7-457f-9378-0b41db4d5b42.png" alt></p>
 <p>위 command line 에 대한 DAG 를 웹 UI 를 통해 확인하면, 다음과 같이 stage 가 repartition을 기점으로 나누어 지는 것을 확인 할 수 있다.</p>
 <p><img src="Untitled-ef367f62-d6f5-47da-9086-cdaa914aa5d7.png" alt></p>
 <p>총 Partition의 갯수 (Task의 갯수)를 확인해 보면,  default 로 수행된 partition 2 개와, 우리가 설정해준 Partition 의 갯수인 10개를 합하여 12개인 것을 확인 할 수 있다.</p>
@@ -272,7 +276,8 @@ newData.count
 <p>여기서 한 스텝을 더 들어가보면, spark 만의 특이한 특징을 확인 할 수 있다.</p>
 <pre><code>// 위 코드에 이어서, newData 에 대해
 // newData RDD를 collect 해서 cli에 찍는 command 를 수행해보자.
-newData.collect.foreach(println)</code></pre><p>collect api 와 RDD의 element를 print 를 하는 action api 를 수행할 때, 지금까지 공부한 것으로 생각해 보면, text를 읽어서, 2개의 Partition 을 나누고, 다시 10개의 Partition 을 나누는 작업으로 이전의 12 개의 Task 와 다를게 없을 것 같은 느낌이다. 하지만 UI 를 통해 확인해보면, 10개의 Partition 으로 2개가 skipped 되었다고 확인할 수 있다. DAG 에서도, skipped 된 stage에 대해서 회색으로 확인된다.</p>
+newData.collect.foreach(println)
+</code></pre><p>collect api 와 RDD의 element를 print 를 하는 action api 를 수행할 때, 지금까지 공부한 것으로 생각해 보면, text를 읽어서, 2개의 Partition 을 나누고, 다시 10개의 Partition 을 나누는 작업으로 이전의 12 개의 Task 와 다를게 없을 것 같은 느낌이다. 하지만 UI 를 통해 확인해보면, 10개의 Partition 으로 2개가 skipped 되었다고 확인할 수 있다. DAG 에서도, skipped 된 stage에 대해서 회색으로 확인된다.</p>
 <p><img src="Untitled-6e461b14-8e34-4edb-91ad-6dd9ba2ba516.png" alt></p>
 <p><img src="Untitled-85afaaf0-58d6-4533-995d-c5ec919da985.png" alt></p>
 <p>이는 spark 에서 이 커맨드라인을 수행할 때, process 간 통신이 file 을 기반으로한 통신을 했기 때문이다. 제일 처음 <code>newData</code> 에 대해서 수행 될 때, 첫 stage 에서 shuffle 이 수행 될 때, 해당 파일을 각 executor 에서 shuffle write 을 하고 저장해두었다가, 두번째 stage 에서 shuffle  이 수행 될때, shuffle read 를 하는 방식으로 file을 기반으로 processor 가 통신하게 된다.</p>
@@ -291,7 +296,8 @@ distData.cache
 distData.take(5)
 
 // action : collect
-distData.collect</code></pre><p><code>distData.take(5)</code> 까지 한 결과를 UI 에서 cache 를 살펴보면, 다음과 같다.</p>
+distData.collect
+</code></pre><p><code>distData.take(5)</code> 까지 한 결과를 UI 에서 cache 를 살펴보면, 다음과 같다.</p>
 <p><img src="Untitled-54196c66-b41c-4216-af72-5a70b030b321.png" alt></p>
 <p>우리가 설정 한 것 처럼, RDD 의 이름이 myData 로 들어간것을 확인 할 수 있고 cache  역시 확인 할 수 있다. 하지만, Cached  된 비율을 확인하면 전체 RDD  에서 50% 만 된 것을 확인 할 수 있다. 반면에, <code>distData.collect</code> action 을 취하게 되면, Fraction Cached  가 100% 가 된 것을 확인 할 수 있다.</p>
 <p><img src="Untitled-8f50bedc-ace7-4c09-9450-fb277ee5830b.png" alt></p>
@@ -303,7 +309,8 @@ distData.collect</code></pre><p><code>distData.take(5)</code> 까지 한 결과�
 val wordcountRDD = originalDataRDD.flatMap(line =&gt; line.split(&quot; &quot;))
                                         .map(word =&gt; (word, 1)).reduceByKey(_ + _)
 
-wordcountRDD.collect.foreach(println)</code></pre><ol>
+wordcountRDD.collect.foreach(println)
+</code></pre><ol>
 <li>originalDataRDD 에서 text-file을 읽고,</li>
 <li>line 마다 띄어쓰기를 기준으로 split 하고 이를 .flatMap 을 통해, flatten 하게 됩니다.</li>
 <li>그리고 .map 을 통해 (word, 1) tuple 형태로 mapping 합니다.</li>
@@ -351,7 +358,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
 
 <div class="card">
     <div class="card-content">
-        <h3 class="title is-5 has-text-weight-normal">댓글</h3>
+        <h3 class="title is-5 has-text-weight-normal">Comments</h3>
         
 <div id="lv-container" data-id="city" data-uid="MTAyMC80MjIzMS8xODc3OA==">
     <script type="text/javascript">
@@ -412,7 +419,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        포스트
+                        Posts
                     </p>
                     <p class="title has-text-weight-normal">
                         77
@@ -422,7 +429,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        카테고리
+                        Categories
                     </p>
                     <p class="title has-text-weight-normal">
                         21
@@ -432,7 +439,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        태그
+                        Tags
                     </p>
                     <p class="title has-text-weight-normal">
                         24
@@ -442,7 +449,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
         </nav>
         <div class="level">
             <a class="level-item button is-link is-rounded" href="https://github.com/emjayahn" target="_blank">
-                팔로우</a>
+                Follow</a>
         </div>
         
         
@@ -478,7 +485,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                카테고리
+                Categories
             </h3>
             <ul class="menu-list">
             <li>
@@ -659,7 +666,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            태그 클라우드
+            Tag Cloud
         </h3>
         <a href="/tags/CS224n/" style="font-size: 10px;">CS224n</a> <a href="/tags/CS231n/" style="font-size: 17.5px;">CS231n</a> <a href="/tags/Classification-확률론적생성모형-Generative-생성모형-분류모델/" style="font-size: 10px;">Classification, 확률론적생성모형, Generative, 생성모형, 분류모델</a> <a href="/tags/Crawling-Web-Requests/" style="font-size: 10px;">Crawling, Web, Requests</a> <a href="/tags/Google-Cloud-Platform/" style="font-size: 10px;">Google Cloud Platform</a> <a href="/tags/TWIL/" style="font-size: 15px;">TWIL</a> <a href="/tags/Thread/" style="font-size: 10px;">Thread</a> <a href="/tags/datastructure/" style="font-size: 10px;">datastructure</a> <a href="/tags/datastructure-stack/" style="font-size: 10px;">datastructure, stack</a> <a href="/tags/decorator/" style="font-size: 10px;">decorator</a> <a href="/tags/generator/" style="font-size: 10px;">generator</a> <a href="/tags/iterable/" style="font-size: 10px;">iterable</a> <a href="/tags/iterator/" style="font-size: 10px;">iterator</a> <a href="/tags/mysql-MYSQL-database/" style="font-size: 10px;">mysql, MYSQL, database</a> <a href="/tags/nginx-proxy/" style="font-size: 10px;">nginx, proxy</a> <a href="/tags/pillow-Pillow-image/" style="font-size: 10px;">pillow, Pillow, image</a> <a href="/tags/python/" style="font-size: 12.5px;">python</a> <a href="/tags/scrapy-crawling-web/" style="font-size: 10px;">scrapy, crawling, web</a> <a href="/tags/summary/" style="font-size: 20px;">summary</a> <a href="/tags/데코레이터/" style="font-size: 10px;">데코레이터</a> <a href="/tags/이터러블/" style="font-size: 10px;">이터러블</a> <a href="/tags/이터레이터/" style="font-size: 10px;">이터레이터</a> <a href="/tags/자동화-selenium-webdriver/" style="font-size: 10px;">자동화, selenium, webdriver</a> <a href="/tags/제너레이터/" style="font-size: 10px;">제너레이터</a>
     </div>
@@ -670,7 +677,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            최근 글
+            Recent
         </h3>
         
         <article class="media">
@@ -776,14 +783,14 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
     <div class="card-content">
         <div class="menu">
         <h3 class="menu-label">
-            아카이브
+            Archives
         </h3>
         <ul class="menu-list">
         
         <li>
             <a class="level is-marginless" href="/archives/2019/07/">
                 <span class="level-start">
-                    <span class="level-item">7월 2019</span>
+                    <span class="level-item">July 2019</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">6</span>
@@ -794,7 +801,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
         <li>
             <a class="level is-marginless" href="/archives/2019/06/">
                 <span class="level-start">
-                    <span class="level-item">6월 2019</span>
+                    <span class="level-item">June 2019</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">2</span>
@@ -805,7 +812,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
         <li>
             <a class="level is-marginless" href="/archives/2019/05/">
                 <span class="level-start">
-                    <span class="level-item">5월 2019</span>
+                    <span class="level-item">May 2019</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">9</span>
@@ -816,7 +823,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
         <li>
             <a class="level is-marginless" href="/archives/2019/01/">
                 <span class="level-start">
-                    <span class="level-item">1월 2019</span>
+                    <span class="level-item">January 2019</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">3</span>
@@ -827,7 +834,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
         <li>
             <a class="level is-marginless" href="/archives/2018/12/">
                 <span class="level-start">
-                    <span class="level-item">12월 2018</span>
+                    <span class="level-item">December 2018</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">12</span>
@@ -838,7 +845,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
         <li>
             <a class="level is-marginless" href="/archives/2018/11/">
                 <span class="level-start">
-                    <span class="level-item">11월 2018</span>
+                    <span class="level-item">November 2018</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">25</span>
@@ -849,7 +856,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
         <li>
             <a class="level is-marginless" href="/archives/2018/10/">
                 <span class="level-start">
-                    <span class="level-item">10월 2018</span>
+                    <span class="level-item">October 2018</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">20</span>
@@ -924,7 +931,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
 </footer>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
-<script>moment.locale("ko");</script>
+<script>moment.locale("en");</script>
 
 
     
@@ -1024,7 +1031,7 @@ document.addEventListener('DOMContentLoaded', function () {
     <div class="searchbox ins-search">
     <div class="searchbox-container ins-search-container">
         <div class="searchbox-input-wrapper">
-            <input type="text" class="searchbox-input ins-search-input" placeholder="입력 하세요...">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
             <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
         </div>
         <div class="searchbox-result-wrapper ins-section-wrapper">
@@ -1036,11 +1043,11 @@ document.addEventListener('DOMContentLoaded', function () {
     (function (window) {
         var INSIGHT_CONFIG = {
             TRANSLATION: {
-                POSTS: '포스트',
-                PAGES: '페이지',
-                CATEGORIES: '카테고리',
-                TAGS: '태그',
-                UNTITLED: '(제목없음)',
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
             },
             CONTENT_URL: '/content.json',
         };

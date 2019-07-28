@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head><meta name="generator" content="Hexo 3.9.0">
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
 <title>Queue - Emjay, 오늘도 새롭게</title>
@@ -23,19 +23,19 @@
 
 <link rel="canonical" href="https://emjayahn.github.io/2018/10/22/queue/">
 
-    <meta name="description" content="Queue 공부한 내용을 스스로 보기 쉽게 정리한 글입니다.  Queue의 특징 내가 버스정류장에 서있다고 생각해보면, 버스 전용차선으로 버스가 줄지어 들어온다. 아무리 뒷차가 손님을 다 태웠다고해서, 앞에 버스가 아직 손님을 태우고 있으면 뒷 버스는 출발 하지 못한다.   이것이 바로 QUEUE  FIFO : First In First Out == 선입선">
+    <meta name="description" content="Queue 공부한 내용을 스스로 보기 쉽게 정리한 글입니다.  Queue의 특징 내가 버스정류장에 서있다고 생각해보면, 버스 전용차선으로 버스가 줄지어 들어온다. 아무리 뒷차가 손님을 다 태웠다고해서, 앞에 버스가 아직 손님을 태우고 있으면 뒷 버스는 출발 하지 못한다. 이것이 바로 QUEUE FIFO : First In First Out == 선입선출 o">
 <meta name="keywords" content="datastructure">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Queue">
 <meta property="og:url" content="https://emjayahn.github.io/2018/10/22/Queue/index.html">
 <meta property="og:site_name" content="Emjay, 오늘도 새롭게">
-<meta property="og:description" content="Queue 공부한 내용을 스스로 보기 쉽게 정리한 글입니다.  Queue의 특징 내가 버스정류장에 서있다고 생각해보면, 버스 전용차선으로 버스가 줄지어 들어온다. 아무리 뒷차가 손님을 다 태웠다고해서, 앞에 버스가 아직 손님을 태우고 있으면 뒷 버스는 출발 하지 못한다.   이것이 바로 QUEUE  FIFO : First In First Out == 선입선">
-<meta property="og:locale" content="ko">
+<meta property="og:description" content="Queue 공부한 내용을 스스로 보기 쉽게 정리한 글입니다.  Queue의 특징 내가 버스정류장에 서있다고 생각해보면, 버스 전용차선으로 버스가 줄지어 들어온다. 아무리 뒷차가 손님을 다 태웠다고해서, 앞에 버스가 아직 손님을 태우고 있으면 뒷 버스는 출발 하지 못한다. 이것이 바로 QUEUE FIFO : First In First Out == 선입선출 o">
+<meta property="og:locale" content="en">
 <meta property="og:image" content="https://emjayahn.github.io/images/og_emjay_image.png">
 <meta property="og:updated_time" content="2018-10-25T12:35:12.781Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Queue">
-<meta name="twitter:description" content="Queue 공부한 내용을 스스로 보기 쉽게 정리한 글입니다.  Queue의 특징 내가 버스정류장에 서있다고 생각해보면, 버스 전용차선으로 버스가 줄지어 들어온다. 아무리 뒷차가 손님을 다 태웠다고해서, 앞에 버스가 아직 손님을 태우고 있으면 뒷 버스는 출발 하지 못한다.   이것이 바로 QUEUE  FIFO : First In First Out == 선입선">
+<meta name="twitter:description" content="Queue 공부한 내용을 스스로 보기 쉽게 정리한 글입니다.  Queue의 특징 내가 버스정류장에 서있다고 생각해보면, 버스 전용차선으로 버스가 줄지어 들어온다. 아무리 뒷차가 손님을 다 태웠다고해서, 앞에 버스가 아직 손님을 태우고 있으면 뒷 버스는 출발 하지 못한다. 이것이 바로 QUEUE FIFO : First In First Out == 선입선출 o">
 <meta name="twitter:image" content="https://emjayahn.github.io/images/og_emjay_image.png">
 <meta property="fb:app_id" content="jjminjae">
 
@@ -155,7 +155,7 @@
                 
                 
                 
-                <a class="navbar-item search" title="검색" href="javascript:;">
+                <a class="navbar-item search" title="Search" href="javascript:;">
                     <i class="fas fa-search"></i>
                 </a>
                 
@@ -183,7 +183,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    3분 읽기 (나에 대하여 476 단어)
+                    3 minutes read (About 476 words)
                 </span>
                 
                 
@@ -200,34 +200,24 @@
 <p>공부한 내용을 스스로 보기 쉽게 정리한 글입니다.</p>
 </blockquote>
 <h2 id="Queue의-특징"><a href="#Queue의-특징" class="headerlink" title="Queue의 특징"></a>Queue의 특징</h2><ol>
-<li>내가 버스정류장에 서있다고 생각해보면, 버스 전용차선으로 버스가 줄지어 들어온다. 아무리 뒷차가 손님을 다 태웠다고해서, 앞에 버스가 아직 손님을 태우고 있으면 뒷 버스는 출발 하지 못한다. <br></li>
-</ol>
-<p><strong>이것이 바로 QUEUE</strong></p>
-<ol start="2">
+<li>내가 버스정류장에 서있다고 생각해보면, 버스 전용차선으로 버스가 줄지어 들어온다. 아무리 뒷차가 손님을 다 태웠다고해서, 앞에 버스가 아직 손님을 태우고 있으면 뒷 버스는 출발 하지 못한다. <br><br><strong>이것이 바로 QUEUE</strong></li>
 <li>FIFO : First In First Out == 선입선출 or 후입후출</li>
 <li>front와 rear 라는 index가 각각 구조의 맨 앞과 뒤를 가리키고 있다. Data는 rear로 들어가고, front 에서 나온다.</li>
 </ol>
 <h2 id="ADT"><a href="#ADT" class="headerlink" title="ADT"></a>ADT</h2><ol>
-<li>empty() 라는 메소드로 Queue 에 data가 있는지 없는지 확인하게 한다. empty 이면 True, not empty 이면, False 를 return 한다.<br></li>
+<li><p>empty() 라는 메소드로 Queue 에 data가 있는지 없는지 확인하게 한다. empty 이면 True, not empty 이면, False 를 return 한다.<br><br><strong>Queue.empty() returns Boolean</strong></p>
+</li>
+<li><p>enaueue(data) 메소드로 Queue의 rear 가 가리키고 있는 data 뒤에 data를 넣는다.<br><br><strong>Queue.enqueue (data) returns None</strong></p>
+</li>
+<li><p>dequeue() 메소드로 Queue의 front가 가리키고 있는 data를 반환하면서 삭제 된다.<br><br><strong>Queue.dequeue() returns data</strong></p>
+</li>
+<li><p>peek() 메소드로 Queue의 front가 가리키고 있는 data를 반환한다. peek은 어디까지나 확인하는 메소드 이므로, data가 삭제되지 않는다.<br><br><strong>Queue.peek() returns data</strong></p>
+</li>
 </ol>
-<p><strong>Queue.empty() returns Boolean</strong></p>
-<ol start="2">
-<li>enaueue(data) 메소드로 Queue의 rear 가 가리키고 있는 data 뒤에 data를 넣는다.<br></li>
-</ol>
-<p><strong>Queue.enqueue (data) returns None</strong></p>
-<ol start="3">
-<li>dequeue() 메소드로 Queue의 front가 가리키고 있는 data를 반환하면서 삭제 된다.<br></li>
-</ol>
-<p><strong>Queue.dequeue() returns data</strong></p>
-<ol start="4">
-<li>peek() 메소드로 Queue의 front가 가리키고 있는 data를 반환한다. peek은 어디까지나 확인하는 메소드 이므로, data가 삭제되지 않는다.<br></li>
-</ol>
-<p><strong>Queue.peek() returns data</strong></p>
 <h2 id="구현-1-by-python-list"><a href="#구현-1-by-python-list" class="headerlink" title="구현 1 : by python list"></a>구현 1 : by python list</h2><ul>
 <li>Queue 구조를 Python에 내장 되어 있는 list를 container 로 구현한다.</li>
 </ul>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Queue</span>:</span></span><br><span class="line">  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span></span><br><span class="line">    self.container=list()</span><br><span class="line"></span><br><span class="line">  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">empty</span><span class="hljs-params">(self)</span>:</span></span><br><span class="line">    <span class="hljs-comment"># ADT 를 따라서, 비어 있으면 return True 비어있지 않으면 return False</span></span><br><span class="line">    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> self.container:</span><br><span class="line">      <span class="hljs-keyword">return</span> <span class="hljs-keyword">True</span></span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-keyword">False</span></span><br><span class="line"></span><br><span class="line">  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">enqueue</span><span class="hljs-params">(self, data)</span>:</span></span><br><span class="line">    <span class="hljs-comment"># list 를 활용했으므로, list.append(data)를 활용할 수 있다.</span></span><br><span class="line">    self.container.append(data)</span><br><span class="line"></span><br><span class="line">  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">dequeue</span><span class="hljs-params">(self)</span>:</span></span><br><span class="line">    <span class="hljs-comment"># pop 역시 list.pop()을 활용할 수 있다.</span></span><br><span class="line">    <span class="hljs-keyword">return</span> self.container.pop(<span class="hljs-number">0</span>)</span><br><span class="line"></span><br><span class="line">  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">peek</span><span class="hljs-params">(self)</span>:</span></span><br><span class="line">    <span class="hljs-comment"># peek은 단지 front 에 어떤 데이터가 있는지 확인 하는 것 뿐이므로, 현재 리스트의 가장 앞 부분에 있는 data 를 확인하면 된다.</span></span><br><span class="line">    <span class="hljs-keyword">return</span> self.container[<span class="hljs-number">0</span>]</span><br></pre></td></tr></table></figure>
-
 <h2 id="구현-2"><a href="#구현-2" class="headerlink" title="구현 2 :"></a>구현 2 :</h2>
         </div>
         
@@ -279,7 +269,7 @@
 
 <div class="card">
     <div class="card-content">
-        <h3 class="title is-5 has-text-weight-normal">댓글</h3>
+        <h3 class="title is-5 has-text-weight-normal">Comments</h3>
         
 <div id="lv-container" data-id="city" data-uid="MTAyMC80MjIzMS8xODc3OA==">
     <script type="text/javascript">
@@ -340,7 +330,7 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        포스트
+                        Posts
                     </p>
                     <p class="title has-text-weight-normal">
                         77
@@ -350,7 +340,7 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        카테고리
+                        Categories
                     </p>
                     <p class="title has-text-weight-normal">
                         21
@@ -360,7 +350,7 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        태그
+                        Tags
                     </p>
                     <p class="title has-text-weight-normal">
                         24
@@ -370,7 +360,7 @@
         </nav>
         <div class="level">
             <a class="level-item button is-link is-rounded" href="https://github.com/emjayahn" target="_blank">
-                팔로우</a>
+                Follow</a>
         </div>
         
         
@@ -406,7 +396,7 @@
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                카테고리
+                Categories
             </h3>
             <ul class="menu-list">
             <li>
@@ -587,7 +577,7 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            태그 클라우드
+            Tag Cloud
         </h3>
         <a href="/tags/CS224n/" style="font-size: 10px;">CS224n</a> <a href="/tags/CS231n/" style="font-size: 17.5px;">CS231n</a> <a href="/tags/Classification-확률론적생성모형-Generative-생성모형-분류모델/" style="font-size: 10px;">Classification, 확률론적생성모형, Generative, 생성모형, 분류모델</a> <a href="/tags/Crawling-Web-Requests/" style="font-size: 10px;">Crawling, Web, Requests</a> <a href="/tags/Google-Cloud-Platform/" style="font-size: 10px;">Google Cloud Platform</a> <a href="/tags/TWIL/" style="font-size: 15px;">TWIL</a> <a href="/tags/Thread/" style="font-size: 10px;">Thread</a> <a href="/tags/datastructure/" style="font-size: 10px;">datastructure</a> <a href="/tags/datastructure-stack/" style="font-size: 10px;">datastructure, stack</a> <a href="/tags/decorator/" style="font-size: 10px;">decorator</a> <a href="/tags/generator/" style="font-size: 10px;">generator</a> <a href="/tags/iterable/" style="font-size: 10px;">iterable</a> <a href="/tags/iterator/" style="font-size: 10px;">iterator</a> <a href="/tags/mysql-MYSQL-database/" style="font-size: 10px;">mysql, MYSQL, database</a> <a href="/tags/nginx-proxy/" style="font-size: 10px;">nginx, proxy</a> <a href="/tags/pillow-Pillow-image/" style="font-size: 10px;">pillow, Pillow, image</a> <a href="/tags/python/" style="font-size: 12.5px;">python</a> <a href="/tags/scrapy-crawling-web/" style="font-size: 10px;">scrapy, crawling, web</a> <a href="/tags/summary/" style="font-size: 20px;">summary</a> <a href="/tags/데코레이터/" style="font-size: 10px;">데코레이터</a> <a href="/tags/이터러블/" style="font-size: 10px;">이터러블</a> <a href="/tags/이터레이터/" style="font-size: 10px;">이터레이터</a> <a href="/tags/자동화-selenium-webdriver/" style="font-size: 10px;">자동화, selenium, webdriver</a> <a href="/tags/제너레이터/" style="font-size: 10px;">제너레이터</a>
     </div>
@@ -598,7 +588,7 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            최근 글
+            Recent
         </h3>
         
         <article class="media">
@@ -704,14 +694,14 @@
     <div class="card-content">
         <div class="menu">
         <h3 class="menu-label">
-            아카이브
+            Archives
         </h3>
         <ul class="menu-list">
         
         <li>
             <a class="level is-marginless" href="/archives/2019/07/">
                 <span class="level-start">
-                    <span class="level-item">7월 2019</span>
+                    <span class="level-item">July 2019</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">6</span>
@@ -722,7 +712,7 @@
         <li>
             <a class="level is-marginless" href="/archives/2019/06/">
                 <span class="level-start">
-                    <span class="level-item">6월 2019</span>
+                    <span class="level-item">June 2019</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">2</span>
@@ -733,7 +723,7 @@
         <li>
             <a class="level is-marginless" href="/archives/2019/05/">
                 <span class="level-start">
-                    <span class="level-item">5월 2019</span>
+                    <span class="level-item">May 2019</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">9</span>
@@ -744,7 +734,7 @@
         <li>
             <a class="level is-marginless" href="/archives/2019/01/">
                 <span class="level-start">
-                    <span class="level-item">1월 2019</span>
+                    <span class="level-item">January 2019</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">3</span>
@@ -755,7 +745,7 @@
         <li>
             <a class="level is-marginless" href="/archives/2018/12/">
                 <span class="level-start">
-                    <span class="level-item">12월 2018</span>
+                    <span class="level-item">December 2018</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">12</span>
@@ -766,7 +756,7 @@
         <li>
             <a class="level is-marginless" href="/archives/2018/11/">
                 <span class="level-start">
-                    <span class="level-item">11월 2018</span>
+                    <span class="level-item">November 2018</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">25</span>
@@ -777,7 +767,7 @@
         <li>
             <a class="level is-marginless" href="/archives/2018/10/">
                 <span class="level-start">
-                    <span class="level-item">10월 2018</span>
+                    <span class="level-item">October 2018</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">20</span>
@@ -852,7 +842,7 @@
 </footer>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
-<script>moment.locale("ko");</script>
+<script>moment.locale("en");</script>
 
 
     
@@ -952,7 +942,7 @@ document.addEventListener('DOMContentLoaded', function () {
     <div class="searchbox ins-search">
     <div class="searchbox-container ins-search-container">
         <div class="searchbox-input-wrapper">
-            <input type="text" class="searchbox-input ins-search-input" placeholder="입력 하세요...">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
             <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
         </div>
         <div class="searchbox-result-wrapper ins-section-wrapper">
@@ -964,11 +954,11 @@ document.addEventListener('DOMContentLoaded', function () {
     (function (window) {
         var INSIGHT_CONFIG = {
             TRANSLATION: {
-                POSTS: '포스트',
-                PAGES: '페이지',
-                CATEGORIES: '카테고리',
-                TAGS: '태그',
-                UNTITLED: '(제목없음)',
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
             },
             CONTENT_URL: '/content.json',
         };

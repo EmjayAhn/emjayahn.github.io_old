@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head><meta name="generator" content="Hexo 3.9.0">
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-<title>카테고리: Pillow - Emjay, 오늘도 새롭게</title>
+<title>Category: Pillow - Emjay, 오늘도 새롭게</title>
 <meta name="naver-site-verification" content="139bdfd66b5dc8101d114c24fabb93c84d0dd64d">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="al:ios:url" content="applinks://docs">
@@ -30,7 +30,7 @@
 <meta property="og:url" content="https://emjayahn.github.io/categories/wiki/Pillow/index.html">
 <meta property="og:site_name" content="Emjay, 오늘도 새롭게">
 <meta property="og:description" content="공부한 것, 알게된 것을 기록하는 블로그입니다.">
-<meta property="og:locale" content="ko">
+<meta property="og:locale" content="en">
 <meta property="og:image" content="https://emjayahn.github.io/images/og_emjay_image.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Emjay, 오늘도 새롭게">
@@ -154,7 +154,7 @@
                 
                 
                 
-                <a class="navbar-item search" title="검색" href="javascript:;">
+                <a class="navbar-item search" title="Search" href="javascript:;">
                     <i class="fas fa-search"></i>
                 </a>
                 
@@ -170,7 +170,7 @@
     <div class="card-content">
         <nav class="breadcrumb" aria-label="breadcrumbs">
         <ul>
-            <li><a href="/categories">카테고리</a></li>
+            <li><a href="/categories">Categories</a></li>
             
             <li><a href="/categories/wiki/">wiki</a></li>
             
@@ -196,7 +196,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    3분 읽기 (나에 대하여 439 단어)
+                    3 minutes read (About 439 words)
                 </span>
                 
                 
@@ -217,36 +217,27 @@
 <li>또한, 다양한 이미지 확장자를 다룰수 있다. (예, jpg, png)</li>
 </ul>
 <h2 id="Pillow-install"><a href="#Pillow-install" class="headerlink" title="Pillow install"></a>Pillow install</h2><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install Pillow</span><br></pre></td></tr></table></figure>
-
 <h3 id="1-Import-Convention"><a href="#1-Import-Convention" class="headerlink" title="1. Import Convention"></a>1. Import Convention</h3><ul>
 <li>Pillow 를 사용하기에 앞서, Import 해야한다.<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 <h3 id="2-Pillow-메소드"><a href="#2-Pillow-메소드" class="headerlink" title="2. Pillow 메소드"></a>2. Pillow 메소드</h3><h4 id="1-open"><a href="#1-open" class="headerlink" title="(1) open()"></a>(1) open()</h4><ul>
 <li><p>이름 그대로, 경로와 파일 이름을 적어주면, 해당 이미지리턴하여 Variable 에 할당한다.</p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">image = Image.open(<span class="hljs-string">"imagefile_name"</span>)</span><br></pre></td></tr></table></figure>
-
 <h4 id="2-crop"><a href="#2-crop" class="headerlink" title="(2) crop()"></a>(2) crop()</h4></li>
-<li><p>이름 그대로, image 를 잘라준다. 이 때 Parameter 는 box형태로 들어가게 된다.</p>
-</li>
-<li><p>box 는 (left, upper, right, lower) 로 들어가게 된든데, pixel 단위로 들어가면 된다</p>
-</li>
+<li>이름 그대로, image 를 잘라준다. 이 때 Parameter 는 box형태로 들어가게 된다.</li>
+<li>box 는 (left, upper, right, lower) 로 들어가게 된든데, pixel 단위로 들어가면 된다</li>
 <li><p>이미지의 가장 왼쪽과 위쪽 라인을 기준으로, <br></p>
 <ul>
 <li>left px 만큼</li>
 <li>upper px 만큼</li>
 <li>(왼쪽을 기준으로) right px 만큼</li>
 <li>(위쪽을 기준으로) bottom px 만큼 <br><br>잘라, box 로 만들어 준다.<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">box = (<span class="hljs-number">10</span>, <span class="hljs-number">10</span>, <span class="hljs-number">110</span>, <span class="hljs-number">110</span>)</span><br><span class="line">image.crop(box)</span><br><span class="line"><span class="hljs-comment">### 이렇게 되면 가로세로 100px 만큼의 이미지가 만들어진다.</span></span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 <h4 id="3-thumbnail"><a href="#3-thumbnail" class="headerlink" title="(3) thumbnail()"></a>(3) thumbnail()</h4></li>
-<li><p>썸네일을 만들어준다.</p>
-</li>
-<li><p>썸네일의 활용 방안은 한 가지 사진을 어플리케이션 곳곳에서 사용한다고 할 때, 데이터 사이즈가 큰 원본 사진을 계속 해서 들고 다니며 사용하면 어플리케이션에 따라 메모리 낭비, 서버용량 낭비, 트래픽 낭비 등으로 이어질 수 있다. 따라서, 이미지의 데이터 크기와 해상도를 낮춰 사용할 수 있다.</p>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">image.thumbnail((pixel, pixel))</span><br><span class="line"><span class="hljs-comment">#thumbnail 메소드를 사용하여, 원하는 pixel 수로 줄일 수 있다.</span></span><br></pre></td></tr></table></figure>
-
+<li>썸네일을 만들어준다.</li>
+<li>썸네일의 활용 방안은 한 가지 사진을 어플리케이션 곳곳에서 사용한다고 할 때, 데이터 사이즈가 큰 원본 사진을 계속 해서 들고 다니며 사용하면 어플리케이션에 따라 메모리 낭비, 서버용량 낭비, 트래픽 낭비 등으로 이어질 수 있다. 따라서, 이미지의 데이터 크기와 해상도를 낮춰 사용할 수 있다.<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">image.thumbnail((pixel, pixel))</span><br><span class="line"><span class="hljs-comment">#thumbnail 메소드를 사용하여, 원하는 pixel 수로 줄일 수 있다.</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 
@@ -304,7 +295,7 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        포스트
+                        Posts
                     </p>
                     <p class="title has-text-weight-normal">
                         77
@@ -314,7 +305,7 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        카테고리
+                        Categories
                     </p>
                     <p class="title has-text-weight-normal">
                         21
@@ -324,7 +315,7 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        태그
+                        Tags
                     </p>
                     <p class="title has-text-weight-normal">
                         24
@@ -334,7 +325,7 @@
         </nav>
         <div class="level">
             <a class="level-item button is-link is-rounded" href="https://github.com/emjayahn" target="_blank">
-                팔로우</a>
+                Follow</a>
         </div>
         
         
@@ -370,7 +361,7 @@
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                카테고리
+                Categories
             </h3>
             <ul class="menu-list">
             <li>
@@ -551,7 +542,7 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            태그 클라우드
+            Tag Cloud
         </h3>
         <a href="/tags/CS224n/" style="font-size: 10px;">CS224n</a> <a href="/tags/CS231n/" style="font-size: 17.5px;">CS231n</a> <a href="/tags/Classification-확률론적생성모형-Generative-생성모형-분류모델/" style="font-size: 10px;">Classification, 확률론적생성모형, Generative, 생성모형, 분류모델</a> <a href="/tags/Crawling-Web-Requests/" style="font-size: 10px;">Crawling, Web, Requests</a> <a href="/tags/Google-Cloud-Platform/" style="font-size: 10px;">Google Cloud Platform</a> <a href="/tags/TWIL/" style="font-size: 15px;">TWIL</a> <a href="/tags/Thread/" style="font-size: 10px;">Thread</a> <a href="/tags/datastructure/" style="font-size: 10px;">datastructure</a> <a href="/tags/datastructure-stack/" style="font-size: 10px;">datastructure, stack</a> <a href="/tags/decorator/" style="font-size: 10px;">decorator</a> <a href="/tags/generator/" style="font-size: 10px;">generator</a> <a href="/tags/iterable/" style="font-size: 10px;">iterable</a> <a href="/tags/iterator/" style="font-size: 10px;">iterator</a> <a href="/tags/mysql-MYSQL-database/" style="font-size: 10px;">mysql, MYSQL, database</a> <a href="/tags/nginx-proxy/" style="font-size: 10px;">nginx, proxy</a> <a href="/tags/pillow-Pillow-image/" style="font-size: 10px;">pillow, Pillow, image</a> <a href="/tags/python/" style="font-size: 12.5px;">python</a> <a href="/tags/scrapy-crawling-web/" style="font-size: 10px;">scrapy, crawling, web</a> <a href="/tags/summary/" style="font-size: 20px;">summary</a> <a href="/tags/데코레이터/" style="font-size: 10px;">데코레이터</a> <a href="/tags/이터러블/" style="font-size: 10px;">이터러블</a> <a href="/tags/이터레이터/" style="font-size: 10px;">이터레이터</a> <a href="/tags/자동화-selenium-webdriver/" style="font-size: 10px;">자동화, selenium, webdriver</a> <a href="/tags/제너레이터/" style="font-size: 10px;">제너레이터</a>
     </div>
@@ -562,7 +553,7 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            최근 글
+            Recent
         </h3>
         
         <article class="media">
@@ -668,14 +659,14 @@
     <div class="card-content">
         <div class="menu">
         <h3 class="menu-label">
-            아카이브
+            Archives
         </h3>
         <ul class="menu-list">
         
         <li>
             <a class="level is-marginless" href="/archives/2019/07/">
                 <span class="level-start">
-                    <span class="level-item">7월 2019</span>
+                    <span class="level-item">July 2019</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">6</span>
@@ -686,7 +677,7 @@
         <li>
             <a class="level is-marginless" href="/archives/2019/06/">
                 <span class="level-start">
-                    <span class="level-item">6월 2019</span>
+                    <span class="level-item">June 2019</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">2</span>
@@ -697,7 +688,7 @@
         <li>
             <a class="level is-marginless" href="/archives/2019/05/">
                 <span class="level-start">
-                    <span class="level-item">5월 2019</span>
+                    <span class="level-item">May 2019</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">9</span>
@@ -708,7 +699,7 @@
         <li>
             <a class="level is-marginless" href="/archives/2019/01/">
                 <span class="level-start">
-                    <span class="level-item">1월 2019</span>
+                    <span class="level-item">January 2019</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">3</span>
@@ -719,7 +710,7 @@
         <li>
             <a class="level is-marginless" href="/archives/2018/12/">
                 <span class="level-start">
-                    <span class="level-item">12월 2018</span>
+                    <span class="level-item">December 2018</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">12</span>
@@ -730,7 +721,7 @@
         <li>
             <a class="level is-marginless" href="/archives/2018/11/">
                 <span class="level-start">
-                    <span class="level-item">11월 2018</span>
+                    <span class="level-item">November 2018</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">25</span>
@@ -741,7 +732,7 @@
         <li>
             <a class="level is-marginless" href="/archives/2018/10/">
                 <span class="level-start">
-                    <span class="level-item">10월 2018</span>
+                    <span class="level-item">October 2018</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">20</span>
@@ -816,7 +807,7 @@
 </footer>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
-<script>moment.locale("ko");</script>
+<script>moment.locale("en");</script>
 
 
     
@@ -916,7 +907,7 @@ document.addEventListener('DOMContentLoaded', function () {
     <div class="searchbox ins-search">
     <div class="searchbox-container ins-search-container">
         <div class="searchbox-input-wrapper">
-            <input type="text" class="searchbox-input ins-search-input" placeholder="입력 하세요...">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
             <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
         </div>
         <div class="searchbox-result-wrapper ins-section-wrapper">
@@ -928,11 +919,11 @@ document.addEventListener('DOMContentLoaded', function () {
     (function (window) {
         var INSIGHT_CONFIG = {
             TRANSLATION: {
-                POSTS: '포스트',
-                PAGES: '페이지',
-                CATEGORIES: '카테고리',
-                TAGS: '태그',
-                UNTITLED: '(제목없음)',
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
             },
             CONTENT_URL: '/content.json',
         };

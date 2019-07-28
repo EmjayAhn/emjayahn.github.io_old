@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head><meta name="generator" content="Hexo 3.9.0">
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
 <title>[CS231n]Lecture05-CNN - Emjay, 오늘도 새롭게</title>
@@ -30,7 +30,7 @@
 <meta property="og:url" content="https://emjayahn.github.io/2019/05/20/CS231n-Lecture05-Summary/index.html">
 <meta property="og:site_name" content="Emjay, 오늘도 새롭게">
 <meta property="og:description" content="Lecture 05: Convolutonal Neural Networks 이 글은, Standford University 의 CS231n 강의를 듣고 스스로 정리 목적을 위해 적은 글입니다.">
-<meta property="og:locale" content="ko">
+<meta property="og:locale" content="en">
 <meta property="og:image" content="https://emjayahn.github.io/images/og_emjay_image.png">
 <meta property="og:updated_time" content="2019-07-16T15:54:25.440Z">
 <meta name="twitter:card" content="summary">
@@ -155,7 +155,7 @@
                 
                 
                 
-                <a class="navbar-item search" title="검색" href="javascript:;">
+                <a class="navbar-item search" title="Search" href="javascript:;">
                     <i class="fas fa-search"></i>
                 </a>
                 
@@ -183,7 +183,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    6분 읽기 (나에 대하여 875 단어)
+                    6 minutes read (About 875 words)
                 </span>
                 
                 
@@ -200,7 +200,6 @@
 <li>이 글은, Standford University 의 CS231n 강의를 듣고 스스로 정리 목적을 위해 적은 글입니다.</li>
 </ul>
 <a id="more"></a>
-
 <h2 id="1-Convolution-Layer"><a href="#1-Convolution-Layer" class="headerlink" title="1. Convolution Layer"></a>1. Convolution Layer</h2><h3 id="1-1-Fully-Connected-Layer-와-Convolution-Layer-의-비교"><a href="#1-1-Fully-Connected-Layer-와-Convolution-Layer-의-비교" class="headerlink" title="1-1. Fully Connected Layer 와 Convolution Layer 의 비교"></a>1-1. Fully Connected Layer 와 Convolution Layer 의 비교</h3><p>32 x 32 x 3 image 가 있다고 하자. network 에 주입하기 위해, 1 x 3072 로 핀 data 를 상상해 보자.</p>
 <p>Fully Connected Layer 의 경우, 아래 그림 처럼, Weight 과 dot product 가 수행되어, activation 값이 나오게 된다. 이 때, activation 의 갯수는 W 의 크기에 따른다.</p>
 <p><img src="Untitled-c7b225ec-cc03-4a1b-900f-558beebc21b5.png" alt></p>
@@ -215,8 +214,7 @@
 <p><img src="Untitled-5fec1f58-a947-449b-8d71-772aac9a6f3e.png" alt></p>
 <h3 id="1-4-Convolution-Layer-연산"><a href="#1-4-Convolution-Layer-연산" class="headerlink" title="1-4. Convolution Layer 연산"></a>1-4. Convolution Layer 연산</h3><p><img src="Untitled-2a8adbad-1f2a-4fac-898d-aac944438a1b.png" alt></p>
 <p>filter 가 이미지를 훑고 지나가면서 convolution 연산을 한 후, 나온 결과는 원본 이미지보다 그 크기가 작아지게 된다. 그 정도는 filter 의 크기와 filter 가 훑고 지나가는 간격인 stride 에 따라 바뀌게 된다. </p>
-<p>$$output ;size = (N-F)/stride + 1$$</p>
-<p><strong>문제점:</strong></p>
+<script type="math/tex; mode=display">output \;size = (N-F)/stride + 1</script><p><strong>문제점:</strong></p>
 <ol>
 <li><p>convolution 연산의 문제는 이미지의 모서리에 있는 정보는 가운데에 있는 이미지의 정보보다 적게 추출 되는 문제가 있다.(filter 가 모서리를 넘어서는 이동 할 수 없으므로)</p>
 </li>
@@ -227,7 +225,7 @@
 <h3 id="1-5-Padding"><a href="#1-5-Padding" class="headerlink" title="1-5. Padding"></a>1-5. Padding</h3><p>모서리에 정보를 얻기 위해 이미지이 외곽에 숫자를 채워 주는 방법. 이 때, 많이 사용하는 방법은 zero-padding. zero-padding 외에도 다양한 방법이 있다.</p>
 <h2 id="2-Pooling-Layer"><a href="#2-Pooling-Layer" class="headerlink" title="2. Pooling Layer"></a>2. Pooling Layer</h2><p>Parameter 의 갯수를 줄이기 위해, 우리가 ConvLayer 를 통해 뽑아낸 image 를 작게 만드는 Layer  이다. 즉, Downsampling 을 위한 것.</p>
 <p>Maxpooling 의 intuition : 앞선 layer filter 가 각 region  에서 얼마나 활성 되었는지 보는 것이다. </p>
-<h3 id="3-Typical-Architecture"><a href="#3-Typical-Architecture" class="headerlink" title="3. Typical Architecture"></a>3. Typical Architecture</h3><p>[[(Conv → RELU) * N → Pool] * M → (FC → RELU) * K ] → SOFTMAX</p>
+<h3 id="3-Typical-Architecture"><a href="#3-Typical-Architecture" class="headerlink" title="3. Typical Architecture"></a>3. Typical Architecture</h3><p>[[(Conv → RELU) <em> N → Pool] </em> M → (FC → RELU) * K ] → SOFTMAX</p>
 <ul>
 <li>N : ~ 5</li>
 <li>M : Large</li>
@@ -289,7 +287,7 @@
 
 <div class="card">
     <div class="card-content">
-        <h3 class="title is-5 has-text-weight-normal">댓글</h3>
+        <h3 class="title is-5 has-text-weight-normal">Comments</h3>
         
 <div id="lv-container" data-id="city" data-uid="MTAyMC80MjIzMS8xODc3OA==">
     <script type="text/javascript">
@@ -350,7 +348,7 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        포스트
+                        Posts
                     </p>
                     <p class="title has-text-weight-normal">
                         77
@@ -360,7 +358,7 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        카테고리
+                        Categories
                     </p>
                     <p class="title has-text-weight-normal">
                         21
@@ -370,7 +368,7 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        태그
+                        Tags
                     </p>
                     <p class="title has-text-weight-normal">
                         24
@@ -380,7 +378,7 @@
         </nav>
         <div class="level">
             <a class="level-item button is-link is-rounded" href="https://github.com/emjayahn" target="_blank">
-                팔로우</a>
+                Follow</a>
         </div>
         
         
@@ -416,7 +414,7 @@
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                카테고리
+                Categories
             </h3>
             <ul class="menu-list">
             <li>
@@ -597,7 +595,7 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            태그 클라우드
+            Tag Cloud
         </h3>
         <a href="/tags/CS224n/" style="font-size: 10px;">CS224n</a> <a href="/tags/CS231n/" style="font-size: 17.5px;">CS231n</a> <a href="/tags/Classification-확률론적생성모형-Generative-생성모형-분류모델/" style="font-size: 10px;">Classification, 확률론적생성모형, Generative, 생성모형, 분류모델</a> <a href="/tags/Crawling-Web-Requests/" style="font-size: 10px;">Crawling, Web, Requests</a> <a href="/tags/Google-Cloud-Platform/" style="font-size: 10px;">Google Cloud Platform</a> <a href="/tags/TWIL/" style="font-size: 15px;">TWIL</a> <a href="/tags/Thread/" style="font-size: 10px;">Thread</a> <a href="/tags/datastructure/" style="font-size: 10px;">datastructure</a> <a href="/tags/datastructure-stack/" style="font-size: 10px;">datastructure, stack</a> <a href="/tags/decorator/" style="font-size: 10px;">decorator</a> <a href="/tags/generator/" style="font-size: 10px;">generator</a> <a href="/tags/iterable/" style="font-size: 10px;">iterable</a> <a href="/tags/iterator/" style="font-size: 10px;">iterator</a> <a href="/tags/mysql-MYSQL-database/" style="font-size: 10px;">mysql, MYSQL, database</a> <a href="/tags/nginx-proxy/" style="font-size: 10px;">nginx, proxy</a> <a href="/tags/pillow-Pillow-image/" style="font-size: 10px;">pillow, Pillow, image</a> <a href="/tags/python/" style="font-size: 12.5px;">python</a> <a href="/tags/scrapy-crawling-web/" style="font-size: 10px;">scrapy, crawling, web</a> <a href="/tags/summary/" style="font-size: 20px;">summary</a> <a href="/tags/데코레이터/" style="font-size: 10px;">데코레이터</a> <a href="/tags/이터러블/" style="font-size: 10px;">이터러블</a> <a href="/tags/이터레이터/" style="font-size: 10px;">이터레이터</a> <a href="/tags/자동화-selenium-webdriver/" style="font-size: 10px;">자동화, selenium, webdriver</a> <a href="/tags/제너레이터/" style="font-size: 10px;">제너레이터</a>
     </div>
@@ -608,7 +606,7 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            최근 글
+            Recent
         </h3>
         
         <article class="media">
@@ -714,14 +712,14 @@
     <div class="card-content">
         <div class="menu">
         <h3 class="menu-label">
-            아카이브
+            Archives
         </h3>
         <ul class="menu-list">
         
         <li>
             <a class="level is-marginless" href="/archives/2019/07/">
                 <span class="level-start">
-                    <span class="level-item">7월 2019</span>
+                    <span class="level-item">July 2019</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">6</span>
@@ -732,7 +730,7 @@
         <li>
             <a class="level is-marginless" href="/archives/2019/06/">
                 <span class="level-start">
-                    <span class="level-item">6월 2019</span>
+                    <span class="level-item">June 2019</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">2</span>
@@ -743,7 +741,7 @@
         <li>
             <a class="level is-marginless" href="/archives/2019/05/">
                 <span class="level-start">
-                    <span class="level-item">5월 2019</span>
+                    <span class="level-item">May 2019</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">9</span>
@@ -754,7 +752,7 @@
         <li>
             <a class="level is-marginless" href="/archives/2019/01/">
                 <span class="level-start">
-                    <span class="level-item">1월 2019</span>
+                    <span class="level-item">January 2019</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">3</span>
@@ -765,7 +763,7 @@
         <li>
             <a class="level is-marginless" href="/archives/2018/12/">
                 <span class="level-start">
-                    <span class="level-item">12월 2018</span>
+                    <span class="level-item">December 2018</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">12</span>
@@ -776,7 +774,7 @@
         <li>
             <a class="level is-marginless" href="/archives/2018/11/">
                 <span class="level-start">
-                    <span class="level-item">11월 2018</span>
+                    <span class="level-item">November 2018</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">25</span>
@@ -787,7 +785,7 @@
         <li>
             <a class="level is-marginless" href="/archives/2018/10/">
                 <span class="level-start">
-                    <span class="level-item">10월 2018</span>
+                    <span class="level-item">October 2018</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">20</span>
@@ -862,7 +860,7 @@
 </footer>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
-<script>moment.locale("ko");</script>
+<script>moment.locale("en");</script>
 
 
     
@@ -962,7 +960,7 @@ document.addEventListener('DOMContentLoaded', function () {
     <div class="searchbox ins-search">
     <div class="searchbox-container ins-search-container">
         <div class="searchbox-input-wrapper">
-            <input type="text" class="searchbox-input ins-search-input" placeholder="입력 하세요...">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
             <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
         </div>
         <div class="searchbox-result-wrapper ins-section-wrapper">
@@ -974,11 +972,11 @@ document.addEventListener('DOMContentLoaded', function () {
     (function (window) {
         var INSIGHT_CONFIG = {
             TRANSLATION: {
-                POSTS: '포스트',
-                PAGES: '페이지',
-                CATEGORIES: '카테고리',
-                TAGS: '태그',
-                UNTITLED: '(제목없음)',
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
             },
             CONTENT_URL: '/content.json',
         };

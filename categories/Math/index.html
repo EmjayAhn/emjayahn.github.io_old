@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head><meta name="generator" content="Hexo 3.9.0">
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-<title>카테고리: Math - Emjay, 오늘도 새롭게</title>
+<title>Category: Math - Emjay, 오늘도 새롭게</title>
 <meta name="naver-site-verification" content="139bdfd66b5dc8101d114c24fabb93c84d0dd64d">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="al:ios:url" content="applinks://docs">
@@ -30,7 +30,7 @@
 <meta property="og:url" content="https://emjayahn.github.io/categories/Math/index.html">
 <meta property="og:site_name" content="Emjay, 오늘도 새롭게">
 <meta property="og:description" content="공부한 것, 알게된 것을 기록하는 블로그입니다.">
-<meta property="og:locale" content="ko">
+<meta property="og:locale" content="en">
 <meta property="og:image" content="https://emjayahn.github.io/images/og_emjay_image.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Emjay, 오늘도 새롭게">
@@ -154,7 +154,7 @@
                 
                 
                 
-                <a class="navbar-item search" title="검색" href="javascript:;">
+                <a class="navbar-item search" title="Search" href="javascript:;">
                     <i class="fas fa-search"></i>
                 </a>
                 
@@ -170,7 +170,7 @@
     <div class="card-content">
         <nav class="breadcrumb" aria-label="breadcrumbs">
         <ul>
-            <li><a href="/categories">카테고리</a></li>
+            <li><a href="/categories">Categories</a></li>
             
             <li class="is-active"><a href="#" aria-current="page">Math</a></li>
         </ul>
@@ -194,7 +194,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    2분 읽기 (나에 대하여 281 단어)
+                    2 minutes read (About 281 words)
                 </span>
                 
                 
@@ -210,13 +210,14 @@
             <h1 id="확률론적-생성모형-Generative-Model"><a href="#확률론적-생성모형-Generative-Model" class="headerlink" title="확률론적 생성모형 (Generative Model)"></a>확률론적 생성모형 (Generative Model)</h1><h2 id="확률론적-생성모형의-기본-개념"><a href="#확률론적-생성모형의-기본-개념" class="headerlink" title="확률론적 생성모형의 기본 개념"></a>확률론적 생성모형의 기본 개념</h2><ul>
 <li><p>우리가 궁금한 것은 $ x $ (features) 들이 있을 떄, $ y $가 어떤 Class 인지 맞추는 것이다. 맞추기 위해서는 training set 으로 부터 각 Class 마다 $ P(y \mid x) $의 모형을 알아내야 한다.</p>
 </li>
-<li><p>베이즈 정리를 이용하여, $ y=C_k $일 때의 조건부 확률을 구할 수 있다.<br>$$<br>P(y = C_k \mid x) = \dfrac{P(x \mid y = C_k); P(y = C_k)}{P(x)}<br>$$</p>
-</li>
+<li><p>베이즈 정리를 이용하여, $ y=C_k $일 때의 조건부 확률을 구할 수 있다.</p>
+<script type="math/tex; mode=display">
+P(y = C_k \mid x) = \dfrac{P(x \mid y = C_k)\; P(y = C_k)}{P(x)}</script></li>
 <li><p>이 때, $ P(x \mid y = C_k) $<br>== <strong>Likelihood</strong><br>== y가 k라는 클래스 일 때, x의 확률을 구하는 것이 관건</p>
 </li>
 </ul>
 <h2 id="Likelihood-추정의-알고리즘"><a href="#Likelihood-추정의-알고리즘" class="headerlink" title="Likelihood 추정의 알고리즘"></a>Likelihood 추정의 알고리즘</h2><ol>
-<li>$ P(x \mid y = C_k) $ 가 ** 어떤 ** 확률분포를 따를 것이다라고 가정<br><br><br></li>
+<li>$ P(x \mid y = C_k) $ 가 <strong> 어떤 </strong> 확률분포를 따를 것이다라고 가정<br><br><br></li>
 <li>x의 특성에 따라 우리가 알고 있는 특정 확률분포를 따른다! 라고 가정<br><br><br></li>
 <li>Class k 를 만드는 data들을 통해 이 확률분포의 모수값을 구한다.<br><br><br></li>
 <li>모수값을 안다 == $ P(x \mid y = C_k) $ 의 pdf 를 알고 있다.<br><br><br></li>
@@ -253,7 +254,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    3분 읽기 (나에 대하여 388 단어)
+                    3 minutes read (About 388 words)
                 </span>
                 
                 
@@ -267,42 +268,40 @@
         </h1>
         <div class="content">
             <h1 id="이산확률분포"><a href="#이산확률분포" class="headerlink" title="이산확률분포"></a>이산확률분포</h1><h2 id="베르누이-분포-bernoulli-distribution"><a href="#베르누이-분포-bernoulli-distribution" class="headerlink" title="베르누이 분포 (bernoulli distribution)"></a>베르누이 분포 (bernoulli distribution)</h2><ul>
-<li><p>동전 생각하기</p>
-</li>
+<li>동전 생각하기</li>
 <li><p>결과가 두가지 중 하나</p>
 </li>
-<li><p>확률변수를 1 or 0 으루 주었을 때,<br>$$<br>\text{Bern}(x;\mu) = \mu^x(1-\mu)^{(1-x)}<br>$$</p>
-</li>
-<li><p>확률변수를 1 or -1 로 주었을 때,<br>$$<br>\text{Bern}(x; \mu) = \mu^{(1+x)/2} (1-\mu)^{(1-x)/2}<br>$$</p>
-</li>
+<li><p>확률변수를 1 or 0 으루 주었을 때,</p>
+<script type="math/tex; mode=display">
+\text{Bern}(x;\mu) = \mu^x(1-\mu)^{(1-x)}</script></li>
+<li><p>확률변수를 1 or -1 로 주었을 때,</p>
+<script type="math/tex; mode=display">
+\text{Bern}(x; \mu) = \mu^{(1+x)/2} (1-\mu)^{(1-x)/2}</script></li>
 </ul>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#예제코드</span></span><br><span class="line"><span class="hljs-comment">#베르누이 분포 SciPy</span></span><br><span class="line"><span class="hljs-comment">#100개 sampling</span></span><br><span class="line">sp.stats.bernoulli(mu).rvs(<span class="hljs-number">100</span>, random_state=<span class="hljs-number">0</span>)</span><br></pre></td></tr></table></figure>
-
 <h2 id="이항분포-binomial-distribution"><a href="#이항분포-binomial-distribution" class="headerlink" title="이항분포 (binomial distribution)"></a>이항분포 (binomial distribution)</h2><ul>
 <li>동전을 N번 던졌다</li>
 <li>성공확률이 $\mu$ 인 베르누이 시도를 $N$ 번 반복 할 때, 성공 횟수를 $X$ 라 하면,</li>
 </ul>
-<p>$$ X \sim \text{Bin}(x;N,\mu)  $$ <br></p>
-<p>$$ \text{Bin}(x;N,\mu) = \binom N x  \mu^x(1-\mu)^{N-x} $$ <br></p>
+<p><script type="math/tex">X \sim \text{Bin}(x;N,\mu)</script> <br></p>
+<p><script type="math/tex">\text{Bin}(x;N,\mu) = \binom N x  \mu^x(1-\mu)^{N-x}</script> <br></p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sp.stats.binom(N, mu).rvs(<span class="hljs-number">100</span>, random_state=<span class="hljs-number">0</span>)</span><br></pre></td></tr></table></figure>
-
 <h2 id="카테고리-분포-Categorical-distribution"><a href="#카테고리-분포-Categorical-distribution" class="headerlink" title="카테고리 분포 (Categorical distribution)"></a>카테고리 분포 (Categorical distribution)</h2><ul>
 <li>주사위 생각해!</li>
-<li>$K$ 개의 카테고리가 있을 때,<br>$$ x = (x_1, x_2, x_3, x_4, … , x_k)  $$ <br></li>
+<li>$K$ 개의 카테고리가 있을 때,<br><script type="math/tex">x = (x_1, x_2, x_3, x_4, ... , x_k)</script> <br></li>
 </ul>
 <p>각 원소 x_i 가 1이 나올 수 있는 확률 ($i$번쨰 원소의 성공확률)을 $\mu_i$ 라 하면, <br></p>
-<p>$$ \text{Cat}(x;\mu) = \mu_1^{x_1} \mu_2^{x_2}  \cdots \mu_K^{x_K}  =  \prod_{k=1}^K \mu_k^{x_k} $$ <br></p>
+<p><script type="math/tex">\text{Cat}(x;\mu) = \mu_1^{x_1} \mu_2^{x_2}  \cdots \mu_K^{x_K}  =  \prod_{k=1}^K \mu_k^{x_k}</script> <br></p>
 <p>이 표현은 One-Hot-Encoding 으로 카테고리 분포를 표현 했기에 가능하다. <br></p>
-<p>단, <br><br>$$ 0 \leq \mu_i \leq 1 $$ <br></p>
-<p>$$ \sum_{k=1}^K \mu_k = 1 $$ <br></p>
+<p>단, <br></p>
+<p><script type="math/tex">0 \leq \mu_i \leq 1</script> <br></p>
+<p><script type="math/tex">\sum_{k=1}^K \mu_k = 1</script> <br></p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#카테고리 분포는 SciPy 의 메소드가 없으므로, 다항분포의 N을 1로 준다.</span></span><br><span class="line"><span class="hljs-comment">#mu 는 각 term 이 나올 수 있는 확률 vector</span></span><br><span class="line">sp.stats.multinomial(<span class="hljs-number">1</span>, mu)</span><br></pre></td></tr></table></figure>
-
 <h2 id="다항-분포-Multinomial-distribution"><a href="#다항-분포-Multinomial-distribution" class="headerlink" title="다항 분포 (Multinomial distribution)"></a>다항 분포 (Multinomial distribution)</h2><ul>
 <li>주사위를 여러번 던졌다.</li>
 <li>카테고리 시도를 $N$ 번 반복하여 $k$ $(k=1,…,K)$ 가 $x_k$ 번 나올 확률분포.</li>
 </ul>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#N : number of trial</span></span><br><span class="line"><span class="hljs-comment">#mu 는 각 term 이 나올 수 있는 확률 vector</span></span><br><span class="line">sp.stats.multinomial(N, mu)</span><br></pre></td></tr></table></figure>
-
 
         </div>
         
@@ -358,7 +357,7 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        포스트
+                        Posts
                     </p>
                     <p class="title has-text-weight-normal">
                         77
@@ -368,7 +367,7 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        카테고리
+                        Categories
                     </p>
                     <p class="title has-text-weight-normal">
                         21
@@ -378,7 +377,7 @@
             <div class="level-item has-text-centered is-marginless">
                 <div>
                     <p class="heading">
-                        태그
+                        Tags
                     </p>
                     <p class="title has-text-weight-normal">
                         24
@@ -388,7 +387,7 @@
         </nav>
         <div class="level">
             <a class="level-item button is-link is-rounded" href="https://github.com/emjayahn" target="_blank">
-                팔로우</a>
+                Follow</a>
         </div>
         
         
@@ -424,7 +423,7 @@
     <div class="card-content">
         <div class="menu">
             <h3 class="menu-label">
-                카테고리
+                Categories
             </h3>
             <ul class="menu-list">
             <li>
@@ -605,7 +604,7 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            태그 클라우드
+            Tag Cloud
         </h3>
         <a href="/tags/CS224n/" style="font-size: 10px;">CS224n</a> <a href="/tags/CS231n/" style="font-size: 17.5px;">CS231n</a> <a href="/tags/Classification-확률론적생성모형-Generative-생성모형-분류모델/" style="font-size: 10px;">Classification, 확률론적생성모형, Generative, 생성모형, 분류모델</a> <a href="/tags/Crawling-Web-Requests/" style="font-size: 10px;">Crawling, Web, Requests</a> <a href="/tags/Google-Cloud-Platform/" style="font-size: 10px;">Google Cloud Platform</a> <a href="/tags/TWIL/" style="font-size: 15px;">TWIL</a> <a href="/tags/Thread/" style="font-size: 10px;">Thread</a> <a href="/tags/datastructure/" style="font-size: 10px;">datastructure</a> <a href="/tags/datastructure-stack/" style="font-size: 10px;">datastructure, stack</a> <a href="/tags/decorator/" style="font-size: 10px;">decorator</a> <a href="/tags/generator/" style="font-size: 10px;">generator</a> <a href="/tags/iterable/" style="font-size: 10px;">iterable</a> <a href="/tags/iterator/" style="font-size: 10px;">iterator</a> <a href="/tags/mysql-MYSQL-database/" style="font-size: 10px;">mysql, MYSQL, database</a> <a href="/tags/nginx-proxy/" style="font-size: 10px;">nginx, proxy</a> <a href="/tags/pillow-Pillow-image/" style="font-size: 10px;">pillow, Pillow, image</a> <a href="/tags/python/" style="font-size: 12.5px;">python</a> <a href="/tags/scrapy-crawling-web/" style="font-size: 10px;">scrapy, crawling, web</a> <a href="/tags/summary/" style="font-size: 20px;">summary</a> <a href="/tags/데코레이터/" style="font-size: 10px;">데코레이터</a> <a href="/tags/이터러블/" style="font-size: 10px;">이터러블</a> <a href="/tags/이터레이터/" style="font-size: 10px;">이터레이터</a> <a href="/tags/자동화-selenium-webdriver/" style="font-size: 10px;">자동화, selenium, webdriver</a> <a href="/tags/제너레이터/" style="font-size: 10px;">제너레이터</a>
     </div>
@@ -616,7 +615,7 @@
 <div class="card widget">
     <div class="card-content">
         <h3 class="menu-label">
-            최근 글
+            Recent
         </h3>
         
         <article class="media">
@@ -722,14 +721,14 @@
     <div class="card-content">
         <div class="menu">
         <h3 class="menu-label">
-            아카이브
+            Archives
         </h3>
         <ul class="menu-list">
         
         <li>
             <a class="level is-marginless" href="/archives/2019/07/">
                 <span class="level-start">
-                    <span class="level-item">7월 2019</span>
+                    <span class="level-item">July 2019</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">6</span>
@@ -740,7 +739,7 @@
         <li>
             <a class="level is-marginless" href="/archives/2019/06/">
                 <span class="level-start">
-                    <span class="level-item">6월 2019</span>
+                    <span class="level-item">June 2019</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">2</span>
@@ -751,7 +750,7 @@
         <li>
             <a class="level is-marginless" href="/archives/2019/05/">
                 <span class="level-start">
-                    <span class="level-item">5월 2019</span>
+                    <span class="level-item">May 2019</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">9</span>
@@ -762,7 +761,7 @@
         <li>
             <a class="level is-marginless" href="/archives/2019/01/">
                 <span class="level-start">
-                    <span class="level-item">1월 2019</span>
+                    <span class="level-item">January 2019</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">3</span>
@@ -773,7 +772,7 @@
         <li>
             <a class="level is-marginless" href="/archives/2018/12/">
                 <span class="level-start">
-                    <span class="level-item">12월 2018</span>
+                    <span class="level-item">December 2018</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">12</span>
@@ -784,7 +783,7 @@
         <li>
             <a class="level is-marginless" href="/archives/2018/11/">
                 <span class="level-start">
-                    <span class="level-item">11월 2018</span>
+                    <span class="level-item">November 2018</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">25</span>
@@ -795,7 +794,7 @@
         <li>
             <a class="level is-marginless" href="/archives/2018/10/">
                 <span class="level-start">
-                    <span class="level-item">10월 2018</span>
+                    <span class="level-item">October 2018</span>
                 </span>
                 <span class="level-end">
                     <span class="level-item tag">20</span>
@@ -870,7 +869,7 @@
 </footer>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
-<script>moment.locale("ko");</script>
+<script>moment.locale("en");</script>
 
 
     
@@ -970,7 +969,7 @@ document.addEventListener('DOMContentLoaded', function () {
     <div class="searchbox ins-search">
     <div class="searchbox-container ins-search-container">
         <div class="searchbox-input-wrapper">
-            <input type="text" class="searchbox-input ins-search-input" placeholder="입력 하세요...">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
             <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
         </div>
         <div class="searchbox-result-wrapper ins-section-wrapper">
@@ -982,11 +981,11 @@ document.addEventListener('DOMContentLoaded', function () {
     (function (window) {
         var INSIGHT_CONFIG = {
             TRANSLATION: {
-                POSTS: '포스트',
-                PAGES: '페이지',
-                CATEGORIES: '카테고리',
-                TAGS: '태그',
-                UNTITLED: '(제목없음)',
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
             },
             CONTENT_URL: '/content.json',
         };
