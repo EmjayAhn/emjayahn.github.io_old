@@ -3,6 +3,69 @@
 
 
     <url>
+        <loc>https://emjayahn.github.io/tags/%EC%9D%B4%ED%84%B0%EB%9F%AC%EB%B8%94/</loc>
+        <lastmod>2019-07-29T01:51:38.294Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/tags/%EC%A0%9C%EB%84%88%EB%A0%88%EC%9D%B4%ED%84%B0/</loc>
+        <lastmod>2019-07-29T01:51:38.294Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/tags/%EC%9D%B4%ED%84%B0%EB%A0%88%EC%9D%B4%ED%84%B0/</loc>
+        <lastmod>2019-07-29T01:51:38.294Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/tags/iterable/</loc>
+        <lastmod>2019-07-29T01:51:38.294Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/tags/generator/</loc>
+        <lastmod>2019-07-29T01:51:38.294Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/tags/iterator/</loc>
+        <lastmod>2019-07-29T01:51:38.294Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/tags/python/</loc>
+        <lastmod>2019-07-29T01:51:38.294Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/tags/%EB%8D%B0%EC%BD%94%EB%A0%88%EC%9D%B4%ED%84%B0/</loc>
+        <lastmod>2019-07-29T01:51:24.235Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/tags/decorator/</loc>
+        <lastmod>2019-07-29T01:51:24.235Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://emjayahn.github.io/tags/CS231n/</loc>
         <lastmod>2019-07-28T01:13:57.710Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -12,69 +75,6 @@
     <url>
         <loc>https://emjayahn.github.io/tags/summary/</loc>
         <lastmod>2019-07-28T01:13:57.710Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://emjayahn.github.io/tags/%EB%8D%B0%EC%BD%94%EB%A0%88%EC%9D%B4%ED%84%B0/</loc>
-        <lastmod>2019-07-28T00:55:28.878Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://emjayahn.github.io/tags/decorator/</loc>
-        <lastmod>2019-07-28T00:55:28.878Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://emjayahn.github.io/tags/python/</loc>
-        <lastmod>2019-07-28T00:55:28.878Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://emjayahn.github.io/tags/%EC%9D%B4%ED%84%B0%EB%9F%AC%EB%B8%94/</loc>
-        <lastmod>2019-07-27T11:44:11.726Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://emjayahn.github.io/tags/%EC%A0%9C%EB%84%88%EB%A0%88%EC%9D%B4%ED%84%B0/</loc>
-        <lastmod>2019-07-27T11:44:11.726Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://emjayahn.github.io/tags/%EC%9D%B4%ED%84%B0%EB%A0%88%EC%9D%B4%ED%84%B0/</loc>
-        <lastmod>2019-07-27T11:44:11.726Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://emjayahn.github.io/tags/iterable/</loc>
-        <lastmod>2019-07-27T11:44:11.726Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://emjayahn.github.io/tags/generator/</loc>
-        <lastmod>2019-07-27T11:44:11.726Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://emjayahn.github.io/tags/iterator/</loc>
-        <lastmod>2019-07-27T11:44:11.726Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

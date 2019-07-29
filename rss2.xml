@@ -8,11 +8,11 @@
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>공부한 것, 알게된 것을 기록하는 블로그입니다.</description>
-    <pubDate>Sun, 28 Jul 2019 00:55:28 GMT</pubDate>
+    <pubDate>Mon, 29 Jul 2019 01:51:24 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
-      <title>쉽게 쓰여진 Decorator</title>
+      <title>[Python] 쉽게 쓰여진 Decorator</title>
       <link>https://emjayahn.github.io/2019/07/27/decorator/</link>
       <guid>https://emjayahn.github.io/2019/07/27/decorator/</guid>
       <pubDate>Sat, 27 Jul 2019 09:46:17 GMT</pubDate>
@@ -82,7 +82,7 @@
     </item>
     
     <item>
-      <title>볼 때마다 헷갈리는 Iterable, Iterator, Generator 정리하기</title>
+      <title>[Python] 볼 때마다 헷갈리는 Iterable, Iterator, Generator 정리하기</title>
       <link>https://emjayahn.github.io/2019/07/15/iterator-generator/</link>
       <guid>https://emjayahn.github.io/2019/07/15/iterator-generator/</guid>
       <pubDate>Mon, 15 Jul 2019 14:03:23 GMT</pubDate>
