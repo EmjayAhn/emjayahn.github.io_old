@@ -32,7 +32,7 @@
 <meta property="og:description" content="오픈소스나, 다른 사람들이 만든 코드를 재수정한 코드, 제가 짠 코드에 대해 다양한 디버깅과 좀 더 다른 기능을 추가하고 싶을 때, 우리는 Decorator 를 자주 접하게 됩니다. Python 실력을 한층 업그레이드 하기 위함과, 코딩의 또 다른 목적이이 귀차니즘의 해결 이라고 생각할 때 Decorator 에 대한 이해는 그 시작 관문이 됩니다. 이번 글">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://emjayahn.github.io/images/og_emjay_image.png">
-<meta property="og:updated_time" content="2019-07-29T01:51:24.235Z">
+<meta property="og:updated_time" content="2019-07-30T14:22:00.419Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Python] 쉽게 쓰여진 Decorator">
 <meta name="twitter:description" content="오픈소스나, 다른 사람들이 만든 코드를 재수정한 코드, 제가 짠 코드에 대해 다양한 디버깅과 좀 더 다른 기능을 추가하고 싶을 때, 우리는 Decorator 를 자주 접하게 됩니다. Python 실력을 한층 업그레이드 하기 위함과, 코딩의 또 다른 목적이이 귀차니즘의 해결 이라고 생각할 때 Decorator 에 대한 이해는 그 시작 관문이 됩니다. 이번 글">
@@ -183,7 +183,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    9 minutes read (About 1341 words)
+                    11 minutes read (About 1655 words)
                 </span>
                 
                 
@@ -206,11 +206,18 @@
 <p>Decorator 를 만들 때, 가장 첫번째로 성립해야하는 구조가 위처럼, Decorator 기능을 하게 될 함수가 호출 가능해야하고, 입력에 호출 가능한 객체를 받아, 반환하는 객체도 호출 가능한 객체로 반환 해주어야 합니다.<br><br><br>위의 정의를 만족하는 세상에서 가장 간단한 Decorator 를 다음의 예제코드로 만들 수 있습니다.</p>
 <script src="https://gist.github.com/EmjayAhn/f0cd4bafba347e3d046b5a742ffc57db.js"></script>
 
-<p>위의 코드의 결과는 <code>Hi, Hi</code> 가 출력되는 아무 기능이 없는 본 함수와 decorator 입니다. 위와 같은 기능을 하는, Decorator 문법을 지킨 코드는 다음과 같습니다.</p>
+<p>위의 간단한 코드의 동작 순서를 살펴봅니다.</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(3) 에서 say_hi 라는 함수 객체가 dumb_decorator 함수의 입력으로 들어가, dumb_decorator() 함수를 호출합니다.</span><br><span class="line">(1) 에서 dumb_decorator는 입력받은 함수 객체(say_hi) 자체를 반환합니다.</span><br><span class="line">dumb_decorator 가 반환한 함수객체를 (3)의 decorated 에 저장합니다. </span><br><span class="line">3.에서 decorated는 함수 객체 자체입니다. (4) 에서 decorated() 로, 함수 객체를 실행한 결과를 text 에 저장합니다. </span><br><span class="line">이 코드에서 결국 decorated 함수 객체가 실행되면, say_hi 함수가 실행되고, say_hi함수의 반환값인 &quot;Hi, Hi&quot; 가 text 에 저장되어,</span><br><span class="line">(5)에서 출력됩니다.</span><br></pre></td></tr></table></figure>
+
+<p>위의 코드의 결과는 <code>Hi, Hi</code> 가 출력되는 아무 기능이 없는 기본 함수(say_hi)와 Decorator 입니다. 위와 같은 결과이지만, Decorator 문법인 <code>@</code>를 사용한 코드는 다음과 같습니다.</p>
 <script src="https://gist.github.com/EmjayAhn/6fbcfcfa64bd107f0e7875867c28aa37.js"></script>
 
-<p>두 코드는 같은 기능을 하지만, 앞서 정의된 <code>dumb_decorator</code> 가 첫번째에서는 꾸미려고하는 say_hi 함수를 <code>dumb_decorator</code>에 입력으로 넣어주어 코드를 실행 시켜 주었으며, 두번째에서는 꾸미려고하는 say_hi 함수의 선언시 <code>@dumb_decorator</code> 를 먼저 적어주고, 꾸며진 함수 <code>say_hi()</code> 를 실행하는 점에서 차이가 있습니다.</p>
-<h2 id="2-Decorator를-Decorator-처럼"><a href="#2-Decorator를-Decorator-처럼" class="headerlink" title="2. Decorator를 Decorator 처럼"></a>2. Decorator를 Decorator 처럼</h2><p>1에서 Decorator의 핵심적인 구조를 살펴보았습니다. 이제 본격적인 Decorator를 본격적인 Decorator 로 사용하기 위해선, decorator 내부에 입력함수를 감싸주는 wrapper 함수가 필요합니다. 예제로 살펴보겠습니다. </p>
+<p>위의 두 예제 코드는 같은 결과를 내지만, 앞서 정의된 <code>dumb_decorator</code> 가 첫번째 예제에서는 꾸미려고하는 <code>say_hi</code> 함수를 <code>dumb_decorator</code>의 입력으로 넣어주어 코드를 실행 시켜 주어야 했습니다. 두번째 예제에서는 꾸미려고하는 <code>say_hi</code> 함수의 선언시 <code>@dumb_decorator</code> 를 먼저 적어주고, 꾸며진 함수 <code>say_hi()</code> 를 실행하는 점에서 차이가 있습니다.<br><br><br>앞서 처음에 등장한 구조적 정의를 위 예제에 대입하여 살펴봅니다.</p>
+<blockquote>
+<p>Decorator : <strong>호출 가능한</strong> <strong>객체</strong> 로써, <strong>호출 가능한 객체</strong>를 입력으로 받아, <strong>호출 가능한 객체</strong> 를 반환하는 함수</p>
+</blockquote>
+<p>호출 가능한 객체로써 (dumb_decorator), 호출 가능한 객체(say_hi)를 입력으로 받아, 호출 가능한 객체((1)에 return func)를 반환하는 함수 일 때, @decorator로 동작 할 수 있습니다.</p>
+<h2 id="2-Decorator를-Decorator-처럼"><a href="#2-Decorator를-Decorator-처럼" class="headerlink" title="2. Decorator를 Decorator 처럼"></a>2. Decorator를 Decorator 처럼</h2><p>1에서 Decorator의 핵심적인 구조를 살펴보았습니다. 이제 본격적으로 Decorator를 사용되기 위해선, decorator 내부에 입력함수의 기능을 꾸며주는 wrapper 함수가 필요합니다. 예제로 살펴보겠습니다. </p>
 <script src="https://gist.github.com/EmjayAhn/bc8e34c19ebb87446aec5c7645c80f55.js"></script>
 
 <p>첫번째 예제와 다른 점이라곤, 우리가 꾸미려고 하는 decorator 함수 안에 내부 wrapper 함수를 추가해줌으로써, 우리가 꾸미려는 내용을 선언해주었습니다. </p>

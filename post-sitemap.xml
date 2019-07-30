@@ -8,6 +8,14 @@
     </url>
 
     <url>
+        <loc>https://emjayahn.github.io/2019/07/27/decorator/</loc>
+        <lastmod>2019-07-30T14:22:00.419Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://emjayahn.github.io/2019/06/17/gcp-setting/</loc>
         <lastmod>2019-07-30T09:35:23.700Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -18,14 +26,6 @@
     <url>
         <loc>https://emjayahn.github.io/2019/07/15/iterator-generator/</loc>
         <lastmod>2019-07-29T01:51:38.294Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://emjayahn.github.io/2019/07/27/decorator/</loc>
-        <lastmod>2019-07-29T01:51:24.235Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
