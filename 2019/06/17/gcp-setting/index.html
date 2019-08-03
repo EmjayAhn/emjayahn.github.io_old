@@ -32,7 +32,7 @@
 <meta property="og:description" content="Computing Engine 환경설정 이번 글은, Google Cloud Platform의 Computing Engine 인스턴스의 기본적인 환경설정 방법을 소개하는 글입니다. 직접 작업환경을 세팅하면서, 정리 하는 목적으로 작성하는 글입니다.">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://emjayahn.github.io/images/og_emjay_image.png">
-<meta property="og:updated_time" content="2019-07-30T09:35:23.700Z">
+<meta property="og:updated_time" content="2019-08-03T10:30:01.857Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[GCP] Computing Engine 환경설정">
 <meta name="twitter:description" content="Computing Engine 환경설정 이번 글은, Google Cloud Platform의 Computing Engine 인스턴스의 기본적인 환경설정 방법을 소개하는 글입니다. 직접 작업환경을 세팅하면서, 정리 하는 목적으로 작성하는 글입니다.">
@@ -187,7 +187,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    9 minutes read (About 1350 words)
+                    9 minutes read (About 1362 words)
                 </span>
                 
                 
@@ -270,7 +270,7 @@
 </ol>
 <p><code>mv cuda-repo-ubuntu1804-10-0-local-10.0.130-410.48_1.0-1_amd64 cuda-repo-ubuntu1804-10-0-local-10.0.130-410.48_1.0-1_amd64.deb</code></p>
 <ol start="3">
-<li>설치<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo dpkg -i cuda-repo-ubuntu1804-10-0-local-10.0.130-410.48_1.0-1_amd64.deb</span><br><span class="line">$ sudo apt add /var/cuda-repo-&lt;version&gt;/7fa2af80.pub</span><br><span class="line">$ sudo apt update</span><br><span class="line">$ sudo apt install cuda</span><br></pre></td></tr></table></figure>
+<li>설치<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ sudo dpkg -i cuda-repo-ubuntu1804-10-0-local-10.0.130-410.48_1.0-1_amd64.deb</span><br><span class="line">$ sudo apt-key add /var/cuda-repo-&lt;version&gt;/7fa2af80.pub</span><br><span class="line"><span class="hljs-comment">### $ sudo apt-key add /var/cuda-repo-10-0-local-10.0.130-410.48/7fa2af80.pub</span></span><br><span class="line">$ sudo apt update</span><br><span class="line">$ sudo apt install cuda</span><br></pre></td></tr></table></figure>
 
 </li>
 </ol>
@@ -279,7 +279,7 @@
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo sh -c <span class="hljs-string">'echo "deb http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64 /" &gt;&gt; /etc/apt/sources.list.d/cuda.list'</span></span><br><span class="line">$ sudo apt update</span><br><span class="line">$ sudo apt install libcudnn7-dev</span><br></pre></td></tr></table></figure>
 
 <h2 id="6-Pytorch-설치"><a href="#6-Pytorch-설치" class="headerlink" title="6. Pytorch 설치"></a>6. Pytorch 설치</h2><ul>
-<li>우리는 서버가 https 프로토콜을 사용한다고 체크했으므로 -H  flag 를 주어 sudo pip3 를 활용해야합니다.<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo pip3 -H install https://download.pytorch.org/whl/cu100/torch-1.1.0-cp36-cp36m-linux_x86_64.whl</span><br><span class="line">$ sudo pip3 -H install https://download.pytorch.org/whl/cu100/torchvision-0.3.0-cp36-cp36m-linux_x86_64.whl</span><br></pre></td></tr></table></figure>
+<li>우리는 서버가 https 프로토콜을 사용한다고 체크했으므로 -H  flag 를 주어 sudo pip3 를 활용해야합니다.<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo -H pip3 install https://download.pytorch.org/whl/cu100/torch-1.1.0-cp36-cp36m-linux_x86_64.whl</span><br><span class="line">$ sudo -H pip3 install https://download.pytorch.org/whl/cu100/torchvision-0.3.0-cp36-cp36m-linux_x86_64.whl</span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>

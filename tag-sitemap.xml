@@ -3,6 +3,13 @@
 
 
     <url>
+        <loc>https://emjayahn.github.io/tags/Google-Cloud-Platform/</loc>
+        <lastmod>2019-08-03T10:30:01.857Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://emjayahn.github.io/tags/%EB%8D%B0%EC%BD%94%EB%A0%88%EC%9D%B4%ED%84%B0/</loc>
         <lastmod>2019-07-30T14:22:00.419Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -19,13 +26,6 @@
     <url>
         <loc>https://emjayahn.github.io/tags/python/</loc>
         <lastmod>2019-07-30T14:22:00.419Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://emjayahn.github.io/tags/Google-Cloud-Platform/</loc>
-        <lastmod>2019-07-30T09:35:23.700Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
