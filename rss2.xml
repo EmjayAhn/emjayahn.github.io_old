@@ -8,8 +8,24 @@
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>공부한 것, 알게된 것을 기록하는 블로그입니다.</description>
-    <pubDate>Tue, 30 Jul 2019 14:22:00 GMT</pubDate>
+    <pubDate>Tue, 06 Aug 2019 13:16:20 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>[Linux] 자고있을 때도, 알아서.. 리눅스 Crontab</title>
+      <link>https://emjayahn.github.io/2019/08/06/linux-crontab/</link>
+      <guid>https://emjayahn.github.io/2019/08/06/linux-crontab/</guid>
+      <pubDate>Tue, 06 Aug 2019 12:15:20 GMT</pubDate>
+      <description>
+      
+        &lt;p&gt;데이터를 모으기 위해 크롤링을 진행하거나, 머신러닝, 딥러닝 실험을 할 때 Linux 환경의 머신에서 정해진 시간과 주기에 맞추어 크롤링을 실행하고, 학습을 해준다면, 수많은 작업들을 미리 설정해둔 내용을 바탕으로 편하게 작업을 자동화 할 수 있습니다. &lt;/p&gt;
+      
+      </description>
+      
+      <content:encoded><![CDATA[<p>데이터를 모으기 위해 크롤링을 진행하거나, 머신러닝, 딥러닝 실험을 할 때 Linux 환경의 머신에서 정해진 시간과 주기에 맞추어 크롤링을 실행하고, 학습을 해준다면, 수많은 작업들을 미리 설정해둔 내용을 바탕으로 편하게 작업을 자동화 할 수 있습니다. </p><a id="more"></a><h2 id="1-Crontab-스케줄-작성-삭제-목록-확인"><a href="#1-Crontab-스케줄-작성-삭제-목록-확인" class="headerlink" title="1. Crontab 스케줄 작성, 삭제, 목록 확인"></a>1. Crontab 스케줄 작성, 삭제, 목록 확인</h2><p>1-1. Crontab 스케줄 작성하기</p><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ crontab -e</span><br></pre></td></tr></table></figure><p>-e (edit) 옵션으로 Crontab 의 스케쥴을 설정해 줄 수 있습니다. 작성할 스케쥴은 리눅스의 디폴트 에디터인 vi 에디터를 이용합니다.</p><p>1-2. Crontab 스케줄 지우기</p><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ crontab -r</span><br></pre></td></tr></table></figure><p>-r (remove) 옵션으로 Crontab 에 등록된 스케줄을 삭제해 줄 수 있습니다.</p><p>1-3. Crontab 스케줄 목록 확인하기</p><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ crontab -l</span><br></pre></td></tr></table></figure><p>-l (list) 옵션으로 Crontab 에 등록된 스케줄 리스트를 확인 할 수 있습니다.</p><h2 id="2-Crontab-주기"><a href="#2-Crontab-주기" class="headerlink" title="2. Crontab 주기"></a>2. Crontab 주기</h2><p>항상 사용할 때마다, 헷갈리고 잊어버리는 설정 주기 순서입니다.</p><p>마지막의 <code>요일</code> 부분은 0, 7: 일요일, 1: 월요일 ~ 6: 토요일</p><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">*   *    *   *   *</span><br><span class="line">분  시간  일   월  요일</span><br></pre></td></tr></table></figure><br>예를 들어, 매주 월요일에 crawling.py 를 실행한다면, 아래와 같이 crontab edit 창에서 작성하고 저장하면 됩니다.<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* * * * 5 python3 /directory/crawling.py</span><br></pre></td></tr></table></figure><p>이제부터는 조금 복잡한 주기를 설정할 수도 있습니다.<br>2-1. 반복</p><ul><li><p>매시 25분, 45분에 실행하고 싶을 때</p><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">25,45 * * * * python3 /directory/crawling.py</span><br></pre></td></tr></table></figure></li><li><p>매 20분마다 실행하고 싶을 때</p><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*/20 * * * * python3 /directory/crawling.py</span><br></pre></td></tr></table></figure></li></ul><p>2-2. 범위</p><ul><li>매주 수요일에서 금요일까지 1시 30분마다 실행 시킬 때<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">30 1 * * 3-5 python3 /directory/crawling.py</span><br></pre></td></tr></table></figure></li></ul><h2 id="3-예제"><a href="#3-예제" class="headerlink" title="3. 예제"></a>3. 예제</h2><p>2분마다 “THIS IS CRONTAAAB”을 test.txt 에 기록해보자.</p><ul><li><p>“THIS IS CRONTAAAB”을 test.txt 파일에 기록하는 shell command 를 작성합니다.</p><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># program.sh파일에 다음과 같이 작성합니다.</span><br><span class="line">echo &quot;THIS IS CRONTAAAB&quot; &gt;&gt; ./test.txt&quot;</span><br></pre></td></tr></table></figure></li><li><p><code>crontab -l</code> 명령어를 통해 다음과 같이 작성합니다</p><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*/2 * * * * /directory/program.sh</span><br></pre></td></tr></table></figure></li></ul>]]></content:encoded>
+      
+      <comments>https://emjayahn.github.io/2019/08/06/linux-crontab/#disqus_thread</comments>
+    </item>
     
     <item>
       <title>[Python] 쉽게 쓰여진 Decorator</title>
@@ -352,27 +368,6 @@
       <content:encoded><![CDATA[<h1 id="190109-TWIL"><a href="#190109-TWIL" class="headerlink" title="190109 TWIL"></a>190109 TWIL</h1><hr><h2 id="오늘-한-일은-무엇인가"><a href="#오늘-한-일은-무엇인가" class="headerlink" title="오늘 한 일은 무엇인가"></a>오늘 한 일은 무엇인가</h2><ol><li>BLOG RENEWAL</li></ol><hr><h2 id="내일-할-일은-무엇인가"><a href="#내일-할-일은-무엇인가" class="headerlink" title="내일 할 일은 무엇인가"></a>내일 할 일은 무엇인가</h2><ol><li>Graph모형 공부</li><li>LinearAlgebra 1강, 2강<br></li></ol><hr><h2 id="무엇을-느꼈는가"><a href="#무엇을-느꼈는가" class="headerlink" title="무엇을 느꼈는가"></a>무엇을 느꼈는가</h2><ul><li>새해를 맞아 블로그를 새 테마로 바꾸었다. 기존에 hueman theme 에 익숙해져 있어서, 새로운 테마의 기능을<br>수정하고, 전처럼 편해지려면 또 적응의 시간이 필요할 것 같다. 블로그의 테마는 작년부터 글의 양이 늘어나면 늘어날수록<br>그 욕구가 더 심해 졌다. 특정 카테고리에서 글이 누적되가면서, 어떤 글들이 담겨있는지 제목을 통해 직관적으로<br>보고싶었다. hueman 은 글마다 썸네일들이 있고, 글의 순서가 조금 불편하게 배치되어 있다. 시리즈성 글들을 올린다거나,<br>주제가 1, 2, 3 등으로 나뉘는 글들이 있을 때, 글 제목으로 연속성을 보기가 힘들었다.</li><li>위의 이유로 선택한 이번 테마는 내가 중점적으로 생각한 부분을 조금이나마 개선할 수 있는 것 같다. 틈틈히<br>새로운 테마의 세팅도 마쳐야겠다.</li></ul><hr>]]></content:encoded>
       
       <comments>https://emjayahn.github.io/2019/01/09/190109-TodayWhatILearned/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title>REBOOT</title>
-      <link>https://emjayahn.github.io/2019/01/08/190108-TodayWhatILearned/</link>
-      <guid>https://emjayahn.github.io/2019/01/08/190108-TodayWhatILearned/</guid>
-      <pubDate>Tue, 08 Jan 2019 02:35:35 GMT</pubDate>
-      <description>
-      
-        
-        
-          &lt;p&gt;** REBOOT **&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Text Classification Project 를 한다는 핑계로 그간 TodayWhatILearned의 작성을 하지 못했다.&lt;br&gt;프로젝트를 하는 동안은 매일 어떤 것을 공부할 계획이고, 어떤 공
-        
-      
-      </description>
-      
-      <content:encoded><![CDATA[<p>** REBOOT **</p><ul><li>Text Classification Project 를 한다는 핑계로 그간 TodayWhatILearned의 작성을 하지 못했다.<br>프로젝트를 하는 동안은 매일 어떤 것을 공부할 계획이고, 어떤 공부를 했는지 남길 만한 내용이 없었던 것도 사실이다.<br>프로젝트 동안 미뤄뒀던 공부들, 보고싶었던 주제들을 이제 다시 새로운 마음가짐을 가지고 시작할 것이다.<br>새해가 밝은 만큼 블로그를 만들기 시작하면서 다짐했던 초심을 상기하자.</li></ul><h2 id="To-Do-List"><a href="#To-Do-List" class="headerlink" title="To-Do-List"></a>To-Do-List</h2><ol><li>Graph모형, 네트워크 추론 공부 (수식) - 새로운 패키지, 코드 정리하면서 공부</li><li>LinearAlgebra 1강, 2강 다시 시작</li></ol><hr><h2 id="오늘-한-일은-무엇인가"><a href="#오늘-한-일은-무엇인가" class="headerlink" title="오늘 한 일은 무엇인가"></a>오늘 한 일은 무엇인가</h2><ol><li>Graph모형 공부</li><li>LinearAlgebra 1강, 2강<br></li></ol><hr><h2 id="내일-할-일은-무엇인가"><a href="#내일-할-일은-무엇인가" class="headerlink" title="내일 할 일은 무엇인가"></a>내일 할 일은 무엇인가</h2><ol><li>네트워크 추론 공부(수식 위주로 공부)</li></ol><hr>]]></content:encoded>
-      
-      <comments>https://emjayahn.github.io/2019/01/08/190108-TodayWhatILearned/#disqus_thread</comments>
     </item>
     
   </channel>

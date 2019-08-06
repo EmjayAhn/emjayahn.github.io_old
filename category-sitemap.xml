@@ -8,15 +8,29 @@
     </url>
 
     <url>
-        <loc>https://emjayahn.github.io/categories/Google-Cloud-Platform/</loc>
-        <lastmod>2019-08-03T10:30:01.857Z</lastmod>
+        <loc>https://emjayahn.github.io/categories/Development/Linux/</loc>
+        <lastmod>2019-08-06T13:16:20.446Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>https://emjayahn.github.io/categories/Python/</loc>
-        <lastmod>2019-07-30T14:22:00.419Z</lastmod>
+        <loc>https://emjayahn.github.io/categories/Development/</loc>
+        <lastmod>2019-08-06T13:16:20.446Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/categories/Development/Python/</loc>
+        <lastmod>2019-08-06T13:13:46.392Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/categories/Google-Cloud-Platform/</loc>
+        <lastmod>2019-08-03T10:30:01.857Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

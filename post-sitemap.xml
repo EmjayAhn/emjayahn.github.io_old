@@ -8,8 +8,16 @@
     </url>
 
     <url>
-        <loc>https://emjayahn.github.io/2019/06/17/gcp-setting/</loc>
-        <lastmod>2019-08-03T10:30:01.857Z</lastmod>
+        <loc>https://emjayahn.github.io/2019/08/06/linux-crontab/</loc>
+        <lastmod>2019-08-06T13:16:20.446Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2018/10/24/Thread/</loc>
+        <lastmod>2019-08-06T13:13:46.392Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -17,7 +25,7 @@
 
     <url>
         <loc>https://emjayahn.github.io/2019/07/27/decorator/</loc>
-        <lastmod>2019-07-30T14:22:00.419Z</lastmod>
+        <lastmod>2019-08-06T13:13:29.236Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -25,7 +33,15 @@
 
     <url>
         <loc>https://emjayahn.github.io/2019/07/15/iterator-generator/</loc>
-        <lastmod>2019-07-29T01:51:38.294Z</lastmod>
+        <lastmod>2019-08-06T13:13:08.544Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/2019/06/17/gcp-setting/</loc>
+        <lastmod>2019-08-03T10:30:01.857Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -146,14 +162,6 @@
     <url>
         <loc>https://emjayahn.github.io/2019/06/03/Classification-Metrics/</loc>
         <lastmod>2019-07-15T16:57:48.397Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://emjayahn.github.io/2018/10/24/Thread/</loc>
-        <lastmod>2019-07-15T14:04:01.306Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
