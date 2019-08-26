@@ -198,27 +198,15 @@
         <div class="content">
             <p>데이터를 모으기 위해 크롤링을 진행하거나, 머신러닝, 딥러닝 실험을 할 때 Linux 환경의 머신에서 정해진 시간과 주기에 맞추어 크롤링을 실행하고, 학습을 해준다면, 수많은 작업들을 미리 설정해둔 내용을 바탕으로 편하게 작업을 자동화 할 수 있습니다. </p>
 <a id="more"></a>
-
-<h2 id="1-Crontab-스케줄-작성-삭제-목록-확인"><a href="#1-Crontab-스케줄-작성-삭제-목록-확인" class="headerlink" title="1. Crontab 스케줄 작성, 삭제, 목록 확인"></a>1. Crontab 스케줄 작성, 삭제, 목록 확인</h2><p>1-1. Crontab 스케줄 작성하기</p>
-<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ crontab -e</span><br></pre></td></tr></table></figure>
-
+<h2 id="1-Crontab-스케줄-작성-삭제-목록-확인"><a href="#1-Crontab-스케줄-작성-삭제-목록-확인" class="headerlink" title="1. Crontab 스케줄 작성, 삭제, 목록 확인"></a>1. Crontab 스케줄 작성, 삭제, 목록 확인</h2><p>1-1. Crontab 스케줄 작성하기<br><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ crontab -e</span><br></pre></td></tr></table></figure></p>
 <p>-e (edit) 옵션으로 Crontab 의 스케쥴을 설정해 줄 수 있습니다. 작성할 스케쥴은 리눅스의 디폴트 에디터인 vi 에디터를 이용합니다.</p>
-<p>1-2. Crontab 스케줄 지우기</p>
-<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ crontab -r</span><br></pre></td></tr></table></figure>
-
+<p>1-2. Crontab 스케줄 지우기<br><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ crontab -r</span><br></pre></td></tr></table></figure></p>
 <p>-r (remove) 옵션으로 Crontab 에 등록된 스케줄을 삭제해 줄 수 있습니다.</p>
-<p>1-3. Crontab 스케줄 목록 확인하기</p>
-<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ crontab -l</span><br></pre></td></tr></table></figure>
-
+<p>1-3. Crontab 스케줄 목록 확인하기<br><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ crontab -l</span><br></pre></td></tr></table></figure></p>
 <p>-l (list) 옵션으로 Crontab 에 등록된 스케줄 리스트를 확인 할 수 있습니다.</p>
 <h2 id="2-Crontab-주기"><a href="#2-Crontab-주기" class="headerlink" title="2. Crontab 주기"></a>2. Crontab 주기</h2><p>항상 사용할 때마다, 헷갈리고 잊어버리는 설정 주기 순서입니다.</p>
-<p>마지막의 <code>요일</code> 부분은 0, 7: 일요일, 1: 월요일 ~ 6: 토요일</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">*   *    *   *   *</span><br><span class="line">분  시간  일   월  요일</span><br></pre></td></tr></table></figure>
-
-<br>
-예를 들어, 매주 월요일에 crawling.py 를 실행한다면, 아래와 같이 crontab edit 창에서 작성하고 저장하면 됩니다.
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* * * * 5 python3 /directory/crawling.py</span><br></pre></td></tr></table></figure>
-
+<p>마지막의 <code>요일</code> 부분은 0, 7: 일요일, 1: 월요일 ~ 6: 토요일<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">*   *    *   *   *</span><br><span class="line">분  시간  일   월  요일</span><br></pre></td></tr></table></figure></p>
+<p><br><br>예를 들어, 매주 월요일에 crawling.py 를 실행한다면, 아래와 같이 crontab edit 창에서 작성하고 저장하면 됩니다.<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* * * * 5 python3 /directory/crawling.py</span><br></pre></td></tr></table></figure></p>
 <p>이제부터는 조금 복잡한 주기를 설정할 수도 있습니다.<br>2-1. 반복</p>
 <ul>
 <li><p>매시 25분, 45분에 실행하고 싶을 때</p>
@@ -226,13 +214,11 @@
 </li>
 <li><p>매 20분마다 실행하고 싶을 때</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*/20 * * * * python3 /directory/crawling.py</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 <p>2-2. 범위</p>
 <ul>
 <li>매주 수요일에서 금요일까지 1시 30분마다 실행 시킬 때<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">30 1 * * 3-5 python3 /directory/crawling.py</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 <h2 id="3-예제"><a href="#3-예제" class="headerlink" title="3. 예제"></a>3. 예제</h2><p>2분마다 “THIS IS CRONTAAAB”을 test.txt 에 기록해보자.</p>
@@ -358,7 +344,7 @@
                         Posts
                     </p>
                     <p class="title has-text-weight-normal">
-                        81
+                        82
                     </p>
                 </div>
             </div>
@@ -368,7 +354,7 @@
                         Categories
                     </p>
                     <p class="title has-text-weight-normal">
-                        24
+                        26
                     </p>
                 </div>
             </div>
@@ -425,6 +411,22 @@
             </h3>
             <ul class="menu-list">
             <li>
+        <a class="level is-marginless" href="/categories/Book/">
+            <span class="level-start">
+                <span class="level-item">Book</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a><ul><li>
+        <a class="level is-marginless" href="/categories/Book/Digital-Image-Processing/">
+            <span class="level-start">
+                <span class="level-item">Digital Image Processing</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li></ul></li><li>
         <a class="level is-marginless" href="/categories/DataStructure/">
             <span class="level-start">
                 <span class="level-item">DataStructure</span>
@@ -642,6 +644,25 @@
         
         <article class="media">
             
+            <a href="/2019/08/26/DIP-chapter3/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="[Book] Summary of Digital Image Processing Chapter 03">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-08-26T12:54:53.000Z">2019-08-26</time></div>
+                    <a href="/2019/08/26/DIP-chapter3/" class="has-link-black-ter is-size-6">[Book] Summary of Digital Image Processing Chapter 03</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Book/">Book</a> / <a class="has-link-grey -link" href="/categories/Book/Digital-Image-Processing/">Digital Image Processing</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2019/08/20/summary-vision-and-rain/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="[논문읽기] Summary of Vision and Rain">
@@ -716,25 +737,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/07/27/decorator/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="[Python] 쉽게 쓰여진 Decorator">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-27T09:46:17.000Z">2019-07-27</time></div>
-                    <a href="/2019/07/27/decorator/" class="has-link-black-ter is-size-6">[Python] 쉽게 쓰여진 Decorator</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Development/">Development</a> / <a class="has-link-grey -link" href="/categories/Development/Python/">Python</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -753,7 +755,7 @@
                     <span class="level-item">August 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">4</span>
+                    <span class="level-item tag">5</span>
                 </span>
             </a>
         </li>
@@ -1027,23 +1029,7 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 <script src="/js/insight.js" defer></script>
 <link rel="stylesheet" href="/css/search.css">
-<link rel="stylesheet" href="/css/insight.css">
+<link rel="stylesheet" href="/css/insight.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
     
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

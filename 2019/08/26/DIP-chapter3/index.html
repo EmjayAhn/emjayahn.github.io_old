@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+<title>[Book] Summary of Digital Image Processing Chapter 03 - Emjay, 오늘도 새롭게</title>
+<meta name="naver-site-verification" content="139bdfd66b5dc8101d114c24fabb93c84d0dd64d">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta property="al:ios:url" content="applinks://docs">
+<meta property="al:ios:app_store_id" content="12345">
+<meta property="al:ios:app_name" content="App Links">
+<meta property="al:android:url" content="applinks://docs">
+<meta property="al:android:app_name" content="App Links">
+<meta property="al:android:package" content="org.applinks">
+<meta property="al:web:url" content="http://applinks.org/documentation">
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-4220998811671882",
+    enable_page_level_ads: true
+  });
+</script>
+
+<link rel="canonical" href="https://emjayahn.github.io/2019/08/26/dip-chapter3/">
+
+    <meta name="description" content="Chapter 3: Intensity Transformations and Spatial FilteringRafael C.Gonzalez and Richard E.Woods. Digital Image Processing. PEARSON 을 읽고 개인 공부 목적으로 정리한 내용입니다.">
+<meta name="keywords" content="데이터사이언스,머신러닝,딥러닝,개발,machine learning,deep learning,datascience,datascientist">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Book] Summary of Digital Image Processing Chapter 03">
+<meta property="og:url" content="https://emjayahn.github.io/2019/08/26/DIP-chapter3/index.html">
+<meta property="og:site_name" content="Emjay, 오늘도 새롭게">
+<meta property="og:description" content="Chapter 3: Intensity Transformations and Spatial FilteringRafael C.Gonzalez and Richard E.Woods. Digital Image Processing. PEARSON 을 읽고 개인 공부 목적으로 정리한 내용입니다.">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://emjayahn.github.io/images/og_emjay_image.png">
+<meta property="og:updated_time" content="2019-08-26T13:04:46.525Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Book] Summary of Digital Image Processing Chapter 03">
+<meta name="twitter:description" content="Chapter 3: Intensity Transformations and Spatial FilteringRafael C.Gonzalez and Richard E.Woods. Digital Image Processing. PEARSON 을 읽고 개인 공부 목적으로 정리한 내용입니다.">
+<meta name="twitter:image" content="https://emjayahn.github.io/images/og_emjay_image.png">
+<meta property="fb:app_id" content="jjminjae">
+
+
+
+
+
+<link rel="alternative" href="/rss2.xml" title="[Book] Summary of Digital Image Processing Chapter 03" type="application/atom+xml">
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+    
+    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+
+    
+    
+    
+    
+
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128251719-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-128251719-1');
+</script>
+
+
+    
+    
+    
+    
+
+    
+    
+<link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+    
+    
+    
+
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+<body class="is-2-column">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/Emjaybloglogo_edit.png" alt="[Book] Summary of Digital Image Processing Chapter 03" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item" href="/">Home</a>
+                
+                <a class="navbar-item" href="/archives">Archives</a>
+                
+                <a class="navbar-item" href="/categories">Categories</a>
+                
+                <a class="navbar-item" href="/tags">Tags</a>
+                
+                <a class="navbar-item" href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="https://github.com/emjayahn">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                
+                <a class="navbar-item search" title="Search" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-8-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-08-26T12:54:53.000Z">2019-08-26</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/Book/">Book</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/Book/Digital-Image-Processing/">Digital Image Processing</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    7 minutes read (About 1066 words)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                [Book] Summary of Digital Image Processing Chapter 03
+            
+        </h1>
+        <div class="content">
+            <h1 id="Chapter-3-Intensity-Transformations-and-Spatial-Filtering"><a href="#Chapter-3-Intensity-Transformations-and-Spatial-Filtering" class="headerlink" title="Chapter 3: Intensity Transformations and Spatial Filtering"></a>Chapter 3: Intensity Transformations and Spatial Filtering</h1><p>Rafael C.Gonzalez and Richard E.Woods. <i>Digital Image Processing</i>. PEARSON 을 읽고 개인 공부 목적으로 정리한 내용입니다.<br><a id="more"></a></p>
+<h2 id="3-1-Background"><a href="#3-1-Background" class="headerlink" title="3.1 Background"></a>3.1 Background</h2><h3 id="3-1-1-The-Basics-of-Intensity-Transformations-and-Spatial-Filtering"><a href="#3-1-1-The-Basics-of-Intensity-Transformations-and-Spatial-Filtering" class="headerlink" title="3.1.1 The Basics of Intensity Transformations and Spatial Filtering"></a>3.1.1 The Basics of Intensity Transformations and Spatial Filtering</h3><ul>
+<li>모든 spatial domain process 에서 operator  와 input image f(x,y), output image g(x, y) 로 표현된다.</li>
+</ul>
+<script type="math/tex; mode=display">g(x, y) = T[f(x, y)]</script><h2 id="3-2-Some-Basic-Intensity-Transformation-Functions"><a href="#3-2-Some-Basic-Intensity-Transformation-Functions" class="headerlink" title="3.2 Some Basic Intensity Transformation Functions"></a>3.2 Some Basic Intensity Transformation Functions</h2><h3 id="3-2-1-Image-Negatives"><a href="#3-2-1-Image-Negatives" class="headerlink" title="3.2.1 Image Negatives"></a>3.2.1 Image Negatives</h3><ul>
+<li>Negative transformation</li>
+<li>이미지 반전 효과</li>
+</ul>
+<script type="math/tex; mode=display">s = L-1-r</script><h3 id="3-2-2-Log-Transormations"><a href="#3-2-2-Log-Transormations" class="headerlink" title="3.2.2 Log Transormations"></a>3.2.2 Log Transormations</h3><script type="math/tex; mode=display">s=c*log(1+r)</script><ul>
+<li>c : constant, assumed r ≥ 0</li>
+<li>low intensity value of input → wider range of output levels</li>
+</ul>
+<h3 id="3-2-3-Power-Law-Gamma-Transformations"><a href="#3-2-3-Power-Law-Gamma-Transformations" class="headerlink" title="3.2.3 Power-Law(Gamma) Transformations"></a>3.2.3 Power-Law(Gamma) Transformations</h3><script type="math/tex; mode=display">s = cr^\gamma=c(r+\epsilon)^\gamma</script><p>c, gamma: positive constants</p>
+<ul>
+<li>gamma 의 값에 따라서, intensity의 어떤 부분이 강조되는지가 다르다.</li>
+<li>Original Image 와 monitor 에 비추는 이미지간의 차이를 중요하게 다룰 때, gamma correction 을 사용하게 된다.</li>
+<li>일반적인 contrast를 다룰 때 중요하게 사용되기도 한다. MRI 사진 sample 예</li>
+</ul>
+<h3 id="3-2-4-Piecewise-Linear-Transformation-Functions"><a href="#3-2-4-Piecewise-Linear-Transformation-Functions" class="headerlink" title="3.2.4 Piecewise-Linear Transformation Functions"></a>3.2.4 Piecewise-Linear Transformation Functions</h3><h3 id="1-Contrast-stretching"><a href="#1-Contrast-stretching" class="headerlink" title="1. Contrast stretching"></a>1. Contrast stretching</h3><ul>
+<li>Low-contrast image 은 sensing 면에서 떨어질 수 있으므로, intensity range를 연장하여, 큰 범위의 intensity 를 사용할 수 있도록 하는 방법</li>
+<li>(input_intensity, output_intensity)→ (r1, s1) 과 (r2, s2)의 관계를 조절하여 contrast transform 형태를 조절한다. 극단적으로 r1=r2, s1=0, s2=L-1 이면, binary image 를 생성한다.(thresholding function)</li>
+</ul>
+<h3 id="2-Intensity-level-slicing"><a href="#2-Intensity-level-slicing" class="headerlink" title="2. Intensity-level slicing"></a>2. Intensity-level slicing</h3><ul>
+<li>관심있는 영역의 Intensity-level 외에는 모두 0으로 처리하거나, 관심있는 영역은 특정 intensity level 로 두고, 나머지 level 은 그대로 두는 형태등이 있을 수 있다.</li>
+</ul>
+<h3 id="3-Bit-plane-slicing"><a href="#3-Bit-plane-slicing" class="headerlink" title="3. Bit-plane slicing"></a>3. Bit-plane slicing</h3><ul>
+<li>8bit 의 이미지 슬라이드 중, significant order의 bit slide 중 특정 부분을 slicing</li>
+</ul>
+<h2 id="3-3-Histogram-Processing"><a href="#3-3-Histogram-Processing" class="headerlink" title="3.3 Histogram Processing"></a>3.3 Histogram Processing</h2><h3 id="3-3-1-Histogram-Equalization"><a href="#3-3-1-Histogram-Equalization" class="headerlink" title="3.3.1 Histogram Equalization"></a>3.3.1 Histogram Equalization</h3><ul>
+<li>Assume monotonic transformation: one-to-one mapping or many-to-one mapping</li>
+<li>output pdf ps, input pdf pr</li>
+</ul>
+<script type="math/tex; mode=display">p_s(s) = p_r(r)|\frac{dr}{ds}|</script><ul>
+<li>이 식은?</li>
+</ul>
+<script type="math/tex; mode=display">s=T(r)=(L-1)\int_{0}^{r}{p_r(w)dw}</script><ul>
+<li>histogram equalization, histogram linearization</li>
+</ul>
+<script type="math/tex; mode=display">s_k=T(r_k)=(L-1)\sum_{j=0}^{k}p_r(r_j) = \frac{L-1}{MN}\sum_{j=0}^{k}{n_j}</script><ul>
+<li>output image 의 p_s,  distribution 이 uniform 되게 하는 형태</li>
+<li>결과적으로, 같은 이미지 형태이지만, 밝기와 contrast 가 모두 다르더라도 일정한 historgram 이 되도록 transform 해준다.</li>
+</ul>
+<h3 id="3-3-2-Histogram-Matching-Specifiaction"><a href="#3-3-2-Histogram-Matching-Specifiaction" class="headerlink" title="3.3.2 Histogram Matching(Specifiaction)"></a>3.3.2 Histogram Matching(Specifiaction)</h3><ul>
+<li>Uniform historgram이 항상 좋은 것은 아니다.</li>
+<li>histogram matching, histogram specification : The method used to generate a processed image that has specified histogram</li>
+</ul>
+<p>(1) histogram p_r(r) 을 계산, s_k 를 구하기 위해 histogram equalization transformation 식을 계산</p>
+<p>(2) 원하는 p_z(z) 를 이용하여, function G 를 계산</p>
+<p>(3)(2)에서 계산한 G를 이용해 z_k (k=0, 1, 2, …L-1) 까지 계산</p>
+<p>(4) inverse of G 계산</p>
+<p>(5)  r → z trasnformation 계산</p>
+<h3 id="3-3-3-Local-Histogram-Processing"><a href="#3-3-3-Local-Histogram-Processing" class="headerlink" title="3.3.3 Local Histogram Processing"></a>3.3.3 Local Histogram Processing</h3><ul>
+<li>이 전 두가지 histogram processing model 은 global  한 영역에서 진행, 즉 전체 이미지에 대해 intensity distribution 을 확인하고, 이를 이용해 transformation 을 진행 하였다.</li>
+<li>이러한 modeling 스킬을 Local enhancement 에 사용가능</li>
+<li>Local enhancement 는 neighborhood 를 정하고, 중심을 이동해가며, neighborhood 안에서의 histogram equalization 이나 histogram specification transformation 등을 이용할 수 있다.</li>
+<li>계산을 줄이기 위해, nonoverlapping region 을 사용하여 위 방법을 동일하게 사용할 수 있으나, blocky effect 를 발생시킬 수 있음</li>
+<li>blocky effect (p.161)</li>
+</ul>
+<h3 id="3-3-4-Using-Histogram-Statistics-for-Image-Enhancement"><a href="#3-3-4-Using-Histogram-Statistics-for-Image-Enhancement" class="headerlink" title="3.3.4 Using Histogram Statistics for Image Enhancement"></a>3.3.4 Using Histogram Statistics for Image Enhancement</h3><h2 id="3-4-Fundamentals-of-Spatial-Filtering"><a href="#3-4-Fundamentals-of-Spatial-Filtering" class="headerlink" title="3.4 Fundamentals of Spatial Filtering"></a>3.4 Fundamentals of Spatial Filtering</h2><h3 id="3-4-1-The-mechanics-of-Spatial-FIltering"><a href="#3-4-1-The-mechanics-of-Spatial-FIltering" class="headerlink" title="3.4.1 The mechanics of Spatial FIltering"></a>3.4.1 The mechanics of Spatial FIltering</h3><ol>
+<li>Neighborhood (typically a small rectangle) 2. predefined operation</li>
+</ol>
+<h3 id="3-4-2-Spatial-Correlation-and-Convolution"><a href="#3-4-2-Spatial-Correlation-and-Convolution" class="headerlink" title="3.4.2 Spatial Correlation and Convolution"></a>3.4.2 Spatial Correlation and Convolution</h3><ul>
+<li>correlation, convolution: 180 degree 반전</li>
+</ul>
+<h3 id="3-4-3-Vector-Representation-of-Linear-Filttering"><a href="#3-4-3-Vector-Representation-of-Linear-Filttering" class="headerlink" title="3.4.3 Vector Representation of Linear Filttering"></a>3.4.3 Vector Representation of Linear Filttering</h3><script type="math/tex; mode=display">R=\sum_{k=1}^{9}w_kz_k=\boldsymbol{w}^T\boldsymbol{z}</script><h3 id="3-4-4-Generating-Spatial-Filter-Masks"><a href="#3-4-4-Generating-Spatial-Filter-Masks" class="headerlink" title="3.4.4 Generating Spatial Filter Masks"></a>3.4.4 Generating Spatial Filter Masks</h3><ul>
+<li>mn mask</li>
+<li>Average value of masked values → image smoothing</li>
+<li>위치에 따른 gaussian filter 예 (standard deviation?(p.173))</li>
+</ul>
+<h2 id="3-5-Smoothing-Spatial-Filters"><a href="#3-5-Smoothing-Spatial-Filters" class="headerlink" title="3.5 Smoothing Spatial Filters"></a>3.5 Smoothing Spatial Filters</h2><ul>
+<li>smoothing for blurring, noise reduction</li>
+<li>blurring : removal of small details from an image prior to object extraction, bridging of small gaps in lines or curves</li>
+<li>noise reduction: blurring by linear or non-linear filtering</li>
+</ul>
+<h3 id="3-5-1-Smoothing-Linear-Filters"><a href="#3-5-1-Smoothing-Linear-Filters" class="headerlink" title="3.5.1 Smoothing Linear Filters"></a>3.5.1 Smoothing Linear Filters</h3><ul>
+<li>averaging filters == lowpass filters</li>
+<li>Replace the value of every pixel in an image by the average of the intensity levels in neighborhood defined by the filter mask → reduced “sharp” transitions in intensity</li>
+<li>box filter : all coefficient are euqal in filter</li>
+</ul>
+<h3 id="3-5-2-Order-Statistic-Nonlinear-Filters"><a href="#3-5-2-Order-Statistic-Nonlinear-Filters" class="headerlink" title="3.5.2 Order-Statistic(Nonlinear) Filters"></a>3.5.2 Order-Statistic(Nonlinear) Filters</h3><ul>
+<li>median filter (popular): effective in impulse noise-reduction (salt-pepper noise)</li>
+<li>implement<ol>
+<li>sort values of neighborhood</li>
+<li>determine their median</li>
+<li>assign the value to filtered image</li>
+</ol>
+</li>
+</ul>
+<h2 id="3-6-Sharpening-Spatial-Filters"><a href="#3-6-Sharpening-Spatial-Filters" class="headerlink" title="3.6 Sharpening Spatial Filters"></a>3.6 Sharpening Spatial Filters</h2><ul>
+<li>highlight transitions</li>
+</ul>
+<h3 id="3-6-1-Foundation"><a href="#3-6-1-Foundation" class="headerlink" title="3.6.1 Foundation"></a>3.6.1 Foundation</h3><h3 id="3-6-2-Using-the-Second-Derivative-for-Image-Sharpeing—The-Laplacian"><a href="#3-6-2-Using-the-Second-Derivative-for-Image-Sharpeing—The-Laplacian" class="headerlink" title="3.6.2 Using the Second Derivative for Image Sharpeing—The Laplacian"></a>3.6.2 Using the Second Derivative for Image Sharpeing—The Laplacian</h3><ul>
+<li>capture intensity discontinuities in an image and deemphasize</li>
+</ul>
+<script type="math/tex; mode=display">g(x, y)=f(x, y) + c[\triangledown^2f(x,y)]</script><h3 id="3-6-3-Unsharp-Masking-and-Highboost-Filtering"><a href="#3-6-3-Unsharp-Masking-and-Highboost-Filtering" class="headerlink" title="3.6.3 Unsharp Masking and Highboost Filtering"></a>3.6.3 Unsharp Masking and Highboost Filtering</h3><ul>
+<li>unsharp masking<ol>
+<li>Blur the original image</li>
+<li>Subtract the blurred image from the original (the resulting difference is called the mask)</li>
+<li>Add the mask to the original</li>
+</ol>
+</li>
+</ul>
+<script type="math/tex; mode=display">g_{mask}(x,y)=f(x,y)-\bar{f}(x,y)</script><script type="math/tex; mode=display">g(x,y) = f(x, y) + k*g_{mask}(x, y), \quad k>=0</script><ul>
+<li>k&gt;1 , highboost filtering</li>
+<li>k&lt;1, de-emphasizes unsharp mask</li>
+</ul>
+<h3 id="3-6-4-Using-First-Order-Derivatives-for-Nonlinear-Image-Sharpening—The-gradient"><a href="#3-6-4-Using-First-Order-Derivatives-for-Nonlinear-Image-Sharpening—The-gradient" class="headerlink" title="3.6.4 Using First-Order Derivatives for (Nonlinear) Image Sharpening—The gradient"></a>3.6.4 Using First-Order Derivatives for (Nonlinear) Image Sharpening—The gradient</h3><ul>
+<li>Using the magnitude of the gradient, magnitude M(x, y)</li>
+</ul>
+<script type="math/tex; mode=display">M(x, y)=mag(\triangledown f)=\sqrt{g_x^2+g_y^2}=|g_x|+|g_y|</script>
+        </div>
+        
+        
+        
+        
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5d2ca2d817ca3533" async="async"></script>
+
+        
+    </div>
+</div>
+
+
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/08/20/summary-vision-and-rain/">
+                <span class="level-item">[논문읽기] Summary of Vision and Rain</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">Comments</h3>
+        
+<div id="lv-container" data-id="city" data-uid="MTAyMC80MjIzMS8xODc3OA==">
+    <script type="text/javascript">
+        (function(d, s) {
+            var j, e = d.getElementsByTagName(s)[0];
+
+            if (typeof LivereTower === 'function') { return; }
+
+            j = d.createElement(s);
+            j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+            j.async = true;
+
+            e.parentNode.insertBefore(j, e);
+        })(document, 'script');
+    </script>
+    <noscript> Please activate JavaScript for write a comment in LiveRe</noscript>
+</div>
+
+    </div>
+</div>
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-4-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    
+                        <img class="image is-128x128 has-mb-6" src="/images/profile.jpeg" alt="Emjay Ahn">
+                    
+                    
+                    <p class="is-size-4 is-block">
+                        Emjay Ahn
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        data scientist
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Seoul, Korea</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Posts
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        82
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Categories
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        26
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Tags
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        32
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/emjayahn" target="_blank">
+                Follow</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="https://github.com/emjayahn">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="https://facebook.com/jjminjae">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/rss2.xml">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Categories
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/Book/">
+            <span class="level-start">
+                <span class="level-item">Book</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a><ul><li>
+        <a class="level is-marginless" href="/categories/Book/Digital-Image-Processing/">
+            <span class="level-start">
+                <span class="level-item">Digital Image Processing</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li></ul></li><li>
+        <a class="level is-marginless" href="/categories/DataStructure/">
+            <span class="level-start">
+                <span class="level-item">DataStructure</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Development/">
+            <span class="level-start">
+                <span class="level-item">Development</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
+            </span>
+        </a><ul><li>
+        <a class="level is-marginless" href="/categories/Development/Linux/">
+            <span class="level-start">
+                <span class="level-item">Linux</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Development/Python/">
+            <span class="level-start">
+                <span class="level-item">Python</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li></ul></li><li>
+        <a class="level is-marginless" href="/categories/Diary/">
+            <span class="level-start">
+                <span class="level-item">Diary</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">43</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Google-Cloud-Platform/">
+            <span class="level-start">
+                <span class="level-item">Google Cloud Platform</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Lecture/">
+            <span class="level-start">
+                <span class="level-item">Lecture</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">10</span>
+            </span>
+        </a><ul><li>
+        <a class="level is-marginless" href="/categories/Lecture/CS224n/">
+            <span class="level-start">
+                <span class="level-item">CS224n</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Lecture/CS231n/">
+            <span class="level-start">
+                <span class="level-item">CS231n</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">7</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Lecture/딥러닝을-이용한-자연어-처리/">
+            <span class="level-start">
+                <span class="level-item">딥러닝을 이용한 자연어 처리</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li></ul></li><li>
+        <a class="level is-marginless" href="/categories/MachineLearning/">
+            <span class="level-start">
+                <span class="level-item">MachineLearning</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">5</span>
+            </span>
+        </a><ul><li>
+        <a class="level is-marginless" href="/categories/MachineLearning/Apache-Spark/">
+            <span class="level-start">
+                <span class="level-item">Apache Spark</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/MachineLearning/Pytorch/">
+            <span class="level-start">
+                <span class="level-item">Pytorch</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">3</span>
+            </span>
+        </a></li></ul></li><li>
+        <a class="level is-marginless" href="/categories/Math/">
+            <span class="level-start">
+                <span class="level-item">Math</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Paper/">
+            <span class="level-start">
+                <span class="level-item">Paper</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/wiki/">
+            <span class="level-start">
+                <span class="level-item">wiki</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">9</span>
+            </span>
+        </a><ul><li>
+        <a class="level is-marginless" href="/categories/wiki/MySQL/">
+            <span class="level-start">
+                <span class="level-item">MySQL</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/wiki/NGINX/">
+            <span class="level-start">
+                <span class="level-item">NGINX</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/wiki/Pillow/">
+            <span class="level-start">
+                <span class="level-item">Pillow</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/wiki/Provision/">
+            <span class="level-start">
+                <span class="level-item">Provision</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/wiki/Requests/">
+            <span class="level-start">
+                <span class="level-item">Requests</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/wiki/Scrapy/">
+            <span class="level-start">
+                <span class="level-item">Scrapy</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/wiki/Selenium/">
+            <span class="level-start">
+                <span class="level-item">Selenium</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/wiki/Xpath/">
+            <span class="level-start">
+                <span class="level-item">Xpath</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li></ul></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Tag Cloud
+        </h3>
+        <a href="/tags/CS224n/" style="font-size: 12.5px;">CS224n</a> <a href="/tags/CS231n/" style="font-size: 17.5px;">CS231n</a> <a href="/tags/Classification-확률론적생성모형-Generative-생성모형-분류모델/" style="font-size: 10px;">Classification, 확률론적생성모형, Generative, 생성모형, 분류모델</a> <a href="/tags/Crawling-Web-Requests/" style="font-size: 10px;">Crawling, Web, Requests</a> <a href="/tags/Gan/" style="font-size: 10px;">Gan</a> <a href="/tags/Google-Cloud-Platform/" style="font-size: 10px;">Google Cloud Platform</a> <a href="/tags/TWIL/" style="font-size: 15px;">TWIL</a> <a href="/tags/Thread/" style="font-size: 10px;">Thread</a> <a href="/tags/Vanilla-Gan/" style="font-size: 10px;">Vanilla Gan</a> <a href="/tags/crontab/" style="font-size: 10px;">crontab</a> <a href="/tags/datastructure/" style="font-size: 10px;">datastructure</a> <a href="/tags/datastructure-stack/" style="font-size: 10px;">datastructure, stack</a> <a href="/tags/decorator/" style="font-size: 10px;">decorator</a> <a href="/tags/generator/" style="font-size: 10px;">generator</a> <a href="/tags/iterable/" style="font-size: 10px;">iterable</a> <a href="/tags/iterator/" style="font-size: 10px;">iterator</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/mysql-MYSQL-database/" style="font-size: 10px;">mysql, MYSQL, database</a> <a href="/tags/nginx-proxy/" style="font-size: 10px;">nginx, proxy</a> <a href="/tags/paper/" style="font-size: 10px;">paper</a> <a href="/tags/pillow-Pillow-image/" style="font-size: 10px;">pillow, Pillow, image</a> <a href="/tags/python/" style="font-size: 12.5px;">python</a> <a href="/tags/scrapy-crawling-web/" style="font-size: 10px;">scrapy, crawling, web</a> <a href="/tags/summary/" style="font-size: 20px;">summary</a> <a href="/tags/논문/" style="font-size: 10px;">논문</a> <a href="/tags/데코레이터/" style="font-size: 10px;">데코레이터</a> <a href="/tags/리눅스/" style="font-size: 10px;">리눅스</a> <a href="/tags/이터러블/" style="font-size: 10px;">이터러블</a> <a href="/tags/이터레이터/" style="font-size: 10px;">이터레이터</a> <a href="/tags/자동화-selenium-webdriver/" style="font-size: 10px;">자동화, selenium, webdriver</a> <a href="/tags/제너레이터/" style="font-size: 10px;">제너레이터</a> <a href="/tags/크론탭/" style="font-size: 10px;">크론탭</a>
+    </div>
+</div>
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Recent
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/08/26/DIP-chapter3/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="[Book] Summary of Digital Image Processing Chapter 03">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-08-26T12:54:53.000Z">2019-08-26</time></div>
+                    <a href="/2019/08/26/DIP-chapter3/" class="has-link-black-ter is-size-6">[Book] Summary of Digital Image Processing Chapter 03</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Book/">Book</a> / <a class="has-link-grey -link" href="/categories/Book/Digital-Image-Processing/">Digital Image Processing</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/08/20/summary-vision-and-rain/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="[논문읽기] Summary of Vision and Rain">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-08-20T12:25:00.000Z">2019-08-20</time></div>
+                    <a href="/2019/08/20/summary-vision-and-rain/" class="has-link-black-ter is-size-6">[논문읽기] Summary of Vision and Rain</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Paper/">Paper</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/08/13/Vanilla-GAN/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="[논문읽기] Implementation of Vanilla GAN">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-08-13T07:00:13.000Z">2019-08-13</time></div>
+                    <a href="/2019/08/13/Vanilla-GAN/" class="has-link-black-ter is-size-6">[논문읽기] Implementation of Vanilla GAN</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Paper/">Paper</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/08/09/CS224n-Lecture04-Summary/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="[CS224n]Lecture04-BackPropagation">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-08-09T13:26:12.000Z">2019-08-09</time></div>
+                    <a href="/2019/08/09/CS224n-Lecture04-Summary/" class="has-link-black-ter is-size-6">[CS224n]Lecture04-BackPropagation</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Lecture/">Lecture</a> / <a class="has-link-grey -link" href="/categories/Lecture/CS224n/">CS224n</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/08/06/linux-crontab/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="[Linux] 자고있을 때도, 알아서.. 리눅스 Crontab">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-08-06T12:15:20.000Z">2019-08-06</time></div>
+                    <a href="/2019/08/06/linux-crontab/" class="has-link-black-ter is-size-6">[Linux] 자고있을 때도, 알아서.. 리눅스 Crontab</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Development/">Development</a> / <a class="has-link-grey -link" href="/categories/Development/Linux/">Linux</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archives
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/08/">
+                <span class="level-start">
+                    <span class="level-item">August 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">5</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/07/">
+                <span class="level-start">
+                    <span class="level-item">July 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">6</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/06/">
+                <span class="level-start">
+                    <span class="level-item">June 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/05/">
+                <span class="level-start">
+                    <span class="level-item">May 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">9</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/01/">
+                <span class="level-start">
+                    <span class="level-item">January 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/12/">
+                <span class="level-start">
+                    <span class="level-item">December 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">12</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/11/">
+                <span class="level-start">
+                    <span class="level-item">November 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">25</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/10/">
+                <span class="level-start">
+                    <span class="level-item">October 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">20</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/Emjaybloglogo_edit.png" alt="[Book] Summary of Digital Image Processing Chapter 03" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2019 EmjayAhn(Minjae Ahn)&nbsp;
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/emjayahn/">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("en");</script>
+
+
+    
+    
+    
+    <script src="/js/animation.js"></script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+    <script src="/js/gallery.js" defer></script>
+    
+
+    
+    
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+    
+    
+
+<a id="back-to-top" title="Back to Top" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+    <script src="/js/clipboard.js" defer></script>
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    
+</body>
+</html>

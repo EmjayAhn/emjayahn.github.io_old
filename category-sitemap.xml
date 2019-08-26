@@ -8,6 +8,20 @@
     </url>
 
     <url>
+        <loc>https://emjayahn.github.io/categories/Book/Digital-Image-Processing/</loc>
+        <lastmod>2019-08-26T13:04:46.525Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/categories/Book/</loc>
+        <lastmod>2019-08-26T13:04:46.525Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://emjayahn.github.io/categories/Paper/</loc>
         <lastmod>2019-08-20T12:29:43.151Z</lastmod>
         <changefreq>weekly</changefreq>

@@ -201,19 +201,14 @@
 <li>Pytorch 를 사용하여 Modeling 과 loss function 등을 class 형태, 내장 loss 함수등을 사용해보겠습니다.</li>
 </ul>
 <a id="more"></a>
-
-
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> torch</span><br><span class="line"><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn</span><br><span class="line"><span class="hljs-keyword">import</span> torch.optim <span class="hljs-keyword">as</span> optim</span><br><span class="line"><span class="hljs-keyword">import</span> torch.nn.functional <span class="hljs-keyword">as</span> F</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np</span><br><span class="line"><span class="hljs-keyword">import</span> warnings</span><br><span class="line">warnings.filterwarnings(<span class="hljs-string">"ignore"</span>)</span><br><span class="line">%config InlineBackend.figure_format = <span class="hljs-string">'retina'</span></span><br><span class="line">%matplotlib inline</span><br></pre></td></tr></table></figure>
-
-<h2 id="1-Quadratic-Regression-Model"><a href="#1-Quadratic-Regression-Model" class="headerlink" title="1. Quadratic Regression Model"></a>1. Quadratic Regression Model</h2><p>$$<br>f(x) = w_0 + w_1x + w_2x^2<br>$$</p>
-<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">x = np.linspace(<span class="hljs-number">-10</span>, <span class="hljs-number">10</span>, <span class="hljs-number">100</span>)</span><br><span class="line">y = x**<span class="hljs-number">2</span> + <span class="hljs-number">0.7</span> * x + <span class="hljs-number">3.0</span> + <span class="hljs-number">20</span> * np.random.rand(len(x))</span><br><span class="line"></span><br><span class="line">plt.plot(x, y, <span class="hljs-string">'o'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.xlabel(<span class="hljs-string">'x'</span>)</span><br><span class="line">plt.ylabel(<span class="hljs-string">'y'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
+<h2 id="1-Quadratic-Regression-Model"><a href="#1-Quadratic-Regression-Model" class="headerlink" title="1. Quadratic Regression Model"></a>1. Quadratic Regression Model</h2><script type="math/tex; mode=display">
+f(x) = w_0 + w_1x + w_2x^2</script><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">x = np.linspace(<span class="hljs-number">-10</span>, <span class="hljs-number">10</span>, <span class="hljs-number">100</span>)</span><br><span class="line">y = x**<span class="hljs-number">2</span> + <span class="hljs-number">0.7</span> * x + <span class="hljs-number">3.0</span> + <span class="hljs-number">20</span> * np.random.rand(len(x))</span><br><span class="line"></span><br><span class="line">plt.plot(x, y, <span class="hljs-string">'o'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.xlabel(<span class="hljs-string">'x'</span>)</span><br><span class="line">plt.ylabel(<span class="hljs-string">'y'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
 <p><img src="output_4_0.png" alt="png"></p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">x_train = torch.FloatTensor([[each_x**<span class="hljs-number">2</span>, each_x, <span class="hljs-number">1</span>] <span class="hljs-keyword">for</span> each_x <span class="hljs-keyword">in</span> x])</span><br><span class="line">y_train = torch.FloatTensor(y)</span><br><span class="line"></span><br><span class="line">print(<span class="hljs-string">"x_train shape: "</span>, x_train.shape)</span><br><span class="line">print(<span class="hljs-string">"y_train shape: "</span>, y_train.shape)</span><br></pre></td></tr></table></figure>
-
 <pre><code>x_train shape:  torch.Size([100, 3])
-y_train shape:  torch.Size([100])</code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">W = torch.zeros(<span class="hljs-number">3</span>, requires_grad=<span class="hljs-keyword">True</span>)</span><br><span class="line"></span><br><span class="line">optimizer = optim.SGD([W], lr=<span class="hljs-number">0.0001</span>)</span><br><span class="line"></span><br><span class="line">epochs = <span class="hljs-number">10000</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, epochs + <span class="hljs-number">1</span>):</span><br><span class="line">    hypothesis = x_train.matmul(W)</span><br><span class="line">    </span><br><span class="line">    loss = torch.mean((hypothesis - y_train) ** <span class="hljs-number">2</span>)</span><br><span class="line">    </span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    loss.backward()</span><br><span class="line">    optimizer.step()</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-keyword">if</span> epoch % <span class="hljs-number">1000</span> == <span class="hljs-number">0</span>:</span><br><span class="line">        print(<span class="hljs-string">"epoch: &#123;&#125; -- Parameters: W: &#123;&#125; -- loss &#123;&#125;"</span>.format(epoch, W.data, loss.data))</span><br></pre></td></tr></table></figure>
-
+y_train shape:  torch.Size([100])
+</code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">W = torch.zeros(<span class="hljs-number">3</span>, requires_grad=<span class="hljs-keyword">True</span>)</span><br><span class="line"></span><br><span class="line">optimizer = optim.SGD([W], lr=<span class="hljs-number">0.0001</span>)</span><br><span class="line"></span><br><span class="line">epochs = <span class="hljs-number">10000</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, epochs + <span class="hljs-number">1</span>):</span><br><span class="line">    hypothesis = x_train.matmul(W)</span><br><span class="line">    </span><br><span class="line">    loss = torch.mean((hypothesis - y_train) ** <span class="hljs-number">2</span>)</span><br><span class="line">    </span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    loss.backward()</span><br><span class="line">    optimizer.step()</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-keyword">if</span> epoch % <span class="hljs-number">1000</span> == <span class="hljs-number">0</span>:</span><br><span class="line">        print(<span class="hljs-string">"epoch: &#123;&#125; -- Parameters: W: &#123;&#125; -- loss &#123;&#125;"</span>.format(epoch, W.data, loss.data))</span><br></pre></td></tr></table></figure>
 <pre><code>epoch: 1000 -- Parameters: W: tensor([1.1738, 0.4943, 1.0699]) -- loss 85.30189514160156
 epoch: 2000 -- Parameters: W: tensor([1.1581, 0.4949, 2.0311]) -- loss 76.05414581298828
 epoch: 3000 -- Parameters: W: tensor([1.1437, 0.4949, 2.9105]) -- loss 68.31205749511719
@@ -223,35 +218,30 @@ epoch: 6000 -- Parameters: W: tensor([1.1075, 0.4949, 5.1250]) -- loss 51.861400
 epoch: 7000 -- Parameters: W: tensor([1.0974, 0.4949, 5.7414]) -- loss 48.058231353759766
 epoch: 8000 -- Parameters: W: tensor([1.0882, 0.4949, 6.3054]) -- loss 44.8742790222168
 epoch: 9000 -- Parameters: W: tensor([1.0798, 0.4949, 6.8214]) -- loss 42.20869445800781
-epoch: 10000 -- Parameters: W: tensor([1.0721, 0.4949, 7.2935]) -- loss 39.97709655761719</code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(x, y, <span class="hljs-string">'o'</span>, label=<span class="hljs-string">'train data'</span>)</span><br><span class="line">plt.plot(x, (x_train.data.matmul(W.data).numpy()), <span class="hljs-string">'-r'</span>, linewidth=<span class="hljs-number">3</span>, label=<span class="hljs-string">'fitted'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
+epoch: 10000 -- Parameters: W: tensor([1.0721, 0.4949, 7.2935]) -- loss 39.97709655761719
+</code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(x, y, <span class="hljs-string">'o'</span>, label=<span class="hljs-string">'train data'</span>)</span><br><span class="line">plt.plot(x, (x_train.data.matmul(W.data).numpy()), <span class="hljs-string">'-r'</span>, linewidth=<span class="hljs-number">3</span>, label=<span class="hljs-string">'fitted'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
 <p><img src="output_7_0.png" alt="png"></p>
-<h2 id="2-Cubic-Regression-Model"><a href="#2-Cubic-Regression-Model" class="headerlink" title="2. Cubic Regression Model"></a>2. Cubic Regression Model</h2><p>$$<br>f(x) = w_0 + w_1x + w_2x^2 + w_3x^3<br>$$</p>
-<h3 id="2-1-Generate-Toy-data"><a href="#2-1-Generate-Toy-data" class="headerlink" title="2.1 Generate Toy data"></a>2.1 Generate Toy data</h3><ul>
+<h2 id="2-Cubic-Regression-Model"><a href="#2-Cubic-Regression-Model" class="headerlink" title="2. Cubic Regression Model"></a>2. Cubic Regression Model</h2><script type="math/tex; mode=display">
+f(x) = w_0 + w_1x + w_2x^2 + w_3x^3</script><h3 id="2-1-Generate-Toy-data"><a href="#2-1-Generate-Toy-data" class="headerlink" title="2.1 Generate Toy data"></a>2.1 Generate Toy data</h3><ul>
 <li>100개의 data 를 생성합니다.</li>
 </ul>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x = np.linspace(<span class="hljs-number">-1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">100</span>)</span><br><span class="line">y = <span class="hljs-number">3</span>*x**<span class="hljs-number">3</span> - <span class="hljs-number">0.2</span> * x ** <span class="hljs-number">2</span> + <span class="hljs-number">0.7</span> * x + <span class="hljs-number">3</span> + <span class="hljs-number">0.5</span> * np.random.rand(len(x))</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(x, y, <span class="hljs-string">'o'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.xlabel(<span class="hljs-string">'x'</span>)</span><br><span class="line">plt.ylabel(<span class="hljs-string">'y'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
 <p><img src="output_11_0.png" alt="png"></p>
 <h3 id="2-2-Define-Model"><a href="#2-2-Define-Model" class="headerlink" title="2.2 Define Model"></a>2.2 Define Model</h3><ul>
 <li>x_train과 y_train 을 만들어줍니다.</li>
 </ul>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x_train = torch.FloatTensor([[xval**<span class="hljs-number">3</span>, xval**<span class="hljs-number">2</span>, xval, <span class="hljs-number">1</span>]<span class="hljs-keyword">for</span> xval <span class="hljs-keyword">in</span> x])</span><br><span class="line">y_train = torch.FloatTensor([y]).view(<span class="hljs-number">100</span>, <span class="hljs-number">-1</span>)</span><br><span class="line">y_train.shape</span><br></pre></td></tr></table></figure>
-
-<pre><code>torch.Size([100, 1])</code></pre><ul>
+<pre><code>torch.Size([100, 1])
+</code></pre><ul>
 <li>이번에 Model을 nn.Module 추상 클래스를 상속 받아, class 형태로 모델링 해보겠습니다.</li>
 </ul>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CubicModel</span><span class="hljs-params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span></span><br><span class="line">        super().__init__()</span><br><span class="line">        self.linear = nn.Linear(<span class="hljs-number">4</span>, <span class="hljs-number">1</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">forward</span><span class="hljs-params">(self, x)</span>:</span></span><br><span class="line">        <span class="hljs-keyword">return</span> self.linear(x)</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model = CubicModel()</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>train 시킬 때, loss 역시 nn.functional 에 있는 내장 mse loss 를 사용하여 보겠습니다.</li>
 </ul>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">optimizer = optim.SGD(model.parameters(), lr=<span class="hljs-number">0.001</span>)</span><br><span class="line"></span><br><span class="line">epochs = <span class="hljs-number">15000</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, epochs + <span class="hljs-number">1</span>):</span><br><span class="line">    hypothesis = model(x_train)</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-comment"># define loss</span></span><br><span class="line">    loss  = F.mse_loss(hypothesis, y_train)</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-comment"># Backprop &amp; update parameters</span></span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    loss.backward()</span><br><span class="line">    optimizer.step()</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-keyword">if</span> epoch % <span class="hljs-number">1500</span> == <span class="hljs-number">0</span>:</span><br><span class="line">        print(<span class="hljs-string">"epoch: &#123;&#125; -- loss &#123;&#125;"</span>.format(epoch, loss.data))</span><br></pre></td></tr></table></figure>
-
 <pre><code>epoch: 1500 -- loss 0.22306101024150848
 epoch: 3000 -- loss 0.11560291796922684
 epoch: 4500 -- loss 0.09848319739103317
@@ -261,29 +251,25 @@ epoch: 9000 -- loss 0.07452096790075302
 epoch: 10500 -- loss 0.06889640539884567
 epoch: 12000 -- loss 0.06398065388202667
 epoch: 13500 -- loss 0.05964164435863495
-epoch: 15000 -- loss 0.055785566568374634</code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(x, y, <span class="hljs-string">'o'</span>, label=<span class="hljs-string">'train data'</span>)</span><br><span class="line">plt.plot(x, model(x_train).data.numpy(), <span class="hljs-string">'-r'</span>, linewidth=<span class="hljs-number">3</span>, label=<span class="hljs-string">'fitted'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
+epoch: 15000 -- loss 0.055785566568374634
+</code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(x, y, <span class="hljs-string">'o'</span>, label=<span class="hljs-string">'train data'</span>)</span><br><span class="line">plt.plot(x, model(x_train).data.numpy(), <span class="hljs-string">'-r'</span>, linewidth=<span class="hljs-number">3</span>, label=<span class="hljs-string">'fitted'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
 <p><img src="output_19_0.png" alt="png"></p>
-<h2 id="3-Exponential-Regression-Model"><a href="#3-Exponential-Regression-Model" class="headerlink" title="3. Exponential Regression Model"></a>3. Exponential Regression Model</h2><p>$$<br>f(x) = e^{w_0x}<br>$$</p>
-<p>$$<br>g(x) = \ln f(x) = w_0x<br>$$</p>
-<ul>
+<h2 id="3-Exponential-Regression-Model"><a href="#3-Exponential-Regression-Model" class="headerlink" title="3. Exponential Regression Model"></a>3. Exponential Regression Model</h2><script type="math/tex; mode=display">
+f(x) = e^{w_0x}</script><script type="math/tex; mode=display">
+g(x) = \ln f(x) = w_0x</script><ul>
 <li>Exponential 의 경우, Linear Model 형태를 만들어 주기 위해, log 를 씌워 주워 train 을 시킨후, 다시 exponential 을 양변에 취해주는 형태로 modeling 을 하여야 한다.</li>
 </ul>
 <h3 id="3-1-Generate-Toy-data"><a href="#3-1-Generate-Toy-data" class="headerlink" title="3.1 Generate Toy data"></a>3.1 Generate Toy data</h3><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">np.random.seed(<span class="hljs-number">20190505</span>)</span><br><span class="line">x = np.linspace(<span class="hljs-number">-1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">50</span>)</span><br><span class="line">y = np.exp(<span class="hljs-number">2</span> * x) + <span class="hljs-number">0.2</span> * (<span class="hljs-number">2</span> * np.random.rand(len(x)) - <span class="hljs-number">1</span>)</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(x, y, <span class="hljs-string">'o'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.xlabel(<span class="hljs-string">'x'</span>)</span><br><span class="line">plt.ylabel(<span class="hljs-string">'y'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
 <p><img src="output_23_0.png" alt="png"></p>
 <h3 id="3-2-Define-Model"><a href="#3-2-Define-Model" class="headerlink" title="3.2 Define Model"></a>3.2 Define Model</h3><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x_train = torch.FloatTensor([[xval, <span class="hljs-number">1</span>] <span class="hljs-keyword">for</span> xval <span class="hljs-keyword">in</span> x])</span><br><span class="line">y_train = torch.FloatTensor([np.log(y)]).view(<span class="hljs-number">50</span>, <span class="hljs-number">-1</span>)</span><br><span class="line">y_train.shape</span><br></pre></td></tr></table></figure>
-
-<pre><code>torch.Size([50, 1])</code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ExpModel</span><span class="hljs-params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span></span><br><span class="line">        super().__init__()</span><br><span class="line">        self.linear = nn.Linear(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>)</span><br><span class="line">        </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">forward</span><span class="hljs-params">(self, x)</span>:</span></span><br><span class="line">        <span class="hljs-keyword">return</span> self.linear(x)</span><br></pre></td></tr></table></figure>
-
+<pre><code>torch.Size([50, 1])
+</code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ExpModel</span><span class="hljs-params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span></span><br><span class="line">        super().__init__()</span><br><span class="line">        self.linear = nn.Linear(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>)</span><br><span class="line">        </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">forward</span><span class="hljs-params">(self, x)</span>:</span></span><br><span class="line">        <span class="hljs-keyword">return</span> self.linear(x)</span><br></pre></td></tr></table></figure>
 <ul>
 <li>이번에는 optimize algorithm 중 Adam 을 사용해 보겠습니다.</li>
 <li>Adam 은 adaptive 하게 learning rate 를 조정해 주는 algorithm 입니다.</li>
 </ul>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">model = ExpModel()</span><br><span class="line"></span><br><span class="line">optimizer = optim.Adam(model.parameters())</span><br><span class="line"></span><br><span class="line">epochs = <span class="hljs-number">15000</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, epochs + <span class="hljs-number">1</span>):</span><br><span class="line">    hypothesis = model(x_train)</span><br><span class="line">    </span><br><span class="line">    loss = F.mse_loss(hypothesis, y_train)</span><br><span class="line">    </span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    loss.backward()</span><br><span class="line">    optimizer.step()</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-keyword">if</span> epoch % <span class="hljs-number">1000</span> == <span class="hljs-number">0</span>:</span><br><span class="line">        print(<span class="hljs-string">"epoch: &#123;&#125; -- loss &#123;&#125;"</span>.format(epoch, loss.data))</span><br></pre></td></tr></table></figure>
-
 <pre><code>epoch: 1000 -- loss 1.4807509183883667
 epoch: 2000 -- loss 0.6568859815597534
 epoch: 3000 -- loss 0.2930431365966797
@@ -298,21 +284,17 @@ epoch: 11000 -- loss 0.16775155067443848
 epoch: 12000 -- loss 0.16775155067443848
 epoch: 13000 -- loss 0.16775153577327728
 epoch: 14000 -- loss 0.1677515208721161
-epoch: 15000 -- loss 0.1677515208721161</code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(x, y, <span class="hljs-string">'o'</span>, label=<span class="hljs-string">'train data'</span>)</span><br><span class="line">plt.plot(x, np.exp(model(x_train).data.numpy()), <span class="hljs-string">'-r'</span>, linewidth=<span class="hljs-number">3</span>, label=<span class="hljs-string">'fitted'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
+epoch: 15000 -- loss 0.1677515208721161
+</code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(x, y, <span class="hljs-string">'o'</span>, label=<span class="hljs-string">'train data'</span>)</span><br><span class="line">plt.plot(x, np.exp(model(x_train).data.numpy()), <span class="hljs-string">'-r'</span>, linewidth=<span class="hljs-number">3</span>, label=<span class="hljs-string">'fitted'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
 <p><img src="output_29_0.png" alt="png"></p>
-<h2 id="4-Sine-amp-Cosine-Regression"><a href="#4-Sine-amp-Cosine-Regression" class="headerlink" title="4. Sine &amp; Cosine Regression"></a>4. Sine &amp; Cosine Regression</h2><p>$$<br>f(x) = w_0\cos(\pi x) + w_1\sin(\pi  x)<br>$$</p>
-<h3 id="4-1-Generate-Toy-data"><a href="#4-1-Generate-Toy-data" class="headerlink" title="4.1 Generate Toy data"></a>4.1 Generate Toy data</h3><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x = np.linspace(<span class="hljs-number">-2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">100</span>)</span><br><span class="line">y = <span class="hljs-number">2</span> * np.cos(np.pi * x) + <span class="hljs-number">1.5</span> * np.sin(np.pi * x) + <span class="hljs-number">2</span> * np.random.rand(len(x)) - <span class="hljs-number">1</span></span><br></pre></td></tr></table></figure>
-
+<h2 id="4-Sine-amp-Cosine-Regression"><a href="#4-Sine-amp-Cosine-Regression" class="headerlink" title="4. Sine &amp; Cosine Regression"></a>4. Sine &amp; Cosine Regression</h2><script type="math/tex; mode=display">
+f(x) = w_0\cos(\pi x) + w_1\sin(\pi  x)</script><h3 id="4-1-Generate-Toy-data"><a href="#4-1-Generate-Toy-data" class="headerlink" title="4.1 Generate Toy data"></a>4.1 Generate Toy data</h3><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x = np.linspace(<span class="hljs-number">-2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">100</span>)</span><br><span class="line">y = <span class="hljs-number">2</span> * np.cos(np.pi * x) + <span class="hljs-number">1.5</span> * np.sin(np.pi * x) + <span class="hljs-number">2</span> * np.random.rand(len(x)) - <span class="hljs-number">1</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(x, y, <span class="hljs-string">'o'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.xlabel(<span class="hljs-string">'x'</span>)</span><br><span class="line">plt.ylabel(<span class="hljs-string">'y'</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
 <p><img src="output_33_0.png" alt="png"></p>
 <h3 id="4-2-Modeling"><a href="#4-2-Modeling" class="headerlink" title="4.2 Modeling"></a>4.2 Modeling</h3><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x_train = torch.FloatTensor([[np.cos(np.pi*xval), np.sin(np.pi*xval), <span class="hljs-number">1</span>] <span class="hljs-keyword">for</span> xval <span class="hljs-keyword">in</span> x])</span><br><span class="line">y_train = torch.FloatTensor(y).view(<span class="hljs-number">100</span>, <span class="hljs-number">-1</span>)</span><br><span class="line">y_train.shape</span><br></pre></td></tr></table></figure>
-
-<pre><code>torch.Size([100, 1])</code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SinCosModel</span><span class="hljs-params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span></span><br><span class="line">        super().__init__()</span><br><span class="line">        self.linear = nn.Linear(<span class="hljs-number">3</span>, <span class="hljs-number">1</span>)</span><br><span class="line">        </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">forward</span><span class="hljs-params">(self, x)</span>:</span></span><br><span class="line">        <span class="hljs-keyword">return</span> self.linear(x)</span><br></pre></td></tr></table></figure>
-
+<pre><code>torch.Size([100, 1])
+</code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SinCosModel</span><span class="hljs-params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span></span><br><span class="line">        super().__init__()</span><br><span class="line">        self.linear = nn.Linear(<span class="hljs-number">3</span>, <span class="hljs-number">1</span>)</span><br><span class="line">        </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">forward</span><span class="hljs-params">(self, x)</span>:</span></span><br><span class="line">        <span class="hljs-keyword">return</span> self.linear(x)</span><br></pre></td></tr></table></figure>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">model = SinCosModel()</span><br><span class="line"></span><br><span class="line">optimizer = optim.Adam(model.parameters())</span><br><span class="line"></span><br><span class="line">epochs = <span class="hljs-number">10000</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, epochs + <span class="hljs-number">1</span>):</span><br><span class="line">    hypothesis = model(x_train)</span><br><span class="line">    </span><br><span class="line">    loss = F.mse_loss(hypothesis, y_train)</span><br><span class="line">    </span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    loss.backward()</span><br><span class="line">    optimizer.step()</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-keyword">if</span> epoch % <span class="hljs-number">1000</span> == <span class="hljs-number">0</span>:</span><br><span class="line">        print(<span class="hljs-string">"epoch: &#123;&#125; -- loss &#123;&#125;"</span>.format(epoch, loss.data))</span><br></pre></td></tr></table></figure>
-
 <pre><code>epoch: 1000 -- loss 1.1333037614822388
 epoch: 2000 -- loss 0.45972707867622375
 epoch: 3000 -- loss 0.36056602001190186
@@ -322,8 +304,8 @@ epoch: 6000 -- loss 0.3566077947616577
 epoch: 7000 -- loss 0.3566077649593353
 epoch: 8000 -- loss 0.3566077947616577
 epoch: 9000 -- loss 0.3566077947616577
-epoch: 10000 -- loss 0.3566077649593353</code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(x, y, <span class="hljs-string">'o'</span>, label=<span class="hljs-string">'train data'</span>)</span><br><span class="line">plt.plot(x, model(x_train).data.numpy(), <span class="hljs-string">'-r'</span>, linewidth=<span class="hljs-number">3</span>, label=<span class="hljs-string">'fitted'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-
+epoch: 10000 -- loss 0.3566077649593353
+</code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plt.plot(x, y, <span class="hljs-string">'o'</span>, label=<span class="hljs-string">'train data'</span>)</span><br><span class="line">plt.plot(x, model(x_train).data.numpy(), <span class="hljs-string">'-r'</span>, linewidth=<span class="hljs-number">3</span>, label=<span class="hljs-string">'fitted'</span>)</span><br><span class="line">plt.grid()</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
 <p><img src="output_38_0.png" alt="png"></p>
 
         </div>
@@ -431,7 +413,7 @@ epoch: 10000 -- loss 0.3566077649593353</code></pre><figure class="highlight pyt
                         Posts
                     </p>
                     <p class="title has-text-weight-normal">
-                        81
+                        82
                     </p>
                 </div>
             </div>
@@ -441,7 +423,7 @@ epoch: 10000 -- loss 0.3566077649593353</code></pre><figure class="highlight pyt
                         Categories
                     </p>
                     <p class="title has-text-weight-normal">
-                        24
+                        26
                     </p>
                 </div>
             </div>
@@ -498,6 +480,22 @@ epoch: 10000 -- loss 0.3566077649593353</code></pre><figure class="highlight pyt
             </h3>
             <ul class="menu-list">
             <li>
+        <a class="level is-marginless" href="/categories/Book/">
+            <span class="level-start">
+                <span class="level-item">Book</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a><ul><li>
+        <a class="level is-marginless" href="/categories/Book/Digital-Image-Processing/">
+            <span class="level-start">
+                <span class="level-item">Digital Image Processing</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li></ul></li><li>
         <a class="level is-marginless" href="/categories/DataStructure/">
             <span class="level-start">
                 <span class="level-item">DataStructure</span>
@@ -715,6 +713,25 @@ epoch: 10000 -- loss 0.3566077649593353</code></pre><figure class="highlight pyt
         
         <article class="media">
             
+            <a href="/2019/08/26/DIP-chapter3/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="[Book] Summary of Digital Image Processing Chapter 03">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-08-26T12:54:53.000Z">2019-08-26</time></div>
+                    <a href="/2019/08/26/DIP-chapter3/" class="has-link-black-ter is-size-6">[Book] Summary of Digital Image Processing Chapter 03</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Book/">Book</a> / <a class="has-link-grey -link" href="/categories/Book/Digital-Image-Processing/">Digital Image Processing</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2019/08/20/summary-vision-and-rain/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="[논문읽기] Summary of Vision and Rain">
@@ -789,25 +806,6 @@ epoch: 10000 -- loss 0.3566077649593353</code></pre><figure class="highlight pyt
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/07/27/decorator/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="[Python] 쉽게 쓰여진 Decorator">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-27T09:46:17.000Z">2019-07-27</time></div>
-                    <a href="/2019/07/27/decorator/" class="has-link-black-ter is-size-6">[Python] 쉽게 쓰여진 Decorator</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Development/">Development</a> / <a class="has-link-grey -link" href="/categories/Development/Python/">Python</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -826,7 +824,7 @@ epoch: 10000 -- loss 0.3566077649593353</code></pre><figure class="highlight pyt
                     <span class="level-item">August 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">4</span>
+                    <span class="level-item tag">5</span>
                 </span>
             </a>
         </li>
@@ -1100,23 +1098,7 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 <script src="/js/insight.js" defer></script>
 <link rel="stylesheet" href="/css/search.css">
-<link rel="stylesheet" href="/css/insight.css">
+<link rel="stylesheet" href="/css/insight.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
     
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

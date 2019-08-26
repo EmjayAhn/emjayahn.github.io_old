@@ -216,18 +216,14 @@
 </li>
 </ul>
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="hljs-built_in">cd</span> usr/<span class="hljs-built_in">local</span>/mysql/bin</span><br></pre></td></tr></table></figure>
-
 <p>위 경로에서</p>
 <ul>
 <li>MySQL 서버에 접속<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo ./mysql -p</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql &gt;</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>패스워드 변경<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;ALTER USER <span class="hljs-string">'root'</span>@<span class="hljs-string">'localhost'</span> IDENTIFIED BY <span class="hljs-string">'바꾸고싶은 비밀번호'</span>;</span><br><span class="line">mysql&gt;FLUSH PRIVILEGES;</span><br><span class="line">mysql&gt;quit;</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 <h2 id="2-MySQL-Shell-Command"><a href="#2-MySQL-Shell-Command" class="headerlink" title="2. MySQL Shell Command"></a>2. MySQL Shell Command</h2><h3 id="1-DATABASE-생성-접속-삭제"><a href="#1-DATABASE-생성-접속-삭제" class="headerlink" title="(1) DATABASE 생성, 접속, 삭제"></a>(1) DATABASE 생성, 접속, 삭제</h3><ul>
@@ -248,7 +244,6 @@
 </li>
 <li><p>DB 지우기</p>
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; DROP DATABASE DBNAME;</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 <h3 id="2-TABLE-생성-추가-삭제"><a href="#2-TABLE-생성-추가-삭제" class="headerlink" title="(2) TABLE 생성, 추가, 삭제"></a>(2) TABLE 생성, 추가, 삭제</h3><ul>
@@ -264,31 +259,23 @@
 </li>
 <li><p>example2 : constraint가 있을 때,</p>
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; CREATE TABLE user2(</span><br><span class="line">  user_id INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">  name VARCHAR(20) NOT NULL,</span><br><span class="line">  email VARCHAR(30) UNIQUE NOT NULL,</span><br><span class="line">  age INT(3) DEFAULT<span class="hljs-string">'30'</span>,</span><br><span class="line">  rdate TIMESTAMP</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
-<br>
-<br>
-## (3) 수정
-### (3)-1. DATABASE 수정
-- DATABASE 의 **encoding** 수정
-<br>
-<br>
-- 현재 문자열 encoding 확인
+<p><br><br><br></p>
+<h2 id="3-수정"><a href="#3-수정" class="headerlink" title="(3) 수정"></a>(3) 수정</h2><h3 id="3-1-DATABASE-수정"><a href="#3-1-DATABASE-수정" class="headerlink" title="(3)-1. DATABASE 수정"></a>(3)-1. DATABASE 수정</h3><ul>
+<li>DATABASE 의 <strong>encoding</strong> 수정<br><br><br><br></li>
+<li><p>현재 문자열 encoding 확인</p>
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SHOW VARIABLES LIKE <span class="hljs-string">"CHARACTER_SET_DATABASE"</span>;</span><br></pre></td></tr></table></figure>
-
-<ul>
+</li>
 <li><p>mydb 데이터베이스의 문자열 인코딩을 <code>utf8</code> 로 변경</p>
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; ALTER DATABASE mydb CHARACTER_SET = utf8;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>user 데이터베이스의 문자열 인코딩을 <code>ascii</code> 로 변경</p>
 <figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; ALTER DATABASE user CHARACTER_SET=ascii</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 <h3 id="3-2-TABLE-수정"><a href="#3-2-TABLE-수정" class="headerlink" title="(3)-2. TABLE 수정"></a>(3)-2. TABLE 수정</h3><ul>
 <li><code>user</code> 테이블에 <code>tmp</code>라는 컬럼명, <code>TEXT</code> 데이터 타입 컬럼을 추가<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; ALTER TABLE user ADD tmp TEXT;</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 
@@ -349,7 +336,7 @@
                         Posts
                     </p>
                     <p class="title has-text-weight-normal">
-                        81
+                        82
                     </p>
                 </div>
             </div>
@@ -359,7 +346,7 @@
                         Categories
                     </p>
                     <p class="title has-text-weight-normal">
-                        24
+                        26
                     </p>
                 </div>
             </div>
@@ -416,6 +403,22 @@
             </h3>
             <ul class="menu-list">
             <li>
+        <a class="level is-marginless" href="/categories/Book/">
+            <span class="level-start">
+                <span class="level-item">Book</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a><ul><li>
+        <a class="level is-marginless" href="/categories/Book/Digital-Image-Processing/">
+            <span class="level-start">
+                <span class="level-item">Digital Image Processing</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li></ul></li><li>
         <a class="level is-marginless" href="/categories/DataStructure/">
             <span class="level-start">
                 <span class="level-item">DataStructure</span>
@@ -633,6 +636,25 @@
         
         <article class="media">
             
+            <a href="/2019/08/26/DIP-chapter3/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="[Book] Summary of Digital Image Processing Chapter 03">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-08-26T12:54:53.000Z">2019-08-26</time></div>
+                    <a href="/2019/08/26/DIP-chapter3/" class="has-link-black-ter is-size-6">[Book] Summary of Digital Image Processing Chapter 03</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Book/">Book</a> / <a class="has-link-grey -link" href="/categories/Book/Digital-Image-Processing/">Digital Image Processing</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2019/08/20/summary-vision-and-rain/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="[논문읽기] Summary of Vision and Rain">
@@ -707,25 +729,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/07/27/decorator/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="[Python] 쉽게 쓰여진 Decorator">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-27T09:46:17.000Z">2019-07-27</time></div>
-                    <a href="/2019/07/27/decorator/" class="has-link-black-ter is-size-6">[Python] 쉽게 쓰여진 Decorator</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Development/">Development</a> / <a class="has-link-grey -link" href="/categories/Development/Python/">Python</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -744,7 +747,7 @@
                     <span class="level-item">August 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">4</span>
+                    <span class="level-item tag">5</span>
                 </span>
             </a>
         </li>
@@ -1018,23 +1021,7 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 <script src="/js/insight.js" defer></script>
 <link rel="stylesheet" href="/css/search.css">
-<link rel="stylesheet" href="/css/insight.css">
+<link rel="stylesheet" href="/css/insight.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
     
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

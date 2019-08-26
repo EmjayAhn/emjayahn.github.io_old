@@ -199,13 +199,14 @@
             <h1 id="확률론적-생성모형-Generative-Model"><a href="#확률론적-생성모형-Generative-Model" class="headerlink" title="확률론적 생성모형 (Generative Model)"></a>확률론적 생성모형 (Generative Model)</h1><h2 id="확률론적-생성모형의-기본-개념"><a href="#확률론적-생성모형의-기본-개념" class="headerlink" title="확률론적 생성모형의 기본 개념"></a>확률론적 생성모형의 기본 개념</h2><ul>
 <li><p>우리가 궁금한 것은 $ x $ (features) 들이 있을 떄, $ y $가 어떤 Class 인지 맞추는 것이다. 맞추기 위해서는 training set 으로 부터 각 Class 마다 $ P(y \mid x) $의 모형을 알아내야 한다.</p>
 </li>
-<li><p>베이즈 정리를 이용하여, $ y=C_k $일 때의 조건부 확률을 구할 수 있다.<br>$$<br>P(y = C_k \mid x) = \dfrac{P(x \mid y = C_k); P(y = C_k)}{P(x)}<br>$$</p>
-</li>
+<li><p>베이즈 정리를 이용하여, $ y=C_k $일 때의 조건부 확률을 구할 수 있다.</p>
+<script type="math/tex; mode=display">
+P(y = C_k \mid x) = \dfrac{P(x \mid y = C_k)\; P(y = C_k)}{P(x)}</script></li>
 <li><p>이 때, $ P(x \mid y = C_k) $<br>== <strong>Likelihood</strong><br>== y가 k라는 클래스 일 때, x의 확률을 구하는 것이 관건</p>
 </li>
 </ul>
 <h2 id="Likelihood-추정의-알고리즘"><a href="#Likelihood-추정의-알고리즘" class="headerlink" title="Likelihood 추정의 알고리즘"></a>Likelihood 추정의 알고리즘</h2><ol>
-<li>$ P(x \mid y = C_k) $ 가 ** 어떤 ** 확률분포를 따를 것이다라고 가정<br><br><br></li>
+<li>$ P(x \mid y = C_k) $ 가 <strong> 어떤 </strong> 확률분포를 따를 것이다라고 가정<br><br><br></li>
 <li>x의 특성에 따라 우리가 알고 있는 특정 확률분포를 따른다! 라고 가정<br><br><br></li>
 <li>Class k 를 만드는 data들을 통해 이 확률분포의 모수값을 구한다.<br><br><br></li>
 <li>모수값을 안다 == $ P(x \mid y = C_k) $ 의 pdf 를 알고 있다.<br><br><br></li>
@@ -326,7 +327,7 @@
                         Posts
                     </p>
                     <p class="title has-text-weight-normal">
-                        81
+                        82
                     </p>
                 </div>
             </div>
@@ -336,7 +337,7 @@
                         Categories
                     </p>
                     <p class="title has-text-weight-normal">
-                        24
+                        26
                     </p>
                 </div>
             </div>
@@ -393,6 +394,22 @@
             </h3>
             <ul class="menu-list">
             <li>
+        <a class="level is-marginless" href="/categories/Book/">
+            <span class="level-start">
+                <span class="level-item">Book</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a><ul><li>
+        <a class="level is-marginless" href="/categories/Book/Digital-Image-Processing/">
+            <span class="level-start">
+                <span class="level-item">Digital Image Processing</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li></ul></li><li>
         <a class="level is-marginless" href="/categories/DataStructure/">
             <span class="level-start">
                 <span class="level-item">DataStructure</span>
@@ -610,6 +627,25 @@
         
         <article class="media">
             
+            <a href="/2019/08/26/DIP-chapter3/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="[Book] Summary of Digital Image Processing Chapter 03">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-08-26T12:54:53.000Z">2019-08-26</time></div>
+                    <a href="/2019/08/26/DIP-chapter3/" class="has-link-black-ter is-size-6">[Book] Summary of Digital Image Processing Chapter 03</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Book/">Book</a> / <a class="has-link-grey -link" href="/categories/Book/Digital-Image-Processing/">Digital Image Processing</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2019/08/20/summary-vision-and-rain/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="[논문읽기] Summary of Vision and Rain">
@@ -684,25 +720,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/07/27/decorator/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="[Python] 쉽게 쓰여진 Decorator">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-27T09:46:17.000Z">2019-07-27</time></div>
-                    <a href="/2019/07/27/decorator/" class="has-link-black-ter is-size-6">[Python] 쉽게 쓰여진 Decorator</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Development/">Development</a> / <a class="has-link-grey -link" href="/categories/Development/Python/">Python</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -721,7 +738,7 @@
                     <span class="level-item">August 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">4</span>
+                    <span class="level-item tag">5</span>
                 </span>
             </a>
         </li>
@@ -995,23 +1012,7 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 <script src="/js/insight.js" defer></script>
 <link rel="stylesheet" href="/css/search.css">
-<link rel="stylesheet" href="/css/insight.css">
+<link rel="stylesheet" href="/css/insight.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
     
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>
