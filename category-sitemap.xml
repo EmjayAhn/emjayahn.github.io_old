@@ -8,6 +8,20 @@
     </url>
 
     <url>
+        <loc>https://emjayahn.github.io/categories/MachineLearning/Vision/</loc>
+        <lastmod>2019-09-01T05:46:58.644Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://emjayahn.github.io/categories/MachineLearning/</loc>
+        <lastmod>2019-09-01T05:46:58.644Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://emjayahn.github.io/categories/Book/Digital-Image-Processing/</loc>
         <lastmod>2019-08-26T13:17:59.251Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -100,13 +114,6 @@
 
     <url>
         <loc>https://emjayahn.github.io/categories/MachineLearning/Pytorch/</loc>
-        <lastmod>2019-07-16T15:56:04.686Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://emjayahn.github.io/categories/MachineLearning/</loc>
         <lastmod>2019-07-16T15:56:04.686Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>

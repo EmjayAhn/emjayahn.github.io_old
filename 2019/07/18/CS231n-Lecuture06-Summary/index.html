@@ -200,11 +200,9 @@
 <li>이 글은, Standford University 의 CS231n 강의를 듣고 스스로 정리 목적을 위해 적은 글입니다.</li>
 </ul>
 <a id="more"></a>
-
 <h2 id="1-One-time-setup"><a href="#1-One-time-setup" class="headerlink" title="1. One time setup"></a>1. One time setup</h2><h3 id="1-1-Activation-Functions"><a href="#1-1-Activation-Functions" class="headerlink" title="1-1. Activation Functions"></a>1-1. Activation Functions</h3><p>Activation Function 마다 각 특성과 trade off 가 있다. 많이 사용되는 activation function 이 있지만, LU 계열의 activation function 은 모두 실험의 parameter가 될 수 있다.</p>
 <p>(1) Sigmoid</p>
-<p>$$\sigma(x) = \frac{1}{1+e^{-x}}$$</p>
-<p><img src="Untitled-f80c60bd-97fe-4db9-a0a3-3a8a8c38907c.png" alt></p>
+<script type="math/tex; mode=display">\sigma(x) = \frac{1}{1+e^{-x}}</script><p><img src="Untitled-f80c60bd-97fe-4db9-a0a3-3a8a8c38907c.png" alt></p>
 <p>sigmoid function 의 경우, 수식의 특성상 실수 space 에 있는 값들을 [0, 1] 범위 내로 좁혀 주는 기능을 해, 역사적으로 오래된 activation function 이다. 하지만 다음과 같은 단점이 있다.</p>
 <ul>
 <li>단점<ul>
@@ -215,16 +213,13 @@
 </li>
 </ul>
 <p>왜 <strong>zero-centered</strong> 가 중요한가?</p>
-<p>$$f(\sum_iw_ix_i+b)$$</p>
-<p>강의에서 설명해준 직관적인 방법이 매우 도움이 되었다.</p>
+<script type="math/tex; mode=display">f(\sum_iw_ix_i+b)</script><p>강의에서 설명해준 직관적인 방법이 매우 도움이 되었다.</p>
 <p>Backpropagation 을 생각해 보게 되면, Neuron(Node) 안에서 local gradient 와 loss 에서 부터 오는 upstream gradient 가 곱해지게 된다. 위 식에서 w 에 대해 local gradient 를 구하면 x_i 가 되는 것을 확인 할 수 있다. 만약 xi 가 모두 양수라고 가정한다면, f()의 gradient 는 항상 양수 또는 음수이고, 이는 w 가 모두 같은 방향으로 움직인다는 것을 의미한다. 즉, 비효율적인 gradient update 라고 할 수 있다. </p>
 <p>(2) hyper tangent : Tanh(x)</p>
-<p>$$tanh(x)=\frac{e^{2x}-1}{e^{2x}+1}$$</p>
-<p><img src="Untitled-c1d35d05-3ea2-49a8-9e8a-5c85bbc519a7.png" alt></p>
+<script type="math/tex; mode=display">tanh(x)=\frac{e^{2x}-1}{e^{2x}+1}</script><p><img src="Untitled-c1d35d05-3ea2-49a8-9e8a-5c85bbc519a7.png" alt></p>
 <p>위와 같은 zero-centered problem 을 해결하기 위해 tanh(x) 를 사용할 수 도 있다. (추가적으로, 수업시간에 언급은 없었으나, tanh의 등장배경을 설명하는 또다른 한가지는 sigmoid  와 tanh 의 gradient의 최댓값이 4배 차이가 나므로, backpropagation 에서 gradient vanishing 현상을 방지하는 기대효과로 설명하기도 한다.)하지만, 이 역시 sigmoid 처럼 saturate 되는 부분에서 gradient 가 0이 되는 현상이 아직 남아있다.</p>
 <p>(3) ReLU</p>
-<p>$$f(x) = max(0, x)$$</p>
-<p><img src="Untitled-5850722c-4016-4335-b77a-d5237ed6d5b6.png" alt></p>
+<script type="math/tex; mode=display">f(x) = max(0, x)</script><p><img src="Untitled-5850722c-4016-4335-b77a-d5237ed6d5b6.png" alt></p>
 <p>ReLU 의 경우, 가장 우리가 많이 볼 수 있는 activation function 이다. 다음과 같은 장점이 있다고 설명한다.</p>
 <ul>
 <li>장점<ul>
@@ -240,8 +235,7 @@
 </li>
 </ul>
 <p>(4) Leaky ReLU</p>
-<p>$$f(x) = max(0.01x, x)$$</p>
-<p><img src="Untitled-ed8a9855-d2ce-4756-93d5-e042e0a7b823.png" alt></p>
+<script type="math/tex; mode=display">f(x) = max(0.01x, x)</script><p><img src="Untitled-ed8a9855-d2ce-4756-93d5-e042e0a7b823.png" alt></p>
 <p>0보다 작은 구간에서 ReLU 처럼 Saturate 되는 단점을 없애고자, 0보다 작은 구간에서 작은 gradient 를 주는 것이 Leary Relu 이다. </p>
 <ul>
 <li>장점<ul>
@@ -253,12 +247,11 @@
 </ul>
 <p>Parametric Rectifier(PReLU) 라는 이름으로, 좀더 generalize 된 형태도 사용한다. $max(\alpha x, x)$ 형태로써, alpha 를 고정시키지 않고 학습시키는 형태이다.</p>
 <p>(5) Exponential Linear Units (ELU)</p>
-<p>$$f(x)=\begin{cases}x \quad\quad\quad\quad if \quad x&gt;0 \<br>\alpha(exp(x) -1) \quad if \quad x\leq 0 \end{cases}$$</p>
-<p><img src="Untitled-b527e985-4c1c-475f-a01a-6f8bdb006ceb.png" alt></p>
+<script type="math/tex; mode=display">f(x)=\begin{cases}x \quad\quad\quad\quad if \quad x>0 \\ 
+\alpha(exp(x) -1) \quad if \quad x\leq 0 \end{cases}</script><p><img src="Untitled-b527e985-4c1c-475f-a01a-6f8bdb006ceb.png" alt></p>
 <p>(6) Maxout Neuron</p>
 <p>ReLU function 의 Generalize 된 형태라고 생각할 수 있다.</p>
-<p>$$max(w_1^{T}x + b_1, w_2^Tx + b_2)$$</p>
-<p>하지만, 이 형태는 각 뉴런마다 두 배의 parameter를 가지고 그 output 값 간의 비교를 하므로, 연산량이 두배가 많아지는 단점이 있다.</p>
+<script type="math/tex; mode=display">max(w_1^{T}x + b_1, w_2^Tx + b_2)</script><p>하지만, 이 형태는 각 뉴런마다 두 배의 parameter를 가지고 그 output 값 간의 비교를 하므로, 연산량이 두배가 많아지는 단점이 있다.</p>
 <p>(6) Summary</p>
 <ul>
 <li>ReLU 를 사용한다!</li>
@@ -282,23 +275,15 @@
 <li>batch mean 과 variance 는 각 차원별로 계산해 준다.</li>
 <li>Normalize </li>
 </ol>
-<p>$$\hat{x}^{(k)} = \frac{x^{(k)}-E[x^{(k)}]}{\sqrt{Var[x^{(k)}]}}$$</p>
-<p>앞서, batch normalization 의 목적은 network의 forward, backward pass 시 saturation 이 일어나지 않게 하기 위함이었습니다. 하지만 반면에, 이렇게 batch normalization 을 해준 이후에도 우리는 network 이 얼마나 해당 activation 을 얼마나 saturate 시킬지까지 학습 할 수 있다면 얼마나 좋을까요? 따라서 우리는 normalize 이후에 scaling factor 와 shifting factor 를 추가시켜, 얼마나 saturate 시킬지까지 학습할 수 있는 parameter 를 추가합니다.</p>
-<p>$$y^{(k)} = \gamma^{(k)}\hat{x}^{(k)} + \beta^{k}$$</p>
-<p>Batch Noramlization 에 대한 pseudo 알고리즘이다.</p>
+<script type="math/tex; mode=display">\hat{x}^{(k)} = \frac{x^{(k)}-E[x^{(k)}]}{\sqrt{Var[x^{(k)}]}}</script><p>앞서, batch normalization 의 목적은 network의 forward, backward pass 시 saturation 이 일어나지 않게 하기 위함이었습니다. 하지만 반면에, 이렇게 batch normalization 을 해준 이후에도 우리는 network 이 얼마나 해당 activation 을 얼마나 saturate 시킬지까지 학습 할 수 있다면 얼마나 좋을까요? 따라서 우리는 normalize 이후에 scaling factor 와 shifting factor 를 추가시켜, 얼마나 saturate 시킬지까지 학습할 수 있는 parameter 를 추가합니다.</p>
+<script type="math/tex; mode=display">y^{(k)} = \gamma^{(k)}\hat{x}^{(k)} + \beta^{k}</script><p>Batch Noramlization 에 대한 pseudo 알고리즘이다.</p>
 <p><img src="Untitled-83e0b3e7-d764-4a19-9c28-9fe815096b28.png" alt></p>
 <p>또한, 우리는 이렇게 학습한 batch mean 과 variance  를 학습 때 사용하며, testing (inference) 시에는 다시 계산하지 않는 것을 유의해야한다. testing 시에는 training 시 running average 등의 방식으로 고정된 mean과 variance 등을 사용할 수 있다.</p>
 <h2 id="2-Training-Dynamics"><a href="#2-Training-Dynamics" class="headerlink" title="2. Training Dynamics"></a>2. Training Dynamics</h2><h3 id="2-1-Babysitting-the-Learning-Process"><a href="#2-1-Babysitting-the-Learning-Process" class="headerlink" title="2-1. Babysitting the Learning Process"></a>2-1. Babysitting the Learning Process</h3><ol>
-<li><p>Preprocess the data</p>
-</li>
-<li><p>Build Model</p>
-</li>
-<li><p>Sanity check for model (e.g. weigh이 작을ㄹ 때, loss가 negative log likelihood 와 비슷한지, regularization term이 추가될때 loss 가 증가하는지 등)</p>
-</li>
-<li><p>(regularization term 을 사용하지 않고) 매우 작은 데이터에 대해서, train  을 돌렸을 때, loss 가 떨어지고, 금방 overfitting 되는지 확인</p>
-<br>
-여기까지가 sanity check 이라면, 이제 본격적인 training!!
-<br></li>
+<li>Preprocess the data</li>
+<li>Build Model</li>
+<li>Sanity check for model (e.g. weigh이 작을ㄹ 때, loss가 negative log likelihood 와 비슷한지, regularization term이 추가될때 loss 가 증가하는지 등)</li>
+<li>(regularization term 을 사용하지 않고) 매우 작은 데이터에 대해서, train  을 돌렸을 때, loss 가 떨어지고, 금방 overfitting 되는지 확인<br><br><br>여기까지가 sanity check 이라면, 이제 본격적인 training!!<br><br></li>
 <li><p>간단한 몇가지 실험을 통해 learning rate 을 정한다. 큰 값, 작은 값을 넣어보고, epoch 을 10까지 정도로 주었을 때, loss 가 주는 지 확인하여 대략적인 범위를 정한다.</p>
 </li>
 <li><p>Coarse search: learning rate 과 다른 hyper parameter 를 uniform 등과 같은 distribution 을 통해 random search 한다. 강의에서 말했던, 주의사항 : 범위의 양 끝에 가장 좋은 score 가 뿌려져 있다면, 다시 범위를 설정해야한다. 내가 처음 설정한 범위 끝단에 존재한다면 그 주변에서 다시 최적의 값이 존재 할 수 있기 때문이다.</p>
@@ -430,7 +415,7 @@
                         Posts
                     </p>
                     <p class="title has-text-weight-normal">
-                        82
+                        83
                     </p>
                 </div>
             </div>
@@ -440,7 +425,7 @@
                         Categories
                     </p>
                     <p class="title has-text-weight-normal">
-                        26
+                        27
                     </p>
                 </div>
             </div>
@@ -598,7 +583,7 @@
                 <span class="level-item">MachineLearning</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">5</span>
+                <span class="level-item tag">6</span>
             </span>
         </a><ul><li>
         <a class="level is-marginless" href="/categories/MachineLearning/Apache-Spark/">
@@ -615,6 +600,14 @@
             </span>
             <span class="level-end">
                 <span class="level-item tag">3</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/MachineLearning/Vision/">
+            <span class="level-start">
+                <span class="level-item">Vision</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
             </span>
         </a></li></ul></li><li>
         <a class="level is-marginless" href="/categories/Math/">
@@ -730,6 +723,25 @@
         
         <article class="media">
             
+            <a href="/2019/09/01/psnr-ssim/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="[Metrics] PSNR &amp; SSIM">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-01T05:41:22.000Z">2019-09-01</time></div>
+                    <a href="/2019/09/01/psnr-ssim/" class="has-link-black-ter is-size-6">[Metrics] PSNR &amp; SSIM</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/MachineLearning/">MachineLearning</a> / <a class="has-link-grey -link" href="/categories/MachineLearning/Vision/">Vision</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2019/08/26/DIP-chapter3/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="[Book] Summary of Digital Image Processing Chapter 03">
@@ -804,25 +816,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/08/06/linux-crontab/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="[Linux] 자고있을 때도, 알아서.. 리눅스 Crontab">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-08-06T12:15:20.000Z">2019-08-06</time></div>
-                    <a href="/2019/08/06/linux-crontab/" class="has-link-black-ter is-size-6">[Linux] 자고있을 때도, 알아서.. 리눅스 Crontab</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Development/">Development</a> / <a class="has-link-grey -link" href="/categories/Development/Linux/">Linux</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -834,6 +827,17 @@
             Archives
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/09/">
+                <span class="level-start">
+                    <span class="level-item">September 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/archives/2019/08/">
