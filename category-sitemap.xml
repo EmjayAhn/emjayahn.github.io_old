@@ -8,6 +8,13 @@
     </url>
 
     <url>
+        <loc>https://emjayahn.github.io/categories/Google-Cloud-Platform/</loc>
+        <lastmod>2019-11-04T03:10:35.817Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://emjayahn.github.io/categories/MachineLearning/Vision/</loc>
         <lastmod>2019-09-01T05:46:58.644Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -73,13 +80,6 @@
     <url>
         <loc>https://emjayahn.github.io/categories/Development/Python/</loc>
         <lastmod>2019-08-06T13:13:46.392Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://emjayahn.github.io/categories/Google-Cloud-Platform/</loc>
-        <lastmod>2019-08-03T10:30:01.857Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
