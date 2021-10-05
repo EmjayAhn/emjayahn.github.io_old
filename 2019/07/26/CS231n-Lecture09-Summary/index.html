@@ -200,7 +200,6 @@
 <li>이 글은, Standford University 의 CS231n 강의를 듣고 스스로 정리 목적을 위해 적은 글입니다.</li>
 </ul>
 <a id="more"></a>
-
 <p>이번 강의에서는 최초의 CNN 모델부터, ImageNet 대회에서 역대 좋은 스코어를 기록한 유명한 convnet 구조에 대해 살펴본다. 강의 summary 는 강의 내용 중심과 수업 중 궁금한 사항을 따로 찾아본 내용 위주로 정리한다. 해당 모델의 자세한 내용은 논문을 참조했다.</p>
 <h2 id="1-AlexNet"><a href="#1-AlexNet" class="headerlink" title="1. AlexNet"></a>1. AlexNet</h2><p>Lenet 이후, 가장 처음으로 나온 large scale convnet model 이다. Architecture 는 다음과 같다. 수업시간에는 CONV1 과  Max Pooling layer 에 대해서만 각 layer 의 output volume size 와 parameter 갯수를 확인했으나, 연습과 공부를 위해 전체 layer 에 대해 계산해본다.</p>
 <ul>
@@ -226,7 +225,7 @@
 </ul>
 </li>
 <li>Conv1 의 weight 갯수 ?<ul>
-<li>filter size 11 * 11 * 3 (channel) * 96 (filter 갯수) = 34,849개</li>
+<li>filter size 11 <em> 11 </em> 3 (channel) * 96 (filter 갯수) = 34,849개</li>
 </ul>
 </li>
 <li>MAX POOL (3 x 3 filter, stride 2) output volume size?<ul>
@@ -245,7 +244,7 @@
 <li>CONV2 layer (256 5 x 5 filters, stride 1, padding 2) 의 output volume size 와 parameter 갯수?<ul>
 <li>(27 - 5 + 4) / 1 + 1 = 27</li>
 <li>output volume size : 27 x 27 x 256</li>
-<li>parameter 갯수: 5 * 5 * 96 (channel) * 256 (filter 갯수 ) = 614,400</li>
+<li>parameter 갯수: 5 <em> 5 </em> 96 (channel) * 256 (filter 갯수 ) = 614,400</li>
 </ul>
 </li>
 <li>MAX POOL2 ( 3 x 3 filters, stride 2) output volume size?<ul>
@@ -256,19 +255,19 @@
 <li>CONV3 layer ( 384 3 x 3 filters, stride 1, padding 1)의 output volume size 와 parameter 갯수?<ul>
 <li>(13-3+2) / 1 + 1 =  13</li>
 <li>ouput volume size = 13 x 13 x 384</li>
-<li>parameters: 13 * 13 * 256(channels) * 384 = 16,613,376</li>
+<li>parameters: 13 <em> 13 </em> 256(channels) * 384 = 16,613,376</li>
 </ul>
 </li>
 <li>CONV4 layer (384 3x3 filters stride 1, padding 1)<ul>
 <li>(13 - 3 + 2) / 1 + 1 = 13</li>
 <li>output volume size = 13 x 13 x 384</li>
-<li>parameters: 13 * 13 * 384(channels) * 384 = 24,920,064</li>
+<li>parameters: 13 <em> 13 </em> 384(channels) * 384 = 24,920,064</li>
 </ul>
 </li>
 <li>CONV5 layer (256 3x3 filters stride 1 , padding 1)<ul>
 <li>(13 - 3 + 2) / 1 + 1 = 13</li>
 <li>output volume size = 13 x 13 x 256</li>
-<li>parameters: 13 * 13 * 384 * 256 = 16,613,376</li>
+<li>parameters: 13 <em> 13 </em> 384 * 256 = 16,613,376</li>
 </ul>
 </li>
 <li>MAX POOL3 (3 x 3 filters strides 2)<ul>
@@ -281,7 +280,7 @@
 <li>당시 GPU 메모리의 부족으로, CONV1 layer 의 경우 depth 가 96이었으나, 48 개씩 (반반) 다른 GPU 에 올려져 계산이 진행되었다. 이는 서로가 데이터를 바라볼수 없다는 것을 의미한다. 마찬가지 의미로, CONV2, CONV4, CONV5의 경우 서로 다른 gpu 상에 올라가 있는 feature map 을 볼수 없다. 반면, CONV3, FC6, FC7, FC8 에서 서로 cross 됨으로써 feature map 을 바라볼수 없는 문제를 완화하였다</li>
 </ol>
 <h2 id="2-VGG"><a href="#2-VGG" class="headerlink" title="2. VGG"></a>2. VGG</h2><p>VGG 는 AlexNet 과 비교하여, 조금더 깊은 convnet 을 가지고 있다. 이는 filter size 를 작게 가져감으로써 얻을 수 있는 이익이었다. </p>
-<p>7x7 conv layer 1개와 3x3 conv layer 가 3개를 비교해본다. 7x7 conv layer 1개의 원본 이미지로부터 얻는 receptive field 는 7x7 영역이다. 3개의 3 x 3 conv layer가 쌓였을 때, 3번째 layer 입장에서, 원본이미지의 7 x 7 만큼의 receptive field, 즉 같은 양의 receptive field 를 얻을 수 있다. 같은 receptive field 영역을 커버하지만, layer 의 수가 증가함으로써, 더 많은 <strong>non-linearity feature map</strong>을 얻을 수 있다. 또한, 각 layer 의 parameter 수를 살펴 보면, 7x7 conv layer 는 C(이전 layer 의 channel 수)<em>7</em>7<em>C = 49 * C^2만큼의 parameter를 가지고 있고, 3 layer 3x3 conv layer 는 3</em>3<em>3</em>C<em>C = 9 * C^2 만큼의 parameter 를 가지고 있다. 작은 filter size로 layer 수를 늘리는 것이 *</em>parameter 의 갯수** 관점에서도 큰 이득을 가져다 준다.</p>
+<p>7x7 conv layer 1개와 3x3 conv layer 가 3개를 비교해본다. 7x7 conv layer 1개의 원본 이미지로부터 얻는 receptive field 는 7x7 영역이다. 3개의 3 x 3 conv layer가 쌓였을 때, 3번째 layer 입장에서, 원본이미지의 7 x 7 만큼의 receptive field, 즉 같은 양의 receptive field 를 얻을 수 있다. 같은 receptive field 영역을 커버하지만, layer 의 수가 증가함으로써, 더 많은 <strong>non-linearity feature map</strong>을 얻을 수 있다. 또한, 각 layer 의 parameter 수를 살펴 보면, 7x7 conv layer 는 C(이전 layer 의 channel 수)<em>7</em>7<em>C = 49 </em> C^2만큼의 parameter를 가지고 있고, 3 layer 3x3 conv layer 는 3<em>3</em>3<em>C</em>C = 9 <em> C^2 만큼의 parameter 를 가지고 있다. 작은 filter size로 layer 수를 늘리는 것이 <em>*parameter 의 갯수</em></em> 관점에서도 큰 이득을 가져다 준다.</p>
 <p>cf) 네트워크가 깊어질수록 computation양을 일정하게 유지하기 위해 각 레이어의 입력을 downsampling 한다. &amp; Spatial Area 가 작아질수록 filter 의 depth 를 조금씩 늘려준다.</p>
 <h2 id="3-GoogLeNet"><a href="#3-GoogLeNet" class="headerlink" title="3. GoogLeNet"></a>3. GoogLeNet</h2><h3 id="GoogLeNet-의-특이점"><a href="#GoogLeNet-의-특이점" class="headerlink" title="GoogLeNet 의 특이점"></a>GoogLeNet 의 특이점</h3><p>GoogleNet 은 깊은 신경망 모델에 대해, 계산량의 이점을 가져다주기 위해 고안되었다. 이는 Inception Module 을 설계하여, 이를 연속해 쌓는 방식의 구조이다. Inception Module 의 모양은 다음과 같다.</p>
 <p>다음과 같이 구성할 때, conv layer 를 거친 output 을 depth 방향으로 concatenate 한다. spatial dimension 은 stride 등을 조절한다.</p>
@@ -1132,7 +1131,23 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 <script src="/js/insight.js" defer></script>
 <link rel="stylesheet" href="/css/search.css">
-<link rel="stylesheet" href="/css/insight.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<link rel="stylesheet" href="/css/insight.css">
     
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>
