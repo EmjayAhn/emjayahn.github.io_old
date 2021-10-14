@@ -212,11 +212,16 @@
 <li>Pandas 3장, 4장</li>
 <li>새로운 데이터셋 EDA, Regression 함수 적용</li>
 </ol>
-<h2 id><a href="#" class="headerlink" title></a><br></h2><h2 id="무엇을-느꼈는가"><a href="#무엇을-느꼈는가" class="headerlink" title="무엇을 느꼈는가"></a>무엇을 느꼈는가</h2><ul>
-<li>Pandas를 조금씩 정리하고, 새로운 것들을 알게 되면서 이전에는 몰랐던 편리한 기능들이 많이 있음을 알게 되었다.<br>손에 익히게 되면서 아주 조금씩 판다스에대해서 편해지기 시작하였다. Pandas 를 심도 있고 공부해보고자 했던 처음 이유인<br>‘데이터셋을 보고 먼저 손이 나가도록 하자’는 목표에는 아직도 멀었지만, 하루하루 조금씩 노력해온 1주 반동안,<br>이전보다 조금더 편해졌다는 것이 느껴진다.</li>
-<li>이렇게 체감적으로, 한파트 한파트씩 아주 더디지만 조금씩 편해지고, 손에 익는 다는 것을 느끼면서, 점점더<br>재미있어 질것이라 믿는다.</li>
-</ul>
-<hr>
+<br>
+---
+## 무엇을 느꼈는가
+- Pandas를 조금씩 정리하고, 새로운 것들을 알게 되면서 이전에는 몰랐던 편리한 기능들이 많이 있음을 알게 되었다.
+손에 익히게 되면서 아주 조금씩 판다스에대해서 편해지기 시작하였다. Pandas 를 심도 있고 공부해보고자 했던 처음 이유인
+'데이터셋을 보고 먼저 손이 나가도록 하자'는 목표에는 아직도 멀었지만, 하루하루 조금씩 노력해온 1주 반동안,
+이전보다 조금더 편해졌다는 것이 느껴진다.
+- 이렇게 체감적으로, 한파트 한파트씩 아주 더디지만 조금씩 편해지고, 손에 익는 다는 것을 느끼면서, 점점더
+재미있어 질것이라 믿는다.
+---
 
         </div>
         
@@ -268,8 +273,10 @@
 <li>일종의 <code>proxy server</code> 역할을 해주는 것이 <code>nginx</code></li>
 </ul>
 <h2 id="1-Install-Nginx"><a href="#1-Install-Nginx" class="headerlink" title="1. Install Nginx"></a>1. Install Nginx</h2><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br><span class="line">$ sudo apt-get install nginx</span><br></pre></td></tr></table></figure>
+
 <h2 id="2-Manage-the-Nginx-Process"><a href="#2-Manage-the-Nginx-Process" class="headerlink" title="2. Manage the Nginx Process"></a>2. Manage the Nginx Process</h2><ul>
 <li>nginx Process<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#start Nginx</span></span><br><span class="line">$ sudo systemctl start nginx</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">#stop nginx</span></span><br><span class="line">$ sudo systemctl stop nginx</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">#restart nginx</span></span><br><span class="line">$ sudo systemctl restart nginx</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">#check status nginx</span></span><br><span class="line">$ sudo systemctl status nginx</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment"># reload nginx</span></span><br><span class="line">$ sudo systemctl reload nginx</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 <h2 id="3-Structure"><a href="#3-Structure" class="headerlink" title="3. Structure"></a>3. Structure</h2><ul>
@@ -289,13 +296,20 @@
 </ul>
 <h2 id="4-Nginx-Configuration"><a href="#4-Nginx-Configuration" class="headerlink" title="4. Nginx Configuration"></a>4. Nginx Configuration</h2><h3 id="4-1-static-file-serving"><a href="#4-1-static-file-serving" class="headerlink" title="4.1 static file serving"></a>4.1 static file serving</h3><p><code>/etc/nginx/sites-available/default</code> 파일 수정</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">  location / &#123;</span><br><span class="line">    root /path/to/html ;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  location /images/ &#123;</span><br><span class="line">    root /path/to/image;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h3 id="4-2-proxy-server"><a href="#4-2-proxy-server" class="headerlink" title="4.2 proxy server"></a>4.2 proxy server</h3><ul>
 <li><p>port 별로 설정이 가능하다</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">  # default 는 80 port (http default)</span><br><span class="line">  # 8080 port 에 대해서</span><br><span class="line">  listen 8080;</span><br><span class="line">  location / &#123;</span><br><span class="line">    proxy_pass http://localhost:8080;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>여러개의 포트를 연결<br>```<br>server {<br>listen 8080;<br>listen 80;</p>
-<p>location / {<br>  proxy_pass <a href="http://localhost:8080" target="_blank" rel="noopener">http://localhost:8080</a>;<br>}<br>}</p>
-</li>
+<li><p>여러개의 포트를 연결</p>
+<pre><code>server {
+listen 8080;
+listen 80;
+
+location / {
+  proxy_pass http://localhost:8080;
+}
+}</code></pre></li>
 </ul>
 
         </div>
@@ -354,12 +368,16 @@
 <li>Pandas 150page 마무리</li>
 <li>복습</li>
 </ol>
-<h2 id><a href="#" class="headerlink" title></a><br></h2><h2 id="무엇을-느꼈는가"><a href="#무엇을-느꼈는가" class="headerlink" title="무엇을 느꼈는가"></a>무엇을 느꼈는가</h2><ul>
-<li>지금껏 구성해온 개인 wiki 혹은 cheatsheet등을 로컬 서버등을 이용해 wiki page 를 이용하고 싶었다.<br>가장 많이 사용한다는 gollum api 를 설치해보았지만, 생각보다 편하지 않았다. gitlab이나 github 등은<br>온라인에서 작성이 가능하지만, 로컬에서 그 해당 파일을 갖기가 불편했다. 또 검색기능도 중요했다.</li>
-<li>결국, 지금 작성하고 있는 git blog 에 wiki tab 관리로 하기로 했다.</li>
-<li>돌고돌아 gitblog 의 tab 을 활용해서 wiki 하기로 했다. 앞으로 좀더 깔끔하게 정리 파일을 관리하고,</li>
-<li>직접 참고할 자료이니, 무엇보다도 내가 보기 편해야 할 것이다.</li>
-</ul>
+<br>
+---
+## 무엇을 느꼈는가
+- 지금껏 구성해온 개인 wiki 혹은 cheatsheet등을 로컬 서버등을 이용해 wiki page 를 이용하고 싶었다.
+가장 많이 사용한다는 gollum api 를 설치해보았지만, 생각보다 편하지 않았다. gitlab이나 github 등은
+온라인에서 작성이 가능하지만, 로컬에서 그 해당 파일을 갖기가 불편했다. 또 검색기능도 중요했다.
+- 결국, 지금 작성하고 있는 git blog 에 wiki tab 관리로 하기로 했다.
+- 돌고돌아 gitblog 의 tab 을 활용해서 wiki 하기로 했다. 앞으로 좀더 깔끔하게 정리 파일을 관리하고,
+- 직접 참고할 자료이니, 무엇보다도 내가 보기 편해야 할 것이다.
+
 <hr>
 
         </div>
@@ -418,7 +436,8 @@
 </ol>
 <hr>
 <h2 id="내일-할-일은-무엇인가"><a href="#내일-할-일은-무엇인가" class="headerlink" title="내일 할 일은 무엇인가"></a>내일 할 일은 무엇인가</h2><ol>
-<li>Pandas 100page<br><br></li>
+<li>Pandas 100page<br>
+</li>
 </ol>
 <hr>
 <h2 id="무엇을-느꼈는가"><a href="#무엇을-느꼈는가" class="headerlink" title="무엇을 느꼈는가"></a>무엇을 느꼈는가</h2><ul>
@@ -486,7 +505,8 @@
 <h2 id="내일-할-일은-무엇인가"><a href="#내일-할-일은-무엇인가" class="headerlink" title="내일 할 일은 무엇인가"></a>내일 할 일은 무엇인가</h2><ol>
 <li>Pandas - 100page</li>
 <li>수학 9장-2절</li>
-<li>Classification Intro, Scikit-Learn 의 전처리 부분 code 정리<br><br></li>
+<li>Classification Intro, Scikit-Learn 의 전처리 부분 code 정리<br>
+</li>
 </ol>
 <hr>
 <h2 id="무엇을-느꼈는가"><a href="#무엇을-느꼈는가" class="headerlink" title="무엇을 느꼈는가"></a>무엇을 느꼈는가</h2><ul>
@@ -556,12 +576,19 @@
 <li>Pandas - 100 page</li>
 <li>수학 9장-2절</li>
 </ol>
-<h2 id><a href="#" class="headerlink" title></a><br></h2><h2 id="무엇을-느꼈는가"><a href="#무엇을-느꼈는가" class="headerlink" title="무엇을 느꼈는가"></a>무엇을 느꼈는가</h2><ul>
-<li>RedBlack tree 를 배우면서, 왜 color violation 을 해결하고, 색을 기준으로 정렬했을 때,<br>O(logN) 으로 장점이 되는지에 관해 궁금하다. 자세한 수학적 증명보다, <b>color 와 알고리즘의 효율이<br>어디서 연결</b> 되는지 궁금하다. 이런 궁금증들은 이렇게 메모 해두었다가, 여유가 생길 때 꼭 찾아 보아야 겠다.</li>
-<li><p>shell script 기본 문법을 공부하면서, Python 이 얼마나 직관적인 언어인지 느꼈다. 직접 해보면서,<br>while, if 조건문 등을 쓸때, 띄어쓰기에 예민했고, DO ~ DONE 의 couple 이 중요했다. 또한, if , case 가<br>끝날 때는, 직관대로 done 이 아니라 fi, esac 등으로 닫아 줘야 하는 것이 위트 있지만서도,<br>쉽게 기억될 것은 아님을 알게 되었다.</p>
-</li>
-<li><p>DO 도 OD 였다는데, 지금 OD 는 안되네.. DO 는 DONE 으로 쓰자 !!!!</p>
-</li>
+<br>
+---
+## 무엇을 느꼈는가
+- RedBlack tree 를 배우면서, 왜 color violation 을 해결하고, 색을 기준으로 정렬했을 때,
+O(logN) 으로 장점이 되는지에 관해 궁금하다. 자세한 수학적 증명보다, <b>color 와 알고리즘의 효율이
+어디서 연결</b> 되는지 궁금하다. 이런 궁금증들은 이렇게 메모 해두었다가, 여유가 생길 때 꼭 찾아 보아야 겠다.
+- shell script 기본 문법을 공부하면서, Python 이 얼마나 직관적인 언어인지 느꼈다. 직접 해보면서,
+while, if 조건문 등을 쓸때, 띄어쓰기에 예민했고, DO ~ DONE 의 couple 이 중요했다. 또한, if , case 가
+끝날 때는, 직관대로 done 이 아니라 fi, esac 등으로 닫아 줘야 하는 것이 위트 있지만서도,
+쉽게 기억될 것은 아님을 알게 되었다.
+
+<ul>
+<li>DO 도 OD 였다는데, 지금 OD 는 안되네.. DO 는 DONE 으로 쓰자 !!!!</li>
 </ul>
 <hr>
 
@@ -621,7 +648,8 @@
 <h2 id="내일-할-일은-무엇인가"><a href="#내일-할-일은-무엇인가" class="headerlink" title="내일 할 일은 무엇인가"></a>내일 할 일은 무엇인가</h2><ol>
 <li>(개인공부) 자연어 처리 메서드 마저 정리</li>
 <li>(개인공부) AWS 정리</li>
-<li>(개인공부) 연속확률분포 정리(수식 꼼꼼하게)<br><br></li>
+<li>(개인공부) 연속확률분포 정리(수식 꼼꼼하게)<br>
+</li>
 </ol>
 <hr>
 <h2 id="무엇을-느꼈는가"><a href="#무엇을-느꼈는가" class="headerlink" title="무엇을 느꼈는가"></a>무엇을 느꼈는가</h2><ul>
@@ -679,40 +707,42 @@
         </h1>
         <div class="content">
             <h1 id="이산확률분포"><a href="#이산확률분포" class="headerlink" title="이산확률분포"></a>이산확률분포</h1><h2 id="베르누이-분포-bernoulli-distribution"><a href="#베르누이-분포-bernoulli-distribution" class="headerlink" title="베르누이 분포 (bernoulli distribution)"></a>베르누이 분포 (bernoulli distribution)</h2><ul>
-<li>동전 생각하기</li>
+<li><p>동전 생각하기</p>
+</li>
 <li><p>결과가 두가지 중 하나</p>
 </li>
-<li><p>확률변수를 1 or 0 으루 주었을 때,</p>
-<script type="math/tex; mode=display">
-\text{Bern}(x;\mu) = \mu^x(1-\mu)^{(1-x)}</script></li>
-<li><p>확률변수를 1 or -1 로 주었을 때,</p>
-<script type="math/tex; mode=display">
-\text{Bern}(x; \mu) = \mu^{(1+x)/2} (1-\mu)^{(1-x)/2}</script></li>
+<li><p>확률변수를 1 or 0 으루 주었을 때,<br>$$<br>\text{Bern}(x;\mu) = \mu^x(1-\mu)^{(1-x)}<br>$$</p>
+</li>
+<li><p>확률변수를 1 or -1 로 주었을 때,<br>$$<br>\text{Bern}(x; \mu) = \mu^{(1+x)/2} (1-\mu)^{(1-x)/2}<br>$$</p>
+</li>
 </ul>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#예제코드</span></span><br><span class="line"><span class="hljs-comment">#베르누이 분포 SciPy</span></span><br><span class="line"><span class="hljs-comment">#100개 sampling</span></span><br><span class="line">sp.stats.bernoulli(mu).rvs(<span class="hljs-number">100</span>, random_state=<span class="hljs-number">0</span>)</span><br></pre></td></tr></table></figure>
+
 <h2 id="이항분포-binomial-distribution"><a href="#이항분포-binomial-distribution" class="headerlink" title="이항분포 (binomial distribution)"></a>이항분포 (binomial distribution)</h2><ul>
 <li>동전을 N번 던졌다</li>
 <li>성공확률이 $\mu$ 인 베르누이 시도를 $N$ 번 반복 할 때, 성공 횟수를 $X$ 라 하면,</li>
 </ul>
-<p><script type="math/tex">X \sim \text{Bin}(x;N,\mu)</script> <br></p>
-<p><script type="math/tex">\text{Bin}(x;N,\mu) = \binom N x  \mu^x(1-\mu)^{N-x}</script> <br></p>
+<p>$$ X \sim \text{Bin}(x;N,\mu)  $$ <br></p>
+<p>$$ \text{Bin}(x;N,\mu) = \binom N x  \mu^x(1-\mu)^{N-x} $$ <br></p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sp.stats.binom(N, mu).rvs(<span class="hljs-number">100</span>, random_state=<span class="hljs-number">0</span>)</span><br></pre></td></tr></table></figure>
+
 <h2 id="카테고리-분포-Categorical-distribution"><a href="#카테고리-분포-Categorical-distribution" class="headerlink" title="카테고리 분포 (Categorical distribution)"></a>카테고리 분포 (Categorical distribution)</h2><ul>
 <li>주사위 생각해!</li>
-<li>$K$ 개의 카테고리가 있을 때,<br><script type="math/tex">x = (x_1, x_2, x_3, x_4, ... , x_k)</script> <br></li>
+<li>$K$ 개의 카테고리가 있을 때,<br>$$ x = (x_1, x_2, x_3, x_4, … , x_k)  $$ <br></li>
 </ul>
 <p>각 원소 x_i 가 1이 나올 수 있는 확률 ($i$번쨰 원소의 성공확률)을 $\mu_i$ 라 하면, <br></p>
-<p><script type="math/tex">\text{Cat}(x;\mu) = \mu_1^{x_1} \mu_2^{x_2}  \cdots \mu_K^{x_K}  =  \prod_{k=1}^K \mu_k^{x_k}</script> <br></p>
+<p>$$ \text{Cat}(x;\mu) = \mu_1^{x_1} \mu_2^{x_2}  \cdots \mu_K^{x_K}  =  \prod_{k=1}^K \mu_k^{x_k} $$ <br></p>
 <p>이 표현은 One-Hot-Encoding 으로 카테고리 분포를 표현 했기에 가능하다. <br></p>
-<p>단, <br></p>
-<p><script type="math/tex">0 \leq \mu_i \leq 1</script> <br></p>
-<p><script type="math/tex">\sum_{k=1}^K \mu_k = 1</script> <br></p>
+<p>단, <br><br>$$ 0 \leq \mu_i \leq 1 $$ <br></p>
+<p>$$ \sum_{k=1}^K \mu_k = 1 $$ <br></p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#카테고리 분포는 SciPy 의 메소드가 없으므로, 다항분포의 N을 1로 준다.</span></span><br><span class="line"><span class="hljs-comment">#mu 는 각 term 이 나올 수 있는 확률 vector</span></span><br><span class="line">sp.stats.multinomial(<span class="hljs-number">1</span>, mu)</span><br></pre></td></tr></table></figure>
+
 <h2 id="다항-분포-Multinomial-distribution"><a href="#다항-분포-Multinomial-distribution" class="headerlink" title="다항 분포 (Multinomial distribution)"></a>다항 분포 (Multinomial distribution)</h2><ul>
 <li>주사위를 여러번 던졌다.</li>
 <li>카테고리 시도를 $N$ 번 반복하여 $k$ $(k=1,…,K)$ 가 $x_k$ 번 나올 확률분포.</li>
 </ul>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#N : number of trial</span></span><br><span class="line"><span class="hljs-comment">#mu 는 각 term 이 나올 수 있는 확률 vector</span></span><br><span class="line">sp.stats.multinomial(N, mu)</span><br></pre></td></tr></table></figure>
+
 
         </div>
         
@@ -831,7 +861,8 @@
 <li>확률분포, 기본 통계량 스터디</li>
 <li>main프로젝트 Review (Procedure 정리, 시계열 적용 고민)</li>
 <li>AWS 복습</li>
-<li>(스터디) git repo 설정, A* Algorithm 코드 작성<br><br></li>
+<li>(스터디) git repo 설정, A* Algorithm 코드 작성<br>
+</li>
 </ol>
 <hr>
 <h2 id="무엇을-느꼈는가"><a href="#무엇을-느꼈는가" class="headerlink" title="무엇을 느꼈는가"></a>무엇을 느꼈는가</h2><ul>

@@ -207,24 +207,34 @@
 <ul>
 <li>Peak Signal-to-Noise Ratio</li>
 </ul>
-<script type="math/tex; mode=display">PSNR = 10log_{10}(\frac{MAX_I^2}{MSE})=20log_{10}(\frac{MAX_I}{\sqrt{MSE}}))=20log_{10}(MAX_I)-10log_{10}(MSE)</script><ul>
-<li>MAXI 는 해당 영상의 최댓값, 해당 채널의 최댓값에서 최솟값을 빼서 구함<ul>
+<p>$$PSNR = 10log_{10}(\frac{MAX_I^2}{MSE})=20log_{10}(\frac{MAX_I}{\sqrt{MSE}}))=20log_{10}(MAX_I)-10log_{10}(MSE)$$</p>
+<ul>
+<li><p>MAXI 는 해당 영상의 최댓값, 해당 채널의 최댓값에서 최솟값을 빼서 구함</p>
+<ul>
 <li>e.g. 8-bit gray scale 의 경우, 255-0 = 255</li>
 </ul>
 </li>
-<li>단위: db(log scale)</li>
+<li><p>단위: db(log scale)</p>
+</li>
 <li><p>무손실 영상의 경우 MSE 가 0이기 때문에, PSNR 은 정의 되지 않는다.</p>
-<script type="math/tex; mode=display">MSE = \frac{1}{mn}\sum_{i=0}^{m-1}\sum_{j=0}^{n-1}[I(i,j)-K(i, j)]^2</script></li>
+<p>  $$MSE = \frac{1}{mn}\sum_{i=0}^{m-1}\sum_{j=0}^{n-1}[I(i,j)-K(i, j)]^2$$</p>
+</li>
 <li><p>I : mxn 사이즈의 grayscale image</p>
 </li>
-<li>K: I 에 잡음이 포함된 이미지 (왜곡된 이미지)</li>
+<li><p>K: I 에 잡음이 포함된 이미지 (왜곡된 이미지)</p>
+</li>
 </ul>
 <h3 id="1-2-한계"><a href="#1-2-한계" class="headerlink" title="1-2. 한계"></a>1-2. 한계</h3><p>PSNR은 intensity 의 값들을 위 식에 의해 종합하여 평가하는 방식이기 때문에, 실제로 사람이 봤을 때 느끼는 것과 다른 점수를 뱉어낼 때가 있다. 즉, <strong>사람의 지각품질을 제대로 반영하지 못하기 때문에</strong> 이를 보완하기 위해 PSNR-HVS, PSNR-HVS-M, SSIM, VIF 등의 Metric 이 개발되었다.</p>
 <h2 id="2-SSIM"><a href="#2-SSIM" class="headerlink" title="2. SSIM"></a>2. SSIM</h2><h3 id="2-1-정의-및-특징"><a href="#2-1-정의-및-특징" class="headerlink" title="2-1. 정의 및 특징"></a>2-1. 정의 및 특징</h3><p>위 PSNR 의 한계를 극복하기 위해, 개발된 metric 으로써, Structural Similarity 의 줄임말이다. 사람의 지각 능력과 metric 을 일치시키는 목적에 개발되었다. 사람은 영상에서 구조 정보를 반영하여 영상을 바라보게 되는데, 영상이 얼마나 그 구조 정보를 변화시키지 않았는가를 살펴보는 metric 이다.</p>
 <p>즉, 원본이미지(x)와 왜곡이미지(y)의 Luminance(l), Contrast(c), Structure(s)를 비교한다.</p>
 <p>contrast: 이미지의 표준편차값</p>
 <p>structure: (이미지-평균밝기) / 표준편차</p>
-<script type="math/tex; mode=display">l(x, y)=\frac{2\mu_x \mu_y+c_1}{\mu_x^2+\mu_y^2+c_1}</script><script type="math/tex; mode=display">c(x,y)=\frac{2\sigma_x\sigma_y+c_2}{\sigma_x^2+\sigma_y^2+c_2}</script><script type="math/tex; mode=display">s(x,y)=\frac{\sigma_{xy}+c_3}{\sigma_x\sigma_y+c_3}</script><script type="math/tex; mode=display">SSIM(x,y)=[l(x,y)^{\alpha}c(x,y)^{\beta}s(x,y)^{\gamma}]</script><script type="math/tex; mode=display">c_3=c_2/2</script><p>위에 c3 와 c2 의 조건을 추가하면 SSIM 은 다음과 같이 축약된다.<br><img src="Untitled-fee293f9-69f7-49d5-beba-5c035dc7ab87.png" alt></p>
+<p>$$l(x, y)=\frac{2\mu_x \mu_y+c_1}{\mu_x^2+\mu_y^2+c_1}$$</p>
+<p>$$c(x,y)=\frac{2\sigma_x\sigma_y+c_2}{\sigma_x^2+\sigma_y^2+c_2}$$</p>
+<p>$$s(x,y)=\frac{\sigma_{xy}+c_3}{\sigma_x\sigma_y+c_3}$$</p>
+<p>$$SSIM(x,y)=[l(x,y)^{\alpha}c(x,y)^{\beta}s(x,y)^{\gamma}]$$</p>
+<p>$$c_3=c_2/2$$</p>
+<p>위에 c3 와 c2 의 조건을 추가하면 SSIM 은 다음과 같이 축약된다.<br><img src="Untitled-fee293f9-69f7-49d5-beba-5c035dc7ab87.png" alt></p>
 <h2 id="3-Reference"><a href="#3-Reference" class="headerlink" title="3. Reference"></a>3. Reference</h2><ol>
 <li><a href="https://kr.mathworks.com/help/images/ref/ssim.html" target="_blank" rel="noopener">https://kr.mathworks.com/help/images/ref/ssim.html</a></li>
 <li><a href="https://bskyvision.com/" target="_blank" rel="noopener">https://bskyvision.com/</a></li>

@@ -201,6 +201,7 @@
         <div class="content">
             <h1 id="Lecture-04-Backpropagation-and-computation-graphs"><a href="#Lecture-04-Backpropagation-and-computation-graphs" class="headerlink" title="Lecture 04: Backpropagation and computation graphs"></a>Lecture 04: Backpropagation and computation graphs</h1><p>Standford University 의 CS224n 강의를 듣고 정리하는 글입니다.</p>
 <a id="more"></a>
+
 <p>기본적인 computation graph 와 backpropagation 에 관한 내용은 스킵하도록 하겠습니다. 새롭고, 핵심적인 내용만 간추린 내용입니다.</p>
 <h2 id="1-Word-Vector를-Retraining"><a href="#1-Word-Vector를-Retraining" class="headerlink" title="1. Word Vector를 Retraining?"></a>1. Word Vector를 Retraining?</h2><p>Quetion: Retraining 에 대한 판단의 시작 예: TV, telly, television 이 pre-trained word vector 에서는 비슷한  공간에 분포되어있다고 가정할 때, training data 에는 TV 와 telly 단어만 존재하고, test data 에 television이 존재 할 때, word vector 는 어떻게 될 것인가?</p>
 <ul>
@@ -213,7 +214,9 @@
 <h2 id="2-효율적인-gradient-계산"><a href="#2-효율적인-gradient-계산" class="headerlink" title="2. 효율적인 gradient 계산"></a>2. 효율적인 gradient 계산</h2><ul>
 <li>사실 당연하게 여김에도, 우리가 손으로 계산하는 (upstream network * local gradient) 과정을 아래 식에서도 확인 할 수 있듯이, ds/dh, dh/dz term 은 중복되는 과정이다.</li>
 </ul>
-<script type="math/tex; mode=display">\frac{ds}{dW}=\frac{ds}{dh}\frac{dh}{dz}\frac{dz}{dW}</script><script type="math/tex; mode=display">\frac{ds}{db}=\frac{ds}{dh}\frac{dh}{dz}\frac{dz}{db}</script><ul>
+<p>$$\frac{ds}{dW}=\frac{ds}{dh}\frac{dh}{dz}\frac{dz}{dW}$$</p>
+<p>$$\frac{ds}{db}=\frac{ds}{dh}\frac{dh}{dz}\frac{dz}{db}$$</p>
+<ul>
 <li>따라서 효율적인 computation을 구현하기 위해서, back propagation에서 upstream network 를 저장하고, 각 parameter 에 대한 local gradient를 구해, 동시에 곱해주어 back prop 을 진행 할 수 있다.</li>
 </ul>
 <h2 id="3-Regularization"><a href="#3-Regularization" class="headerlink" title="3. Regularization"></a>3. Regularization</h2><p>우리가 parameter 가 많아지면 많아질 수록, training error 와  test error 는 낮아지기 마련이다. 하지만, 어느 수준을 넘어가게 되면, training set 에 대해서는 매우 정확해지는 반면, test data(validate data)에 대해서는 generalization에서 실패한 그래프나 수치들을 확인할 수 있다. 따라서, 우리는 반드시 우리가 최적화 하려고 하는 Loss 에 대해 Regularization 을 해주어야만 한다.</p>
