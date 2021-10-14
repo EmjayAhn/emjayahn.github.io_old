@@ -32,7 +32,7 @@
 <meta property="og:description" content="C와 C++이 필요해, 제 머릿속 메모리의 Recall 이 필요했습니다. 요즘엔 주로 Python을 사용하다보니, C, C++ 의 기초문법과 CodeStyle을 다시 떠올려야합니다. 학생 때 열심히 공부했으나 방구석 한켠에 먼지 쌓인 열혈강의 C, C++책과 인터넷자료, 유튜브를 통해 Remind하고 공부하는 내용을 요약 정리하려고 합니다. 본 글에서는 C">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://emjayahn.github.io/images/og_emjay_image.png">
-<meta property="og:updated_time" content="2021-10-14T09:57:00.087Z">
+<meta property="og:updated_time" content="2021-10-14T11:16:22.540Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[C++] 2.연산자(Operators)">
 <meta name="twitter:description" content="C와 C++이 필요해, 제 머릿속 메모리의 Recall 이 필요했습니다. 요즘엔 주로 Python을 사용하다보니, C, C++ 의 기초문법과 CodeStyle을 다시 떠올려야합니다. 학생 때 열심히 공부했으나 방구석 한켠에 먼지 쌓인 열혈강의 C, C++책과 인터넷자료, 유튜브를 통해 Remind하고 공부하는 내용을 요약 정리하려고 합니다. 본 글에서는 C">
@@ -184,7 +184,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    4 minutes read (About 541 words)
+                    4 minutes read (About 601 words)
                 </span>
                 
                 
@@ -218,7 +218,10 @@
 <p>boolean 자료형: <code>bool</code> (true, false)</p>
 <figure class="highlight cpp hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">bool</span> istrue = <span class="hljs-literal">true</span>; <span class="hljs-comment">// isture -&gt; true</span></span><br><span class="line"><span class="hljs-keyword">int</span> istrue_integer = <span class="hljs-literal">true</span>; <span class="hljs-comment">//istrue_integer -&gt; 1</span></span><br></pre></td></tr></table></figure>
 
-
+<h3 id="비교연산자-≠-lt-gt-≤-≥"><a href="#비교연산자-≠-lt-gt-≤-≥" class="headerlink" title="비교연산자(==, ≠, &lt;,&gt;, ≤,≥)"></a>비교연산자(==, ≠, &lt;,&gt;, ≤,≥)</h3><p>== : equal</p>
+<p>! =: not equal</p>
+<h3 id="삼항연산자"><a href="#삼항연산자" class="headerlink" title="삼항연산자"></a>삼항연산자</h3><p>간단한 if-else 문의 한줄 표현</p>
+<figure class="highlight cpp hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">int</span> a = <span class="hljs-number">10</span>;</span><br><span class="line"></span><br><span class="line">a == <span class="hljs-number">10</span> ? a = <span class="hljs-literal">true</span> : a = <span class="hljs-literal">false</span>;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">//위 결과를 if else 문으로 표현하면 다음과 같다.</span></span><br><span class="line"><span class="hljs-keyword">if</span> (a == <span class="hljs-number">10</span>)&#123;</span><br><span class="line">	a=<span class="hljs-literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-keyword">else</span>&#123;</span><br><span class="line">	a=<span class="hljs-literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
         </div>
         
         <div class="level is-size-7 is-uppercase">
