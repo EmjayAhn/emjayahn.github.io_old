@@ -137,6 +137,8 @@
                 
                 <a class="navbar-item" href="/archives">Archives</a>
                 
+                <a class="navbar-item" href="/categories">Categories</a>
+                
                 <a class="navbar-item" href="/tags">Tags</a>
                 
                 <a class="navbar-item" href="/about">About</a>
@@ -201,27 +203,21 @@
 <li>이번 post 는 pytorch 를 활용해 기초적인 분류 모델링을 해보면서, pytorch에 익숙함을 높이는 것이 목적입니다.</li>
 </ul>
 <a id="more"></a>
-
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> torch</span><br><span class="line"><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn</span><br><span class="line"><span class="hljs-keyword">import</span> torch.nn.functional <span class="hljs-keyword">as</span> F</span><br><span class="line"><span class="hljs-keyword">import</span> torch.optim <span class="hljs-keyword">as</span> optim</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np</span><br><span class="line"><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">import</span> warnings</span><br><span class="line">warnings.filterwarnings(<span class="hljs-string">"ignore"</span>)</span><br><span class="line">%matplotlib inline</span><br><span class="line">%config InlineBackend.figure_format = <span class="hljs-string">'retina'</span></span><br></pre></td></tr></table></figure>
-
 <h2 id="1-Binary-Classification"><a href="#1-Binary-Classification" class="headerlink" title="1. Binary Classification"></a>1. Binary Classification</h2><ol>
 <li>Modeling</li>
 <li>Sigmoid</li>
 <li>Loss : Binary Cross Entropy</li>
 </ol>
 <h3 id="1-1-Generate-Data"><a href="#1-1-Generate-Data" class="headerlink" title="1.1 Generate Data"></a>1.1 Generate Data</h3><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># plotting function</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">plot_scatter</span><span class="hljs-params">(W_, xy, labels)</span>:</span></span><br><span class="line">    <span class="hljs-keyword">for</span> k, color <span class="hljs-keyword">in</span> [(<span class="hljs-number">0</span>, <span class="hljs-string">'b'</span>), (<span class="hljs-number">1</span>, <span class="hljs-string">'r'</span>)]:</span><br><span class="line">        idx = labels.flatten() == k</span><br><span class="line">        plt.scatter(xy[idx, <span class="hljs-number">0</span>], xy[idx, <span class="hljs-number">1</span>], c=color)</span><br><span class="line">        </span><br><span class="line">    x1 = np.linspace(<span class="hljs-number">-0.1</span>, <span class="hljs-number">1.1</span>)</span><br><span class="line">    x2 = -W_[<span class="hljs-number">1</span>] / W_[<span class="hljs-number">2</span>] * x1 - W_[<span class="hljs-number">0</span>] / W_[<span class="hljs-number">2</span>]</span><br><span class="line">    plt.plot(x1, x2, <span class="hljs-string">'--k'</span>)</span><br><span class="line">    </span><br><span class="line">    plt.grid()</span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># Generate data</span></span><br><span class="line"></span><br><span class="line">W = np.array([<span class="hljs-number">-4.</span>/<span class="hljs-number">5</span>, <span class="hljs-number">3.</span>/<span class="hljs-number">4.</span>, <span class="hljs-number">1.0</span>])</span><br><span class="line"></span><br><span class="line">xy = np.random.rand(<span class="hljs-number">30</span>, <span class="hljs-number">2</span>)</span><br><span class="line">labels = np.zeros(len(xy))</span><br><span class="line">labels[W[<span class="hljs-number">0</span>] + W[<span class="hljs-number">1</span>] * xy[:, <span class="hljs-number">0</span>] + W[<span class="hljs-number">2</span>] * xy[:, <span class="hljs-number">1</span>] &gt; <span class="hljs-number">0</span>] = <span class="hljs-number">1</span></span><br></pre></td></tr></table></figure>
-
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plot_scatter(W, xy, labels)</span><br></pre></td></tr></table></figure>
-
 <p><img src="output_6_0.png" alt="png"></p>
 <h3 id="1-2-Train-data"><a href="#1-2-Train-data" class="headerlink" title="1.2 Train data"></a>1.2 Train data</h3><ul>
 <li>Generate 한 data 로 부터, x 축 값, y 축 값, augmented term 으로 3가지 column 을 만들어 train data 로 만들어 줍니다.</li>
 <li>또한 대응 되는 label 도 model 에 적합한 모양으로 바꾸어 줍니다.</li>
 </ul>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x_train = torch.FloatTensor([[<span class="hljs-number">1.0</span>, xval, yval] <span class="hljs-keyword">for</span> xval, yval <span class="hljs-keyword">in</span> xy])</span><br><span class="line">y_train = torch.FloatTensor(labels).view(<span class="hljs-number">-1</span>, <span class="hljs-number">1</span>)</span><br><span class="line">print(x_train[:<span class="hljs-number">5</span>])</span><br><span class="line">print(y_train[:<span class="hljs-number">5</span>])</span><br></pre></td></tr></table></figure>
-
 <pre><code>tensor([[1.0000, 0.0192, 0.6049],
         [1.0000, 0.0485, 0.2529],
         [1.0000, 0.2412, 0.9115],
@@ -231,12 +227,12 @@ tensor([[0.],
         [0.],
         [1.],
         [1.],
-        [1.]])</code></pre><h3 id="1-3-Modeling"><a href="#1-3-Modeling" class="headerlink" title="1.3 Modeling"></a>1.3 Modeling</h3><ul>
+        [1.]])
+</code></pre><h3 id="1-3-Modeling"><a href="#1-3-Modeling" class="headerlink" title="1.3 Modeling"></a>1.3 Modeling</h3><ul>
 <li>Linear Model 형태와 Sigmoid 함수, Loss function 은 cross entropy 를 활용해 모델링을 합니다.</li>
 <li>여기선, 내장되어있는 함수들을 되도록 사용하지 않고, Low level 로 코드를 작성해 보겠습니다.</li>
 </ul>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># Low level modeling</span></span><br><span class="line">parameter_W = torch.FloatTensor([[<span class="hljs-number">-0.5</span>, <span class="hljs-number">0.7</span>, <span class="hljs-number">1.8</span>]]).view(<span class="hljs-number">-1</span>, <span class="hljs-number">1</span>)</span><br><span class="line">parameter_W.requires_grad_(<span class="hljs-keyword">True</span>)</span><br><span class="line"></span><br><span class="line">optimizer = optim.SGD([parameter_W], lr=<span class="hljs-number">0.01</span>)</span><br><span class="line"></span><br><span class="line">epochs = <span class="hljs-number">10000</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, epochs + <span class="hljs-number">1</span>):</span><br><span class="line">    <span class="hljs-comment"># Prediction</span></span><br><span class="line">    y_hat = F.sigmoid(torch.matmul(x_train, parameter_W))</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-comment"># Loss function</span></span><br><span class="line">    loss = (-y_train * torch.log(y_hat) - (<span class="hljs-number">1</span> - y_train) * torch.log((<span class="hljs-number">1</span> - y_hat))).sum().mean()</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-comment"># Backprop &amp; update</span></span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    loss.backward()</span><br><span class="line">    optimizer.step()</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-keyword">if</span> epoch % <span class="hljs-number">1000</span> == <span class="hljs-number">0</span>:</span><br><span class="line">        print(<span class="hljs-string">"epoch &#123;&#125; -- loss &#123;&#125;"</span>.format(epoch, loss.data))</span><br></pre></td></tr></table></figure>
-
 <pre><code>epoch 1000 -- loss 6.368619441986084
 epoch 2000 -- loss 4.5249152183532715
 epoch 3000 -- loss 3.654862403869629
@@ -246,38 +242,33 @@ epoch 6000 -- loss 2.4800000190734863
 epoch 7000 -- loss 2.2651939392089844
 epoch 8000 -- loss 2.091233253479004
 epoch 9000 -- loss 1.9466761350631714
-epoch 10000 -- loss 1.8241318464279175</code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">parameter_W.data.numpy()</span><br></pre></td></tr></table></figure>
-
+epoch 10000 -- loss 1.8241318464279175
+</code></pre><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">parameter_W.data.numpy()</span><br></pre></td></tr></table></figure>
 <pre><code>array([[-16.748823],
        [ 16.618748],
-       [ 17.622692]], dtype=float32)</code></pre><ul>
+       [ 17.622692]], dtype=float32)
+</code></pre><ul>
 <li>아래 그림을 보면, Train이 잘 된 것을 알 수 있습니다.</li>
 </ul>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plot_scatter(parameter_W.data.numpy(), xy, labels)</span><br></pre></td></tr></table></figure>
-
 <p><img src="output_13_0.png" alt="png"></p>
 <h2 id="2-Multiclass-Classification"><a href="#2-Multiclass-Classification" class="headerlink" title="2. Multiclass Classification"></a>2. Multiclass Classification</h2><h3 id="2-1-Generate-Data"><a href="#2-1-Generate-Data" class="headerlink" title="2.1 Generate Data"></a>2.1 Generate Data</h3><ul>
 <li>이번에는 3개의 label 을 가지고 있는 classification 을 Modeling 해 보겠습니다.</li>
 <li>또한, High Level 로 pytorch 의 추상 클래스를 이용해 모델링 해보겠습니다.</li>
 </ul>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">plot_scatter</span><span class="hljs-params">(W1, W2, xy, labels)</span>:</span></span><br><span class="line">    <span class="hljs-keyword">for</span> k, color <span class="hljs-keyword">in</span> [(<span class="hljs-number">0</span>, <span class="hljs-string">'b'</span>), (<span class="hljs-number">1</span>, <span class="hljs-string">'r'</span>), (<span class="hljs-number">2</span>, <span class="hljs-string">'y'</span>)]:</span><br><span class="line">        idx = labels.flatten() == k</span><br><span class="line">        plt.scatter(xy[idx, <span class="hljs-number">0</span>], xy[idx, <span class="hljs-number">1</span>], c=color)</span><br><span class="line">        </span><br><span class="line">    x1 = np.linspace(<span class="hljs-number">-0.6</span>, <span class="hljs-number">1.6</span>)</span><br><span class="line">    x2 = -W1[<span class="hljs-number">1</span>] / W1[<span class="hljs-number">2</span>] * x1 - W1[<span class="hljs-number">0</span>] / W1[<span class="hljs-number">2</span>]</span><br><span class="line">    x3 = -W2[<span class="hljs-number">1</span>] / W2[<span class="hljs-number">2</span>] * x1 - W2[<span class="hljs-number">0</span>] / W2[<span class="hljs-number">2</span>]</span><br><span class="line">    plt.plot(x1, x2, <span class="hljs-string">'--k'</span>)</span><br><span class="line">    plt.plot(x1, x3, <span class="hljs-string">'--k'</span>)</span><br><span class="line">    </span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># Generate data</span></span><br><span class="line"></span><br><span class="line">W1 = np.array([<span class="hljs-number">-1</span>, <span class="hljs-number">3.</span>/<span class="hljs-number">4.</span>, <span class="hljs-number">1.0</span>])</span><br><span class="line">W2 = np.array([<span class="hljs-number">-1.</span>/<span class="hljs-number">5</span>, <span class="hljs-number">3.</span>/<span class="hljs-number">4.</span>, <span class="hljs-number">1.0</span>])</span><br><span class="line"></span><br><span class="line">xy = <span class="hljs-number">2</span> * np.random.rand(<span class="hljs-number">100</span>, <span class="hljs-number">2</span>) - <span class="hljs-number">0.5</span></span><br><span class="line">labels = np.zeros(len(xy))</span><br><span class="line">labels[(W1[<span class="hljs-number">0</span>] + W1[<span class="hljs-number">1</span>] * xy[:, <span class="hljs-number">0</span>] + W1[<span class="hljs-number">2</span>] * xy[:, <span class="hljs-number">1</span>] &gt; <span class="hljs-number">0</span>)] = <span class="hljs-number">1</span></span><br><span class="line">labels[(W2[<span class="hljs-number">0</span>] + W2[<span class="hljs-number">1</span>] * xy[:, <span class="hljs-number">0</span>] + W2[<span class="hljs-number">2</span>] * xy[:, <span class="hljs-number">1</span>] &lt; <span class="hljs-number">0</span>)] = <span class="hljs-number">2</span></span><br></pre></td></tr></table></figure>
-
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plot_scatter(W1, W2, xy, labels)</span><br></pre></td></tr></table></figure>
-
 <p><img src="output_18_0.png" alt="png"></p>
 <h3 id="2-2-Train-data"><a href="#2-2-Train-data" class="headerlink" title="2.2 Train data"></a>2.2 Train data</h3><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x_train = torch.FloatTensor([[<span class="hljs-number">1.0</span>, xval, yval] <span class="hljs-keyword">for</span> xval, yval <span class="hljs-keyword">in</span> xy])</span><br><span class="line">y_train = torch.LongTensor(labels)</span><br><span class="line">print(x_train[<span class="hljs-number">-5</span>:])</span><br><span class="line">print(y_train[<span class="hljs-number">-5</span>:])</span><br></pre></td></tr></table></figure>
-
 <pre><code>tensor([[ 1.0000,  0.9641,  1.3851],
         [ 1.0000, -0.4445,  1.0595],
         [ 1.0000,  1.0854, -0.1216],
         [ 1.0000,  0.8707,  0.1640],
         [ 1.0000,  0.7043,  1.3483]])
-tensor([1, 0, 0, 0, 1])</code></pre><h3 id="2-3-Modeling"><a href="#2-3-Modeling" class="headerlink" title="2.3 Modeling"></a>2.3 Modeling</h3><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MultiModel</span><span class="hljs-params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span></span><br><span class="line">        super().__init__()</span><br><span class="line">        self.linear = nn.Linear(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>)</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">forward</span><span class="hljs-params">(self, x)</span>:</span></span><br><span class="line">        <span class="hljs-keyword">return</span> self.linear(x)</span><br></pre></td></tr></table></figure>
-
+tensor([1, 0, 0, 0, 1])
+</code></pre><h3 id="2-3-Modeling"><a href="#2-3-Modeling" class="headerlink" title="2.3 Modeling"></a>2.3 Modeling</h3><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MultiModel</span><span class="hljs-params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span></span><br><span class="line">        super().__init__()</span><br><span class="line">        self.linear = nn.Linear(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>)</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">forward</span><span class="hljs-params">(self, x)</span>:</span></span><br><span class="line">        <span class="hljs-keyword">return</span> self.linear(x)</span><br></pre></td></tr></table></figure>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">model = MultiModel()</span><br><span class="line"></span><br><span class="line">optimizer = optim.SGD(model.parameters(), lr=<span class="hljs-number">0.01</span>)</span><br><span class="line"></span><br><span class="line">epochs = <span class="hljs-number">10000</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> range(<span class="hljs-number">1</span>, epochs + <span class="hljs-number">1</span>):</span><br><span class="line">    y_hat = model(x_train)</span><br><span class="line">    </span><br><span class="line">    loss = F.cross_entropy(y_hat, y_train)</span><br><span class="line">    </span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    loss.backward()</span><br><span class="line">    optimizer.step()</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-keyword">if</span> epoch % <span class="hljs-number">1000</span> == <span class="hljs-number">0</span>:</span><br><span class="line">        print(<span class="hljs-string">"epoch &#123;&#125; -- loss &#123;&#125;"</span>.format(epoch, loss.data))</span><br></pre></td></tr></table></figure>
-
 <pre><code>epoch 1000 -- loss 0.6635385155677795
 epoch 2000 -- loss 0.5513403415679932
 epoch 3000 -- loss 0.4890784025192261
@@ -287,12 +278,13 @@ epoch 6000 -- loss 0.39017024636268616
 epoch 7000 -- loss 0.369760125875473
 epoch 8000 -- loss 0.35262930393218994
 epoch 9000 -- loss 0.3379631042480469
-epoch 10000 -- loss 0.3252090811729431</code></pre><h3 id="2-4-Accuracy-계산"><a href="#2-4-Accuracy-계산" class="headerlink" title="2.4 Accuracy 계산"></a>2.4 Accuracy 계산</h3><ul>
+epoch 10000 -- loss 0.3252090811729431
+</code></pre><h3 id="2-4-Accuracy-계산"><a href="#2-4-Accuracy-계산" class="headerlink" title="2.4 Accuracy 계산"></a>2.4 Accuracy 계산</h3><ul>
 <li>Accuracy 가 96 % 로 비교적 잘 분류 된 것을 확인 할 수 있습니다.</li>
 </ul>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">accuracy = (torch.ByteTensor(model(x_train).max(dim=<span class="hljs-number">1</span>)[<span class="hljs-number">1</span>] == y_train)).sum().item() / len(y_train)</span><br><span class="line">print(<span class="hljs-string">"Accuracy: &#123;&#125;"</span>.format(accuracy))</span><br></pre></td></tr></table></figure>
-
-<pre><code>Accuracy: 0.96</code></pre>
+<pre><code>Accuracy: 0.96
+</code></pre>
         </div>
         
         
@@ -309,6 +301,7 @@ epoch 10000 -- loss 0.3252090811729431</code></pre><h3 id="2-4-Accuracy-계산">
 
 
 
+    <!-- add buy me a coffee button -->
 <center><script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="cHgDES9Ut" data-color="#ffffff" data-emoji data-font="Comic" data-text="Buy Me a coffee" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#FFDD00"></script></center><br><br>
 <div class="card card-transparent">
     <div class="level post-navigation is-flex-wrap is-mobile">

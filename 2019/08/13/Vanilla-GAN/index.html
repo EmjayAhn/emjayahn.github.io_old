@@ -137,6 +137,8 @@
                 
                 <a class="navbar-item" href="/archives">Archives</a>
                 
+                <a class="navbar-item" href="/categories">Categories</a>
+                
                 <a class="navbar-item" href="/tags">Tags</a>
                 
                 <a class="navbar-item" href="/about">About</a>
@@ -198,8 +200,7 @@
         </h1>
         <div class="content">
             <p>A pytorch implementation of Vanilla GAN using MNIST digits data<br>(<a href="https://papers.nips.cc/paper/5423-generative-adversarial-nets.pdf" target="_blank" rel="noopener">https://papers.nips.cc/paper/5423-generative-adversarial-nets.pdf</a>)</p>
-<p>실험 결과와 코드는 <a href="https://github.com/EmjayAhn/GAN-pytorch" target="_blank" rel="noopener">https://github.com/EmjayAhn/GAN-pytorch</a> 에서 확인 할 수 있습니다.</p>
-<a id="more"></a>
+<p>실험 결과와 코드는 <a href="https://github.com/EmjayAhn/GAN-pytorch" target="_blank" rel="noopener">https://github.com/EmjayAhn/GAN-pytorch</a> 에서 확인 할 수 있습니다.<br><a id="more"></a></p>
 <h2 id="0-목표"><a href="#0-목표" class="headerlink" title="0. 목표"></a>0. 목표</h2><p>GAN 은 최근 인기를 끌고 있는 generative model 중 하나입니다. 다양한 모델이 쏟아져 나오고 있기에, 이 트렌트를 따라가기 위해서, 가장 기본적인 vanilla gan 을 구현하고, 이해하는 것이 목표입니다. 이번 예제에서는 MNIST digit 을 사용하였으나, 이미지 외에도 다양한 데이터를 활용할 수 있습니다.</p>
 <h2 id="1-Model-구조"><a href="#1-Model-구조" class="headerlink" title="1. Model 구조"></a>1. Model 구조</h2><p>GAN 의 아버지 Ian Goodfellow가 제안한 이 모델은 두가지 신경망으로 구성 되어 있습니다. 먼저, 우리가 가지고 있는 데이터와 비슷하게 데이터를 생성하는 것을 학습하는 <strong>Generator</strong> 와 Generator 가 생성한 데이터(fake)와 실제 우리가 가지고 있는 데이터(real)를 fake 인지 real 인지 구분하는 <strong>Discriminator</strong> 를 구분하는 두 신경망으로 구성되어 있습니다. </p>
 <p><img src="Untitled-b4ab047c-a850-427f-8e06-379dce74e281.png" alt></p>
@@ -217,8 +218,7 @@
 <li>이번 구현에서 Discriminator를 다음과 같이 작성하였습니다.</li>
 </ul>
 <p><img src="Untitled-4de92b80-7e9d-452e-9956-0298c2b493e2.png" alt></p>
-<h2 id="2-Loss-Function"><a href="#2-Loss-Function" class="headerlink" title="2. Loss Function"></a>2. Loss Function</h2><h3 id="2-1-Loss-Function-의-해석"><a href="#2-1-Loss-Function-의-해석" class="headerlink" title="2-1. Loss Function 의 해석"></a>2-1. Loss Function 의 해석</h3><p>$$\underset{G}{\text{min}}\underset{D}{\text{max}}V(D, G)=E_{x<del>p_{data(x)}}[logD(x)]+E_{z</del>p_{z}(z)}[log(1-D(G(z)))]$$</p>
-<p>Vanilla GAN 의 Loss function 은 위와 같습니다. Loss Function 의 구조 자체는 min-max 최적화로써, Discriminator와 Generator 의 loss 함수를 각각 최적화 해 나아가면서 위 식의 균형 향해 다가가는 것입니다.</p>
+<h2 id="2-Loss-Function"><a href="#2-Loss-Function" class="headerlink" title="2. Loss Function"></a>2. Loss Function</h2><h3 id="2-1-Loss-Function-의-해석"><a href="#2-1-Loss-Function-의-해석" class="headerlink" title="2-1. Loss Function 의 해석"></a>2-1. Loss Function 의 해석</h3><script type="math/tex; mode=display">\underset{G}{\text{min}}\underset{D}{\text{max}}V(D, G)=E_{x~p_{data(x)}}[logD(x)]+E_{z~p_{z}(z)}[log(1-D(G(z)))]</script><p>Vanilla GAN 의 Loss function 은 위와 같습니다. Loss Function 의 구조 자체는 min-max 최적화로써, Discriminator와 Generator 의 loss 함수를 각각 최적화 해 나아가면서 위 식의 균형 향해 다가가는 것입니다.</p>
 <ul>
 <li>먼저, Discriminator에 대한 max 부터 살펴 보면, Real을 입력으로 넣었을 때는, log(D(x))의 기댓값이 최대가 되게 하고, G(z) 즉, 가짜를 가짜라고 할 확률 1-D(G(z))는 최대가 되게끔 학습을 하는 것입니다.</li>
 <li>Generator 에 대한 min 을 살펴보면, G(z) 는 가우시안 랜덤 변수를 받아 생성된 데이터를 D(G(z)), discriminator에 넣었을 때, 1-D(G(z)), 즉 가짜라고 할 확률을 최소화하게끔 학습하는 것입니다. 이는 결국, Discriminator를 속이기 위해 generator의 최적화가 실행된다는 의미입니다.</li>
@@ -270,6 +270,7 @@
 
 
 
+    <!-- add buy me a coffee button -->
 <center><script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="cHgDES9Ut" data-color="#ffffff" data-emoji data-font="Comic" data-text="Buy Me a coffee" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#FFDD00"></script></center><br><br>
 <div class="card card-transparent">
     <div class="level post-navigation is-flex-wrap is-mobile">

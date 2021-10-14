@@ -137,6 +137,8 @@
                 
                 <a class="navbar-item" href="/archives">Archives</a>
                 
+                <a class="navbar-item" href="/categories">Categories</a>
+                
                 <a class="navbar-item" href="/tags">Tags</a>
                 
                 <a class="navbar-item" href="/about">About</a>
@@ -197,24 +199,19 @@
             
         </h1>
         <div class="content">
-            <h1 id="Chapter-3-Intensity-Transformations-and-Spatial-Filtering"><a href="#Chapter-3-Intensity-Transformations-and-Spatial-Filtering" class="headerlink" title="Chapter 3: Intensity Transformations and Spatial Filtering"></a>Chapter 3: Intensity Transformations and Spatial Filtering</h1><p>Rafael C.Gonzalez and Richard E.Woods. <i>Digital Image Processing</i>. PEARSON 을 다시 한번 읽어보며, 개인적으로 정리한 글입니다.</p>
-<a id="more"></a>
+            <h1 id="Chapter-3-Intensity-Transformations-and-Spatial-Filtering"><a href="#Chapter-3-Intensity-Transformations-and-Spatial-Filtering" class="headerlink" title="Chapter 3: Intensity Transformations and Spatial Filtering"></a>Chapter 3: Intensity Transformations and Spatial Filtering</h1><p>Rafael C.Gonzalez and Richard E.Woods. <i>Digital Image Processing</i>. PEARSON 을 다시 한번 읽어보며, 개인적으로 정리한 글입니다.<br><a id="more"></a></p>
 <h2 id="3-1-Background"><a href="#3-1-Background" class="headerlink" title="3.1 Background"></a>3.1 Background</h2><h3 id="3-1-1-The-Basics-of-Intensity-Transformations-and-Spatial-Filtering"><a href="#3-1-1-The-Basics-of-Intensity-Transformations-and-Spatial-Filtering" class="headerlink" title="3.1.1 The Basics of Intensity Transformations and Spatial Filtering"></a>3.1.1 The Basics of Intensity Transformations and Spatial Filtering</h3><ul>
 <li>모든 spatial domain process 에서 operator  와 input image f(x,y), output image g(x, y) 로 표현된다.</li>
 </ul>
-<p>$$g(x, y) = T[f(x, y)]$$</p>
-<h2 id="3-2-Some-Basic-Intensity-Transformation-Functions"><a href="#3-2-Some-Basic-Intensity-Transformation-Functions" class="headerlink" title="3.2 Some Basic Intensity Transformation Functions"></a>3.2 Some Basic Intensity Transformation Functions</h2><h3 id="3-2-1-Image-Negatives"><a href="#3-2-1-Image-Negatives" class="headerlink" title="3.2.1 Image Negatives"></a>3.2.1 Image Negatives</h3><ul>
+<script type="math/tex; mode=display">g(x, y) = T[f(x, y)]</script><h2 id="3-2-Some-Basic-Intensity-Transformation-Functions"><a href="#3-2-Some-Basic-Intensity-Transformation-Functions" class="headerlink" title="3.2 Some Basic Intensity Transformation Functions"></a>3.2 Some Basic Intensity Transformation Functions</h2><h3 id="3-2-1-Image-Negatives"><a href="#3-2-1-Image-Negatives" class="headerlink" title="3.2.1 Image Negatives"></a>3.2.1 Image Negatives</h3><ul>
 <li>Negative transformation</li>
 <li>이미지 반전 효과</li>
 </ul>
-<p>$$s = L-1-r$$</p>
-<h3 id="3-2-2-Log-Transormations"><a href="#3-2-2-Log-Transormations" class="headerlink" title="3.2.2 Log Transormations"></a>3.2.2 Log Transormations</h3><p>$$s=c*log(1+r)$$</p>
-<ul>
+<script type="math/tex; mode=display">s = L-1-r</script><h3 id="3-2-2-Log-Transormations"><a href="#3-2-2-Log-Transormations" class="headerlink" title="3.2.2 Log Transormations"></a>3.2.2 Log Transormations</h3><script type="math/tex; mode=display">s=c*log(1+r)</script><ul>
 <li>c : constant, assumed r ≥ 0</li>
 <li>low intensity value of input → wider range of output levels</li>
 </ul>
-<h3 id="3-2-3-Power-Law-Gamma-Transformations"><a href="#3-2-3-Power-Law-Gamma-Transformations" class="headerlink" title="3.2.3 Power-Law(Gamma) Transformations"></a>3.2.3 Power-Law(Gamma) Transformations</h3><p>$$s = cr^\gamma=c(r+\epsilon)^\gamma$$</p>
-<p>c, gamma: positive constants</p>
+<h3 id="3-2-3-Power-Law-Gamma-Transformations"><a href="#3-2-3-Power-Law-Gamma-Transformations" class="headerlink" title="3.2.3 Power-Law(Gamma) Transformations"></a>3.2.3 Power-Law(Gamma) Transformations</h3><script type="math/tex; mode=display">s = cr^\gamma=c(r+\epsilon)^\gamma</script><p>c, gamma: positive constants</p>
 <ul>
 <li>gamma 의 값에 따라서, intensity의 어떤 부분이 강조되는지가 다르다.</li>
 <li>Original Image 와 monitor 에 비추는 이미지간의 차이를 중요하게 다룰 때, gamma correction 을 사용하게 된다.</li>
@@ -234,16 +231,13 @@
 <li>Assume monotonic transformation: one-to-one mapping or many-to-one mapping</li>
 <li>output pdf ps, input pdf pr</li>
 </ul>
-<p>$$p_s(s) = p_r(r)|\frac{dr}{ds}|$$</p>
-<ul>
+<script type="math/tex; mode=display">p_s(s) = p_r(r)|\frac{dr}{ds}|</script><ul>
 <li>이 식은?</li>
 </ul>
-<p>$$s=T(r)=(L-1)\int_{0}^{r}{p_r(w)dw}$$</p>
-<ul>
+<script type="math/tex; mode=display">s=T(r)=(L-1)\int_{0}^{r}{p_r(w)dw}</script><ul>
 <li>histogram equalization, histogram linearization</li>
 </ul>
-<p>$$s_k=T(r_k)=(L-1)\sum_{j=0}^{k}p_r(r_j) = \frac{L-1}{MN}\sum_{j=0}^{k}{n_j}$$</p>
-<ul>
+<script type="math/tex; mode=display">s_k=T(r_k)=(L-1)\sum_{j=0}^{k}p_r(r_j) = \frac{L-1}{MN}\sum_{j=0}^{k}{n_j}</script><ul>
 <li>output image 의 p_s,  distribution 이 uniform 되게 하는 형태</li>
 <li>결과적으로, 같은 이미지 형태이지만, 밝기와 contrast 가 모두 다르더라도 일정한 historgram 이 되도록 transform 해준다.</li>
 </ul>
@@ -269,8 +263,7 @@
 <h3 id="3-4-2-Spatial-Correlation-and-Convolution"><a href="#3-4-2-Spatial-Correlation-and-Convolution" class="headerlink" title="3.4.2 Spatial Correlation and Convolution"></a>3.4.2 Spatial Correlation and Convolution</h3><ul>
 <li>correlation, convolution: 180 degree 반전</li>
 </ul>
-<h3 id="3-4-3-Vector-Representation-of-Linear-Filttering"><a href="#3-4-3-Vector-Representation-of-Linear-Filttering" class="headerlink" title="3.4.3 Vector Representation of Linear Filttering"></a>3.4.3 Vector Representation of Linear Filttering</h3><p>$$R=\sum_{k=1}^{9}w_kz_k=\boldsymbol{w}^T\boldsymbol{z}$$</p>
-<h3 id="3-4-4-Generating-Spatial-Filter-Masks"><a href="#3-4-4-Generating-Spatial-Filter-Masks" class="headerlink" title="3.4.4 Generating Spatial Filter Masks"></a>3.4.4 Generating Spatial Filter Masks</h3><ul>
+<h3 id="3-4-3-Vector-Representation-of-Linear-Filttering"><a href="#3-4-3-Vector-Representation-of-Linear-Filttering" class="headerlink" title="3.4.3 Vector Representation of Linear Filttering"></a>3.4.3 Vector Representation of Linear Filttering</h3><script type="math/tex; mode=display">R=\sum_{k=1}^{9}w_kz_k=\boldsymbol{w}^T\boldsymbol{z}</script><h3 id="3-4-4-Generating-Spatial-Filter-Masks"><a href="#3-4-4-Generating-Spatial-Filter-Masks" class="headerlink" title="3.4.4 Generating Spatial Filter Masks"></a>3.4.4 Generating Spatial Filter Masks</h3><ul>
 <li>mn mask</li>
 <li>Average value of masked values → image smoothing</li>
 <li>위치에 따른 gaussian filter 예 (standard deviation?(p.173))</li>
@@ -300,8 +293,7 @@
 <h3 id="3-6-1-Foundation"><a href="#3-6-1-Foundation" class="headerlink" title="3.6.1 Foundation"></a>3.6.1 Foundation</h3><h3 id="3-6-2-Using-the-Second-Derivative-for-Image-Sharpeing—The-Laplacian"><a href="#3-6-2-Using-the-Second-Derivative-for-Image-Sharpeing—The-Laplacian" class="headerlink" title="3.6.2 Using the Second Derivative for Image Sharpeing—The Laplacian"></a>3.6.2 Using the Second Derivative for Image Sharpeing—The Laplacian</h3><ul>
 <li>capture intensity discontinuities in an image and deemphasize</li>
 </ul>
-<p>$$g(x, y)=f(x, y) + c[\triangledown^2f(x,y)]$$</p>
-<h3 id="3-6-3-Unsharp-Masking-and-Highboost-Filtering"><a href="#3-6-3-Unsharp-Masking-and-Highboost-Filtering" class="headerlink" title="3.6.3 Unsharp Masking and Highboost Filtering"></a>3.6.3 Unsharp Masking and Highboost Filtering</h3><ul>
+<script type="math/tex; mode=display">g(x, y)=f(x, y) + c[\triangledown^2f(x,y)]</script><h3 id="3-6-3-Unsharp-Masking-and-Highboost-Filtering"><a href="#3-6-3-Unsharp-Masking-and-Highboost-Filtering" class="headerlink" title="3.6.3 Unsharp Masking and Highboost Filtering"></a>3.6.3 Unsharp Masking and Highboost Filtering</h3><ul>
 <li>unsharp masking<ol>
 <li>Blur the original image</li>
 <li>Subtract the blurred image from the original (the resulting difference is called the mask)</li>
@@ -309,17 +301,14 @@
 </ol>
 </li>
 </ul>
-<p>$$g_{mask}(x,y)=f(x,y)-\bar{f}(x,y)$$</p>
-<p>$$g(x,y) = f(x, y) + k*g_{mask}(x, y), \quad k&gt;=0$$</p>
-<ul>
+<script type="math/tex; mode=display">g_{mask}(x,y)=f(x,y)-\bar{f}(x,y)</script><script type="math/tex; mode=display">g(x,y) = f(x, y) + k*g_{mask}(x, y), \quad k>=0</script><ul>
 <li>k&gt;1 , highboost filtering</li>
 <li>k&lt;1, de-emphasizes unsharp mask</li>
 </ul>
 <h3 id="3-6-4-Using-First-Order-Derivatives-for-Nonlinear-Image-Sharpening—The-gradient"><a href="#3-6-4-Using-First-Order-Derivatives-for-Nonlinear-Image-Sharpening—The-gradient" class="headerlink" title="3.6.4 Using First-Order Derivatives for (Nonlinear) Image Sharpening—The gradient"></a>3.6.4 Using First-Order Derivatives for (Nonlinear) Image Sharpening—The gradient</h3><ul>
 <li>Using the magnitude of the gradient, magnitude M(x, y)</li>
 </ul>
-<p>$$M(x, y)=mag(\triangledown f)=\sqrt{g_x^2+g_y^2}=|g_x|+|g_y|$$</p>
-
+<script type="math/tex; mode=display">M(x, y)=mag(\triangledown f)=\sqrt{g_x^2+g_y^2}=|g_x|+|g_y|</script>
         </div>
         
         
@@ -336,6 +325,7 @@
 
 
 
+    <!-- add buy me a coffee button -->
 <center><script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="cHgDES9Ut" data-color="#ffffff" data-emoji data-font="Comic" data-text="Buy Me a coffee" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#FFDD00"></script></center><br><br>
 <div class="card card-transparent">
     <div class="level post-navigation is-flex-wrap is-mobile">
