@@ -179,7 +179,7 @@
                 <time class="level-item has-text-grey" datetime="2021-10-14T09:51:33.000Z">2021-10-14</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/category/Development/">Development</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/category/Development/C/">C++</a>
+                <a class="has-link-grey -link" href="/categories/Development/">Development</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/Development/C/">C++</a>
                 </div>
                 
                 
@@ -200,9 +200,12 @@
         </h1>
         <div class="content">
             <p>C와 C++이 필요해, 제 머릿속 메모리의 Recall 이 필요했습니다. 요즘엔 주로 Python을 사용하다보니, C, C++ 의 기초문법과 CodeStyle을 다시 떠올려야합니다. 학생 때 열심히 공부했으나 방구석 한켠에 먼지 쌓인 열혈강의 C, C++책과 인터넷자료, 유튜브를 통해 Remind하고 공부하는 내용을 요약 정리하려고 합니다. 본 글에서는 C에 대한 내용보다 C++ 내용이 주를 이룰 예정입니다. </p>
-<p>모든 연산자에 대한 리뷰보다는 조금 까다롭거나, 쉽게 잊을 수 있는 연산자 등을 위주로 정리하려고 합니다.<br><a id="more"></a></p>
+<p>모든 연산자에 대한 리뷰보다는 조금 까다롭거나, 쉽게 잊을 수 있는 연산자 등을 위주로 정리하려고 합니다.</p>
+<a id="more"></a>
+
 <h3 id="산술연산자"><a href="#산술연산자" class="headerlink" title="산술연산자(+, -, *, /, %, +=)"></a>산술연산자(+, -, *, /, %, +=)</h3><p>/ : 나누기,</p>
 <figure class="highlight cpp hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 이 때, 정수와 정수간의 연산은 result 에는 2가 저장됨</span></span><br><span class="line"><span class="hljs-keyword">int</span> result = <span class="hljs-number">7</span> / <span class="hljs-number">3</span>;</span><br><span class="line"><span class="hljs-comment">// 이 때, 나머지는 모듈러스 연산자로 계산</span></span><br><span class="line"><span class="hljs-keyword">int</span> remain = <span class="hljs-number">7</span> % <span class="hljs-number">3</span>;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 이 경우는, 에러는 발생시키지 않으나 warning sign 을 확인할 수 있음.</span></span><br><span class="line"><span class="hljs-comment">// int type의 result에 float 혹은 double 형태의 연산값을 저장하기에 warning sign 발생</span></span><br><span class="line"><span class="hljs-keyword">int</span> result = <span class="hljs-number">7.0</span> / <span class="hljs-number">3.0</span>;</span><br><span class="line"><span class="hljs-comment">// 이를 막기위해 작성자의 의도를 담아 TypeCasting 을 해주는 것을 추천</span></span><br><span class="line"><span class="hljs-keyword">int</span> result = (<span class="hljs-keyword">int</span>)(<span class="hljs-number">7.0</span> / <span class="hljs-number">3.0</span>);</span><br></pre></td></tr></table></figure>
+
 <p>% : Modulus 나머지 연산자, Modulus는 argument 가 모두 정수여야 계산 가능. 실수간의 Modulus계산은 에러</p>
 <p>+= : a += 10 → a = a + 10</p>
 <h3 id="증감연산자-—"><a href="#증감연산자-—" class="headerlink" title="증감연산자(++, —)"></a>증감연산자(++, —)</h3><p>증감연산자는 정수의 경우 1을 더하거나 빼는 경우이지만, 포인터에서는 메모리 단위로 증가하는 것.</p>
@@ -211,10 +214,12 @@
 <p>— : a— → a = a - 1, —a → a = a-1</p>
 <p>앞에 붙는 경우(전치)와 뒤에 붙는 경우(후치)는 연산의 우선순위가 변화. 후위는 우선순위가 가장 마지막, 전위는 우선순위가 먼저 수행.</p>
 <figure class="highlight cpp hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">int</span> result = <span class="hljs-number">10</span>;</span><br><span class="line"><span class="hljs-keyword">int</span> a = <span class="hljs-number">0</span>;</span><br><span class="line">a = result++; <span class="hljs-comment">// a=10, result=11</span></span><br><span class="line"></span><br><span class="line">result = <span class="hljs-number">10</span>;</span><br><span class="line">a = <span class="hljs-number">0</span>;</span><br><span class="line">a = ++result; <span class="hljs-comment">// a=11, result=11</span></span><br></pre></td></tr></table></figure>
+
 <h3 id="논리연산자-Booleans-not-amp-amp-and-or"><a href="#논리연산자-Booleans-not-amp-amp-and-or" class="headerlink" title="논리연산자(Booleans), !(not), &amp;&amp;(and), ||(or)"></a>논리연산자(Booleans), !(not), &amp;&amp;(and), ||(or)</h3><p>true: 0이 아닌 모든 값, 일반적으로 1</p>
 <p>false: 0</p>
 <p>boolean 자료형: <code>bool</code> (true, false)</p>
 <figure class="highlight cpp hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">bool</span> istrue = <span class="hljs-literal">true</span>; <span class="hljs-comment">// isture -&gt; true</span></span><br><span class="line"><span class="hljs-keyword">int</span> istrue_integer = <span class="hljs-literal">true</span>; <span class="hljs-comment">//istrue_integer -&gt; 1</span></span><br></pre></td></tr></table></figure>
+
 <h3 id="비교연산자-≠-lt-gt-≤-≥"><a href="#비교연산자-≠-lt-gt-≤-≥" class="headerlink" title="비교연산자(==, ≠, &lt;,&gt;, ≤,≥)"></a>비교연산자(==, ≠, &lt;,&gt;, ≤,≥)</h3><p>== : equal</p>
 <p>! =: not equal</p>
 <h3 id="삼항연산자"><a href="#삼항연산자" class="headerlink" title="삼항연산자"></a>삼항연산자</h3><p>간단한 if-else 문의 한줄 표현</p>
@@ -396,7 +401,7 @@
             </h3>
             <ul class="menu-list">
             <li>
-        <a class="level is-marginless" href="/category/Book/">
+        <a class="level is-marginless" href="/categories/Book/">
             <span class="level-start">
                 <span class="level-item">Book</span>
             </span>
@@ -404,7 +409,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a><ul><li>
-        <a class="level is-marginless" href="/category/Book/Digital-Image-Processing/">
+        <a class="level is-marginless" href="/categories/Book/Digital-Image-Processing/">
             <span class="level-start">
                 <span class="level-item">Digital Image Processing</span>
             </span>
@@ -412,7 +417,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li></ul></li><li>
-        <a class="level is-marginless" href="/category/DataScience/">
+        <a class="level is-marginless" href="/categories/DataScience/">
             <span class="level-start">
                 <span class="level-item">DataScience</span>
             </span>
@@ -420,7 +425,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a><ul><li>
-        <a class="level is-marginless" href="/category/DataScience/Seminar/">
+        <a class="level is-marginless" href="/categories/DataScience/Seminar/">
             <span class="level-start">
                 <span class="level-item">Seminar</span>
             </span>
@@ -428,7 +433,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li></ul></li><li>
-        <a class="level is-marginless" href="/category/DataStructure/">
+        <a class="level is-marginless" href="/categories/DataStructure/">
             <span class="level-start">
                 <span class="level-item">DataStructure</span>
             </span>
@@ -436,7 +441,7 @@
                 <span class="level-item tag">2</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/Development/">
+        <a class="level is-marginless" href="/categories/Development/">
             <span class="level-start">
                 <span class="level-item">Development</span>
             </span>
@@ -444,7 +449,7 @@
                 <span class="level-item tag">6</span>
             </span>
         </a><ul><li>
-        <a class="level is-marginless" href="/category/Development/C/">
+        <a class="level is-marginless" href="/categories/Development/C/">
             <span class="level-start">
                 <span class="level-item">C++</span>
             </span>
@@ -452,7 +457,7 @@
                 <span class="level-item tag">2</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/Development/Linux/">
+        <a class="level is-marginless" href="/categories/Development/Linux/">
             <span class="level-start">
                 <span class="level-item">Linux</span>
             </span>
@@ -460,7 +465,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/Development/Python/">
+        <a class="level is-marginless" href="/categories/Development/Python/">
             <span class="level-start">
                 <span class="level-item">Python</span>
             </span>
@@ -468,7 +473,7 @@
                 <span class="level-item tag">3</span>
             </span>
         </a></li></ul></li><li>
-        <a class="level is-marginless" href="/category/Diary/">
+        <a class="level is-marginless" href="/categories/Diary/">
             <span class="level-start">
                 <span class="level-item">Diary</span>
             </span>
@@ -476,7 +481,7 @@
                 <span class="level-item tag">43</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/Google-Cloud-Platform/">
+        <a class="level is-marginless" href="/categories/Google-Cloud-Platform/">
             <span class="level-start">
                 <span class="level-item">Google Cloud Platform</span>
             </span>
@@ -484,7 +489,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/Lecture/">
+        <a class="level is-marginless" href="/categories/Lecture/">
             <span class="level-start">
                 <span class="level-item">Lecture</span>
             </span>
@@ -492,7 +497,7 @@
                 <span class="level-item tag">10</span>
             </span>
         </a><ul><li>
-        <a class="level is-marginless" href="/category/Lecture/CS224n/">
+        <a class="level is-marginless" href="/categories/Lecture/CS224n/">
             <span class="level-start">
                 <span class="level-item">CS224n</span>
             </span>
@@ -500,7 +505,7 @@
                 <span class="level-item tag">2</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/Lecture/CS231n/">
+        <a class="level is-marginless" href="/categories/Lecture/CS231n/">
             <span class="level-start">
                 <span class="level-item">CS231n</span>
             </span>
@@ -508,7 +513,7 @@
                 <span class="level-item tag">7</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/Lecture/딥러닝을-이용한-자연어-처리/">
+        <a class="level is-marginless" href="/categories/Lecture/딥러닝을-이용한-자연어-처리/">
             <span class="level-start">
                 <span class="level-item">딥러닝을 이용한 자연어 처리</span>
             </span>
@@ -516,7 +521,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li></ul></li><li>
-        <a class="level is-marginless" href="/category/MachineLearning/">
+        <a class="level is-marginless" href="/categories/MachineLearning/">
             <span class="level-start">
                 <span class="level-item">MachineLearning</span>
             </span>
@@ -524,7 +529,7 @@
                 <span class="level-item tag">6</span>
             </span>
         </a><ul><li>
-        <a class="level is-marginless" href="/category/MachineLearning/Apache-Spark/">
+        <a class="level is-marginless" href="/categories/MachineLearning/Apache-Spark/">
             <span class="level-start">
                 <span class="level-item">Apache Spark</span>
             </span>
@@ -532,7 +537,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/MachineLearning/Pytorch/">
+        <a class="level is-marginless" href="/categories/MachineLearning/Pytorch/">
             <span class="level-start">
                 <span class="level-item">Pytorch</span>
             </span>
@@ -540,7 +545,7 @@
                 <span class="level-item tag">3</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/MachineLearning/Vision/">
+        <a class="level is-marginless" href="/categories/MachineLearning/Vision/">
             <span class="level-start">
                 <span class="level-item">Vision</span>
             </span>
@@ -548,7 +553,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li></ul></li><li>
-        <a class="level is-marginless" href="/category/Math/">
+        <a class="level is-marginless" href="/categories/Math/">
             <span class="level-start">
                 <span class="level-item">Math</span>
             </span>
@@ -556,7 +561,7 @@
                 <span class="level-item tag">2</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/Paper/">
+        <a class="level is-marginless" href="/categories/Paper/">
             <span class="level-start">
                 <span class="level-item">Paper</span>
             </span>
@@ -564,7 +569,7 @@
                 <span class="level-item tag">2</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/wiki/">
+        <a class="level is-marginless" href="/categories/wiki/">
             <span class="level-start">
                 <span class="level-item">wiki</span>
             </span>
@@ -572,7 +577,7 @@
                 <span class="level-item tag">9</span>
             </span>
         </a><ul><li>
-        <a class="level is-marginless" href="/category/wiki/MySQL/">
+        <a class="level is-marginless" href="/categories/wiki/MySQL/">
             <span class="level-start">
                 <span class="level-item">MySQL</span>
             </span>
@@ -580,7 +585,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/wiki/NGINX/">
+        <a class="level is-marginless" href="/categories/wiki/NGINX/">
             <span class="level-start">
                 <span class="level-item">NGINX</span>
             </span>
@@ -588,7 +593,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/wiki/Pillow/">
+        <a class="level is-marginless" href="/categories/wiki/Pillow/">
             <span class="level-start">
                 <span class="level-item">Pillow</span>
             </span>
@@ -596,7 +601,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/wiki/Provision/">
+        <a class="level is-marginless" href="/categories/wiki/Provision/">
             <span class="level-start">
                 <span class="level-item">Provision</span>
             </span>
@@ -604,7 +609,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/wiki/Requests/">
+        <a class="level is-marginless" href="/categories/wiki/Requests/">
             <span class="level-start">
                 <span class="level-item">Requests</span>
             </span>
@@ -612,7 +617,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/wiki/Scrapy/">
+        <a class="level is-marginless" href="/categories/wiki/Scrapy/">
             <span class="level-start">
                 <span class="level-item">Scrapy</span>
             </span>
@@ -620,7 +625,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/wiki/Selenium/">
+        <a class="level is-marginless" href="/categories/wiki/Selenium/">
             <span class="level-start">
                 <span class="level-item">Selenium</span>
             </span>
@@ -628,7 +633,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/wiki/Xpath/">
+        <a class="level is-marginless" href="/categories/wiki/Xpath/">
             <span class="level-start">
                 <span class="level-item">Xpath</span>
             </span>
@@ -661,7 +666,7 @@
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-10-14T09:51:33.000Z">2021-10-14</time></div>
                     <a href="/2021/10/14/C-연산자-Operators/" class="has-link-black-ter is-size-6">[C++] 2.연산자(Operators)</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/category/Development/">Development</a> / <a class="has-link-grey -link" href="/category/Development/C/">C++</a>
+                        <a class="has-link-grey -link" href="/categories/Development/">Development</a> / <a class="has-link-grey -link" href="/categories/Development/C/">C++</a>
                     </p>
                 </div>
             </div>
@@ -680,7 +685,7 @@
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-10-13T12:35:26.000Z">2021-10-13</time></div>
                     <a href="/2021/10/13/C-자료형-DataTypes/" class="has-link-black-ter is-size-6">[C++] 1.자료형(DataTypes)</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/category/Development/">Development</a> / <a class="has-link-grey -link" href="/category/Development/C/">C++</a>
+                        <a class="has-link-grey -link" href="/categories/Development/">Development</a> / <a class="has-link-grey -link" href="/categories/Development/C/">C++</a>
                     </p>
                 </div>
             </div>
@@ -699,7 +704,7 @@
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-10-10T03:45:08.000Z">2021-10-10</time></div>
                     <a href="/2021/10/10/summary-seminar-EDA/" class="has-link-black-ter is-size-6">[세미나요약] 데이터 분석, 의심에서 전달까지</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/category/DataScience/">DataScience</a> / <a class="has-link-grey -link" href="/category/DataScience/Seminar/">Seminar</a>
+                        <a class="has-link-grey -link" href="/categories/DataScience/">DataScience</a> / <a class="has-link-grey -link" href="/categories/DataScience/Seminar/">Seminar</a>
                     </p>
                 </div>
             </div>
@@ -718,7 +723,7 @@
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-01T05:41:22.000Z">2019-09-01</time></div>
                     <a href="/2019/09/01/psnr-ssim/" class="has-link-black-ter is-size-6">[Metrics] PSNR &amp; SSIM</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/category/MachineLearning/">MachineLearning</a> / <a class="has-link-grey -link" href="/category/MachineLearning/Vision/">Vision</a>
+                        <a class="has-link-grey -link" href="/categories/MachineLearning/">MachineLearning</a> / <a class="has-link-grey -link" href="/categories/MachineLearning/Vision/">Vision</a>
                     </p>
                 </div>
             </div>
@@ -737,7 +742,7 @@
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-08-26T12:54:53.000Z">2019-08-26</time></div>
                     <a href="/2019/08/26/DIP-chapter3/" class="has-link-black-ter is-size-6">[Book] Summary of Digital Image Processing Chapter 03</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/category/Book/">Book</a> / <a class="has-link-grey -link" href="/category/Book/Digital-Image-Processing/">Digital Image Processing</a>
+                        <a class="has-link-grey -link" href="/categories/Book/">Book</a> / <a class="has-link-grey -link" href="/categories/Book/Digital-Image-Processing/">Digital Image Processing</a>
                     </p>
                 </div>
             </div>

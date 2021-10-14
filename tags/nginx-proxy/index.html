@@ -189,7 +189,7 @@
                 <time class="level-item has-text-grey" datetime="2018-11-29T13:57:28.000Z">2018-11-29</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/category/wiki/">wiki</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/category/wiki/NGINX/">NGINX</a>
+                <a class="has-link-grey -link" href="/categories/wiki/">wiki</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/wiki/NGINX/">NGINX</a>
                 </div>
                 
                 
@@ -215,8 +215,10 @@
 <li>일종의 <code>proxy server</code> 역할을 해주는 것이 <code>nginx</code></li>
 </ul>
 <h2 id="1-Install-Nginx"><a href="#1-Install-Nginx" class="headerlink" title="1. Install Nginx"></a>1. Install Nginx</h2><figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br><span class="line">$ sudo apt-get install nginx</span><br></pre></td></tr></table></figure>
+
 <h2 id="2-Manage-the-Nginx-Process"><a href="#2-Manage-the-Nginx-Process" class="headerlink" title="2. Manage the Nginx Process"></a>2. Manage the Nginx Process</h2><ul>
 <li>nginx Process<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">#start Nginx</span></span><br><span class="line">$ sudo systemctl start nginx</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">#stop nginx</span></span><br><span class="line">$ sudo systemctl stop nginx</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">#restart nginx</span></span><br><span class="line">$ sudo systemctl restart nginx</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">#check status nginx</span></span><br><span class="line">$ sudo systemctl status nginx</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment"># reload nginx</span></span><br><span class="line">$ sudo systemctl reload nginx</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 <h2 id="3-Structure"><a href="#3-Structure" class="headerlink" title="3. Structure"></a>3. Structure</h2><ul>
@@ -236,13 +238,20 @@
 </ul>
 <h2 id="4-Nginx-Configuration"><a href="#4-Nginx-Configuration" class="headerlink" title="4. Nginx Configuration"></a>4. Nginx Configuration</h2><h3 id="4-1-static-file-serving"><a href="#4-1-static-file-serving" class="headerlink" title="4.1 static file serving"></a>4.1 static file serving</h3><p><code>/etc/nginx/sites-available/default</code> 파일 수정</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">  location / &#123;</span><br><span class="line">    root /path/to/html ;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  location /images/ &#123;</span><br><span class="line">    root /path/to/image;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h3 id="4-2-proxy-server"><a href="#4-2-proxy-server" class="headerlink" title="4.2 proxy server"></a>4.2 proxy server</h3><ul>
 <li><p>port 별로 설정이 가능하다</p>
 <figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">  # default 는 80 port (http default)</span><br><span class="line">  # 8080 port 에 대해서</span><br><span class="line">  listen 8080;</span><br><span class="line">  location / &#123;</span><br><span class="line">    proxy_pass http://localhost:8080;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>여러개의 포트를 연결<br>```<br>server {<br>listen 8080;<br>listen 80;</p>
-<p>location / {<br>  proxy_pass <a href="http://localhost:8080" target="_blank" rel="noopener">http://localhost:8080</a>;<br>}<br>}</p>
-</li>
+<li><p>여러개의 포트를 연결</p>
+<pre><code>server {
+listen 8080;
+listen 80;
+
+location / {
+  proxy_pass http://localhost:8080;
+}
+}</code></pre></li>
 </ul>
 
         </div>
@@ -370,7 +379,7 @@
             </h3>
             <ul class="menu-list">
             <li>
-        <a class="level is-marginless" href="/category/Book/">
+        <a class="level is-marginless" href="/categories/Book/">
             <span class="level-start">
                 <span class="level-item">Book</span>
             </span>
@@ -378,7 +387,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a><ul><li>
-        <a class="level is-marginless" href="/category/Book/Digital-Image-Processing/">
+        <a class="level is-marginless" href="/categories/Book/Digital-Image-Processing/">
             <span class="level-start">
                 <span class="level-item">Digital Image Processing</span>
             </span>
@@ -386,7 +395,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li></ul></li><li>
-        <a class="level is-marginless" href="/category/DataScience/">
+        <a class="level is-marginless" href="/categories/DataScience/">
             <span class="level-start">
                 <span class="level-item">DataScience</span>
             </span>
@@ -394,7 +403,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a><ul><li>
-        <a class="level is-marginless" href="/category/DataScience/Seminar/">
+        <a class="level is-marginless" href="/categories/DataScience/Seminar/">
             <span class="level-start">
                 <span class="level-item">Seminar</span>
             </span>
@@ -402,7 +411,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li></ul></li><li>
-        <a class="level is-marginless" href="/category/DataStructure/">
+        <a class="level is-marginless" href="/categories/DataStructure/">
             <span class="level-start">
                 <span class="level-item">DataStructure</span>
             </span>
@@ -410,7 +419,7 @@
                 <span class="level-item tag">2</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/Development/">
+        <a class="level is-marginless" href="/categories/Development/">
             <span class="level-start">
                 <span class="level-item">Development</span>
             </span>
@@ -418,7 +427,7 @@
                 <span class="level-item tag">6</span>
             </span>
         </a><ul><li>
-        <a class="level is-marginless" href="/category/Development/C/">
+        <a class="level is-marginless" href="/categories/Development/C/">
             <span class="level-start">
                 <span class="level-item">C++</span>
             </span>
@@ -426,7 +435,7 @@
                 <span class="level-item tag">2</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/Development/Linux/">
+        <a class="level is-marginless" href="/categories/Development/Linux/">
             <span class="level-start">
                 <span class="level-item">Linux</span>
             </span>
@@ -434,7 +443,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/Development/Python/">
+        <a class="level is-marginless" href="/categories/Development/Python/">
             <span class="level-start">
                 <span class="level-item">Python</span>
             </span>
@@ -442,7 +451,7 @@
                 <span class="level-item tag">3</span>
             </span>
         </a></li></ul></li><li>
-        <a class="level is-marginless" href="/category/Diary/">
+        <a class="level is-marginless" href="/categories/Diary/">
             <span class="level-start">
                 <span class="level-item">Diary</span>
             </span>
@@ -450,7 +459,7 @@
                 <span class="level-item tag">43</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/Google-Cloud-Platform/">
+        <a class="level is-marginless" href="/categories/Google-Cloud-Platform/">
             <span class="level-start">
                 <span class="level-item">Google Cloud Platform</span>
             </span>
@@ -458,7 +467,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/Lecture/">
+        <a class="level is-marginless" href="/categories/Lecture/">
             <span class="level-start">
                 <span class="level-item">Lecture</span>
             </span>
@@ -466,7 +475,7 @@
                 <span class="level-item tag">10</span>
             </span>
         </a><ul><li>
-        <a class="level is-marginless" href="/category/Lecture/CS224n/">
+        <a class="level is-marginless" href="/categories/Lecture/CS224n/">
             <span class="level-start">
                 <span class="level-item">CS224n</span>
             </span>
@@ -474,7 +483,7 @@
                 <span class="level-item tag">2</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/Lecture/CS231n/">
+        <a class="level is-marginless" href="/categories/Lecture/CS231n/">
             <span class="level-start">
                 <span class="level-item">CS231n</span>
             </span>
@@ -482,7 +491,7 @@
                 <span class="level-item tag">7</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/Lecture/딥러닝을-이용한-자연어-처리/">
+        <a class="level is-marginless" href="/categories/Lecture/딥러닝을-이용한-자연어-처리/">
             <span class="level-start">
                 <span class="level-item">딥러닝을 이용한 자연어 처리</span>
             </span>
@@ -490,7 +499,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li></ul></li><li>
-        <a class="level is-marginless" href="/category/MachineLearning/">
+        <a class="level is-marginless" href="/categories/MachineLearning/">
             <span class="level-start">
                 <span class="level-item">MachineLearning</span>
             </span>
@@ -498,7 +507,7 @@
                 <span class="level-item tag">6</span>
             </span>
         </a><ul><li>
-        <a class="level is-marginless" href="/category/MachineLearning/Apache-Spark/">
+        <a class="level is-marginless" href="/categories/MachineLearning/Apache-Spark/">
             <span class="level-start">
                 <span class="level-item">Apache Spark</span>
             </span>
@@ -506,7 +515,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/MachineLearning/Pytorch/">
+        <a class="level is-marginless" href="/categories/MachineLearning/Pytorch/">
             <span class="level-start">
                 <span class="level-item">Pytorch</span>
             </span>
@@ -514,7 +523,7 @@
                 <span class="level-item tag">3</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/MachineLearning/Vision/">
+        <a class="level is-marginless" href="/categories/MachineLearning/Vision/">
             <span class="level-start">
                 <span class="level-item">Vision</span>
             </span>
@@ -522,7 +531,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li></ul></li><li>
-        <a class="level is-marginless" href="/category/Math/">
+        <a class="level is-marginless" href="/categories/Math/">
             <span class="level-start">
                 <span class="level-item">Math</span>
             </span>
@@ -530,7 +539,7 @@
                 <span class="level-item tag">2</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/Paper/">
+        <a class="level is-marginless" href="/categories/Paper/">
             <span class="level-start">
                 <span class="level-item">Paper</span>
             </span>
@@ -538,7 +547,7 @@
                 <span class="level-item tag">2</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/wiki/">
+        <a class="level is-marginless" href="/categories/wiki/">
             <span class="level-start">
                 <span class="level-item">wiki</span>
             </span>
@@ -546,7 +555,7 @@
                 <span class="level-item tag">9</span>
             </span>
         </a><ul><li>
-        <a class="level is-marginless" href="/category/wiki/MySQL/">
+        <a class="level is-marginless" href="/categories/wiki/MySQL/">
             <span class="level-start">
                 <span class="level-item">MySQL</span>
             </span>
@@ -554,7 +563,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/wiki/NGINX/">
+        <a class="level is-marginless" href="/categories/wiki/NGINX/">
             <span class="level-start">
                 <span class="level-item">NGINX</span>
             </span>
@@ -562,7 +571,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/wiki/Pillow/">
+        <a class="level is-marginless" href="/categories/wiki/Pillow/">
             <span class="level-start">
                 <span class="level-item">Pillow</span>
             </span>
@@ -570,7 +579,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/wiki/Provision/">
+        <a class="level is-marginless" href="/categories/wiki/Provision/">
             <span class="level-start">
                 <span class="level-item">Provision</span>
             </span>
@@ -578,7 +587,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/wiki/Requests/">
+        <a class="level is-marginless" href="/categories/wiki/Requests/">
             <span class="level-start">
                 <span class="level-item">Requests</span>
             </span>
@@ -586,7 +595,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/wiki/Scrapy/">
+        <a class="level is-marginless" href="/categories/wiki/Scrapy/">
             <span class="level-start">
                 <span class="level-item">Scrapy</span>
             </span>
@@ -594,7 +603,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/wiki/Selenium/">
+        <a class="level is-marginless" href="/categories/wiki/Selenium/">
             <span class="level-start">
                 <span class="level-item">Selenium</span>
             </span>
@@ -602,7 +611,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/wiki/Xpath/">
+        <a class="level is-marginless" href="/categories/wiki/Xpath/">
             <span class="level-start">
                 <span class="level-item">Xpath</span>
             </span>
@@ -635,7 +644,7 @@
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-10-14T09:51:33.000Z">2021-10-14</time></div>
                     <a href="/2021/10/14/C-연산자-Operators/" class="has-link-black-ter is-size-6">[C++] 2.연산자(Operators)</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/category/Development/">Development</a> / <a class="has-link-grey -link" href="/category/Development/C/">C++</a>
+                        <a class="has-link-grey -link" href="/categories/Development/">Development</a> / <a class="has-link-grey -link" href="/categories/Development/C/">C++</a>
                     </p>
                 </div>
             </div>
@@ -654,7 +663,7 @@
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-10-13T12:35:26.000Z">2021-10-13</time></div>
                     <a href="/2021/10/13/C-자료형-DataTypes/" class="has-link-black-ter is-size-6">[C++] 1.자료형(DataTypes)</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/category/Development/">Development</a> / <a class="has-link-grey -link" href="/category/Development/C/">C++</a>
+                        <a class="has-link-grey -link" href="/categories/Development/">Development</a> / <a class="has-link-grey -link" href="/categories/Development/C/">C++</a>
                     </p>
                 </div>
             </div>
@@ -673,7 +682,7 @@
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-10-10T03:45:08.000Z">2021-10-10</time></div>
                     <a href="/2021/10/10/summary-seminar-EDA/" class="has-link-black-ter is-size-6">[세미나요약] 데이터 분석, 의심에서 전달까지</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/category/DataScience/">DataScience</a> / <a class="has-link-grey -link" href="/category/DataScience/Seminar/">Seminar</a>
+                        <a class="has-link-grey -link" href="/categories/DataScience/">DataScience</a> / <a class="has-link-grey -link" href="/categories/DataScience/Seminar/">Seminar</a>
                     </p>
                 </div>
             </div>
@@ -692,7 +701,7 @@
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-01T05:41:22.000Z">2019-09-01</time></div>
                     <a href="/2019/09/01/psnr-ssim/" class="has-link-black-ter is-size-6">[Metrics] PSNR &amp; SSIM</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/category/MachineLearning/">MachineLearning</a> / <a class="has-link-grey -link" href="/category/MachineLearning/Vision/">Vision</a>
+                        <a class="has-link-grey -link" href="/categories/MachineLearning/">MachineLearning</a> / <a class="has-link-grey -link" href="/categories/MachineLearning/Vision/">Vision</a>
                     </p>
                 </div>
             </div>
@@ -711,7 +720,7 @@
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-08-26T12:54:53.000Z">2019-08-26</time></div>
                     <a href="/2019/08/26/DIP-chapter3/" class="has-link-black-ter is-size-6">[Book] Summary of Digital Image Processing Chapter 03</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/category/Book/">Book</a> / <a class="has-link-grey -link" href="/category/Book/Digital-Image-Processing/">Digital Image Processing</a>
+                        <a class="has-link-grey -link" href="/categories/Book/">Book</a> / <a class="has-link-grey -link" href="/categories/Book/Digital-Image-Processing/">Digital Image Processing</a>
                     </p>
                 </div>
             </div>

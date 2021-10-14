@@ -179,7 +179,7 @@
                 <time class="level-item has-text-grey" datetime="2019-07-26T11:40:18.000Z">2019-07-26</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/category/Lecture/">Lecture</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/category/Lecture/CS231n/">CS231n</a>
+                <a class="has-link-grey -link" href="/categories/Lecture/">Lecture</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/Lecture/CS231n/">CS231n</a>
                 </div>
                 
                 
@@ -203,6 +203,7 @@
 <li>이 글은, Standford University 의 CS231n 강의를 듣고 스스로 정리 목적을 위해 적은 글입니다.</li>
 </ul>
 <a id="more"></a>
+
 <p>이번 강의에서는 최초의 CNN 모델부터, ImageNet 대회에서 역대 좋은 스코어를 기록한 유명한 convnet 구조에 대해 살펴본다. 강의 summary 는 강의 내용 중심과 수업 중 궁금한 사항을 따로 찾아본 내용 위주로 정리한다. 해당 모델의 자세한 내용은 논문을 참조했다.</p>
 <h2 id="1-AlexNet"><a href="#1-AlexNet" class="headerlink" title="1. AlexNet"></a>1. AlexNet</h2><p>Lenet 이후, 가장 처음으로 나온 large scale convnet model 이다. Architecture 는 다음과 같다. 수업시간에는 CONV1 과  Max Pooling layer 에 대해서만 각 layer 의 output volume size 와 parameter 갯수를 확인했으나, 연습과 공부를 위해 전체 layer 에 대해 계산해본다.</p>
 <ul>
@@ -228,7 +229,7 @@
 </ul>
 </li>
 <li>Conv1 의 weight 갯수 ?<ul>
-<li>filter size 11 <em> 11 </em> 3 (channel) * 96 (filter 갯수) = 34,849개</li>
+<li>filter size 11 * 11 * 3 (channel) * 96 (filter 갯수) = 34,849개</li>
 </ul>
 </li>
 <li>MAX POOL (3 x 3 filter, stride 2) output volume size?<ul>
@@ -247,7 +248,7 @@
 <li>CONV2 layer (256 5 x 5 filters, stride 1, padding 2) 의 output volume size 와 parameter 갯수?<ul>
 <li>(27 - 5 + 4) / 1 + 1 = 27</li>
 <li>output volume size : 27 x 27 x 256</li>
-<li>parameter 갯수: 5 <em> 5 </em> 96 (channel) * 256 (filter 갯수 ) = 614,400</li>
+<li>parameter 갯수: 5 * 5 * 96 (channel) * 256 (filter 갯수 ) = 614,400</li>
 </ul>
 </li>
 <li>MAX POOL2 ( 3 x 3 filters, stride 2) output volume size?<ul>
@@ -258,19 +259,19 @@
 <li>CONV3 layer ( 384 3 x 3 filters, stride 1, padding 1)의 output volume size 와 parameter 갯수?<ul>
 <li>(13-3+2) / 1 + 1 =  13</li>
 <li>ouput volume size = 13 x 13 x 384</li>
-<li>parameters: 13 <em> 13 </em> 256(channels) * 384 = 16,613,376</li>
+<li>parameters: 13 * 13 * 256(channels) * 384 = 16,613,376</li>
 </ul>
 </li>
 <li>CONV4 layer (384 3x3 filters stride 1, padding 1)<ul>
 <li>(13 - 3 + 2) / 1 + 1 = 13</li>
 <li>output volume size = 13 x 13 x 384</li>
-<li>parameters: 13 <em> 13 </em> 384(channels) * 384 = 24,920,064</li>
+<li>parameters: 13 * 13 * 384(channels) * 384 = 24,920,064</li>
 </ul>
 </li>
 <li>CONV5 layer (256 3x3 filters stride 1 , padding 1)<ul>
 <li>(13 - 3 + 2) / 1 + 1 = 13</li>
 <li>output volume size = 13 x 13 x 256</li>
-<li>parameters: 13 <em> 13 </em> 384 * 256 = 16,613,376</li>
+<li>parameters: 13 * 13 * 384 * 256 = 16,613,376</li>
 </ul>
 </li>
 <li>MAX POOL3 (3 x 3 filters strides 2)<ul>
@@ -283,7 +284,7 @@
 <li>당시 GPU 메모리의 부족으로, CONV1 layer 의 경우 depth 가 96이었으나, 48 개씩 (반반) 다른 GPU 에 올려져 계산이 진행되었다. 이는 서로가 데이터를 바라볼수 없다는 것을 의미한다. 마찬가지 의미로, CONV2, CONV4, CONV5의 경우 서로 다른 gpu 상에 올라가 있는 feature map 을 볼수 없다. 반면, CONV3, FC6, FC7, FC8 에서 서로 cross 됨으로써 feature map 을 바라볼수 없는 문제를 완화하였다</li>
 </ol>
 <h2 id="2-VGG"><a href="#2-VGG" class="headerlink" title="2. VGG"></a>2. VGG</h2><p>VGG 는 AlexNet 과 비교하여, 조금더 깊은 convnet 을 가지고 있다. 이는 filter size 를 작게 가져감으로써 얻을 수 있는 이익이었다. </p>
-<p>7x7 conv layer 1개와 3x3 conv layer 가 3개를 비교해본다. 7x7 conv layer 1개의 원본 이미지로부터 얻는 receptive field 는 7x7 영역이다. 3개의 3 x 3 conv layer가 쌓였을 때, 3번째 layer 입장에서, 원본이미지의 7 x 7 만큼의 receptive field, 즉 같은 양의 receptive field 를 얻을 수 있다. 같은 receptive field 영역을 커버하지만, layer 의 수가 증가함으로써, 더 많은 <strong>non-linearity feature map</strong>을 얻을 수 있다. 또한, 각 layer 의 parameter 수를 살펴 보면, 7x7 conv layer 는 C(이전 layer 의 channel 수)<em>7</em>7<em>C = 49 </em> C^2만큼의 parameter를 가지고 있고, 3 layer 3x3 conv layer 는 3<em>3</em>3<em>C</em>C = 9 <em> C^2 만큼의 parameter 를 가지고 있다. 작은 filter size로 layer 수를 늘리는 것이 <em>*parameter 의 갯수</em></em> 관점에서도 큰 이득을 가져다 준다.</p>
+<p>7x7 conv layer 1개와 3x3 conv layer 가 3개를 비교해본다. 7x7 conv layer 1개의 원본 이미지로부터 얻는 receptive field 는 7x7 영역이다. 3개의 3 x 3 conv layer가 쌓였을 때, 3번째 layer 입장에서, 원본이미지의 7 x 7 만큼의 receptive field, 즉 같은 양의 receptive field 를 얻을 수 있다. 같은 receptive field 영역을 커버하지만, layer 의 수가 증가함으로써, 더 많은 <strong>non-linearity feature map</strong>을 얻을 수 있다. 또한, 각 layer 의 parameter 수를 살펴 보면, 7x7 conv layer 는 C(이전 layer 의 channel 수)<em>7</em>7<em>C = 49 * C^2만큼의 parameter를 가지고 있고, 3 layer 3x3 conv layer 는 3</em>3<em>3</em>C<em>C = 9 * C^2 만큼의 parameter 를 가지고 있다. 작은 filter size로 layer 수를 늘리는 것이 *</em>parameter 의 갯수** 관점에서도 큰 이득을 가져다 준다.</p>
 <p>cf) 네트워크가 깊어질수록 computation양을 일정하게 유지하기 위해 각 레이어의 입력을 downsampling 한다. &amp; Spatial Area 가 작아질수록 filter 의 depth 를 조금씩 늘려준다.</p>
 <h2 id="3-GoogLeNet"><a href="#3-GoogLeNet" class="headerlink" title="3. GoogLeNet"></a>3. GoogLeNet</h2><h3 id="GoogLeNet-의-특이점"><a href="#GoogLeNet-의-특이점" class="headerlink" title="GoogLeNet 의 특이점"></a>GoogLeNet 의 특이점</h3><p>GoogleNet 은 깊은 신경망 모델에 대해, 계산량의 이점을 가져다주기 위해 고안되었다. 이는 Inception Module 을 설계하여, 이를 연속해 쌓는 방식의 구조이다. Inception Module 의 모양은 다음과 같다.</p>
 <p>다음과 같이 구성할 때, conv layer 를 거친 output 을 depth 방향으로 concatenate 한다. spatial dimension 은 stride 등을 조절한다.</p>
@@ -489,7 +490,7 @@
             </h3>
             <ul class="menu-list">
             <li>
-        <a class="level is-marginless" href="/category/Book/">
+        <a class="level is-marginless" href="/categories/Book/">
             <span class="level-start">
                 <span class="level-item">Book</span>
             </span>
@@ -497,7 +498,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a><ul><li>
-        <a class="level is-marginless" href="/category/Book/Digital-Image-Processing/">
+        <a class="level is-marginless" href="/categories/Book/Digital-Image-Processing/">
             <span class="level-start">
                 <span class="level-item">Digital Image Processing</span>
             </span>
@@ -505,7 +506,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li></ul></li><li>
-        <a class="level is-marginless" href="/category/DataScience/">
+        <a class="level is-marginless" href="/categories/DataScience/">
             <span class="level-start">
                 <span class="level-item">DataScience</span>
             </span>
@@ -513,7 +514,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a><ul><li>
-        <a class="level is-marginless" href="/category/DataScience/Seminar/">
+        <a class="level is-marginless" href="/categories/DataScience/Seminar/">
             <span class="level-start">
                 <span class="level-item">Seminar</span>
             </span>
@@ -521,7 +522,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li></ul></li><li>
-        <a class="level is-marginless" href="/category/DataStructure/">
+        <a class="level is-marginless" href="/categories/DataStructure/">
             <span class="level-start">
                 <span class="level-item">DataStructure</span>
             </span>
@@ -529,7 +530,7 @@
                 <span class="level-item tag">2</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/Development/">
+        <a class="level is-marginless" href="/categories/Development/">
             <span class="level-start">
                 <span class="level-item">Development</span>
             </span>
@@ -537,7 +538,7 @@
                 <span class="level-item tag">6</span>
             </span>
         </a><ul><li>
-        <a class="level is-marginless" href="/category/Development/C/">
+        <a class="level is-marginless" href="/categories/Development/C/">
             <span class="level-start">
                 <span class="level-item">C++</span>
             </span>
@@ -545,7 +546,7 @@
                 <span class="level-item tag">2</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/Development/Linux/">
+        <a class="level is-marginless" href="/categories/Development/Linux/">
             <span class="level-start">
                 <span class="level-item">Linux</span>
             </span>
@@ -553,7 +554,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/Development/Python/">
+        <a class="level is-marginless" href="/categories/Development/Python/">
             <span class="level-start">
                 <span class="level-item">Python</span>
             </span>
@@ -561,7 +562,7 @@
                 <span class="level-item tag">3</span>
             </span>
         </a></li></ul></li><li>
-        <a class="level is-marginless" href="/category/Diary/">
+        <a class="level is-marginless" href="/categories/Diary/">
             <span class="level-start">
                 <span class="level-item">Diary</span>
             </span>
@@ -569,7 +570,7 @@
                 <span class="level-item tag">43</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/Google-Cloud-Platform/">
+        <a class="level is-marginless" href="/categories/Google-Cloud-Platform/">
             <span class="level-start">
                 <span class="level-item">Google Cloud Platform</span>
             </span>
@@ -577,7 +578,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/Lecture/">
+        <a class="level is-marginless" href="/categories/Lecture/">
             <span class="level-start">
                 <span class="level-item">Lecture</span>
             </span>
@@ -585,7 +586,7 @@
                 <span class="level-item tag">10</span>
             </span>
         </a><ul><li>
-        <a class="level is-marginless" href="/category/Lecture/CS224n/">
+        <a class="level is-marginless" href="/categories/Lecture/CS224n/">
             <span class="level-start">
                 <span class="level-item">CS224n</span>
             </span>
@@ -593,7 +594,7 @@
                 <span class="level-item tag">2</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/Lecture/CS231n/">
+        <a class="level is-marginless" href="/categories/Lecture/CS231n/">
             <span class="level-start">
                 <span class="level-item">CS231n</span>
             </span>
@@ -601,7 +602,7 @@
                 <span class="level-item tag">7</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/Lecture/딥러닝을-이용한-자연어-처리/">
+        <a class="level is-marginless" href="/categories/Lecture/딥러닝을-이용한-자연어-처리/">
             <span class="level-start">
                 <span class="level-item">딥러닝을 이용한 자연어 처리</span>
             </span>
@@ -609,7 +610,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li></ul></li><li>
-        <a class="level is-marginless" href="/category/MachineLearning/">
+        <a class="level is-marginless" href="/categories/MachineLearning/">
             <span class="level-start">
                 <span class="level-item">MachineLearning</span>
             </span>
@@ -617,7 +618,7 @@
                 <span class="level-item tag">6</span>
             </span>
         </a><ul><li>
-        <a class="level is-marginless" href="/category/MachineLearning/Apache-Spark/">
+        <a class="level is-marginless" href="/categories/MachineLearning/Apache-Spark/">
             <span class="level-start">
                 <span class="level-item">Apache Spark</span>
             </span>
@@ -625,7 +626,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/MachineLearning/Pytorch/">
+        <a class="level is-marginless" href="/categories/MachineLearning/Pytorch/">
             <span class="level-start">
                 <span class="level-item">Pytorch</span>
             </span>
@@ -633,7 +634,7 @@
                 <span class="level-item tag">3</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/MachineLearning/Vision/">
+        <a class="level is-marginless" href="/categories/MachineLearning/Vision/">
             <span class="level-start">
                 <span class="level-item">Vision</span>
             </span>
@@ -641,7 +642,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li></ul></li><li>
-        <a class="level is-marginless" href="/category/Math/">
+        <a class="level is-marginless" href="/categories/Math/">
             <span class="level-start">
                 <span class="level-item">Math</span>
             </span>
@@ -649,7 +650,7 @@
                 <span class="level-item tag">2</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/Paper/">
+        <a class="level is-marginless" href="/categories/Paper/">
             <span class="level-start">
                 <span class="level-item">Paper</span>
             </span>
@@ -657,7 +658,7 @@
                 <span class="level-item tag">2</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/wiki/">
+        <a class="level is-marginless" href="/categories/wiki/">
             <span class="level-start">
                 <span class="level-item">wiki</span>
             </span>
@@ -665,7 +666,7 @@
                 <span class="level-item tag">9</span>
             </span>
         </a><ul><li>
-        <a class="level is-marginless" href="/category/wiki/MySQL/">
+        <a class="level is-marginless" href="/categories/wiki/MySQL/">
             <span class="level-start">
                 <span class="level-item">MySQL</span>
             </span>
@@ -673,7 +674,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/wiki/NGINX/">
+        <a class="level is-marginless" href="/categories/wiki/NGINX/">
             <span class="level-start">
                 <span class="level-item">NGINX</span>
             </span>
@@ -681,7 +682,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/wiki/Pillow/">
+        <a class="level is-marginless" href="/categories/wiki/Pillow/">
             <span class="level-start">
                 <span class="level-item">Pillow</span>
             </span>
@@ -689,7 +690,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/wiki/Provision/">
+        <a class="level is-marginless" href="/categories/wiki/Provision/">
             <span class="level-start">
                 <span class="level-item">Provision</span>
             </span>
@@ -697,7 +698,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/wiki/Requests/">
+        <a class="level is-marginless" href="/categories/wiki/Requests/">
             <span class="level-start">
                 <span class="level-item">Requests</span>
             </span>
@@ -705,7 +706,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/wiki/Scrapy/">
+        <a class="level is-marginless" href="/categories/wiki/Scrapy/">
             <span class="level-start">
                 <span class="level-item">Scrapy</span>
             </span>
@@ -713,7 +714,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/wiki/Selenium/">
+        <a class="level is-marginless" href="/categories/wiki/Selenium/">
             <span class="level-start">
                 <span class="level-item">Selenium</span>
             </span>
@@ -721,7 +722,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/category/wiki/Xpath/">
+        <a class="level is-marginless" href="/categories/wiki/Xpath/">
             <span class="level-start">
                 <span class="level-item">Xpath</span>
             </span>
@@ -754,7 +755,7 @@
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-10-14T09:51:33.000Z">2021-10-14</time></div>
                     <a href="/2021/10/14/C-연산자-Operators/" class="has-link-black-ter is-size-6">[C++] 2.연산자(Operators)</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/category/Development/">Development</a> / <a class="has-link-grey -link" href="/category/Development/C/">C++</a>
+                        <a class="has-link-grey -link" href="/categories/Development/">Development</a> / <a class="has-link-grey -link" href="/categories/Development/C/">C++</a>
                     </p>
                 </div>
             </div>
@@ -773,7 +774,7 @@
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-10-13T12:35:26.000Z">2021-10-13</time></div>
                     <a href="/2021/10/13/C-자료형-DataTypes/" class="has-link-black-ter is-size-6">[C++] 1.자료형(DataTypes)</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/category/Development/">Development</a> / <a class="has-link-grey -link" href="/category/Development/C/">C++</a>
+                        <a class="has-link-grey -link" href="/categories/Development/">Development</a> / <a class="has-link-grey -link" href="/categories/Development/C/">C++</a>
                     </p>
                 </div>
             </div>
@@ -792,7 +793,7 @@
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-10-10T03:45:08.000Z">2021-10-10</time></div>
                     <a href="/2021/10/10/summary-seminar-EDA/" class="has-link-black-ter is-size-6">[세미나요약] 데이터 분석, 의심에서 전달까지</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/category/DataScience/">DataScience</a> / <a class="has-link-grey -link" href="/category/DataScience/Seminar/">Seminar</a>
+                        <a class="has-link-grey -link" href="/categories/DataScience/">DataScience</a> / <a class="has-link-grey -link" href="/categories/DataScience/Seminar/">Seminar</a>
                     </p>
                 </div>
             </div>
@@ -811,7 +812,7 @@
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-01T05:41:22.000Z">2019-09-01</time></div>
                     <a href="/2019/09/01/psnr-ssim/" class="has-link-black-ter is-size-6">[Metrics] PSNR &amp; SSIM</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/category/MachineLearning/">MachineLearning</a> / <a class="has-link-grey -link" href="/category/MachineLearning/Vision/">Vision</a>
+                        <a class="has-link-grey -link" href="/categories/MachineLearning/">MachineLearning</a> / <a class="has-link-grey -link" href="/categories/MachineLearning/Vision/">Vision</a>
                     </p>
                 </div>
             </div>
@@ -830,7 +831,7 @@
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-08-26T12:54:53.000Z">2019-08-26</time></div>
                     <a href="/2019/08/26/DIP-chapter3/" class="has-link-black-ter is-size-6">[Book] Summary of Digital Image Processing Chapter 03</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/category/Book/">Book</a> / <a class="has-link-grey -link" href="/category/Book/Digital-Image-Processing/">Digital Image Processing</a>
+                        <a class="has-link-grey -link" href="/categories/Book/">Book</a> / <a class="has-link-grey -link" href="/categories/Book/Digital-Image-Processing/">Digital Image Processing</a>
                     </p>
                 </div>
             </div>
