@@ -179,7 +179,7 @@
                 <time class="level-item has-text-grey" datetime="2018-10-24T03:02:50.000Z">2018-10-24</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/wiki/">wiki</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/wiki/Selenium/">Selenium</a>
+                <a class="has-link-grey -link" href="/category/wiki/">wiki</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/category/wiki/Selenium/">Selenium</a>
                 </div>
                 
                 
@@ -211,7 +211,6 @@
 </li>
 <li><p>Selenium Python Package 설치</p>
 <figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> sudo pip3 install selenium</span></span><br></pre></td></tr></table></figure>
-
 </li>
 </ol>
 <h2 id="1-셀레니움-사용해보기"><a href="#1-셀레니움-사용해보기" class="headerlink" title="1. 셀레니움 사용해보기"></a>1. 셀레니움 사용해보기</h2><ul>
@@ -235,7 +234,6 @@
 </li>
 <li><p>열려있는 window 탭 중, control 대상 window 로 바꾸기</p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">driver.switch_to_window(windows[<span class="hljs-number">0</span>])</span><br><span class="line"><span class="hljs-comment">#다시 원래 열었던 창으로 돌아가기</span></span><br><span class="line">driver.switch_to_window(main_window)</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 <h2 id="2-Alert-와-Confirm-다루기"><a href="#2-Alert-와-Confirm-다루기" class="headerlink" title="2. Alert 와 Confirm 다루기"></a>2. Alert 와 Confirm 다루기</h2><ul>
@@ -251,7 +249,6 @@
 </li>
 <li><p>Alert 창이 있으면 확인을 누르고, 없으면 없다고 리턴하기 (예외처리)</p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">try</span>:</span><br><span class="line">  alert = driver.switch_to.alert</span><br><span class="line">  alert.accept()</span><br><span class="line"><span class="hljs-keyword">except</span>:</span><br><span class="line">  print(<span class="hljs-string">"alert 가 없습니다."</span>)</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 <h3 id="2-Confirm"><a href="#2-Confirm" class="headerlink" title="(2) Confirm"></a>(2) Confirm</h3><ul>
@@ -260,33 +257,25 @@
 </li>
 <li><p>Confirm 창 확인 누르기 or 취소 누르기</p>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">confirm = driver.switch_to.alert</span><br><span class="line"><span class="hljs-comment"># 확인</span></span><br><span class="line"><span class="hljs-comment"># confirm.accept()</span></span><br><span class="line"><span class="hljs-comment"># 취소</span></span><br><span class="line">confirm.dismiss()</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 <h2 id="3-입력창에-글씨-입력하기"><a href="#3-입력창에-글씨-입력하기" class="headerlink" title="3. 입력창에 글씨 입력하기"></a>3. 입력창에 글씨 입력하기</h2><ul>
 <li>이제부터 Selenium을 통해 특정 html 의 element 에 액션을 주려면,<br>각종 Selector 를 사용하여 html 상의 element을 셀렉팅 하고, 해당 element 에게 액션을 주어야한다.</li>
 </ul>
 <figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.find_element_by_css_selector(nameof cssselector).send_keys(<span class="hljs-string">"입력할 내용"</span>)</span><br></pre></td></tr></table></figure>
-
 <ul>
-<li>.find_element_by_css_selector 와 <br><br>.find_<b>elements</b>_
-by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 반면, elements 는 여러가지 element 를 셀렉팅 해서, 리스트 형식으로 Return 한다.</li>
+<li>.find_element_by_css_selector 와 <br><br>.find_<b>elements</b>_<br>by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 반면, elements 는 여러가지 element 를 셀렉팅 해서, 리스트 형식으로 Return 한다.</li>
 <li>따라서 이렇게 리스트 형식으로 Return 이 된 경우, List[0] 등과 같이 그 엘리먼트를 뒤에 지정해줘야된다. 즉,<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">driver.find_element_by_css_selector(nameof cssselector)</span><br><span class="line"><span class="hljs-comment">#위는 바로 selecting 이 된것이지만,</span></span><br><span class="line">driver.find_elements_by_css_selector(nameof cssselector)[<span class="hljs-number">0</span>]</span><br><span class="line"><span class="hljs-comment">#위는 뒤에 selecting 위해 list 의 요소를 선택 해주어야한다.</span></span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 <h2 id="4-버튼-클릭하기"><a href="#4-버튼-클릭하기" class="headerlink" title="4. 버튼 클릭하기"></a>4. 버튼 클릭하기</h2><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># 위의 방법처럼, element 를 선택해준다.</span></span><br><span class="line">driver.find_element_by_css_selector(<span class="hljs-string">"name of css selector"</span>).click()</span><br></pre></td></tr></table></figure>
-
 <h2 id="5-id-class-그-외의-attribute-값을-selecting-하는-법"><a href="#5-id-class-그-외의-attribute-값을-selecting-하는-법" class="headerlink" title="5. id, class, 그 외의 attribute 값을 selecting 하는 법"></a>5. id, class, 그 외의 attribute 값을 selecting 하는 법</h2><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">driver.find_element_by_css_selector(<span class="hljs-string">"name of css selector."</span>).click()</span><br><span class="line"><span class="hljs-comment"># id 의 경우 : #idname</span></span><br><span class="line"><span class="hljs-comment"># class 의 경우 : .classname</span></span><br><span class="line"><span class="hljs-comment"># 다른 attribute 의 경우 : [attribute = 'value']</span></span><br></pre></td></tr></table></figure>
-
 <h2 id="6-selecting-한-element-의-attribute-value-를-얻는-방법"><a href="#6-selecting-한-element-의-attribute-value-를-얻는-방법" class="headerlink" title="6. selecting 한 element 의 attribute value 를 얻는 방법"></a>6. selecting 한 element 의 attribute value 를 얻는 방법</h2><ul>
 <li>CSS로 선택한 element에 html 태그에는 다양한 attribute 들이 있을 수 있다. 이 중<br>attribute의 value에 접근 하고 싶을 때는 .get_attribute()메소드를 사용할 수 있다.<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.find_element_by_css_selector(<span class="hljs-string">"name of css selector"</span>).get_attribute(<span class="hljs-string">"attribute_name"</span>)</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 <h2 id="7-element-의-위치와-사이즈-구하기"><a href="#7-element-의-위치와-사이즈-구하기" class="headerlink" title="7. element 의 위치와, 사이즈 구하기"></a>7. element 의 위치와, 사이즈 구하기</h2><ul>
 <li>스크롤을 내리거나, 엘리먼트의 위치와 크기를 알고 싶을 때 사용할 수 있다.<figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">element = driver.find_element_by_css_selector(<span class="hljs-string">"name of css selector"</span>)</span><br><span class="line">element.location</span><br><span class="line"><span class="hljs-comment">#element 의 좌측 상단의 위치가 pixel 단위로 x, y 값의 dictionary로 보여준다.</span></span><br><span class="line">element.size</span><br><span class="line"><span class="hljs-comment">#element 의 size 를 height, width를 pixel 단위로 dictionary로 보여준다.</span></span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
 
@@ -474,7 +463,7 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
             </h3>
             <ul class="menu-list">
             <li>
-        <a class="level is-marginless" href="/categories/Book/">
+        <a class="level is-marginless" href="/category/Book/">
             <span class="level-start">
                 <span class="level-item">Book</span>
             </span>
@@ -482,7 +471,7 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
                 <span class="level-item tag">1</span>
             </span>
         </a><ul><li>
-        <a class="level is-marginless" href="/categories/Book/Digital-Image-Processing/">
+        <a class="level is-marginless" href="/category/Book/Digital-Image-Processing/">
             <span class="level-start">
                 <span class="level-item">Digital Image Processing</span>
             </span>
@@ -490,7 +479,7 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
                 <span class="level-item tag">1</span>
             </span>
         </a></li></ul></li><li>
-        <a class="level is-marginless" href="/categories/DataScience/">
+        <a class="level is-marginless" href="/category/DataScience/">
             <span class="level-start">
                 <span class="level-item">DataScience</span>
             </span>
@@ -498,7 +487,7 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
                 <span class="level-item tag">1</span>
             </span>
         </a><ul><li>
-        <a class="level is-marginless" href="/categories/DataScience/Seminar/">
+        <a class="level is-marginless" href="/category/DataScience/Seminar/">
             <span class="level-start">
                 <span class="level-item">Seminar</span>
             </span>
@@ -506,7 +495,7 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
                 <span class="level-item tag">1</span>
             </span>
         </a></li></ul></li><li>
-        <a class="level is-marginless" href="/categories/DataStructure/">
+        <a class="level is-marginless" href="/category/DataStructure/">
             <span class="level-start">
                 <span class="level-item">DataStructure</span>
             </span>
@@ -514,7 +503,7 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
                 <span class="level-item tag">2</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/Development/">
+        <a class="level is-marginless" href="/category/Development/">
             <span class="level-start">
                 <span class="level-item">Development</span>
             </span>
@@ -522,7 +511,7 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
                 <span class="level-item tag">6</span>
             </span>
         </a><ul><li>
-        <a class="level is-marginless" href="/categories/Development/C/">
+        <a class="level is-marginless" href="/category/Development/C/">
             <span class="level-start">
                 <span class="level-item">C++</span>
             </span>
@@ -530,7 +519,7 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
                 <span class="level-item tag">2</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/Development/Linux/">
+        <a class="level is-marginless" href="/category/Development/Linux/">
             <span class="level-start">
                 <span class="level-item">Linux</span>
             </span>
@@ -538,7 +527,7 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/Development/Python/">
+        <a class="level is-marginless" href="/category/Development/Python/">
             <span class="level-start">
                 <span class="level-item">Python</span>
             </span>
@@ -546,7 +535,7 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
                 <span class="level-item tag">3</span>
             </span>
         </a></li></ul></li><li>
-        <a class="level is-marginless" href="/categories/Diary/">
+        <a class="level is-marginless" href="/category/Diary/">
             <span class="level-start">
                 <span class="level-item">Diary</span>
             </span>
@@ -554,7 +543,7 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
                 <span class="level-item tag">43</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/Google-Cloud-Platform/">
+        <a class="level is-marginless" href="/category/Google-Cloud-Platform/">
             <span class="level-start">
                 <span class="level-item">Google Cloud Platform</span>
             </span>
@@ -562,7 +551,7 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/Lecture/">
+        <a class="level is-marginless" href="/category/Lecture/">
             <span class="level-start">
                 <span class="level-item">Lecture</span>
             </span>
@@ -570,7 +559,7 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
                 <span class="level-item tag">10</span>
             </span>
         </a><ul><li>
-        <a class="level is-marginless" href="/categories/Lecture/CS224n/">
+        <a class="level is-marginless" href="/category/Lecture/CS224n/">
             <span class="level-start">
                 <span class="level-item">CS224n</span>
             </span>
@@ -578,7 +567,7 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
                 <span class="level-item tag">2</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/Lecture/CS231n/">
+        <a class="level is-marginless" href="/category/Lecture/CS231n/">
             <span class="level-start">
                 <span class="level-item">CS231n</span>
             </span>
@@ -586,7 +575,7 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
                 <span class="level-item tag">7</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/Lecture/딥러닝을-이용한-자연어-처리/">
+        <a class="level is-marginless" href="/category/Lecture/딥러닝을-이용한-자연어-처리/">
             <span class="level-start">
                 <span class="level-item">딥러닝을 이용한 자연어 처리</span>
             </span>
@@ -594,7 +583,7 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
                 <span class="level-item tag">1</span>
             </span>
         </a></li></ul></li><li>
-        <a class="level is-marginless" href="/categories/MachineLearning/">
+        <a class="level is-marginless" href="/category/MachineLearning/">
             <span class="level-start">
                 <span class="level-item">MachineLearning</span>
             </span>
@@ -602,7 +591,7 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
                 <span class="level-item tag">6</span>
             </span>
         </a><ul><li>
-        <a class="level is-marginless" href="/categories/MachineLearning/Apache-Spark/">
+        <a class="level is-marginless" href="/category/MachineLearning/Apache-Spark/">
             <span class="level-start">
                 <span class="level-item">Apache Spark</span>
             </span>
@@ -610,7 +599,7 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/MachineLearning/Pytorch/">
+        <a class="level is-marginless" href="/category/MachineLearning/Pytorch/">
             <span class="level-start">
                 <span class="level-item">Pytorch</span>
             </span>
@@ -618,7 +607,7 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
                 <span class="level-item tag">3</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/MachineLearning/Vision/">
+        <a class="level is-marginless" href="/category/MachineLearning/Vision/">
             <span class="level-start">
                 <span class="level-item">Vision</span>
             </span>
@@ -626,7 +615,7 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
                 <span class="level-item tag">1</span>
             </span>
         </a></li></ul></li><li>
-        <a class="level is-marginless" href="/categories/Math/">
+        <a class="level is-marginless" href="/category/Math/">
             <span class="level-start">
                 <span class="level-item">Math</span>
             </span>
@@ -634,7 +623,7 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
                 <span class="level-item tag">2</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/Paper/">
+        <a class="level is-marginless" href="/category/Paper/">
             <span class="level-start">
                 <span class="level-item">Paper</span>
             </span>
@@ -642,7 +631,7 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
                 <span class="level-item tag">2</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/wiki/">
+        <a class="level is-marginless" href="/category/wiki/">
             <span class="level-start">
                 <span class="level-item">wiki</span>
             </span>
@@ -650,7 +639,7 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
                 <span class="level-item tag">9</span>
             </span>
         </a><ul><li>
-        <a class="level is-marginless" href="/categories/wiki/MySQL/">
+        <a class="level is-marginless" href="/category/wiki/MySQL/">
             <span class="level-start">
                 <span class="level-item">MySQL</span>
             </span>
@@ -658,7 +647,7 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/wiki/NGINX/">
+        <a class="level is-marginless" href="/category/wiki/NGINX/">
             <span class="level-start">
                 <span class="level-item">NGINX</span>
             </span>
@@ -666,7 +655,7 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/wiki/Pillow/">
+        <a class="level is-marginless" href="/category/wiki/Pillow/">
             <span class="level-start">
                 <span class="level-item">Pillow</span>
             </span>
@@ -674,7 +663,7 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/wiki/Provision/">
+        <a class="level is-marginless" href="/category/wiki/Provision/">
             <span class="level-start">
                 <span class="level-item">Provision</span>
             </span>
@@ -682,7 +671,7 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/wiki/Requests/">
+        <a class="level is-marginless" href="/category/wiki/Requests/">
             <span class="level-start">
                 <span class="level-item">Requests</span>
             </span>
@@ -690,7 +679,7 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/wiki/Scrapy/">
+        <a class="level is-marginless" href="/category/wiki/Scrapy/">
             <span class="level-start">
                 <span class="level-item">Scrapy</span>
             </span>
@@ -698,7 +687,7 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/wiki/Selenium/">
+        <a class="level is-marginless" href="/category/wiki/Selenium/">
             <span class="level-start">
                 <span class="level-item">Selenium</span>
             </span>
@@ -706,7 +695,7 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/wiki/Xpath/">
+        <a class="level is-marginless" href="/category/wiki/Xpath/">
             <span class="level-start">
                 <span class="level-item">Xpath</span>
             </span>
@@ -739,7 +728,7 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-10-14T09:51:33.000Z">2021-10-14</time></div>
                     <a href="/2021/10/14/C-연산자-Operators/" class="has-link-black-ter is-size-6">[C++] 2.연산자(Operators)</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Development/">Development</a> / <a class="has-link-grey -link" href="/categories/Development/C/">C++</a>
+                        <a class="has-link-grey -link" href="/category/Development/">Development</a> / <a class="has-link-grey -link" href="/category/Development/C/">C++</a>
                     </p>
                 </div>
             </div>
@@ -758,7 +747,7 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-10-13T12:35:26.000Z">2021-10-13</time></div>
                     <a href="/2021/10/13/C-자료형-DataTypes/" class="has-link-black-ter is-size-6">[C++] 1.자료형(DataTypes)</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Development/">Development</a> / <a class="has-link-grey -link" href="/categories/Development/C/">C++</a>
+                        <a class="has-link-grey -link" href="/category/Development/">Development</a> / <a class="has-link-grey -link" href="/category/Development/C/">C++</a>
                     </p>
                 </div>
             </div>
@@ -777,7 +766,7 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-10-10T03:45:08.000Z">2021-10-10</time></div>
                     <a href="/2021/10/10/summary-seminar-EDA/" class="has-link-black-ter is-size-6">[세미나요약] 데이터 분석, 의심에서 전달까지</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/DataScience/">DataScience</a> / <a class="has-link-grey -link" href="/categories/DataScience/Seminar/">Seminar</a>
+                        <a class="has-link-grey -link" href="/category/DataScience/">DataScience</a> / <a class="has-link-grey -link" href="/category/DataScience/Seminar/">Seminar</a>
                     </p>
                 </div>
             </div>
@@ -796,7 +785,7 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-01T05:41:22.000Z">2019-09-01</time></div>
                     <a href="/2019/09/01/psnr-ssim/" class="has-link-black-ter is-size-6">[Metrics] PSNR &amp; SSIM</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/MachineLearning/">MachineLearning</a> / <a class="has-link-grey -link" href="/categories/MachineLearning/Vision/">Vision</a>
+                        <a class="has-link-grey -link" href="/category/MachineLearning/">MachineLearning</a> / <a class="has-link-grey -link" href="/category/MachineLearning/Vision/">Vision</a>
                     </p>
                 </div>
             </div>
@@ -815,7 +804,7 @@ by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 �
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-08-26T12:54:53.000Z">2019-08-26</time></div>
                     <a href="/2019/08/26/DIP-chapter3/" class="has-link-black-ter is-size-6">[Book] Summary of Digital Image Processing Chapter 03</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Book/">Book</a> / <a class="has-link-grey -link" href="/categories/Book/Digital-Image-Processing/">Digital Image Processing</a>
+                        <a class="has-link-grey -link" href="/category/Book/">Book</a> / <a class="has-link-grey -link" href="/category/Book/Digital-Image-Processing/">Digital Image Processing</a>
                     </p>
                 </div>
             </div>

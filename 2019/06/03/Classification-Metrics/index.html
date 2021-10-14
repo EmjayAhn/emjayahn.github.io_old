@@ -179,7 +179,7 @@
                 <time class="level-item has-text-grey" datetime="2019-06-03T03:18:57.000Z">2019-06-03</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/MachineLearning/">MachineLearning</a>
+                <a class="has-link-grey -link" href="/category/MachineLearning/">MachineLearning</a>
                 </div>
                 
                 
@@ -199,9 +199,7 @@
             
         </h1>
         <div class="content">
-            <h1 id="Classification-Metrics-분류-성능-지표"><a href="#Classification-Metrics-분류-성능-지표" class="headerlink" title="Classification Metrics: 분류 성능 지표"></a>Classification Metrics: 분류 성능 지표</h1><p>Kaggle Classification 의 Evaluation 에 자주 사용되는 ROC-AUC를 정리해보면서, 이번 기회에 분류모델에서 자주 사용되는 성능지표(Metric)을 간단하게 정리해봅니다. </p>
-<a id="more"></a>
-<p>Confusion Matrix 에서 비롯되는 Metric 들은 이를 이미지로 기억하는 것이 효율적입니다.</p>
+            <h1 id="Classification-Metrics-분류-성능-지표"><a href="#Classification-Metrics-분류-성능-지표" class="headerlink" title="Classification Metrics: 분류 성능 지표"></a>Classification Metrics: 분류 성능 지표</h1><p>Kaggle Classification 의 Evaluation 에 자주 사용되는 ROC-AUC를 정리해보면서, 이번 기회에 분류모델에서 자주 사용되는 성능지표(Metric)을 간단하게 정리해봅니다.<br><a id="more"></a><br>Confusion Matrix 에서 비롯되는 Metric 들은 이를 이미지로 기억하는 것이 효율적입니다.</p>
 <h2 id="Confusion-Matrix"><a href="#Confusion-Matrix" class="headerlink" title="Confusion Matrix"></a>Confusion Matrix</h2><p>confusion matrix  는 해당 데이터의 정답 클래스(y_true) 와 모델의 예측 클래스(y_pred)의 일치 여부를 갯수로 센 표입니다. 주로, 정답 클래스는 행으로(row), 예측 클래스는 열로(columns) 표현합니다. </p>
 <p><img src="Untitled-170ac3e3-8259-4e1a-80e5-647b5bd326fd.png" alt></p>
 <ul>
@@ -212,26 +210,23 @@
 <h2 id="Accuracy-정확도"><a href="#Accuracy-정확도" class="headerlink" title="Accuracy: 정확도"></a>Accuracy: 정확도</h2><ul>
 <li>전체 데이터에 대해 맞게 예측한 비율</li>
 </ul>
-<p>$$<br>\frac{TP+TN}{TP+FN+FP+TN}<br>$$</p>
-<h2 id="Precision-정밀도"><a href="#Precision-정밀도" class="headerlink" title="Precision: 정밀도"></a>Precision: 정밀도</h2><ul>
+<script type="math/tex; mode=display">
+\frac{TP+TN}{TP+FN+FP+TN}</script><h2 id="Precision-정밀도"><a href="#Precision-정밀도" class="headerlink" title="Precision: 정밀도"></a>Precision: 정밀도</h2><ul>
 <li>class 1 이라고 예측한 데이터 중, 실제로 class 1 인 데이터의 비율</li>
 </ul>
-<p>$$\frac{TP}{TP+FP}$$</p>
-<p>우리의 모델이 기본적인 decision이 class 0 이라고 생각할 때, class 1 은 특별한 경우를 detect 한 경우 일 것입니다. 이 때 class 1 이라고 알람을 울리는 우리의 모델이 얼마나 세밀하게 class를 구분 할 수 있는지의 정도를 수치화 한 것입니다.</p>
+<script type="math/tex; mode=display">\frac{TP}{TP+FP}</script><p>우리의 모델이 기본적인 decision이 class 0 이라고 생각할 때, class 1 은 특별한 경우를 detect 한 경우 일 것입니다. 이 때 class 1 이라고 알람을 울리는 우리의 모델이 얼마나 세밀하게 class를 구분 할 수 있는지의 정도를 수치화 한 것입니다.</p>
 <h2 id="Recall-재현율"><a href="#Recall-재현율" class="headerlink" title="Recall: 재현율"></a>Recall: 재현율</h2><ul>
 <li>실제로 class 1 인 데이터 중에 class 1 이라고 예측한 비율</li>
 <li>= Sensivity = TPR</li>
 </ul>
-<p>$$\frac{TP}{TP+FN}$$</p>
-<p>제가 기억하는 방식은, 자동차에 결함이 발견되서 recall 이 되어야 하는데 (실제 고장 데이터중) 얼마나 recall 됐는지로 생각합니다. </p>
+<script type="math/tex; mode=display">\frac{TP}{TP+FN}</script><p>제가 기억하는 방식은, 자동차에 결함이 발견되서 recall 이 되어야 하는데 (실제 고장 데이터중) 얼마나 recall 됐는지로 생각합니다. </p>
 <h2 id="Fall-out-위양성율"><a href="#Fall-out-위양성율" class="headerlink" title="Fall-out: 위양성율"></a>Fall-out: 위양성율</h2><ul>
 <li>실제로 class 1 이 아닌 데이터 중에 class 1이라고 예측한 비율</li>
 <li>낮을 수록 좋음</li>
 <li>= FPR = 1 - Specificity</li>
 <li>Specificity = 1 - Fall out</li>
 </ul>
-<p>$$\frac{FP}{FP+TN}$$</p>
-<p>실제로 양성데이터가 아닌 데이터에 대해서 우리의 모델이 양성이라고 잘못 예측한 비율을 말합니다. 억울한 데이터의 정도를 측정했다고 생각 할 수 있습니다.</p>
+<script type="math/tex; mode=display">\frac{FP}{FP+TN}</script><p>실제로 양성데이터가 아닌 데이터에 대해서 우리의 모델이 양성이라고 잘못 예측한 비율을 말합니다. 억울한 데이터의 정도를 측정했다고 생각 할 수 있습니다.</p>
 <h2 id="각-Metric-간의-상관관계"><a href="#각-Metric-간의-상관관계" class="headerlink" title="각 Metric 간의 상관관계"></a>각 Metric 간의 상관관계</h2><p>우리 모델의 decision function 을 f(x) 라 할 때, 우리는 f(x)의 결과와 threshold (decision point)를 기준으로 class를 구분합니다.</p>
 <ul>
 <li><p>Recall vs Fall-out : 양의 상관관계</p>
@@ -244,11 +239,9 @@
 <h2 id="F-beta-score"><a href="#F-beta-score" class="headerlink" title="F-beta score"></a>F-beta score</h2><ul>
 <li>precision 과 recall의 가중 조화평균</li>
 </ul>
-<p>$$(\frac{1}{1+\beta^2}\frac{1}{precision} + \frac{\beta^2}{1+\beta^2}\frac{1}{recall})^{-1}$$</p>
-<p>이처럼, 다양한 Metric 에 대해 우리가 초점을 맞추는 것에 따라 모델의 성능은 다르게 바라 볼 수 있습니다. 따라서 모델에 대해 성능을 평가하고 최종 모델을 선택함에 있어, 서로 다른 Metric 을 동시에 비교해야합니다. 이를 위해 precision 과 recall 을 precision 에 beta^2 만큼 가중하여 바라보는 스코어가 F beta score 입니다.</p>
+<script type="math/tex; mode=display">(\frac{1}{1+\beta^2}\frac{1}{precision} + \frac{\beta^2}{1+\beta^2}\frac{1}{recall})^{-1}</script><p>이처럼, 다양한 Metric 에 대해 우리가 초점을 맞추는 것에 따라 모델의 성능은 다르게 바라 볼 수 있습니다. 따라서 모델에 대해 성능을 평가하고 최종 모델을 선택함에 있어, 서로 다른 Metric 을 동시에 비교해야합니다. 이를 위해 precision 과 recall 을 precision 에 beta^2 만큼 가중하여 바라보는 스코어가 F beta score 입니다.</p>
 <p>이 중 beta=1 일 때, score 가 우리가 자주 보는 f1 score 입니다.</p>
-<p>$$F_1=\frac{2<em>precision</em>recall}{precision+recall}$$</p>
-<h2 id="ROC-Curve-Receiver-Operator-Characteristic-Curve"><a href="#ROC-Curve-Receiver-Operator-Characteristic-Curve" class="headerlink" title="ROC Curve: Receiver Operator Characteristic Curve"></a>ROC Curve: Receiver Operator Characteristic Curve</h2><ul>
+<script type="math/tex; mode=display">F_1=\frac{2*precision*recall}{precision+recall}</script><h2 id="ROC-Curve-Receiver-Operator-Characteristic-Curve"><a href="#ROC-Curve-Receiver-Operator-Characteristic-Curve" class="headerlink" title="ROC Curve: Receiver Operator Characteristic Curve"></a>ROC Curve: Receiver Operator Characteristic Curve</h2><ul>
 <li>Recall vs Fallout 의 plot (TPR vs FPR)</li>
 </ul>
 <p>위의 예시 처럼, 우리가 클래스를 판별하는 기준이 되는 threshold (decision point) 를 올리거나 내리면서, recall 과 fall out 은 바뀌게 됩니다. 이렇게 threshhold 를 변화 해 가면서, recall 과 fall out 을 plotting 한 것이 ROC curve 입니다.</p>
@@ -439,7 +432,7 @@
             </h3>
             <ul class="menu-list">
             <li>
-        <a class="level is-marginless" href="/categories/Book/">
+        <a class="level is-marginless" href="/category/Book/">
             <span class="level-start">
                 <span class="level-item">Book</span>
             </span>
@@ -447,7 +440,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a><ul><li>
-        <a class="level is-marginless" href="/categories/Book/Digital-Image-Processing/">
+        <a class="level is-marginless" href="/category/Book/Digital-Image-Processing/">
             <span class="level-start">
                 <span class="level-item">Digital Image Processing</span>
             </span>
@@ -455,7 +448,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li></ul></li><li>
-        <a class="level is-marginless" href="/categories/DataScience/">
+        <a class="level is-marginless" href="/category/DataScience/">
             <span class="level-start">
                 <span class="level-item">DataScience</span>
             </span>
@@ -463,7 +456,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a><ul><li>
-        <a class="level is-marginless" href="/categories/DataScience/Seminar/">
+        <a class="level is-marginless" href="/category/DataScience/Seminar/">
             <span class="level-start">
                 <span class="level-item">Seminar</span>
             </span>
@@ -471,7 +464,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li></ul></li><li>
-        <a class="level is-marginless" href="/categories/DataStructure/">
+        <a class="level is-marginless" href="/category/DataStructure/">
             <span class="level-start">
                 <span class="level-item">DataStructure</span>
             </span>
@@ -479,7 +472,7 @@
                 <span class="level-item tag">2</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/Development/">
+        <a class="level is-marginless" href="/category/Development/">
             <span class="level-start">
                 <span class="level-item">Development</span>
             </span>
@@ -487,7 +480,7 @@
                 <span class="level-item tag">6</span>
             </span>
         </a><ul><li>
-        <a class="level is-marginless" href="/categories/Development/C/">
+        <a class="level is-marginless" href="/category/Development/C/">
             <span class="level-start">
                 <span class="level-item">C++</span>
             </span>
@@ -495,7 +488,7 @@
                 <span class="level-item tag">2</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/Development/Linux/">
+        <a class="level is-marginless" href="/category/Development/Linux/">
             <span class="level-start">
                 <span class="level-item">Linux</span>
             </span>
@@ -503,7 +496,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/Development/Python/">
+        <a class="level is-marginless" href="/category/Development/Python/">
             <span class="level-start">
                 <span class="level-item">Python</span>
             </span>
@@ -511,7 +504,7 @@
                 <span class="level-item tag">3</span>
             </span>
         </a></li></ul></li><li>
-        <a class="level is-marginless" href="/categories/Diary/">
+        <a class="level is-marginless" href="/category/Diary/">
             <span class="level-start">
                 <span class="level-item">Diary</span>
             </span>
@@ -519,7 +512,7 @@
                 <span class="level-item tag">43</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/Google-Cloud-Platform/">
+        <a class="level is-marginless" href="/category/Google-Cloud-Platform/">
             <span class="level-start">
                 <span class="level-item">Google Cloud Platform</span>
             </span>
@@ -527,7 +520,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/Lecture/">
+        <a class="level is-marginless" href="/category/Lecture/">
             <span class="level-start">
                 <span class="level-item">Lecture</span>
             </span>
@@ -535,7 +528,7 @@
                 <span class="level-item tag">10</span>
             </span>
         </a><ul><li>
-        <a class="level is-marginless" href="/categories/Lecture/CS224n/">
+        <a class="level is-marginless" href="/category/Lecture/CS224n/">
             <span class="level-start">
                 <span class="level-item">CS224n</span>
             </span>
@@ -543,7 +536,7 @@
                 <span class="level-item tag">2</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/Lecture/CS231n/">
+        <a class="level is-marginless" href="/category/Lecture/CS231n/">
             <span class="level-start">
                 <span class="level-item">CS231n</span>
             </span>
@@ -551,7 +544,7 @@
                 <span class="level-item tag">7</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/Lecture/딥러닝을-이용한-자연어-처리/">
+        <a class="level is-marginless" href="/category/Lecture/딥러닝을-이용한-자연어-처리/">
             <span class="level-start">
                 <span class="level-item">딥러닝을 이용한 자연어 처리</span>
             </span>
@@ -559,7 +552,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li></ul></li><li>
-        <a class="level is-marginless" href="/categories/MachineLearning/">
+        <a class="level is-marginless" href="/category/MachineLearning/">
             <span class="level-start">
                 <span class="level-item">MachineLearning</span>
             </span>
@@ -567,7 +560,7 @@
                 <span class="level-item tag">6</span>
             </span>
         </a><ul><li>
-        <a class="level is-marginless" href="/categories/MachineLearning/Apache-Spark/">
+        <a class="level is-marginless" href="/category/MachineLearning/Apache-Spark/">
             <span class="level-start">
                 <span class="level-item">Apache Spark</span>
             </span>
@@ -575,7 +568,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/MachineLearning/Pytorch/">
+        <a class="level is-marginless" href="/category/MachineLearning/Pytorch/">
             <span class="level-start">
                 <span class="level-item">Pytorch</span>
             </span>
@@ -583,7 +576,7 @@
                 <span class="level-item tag">3</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/MachineLearning/Vision/">
+        <a class="level is-marginless" href="/category/MachineLearning/Vision/">
             <span class="level-start">
                 <span class="level-item">Vision</span>
             </span>
@@ -591,7 +584,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li></ul></li><li>
-        <a class="level is-marginless" href="/categories/Math/">
+        <a class="level is-marginless" href="/category/Math/">
             <span class="level-start">
                 <span class="level-item">Math</span>
             </span>
@@ -599,7 +592,7 @@
                 <span class="level-item tag">2</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/Paper/">
+        <a class="level is-marginless" href="/category/Paper/">
             <span class="level-start">
                 <span class="level-item">Paper</span>
             </span>
@@ -607,7 +600,7 @@
                 <span class="level-item tag">2</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/wiki/">
+        <a class="level is-marginless" href="/category/wiki/">
             <span class="level-start">
                 <span class="level-item">wiki</span>
             </span>
@@ -615,7 +608,7 @@
                 <span class="level-item tag">9</span>
             </span>
         </a><ul><li>
-        <a class="level is-marginless" href="/categories/wiki/MySQL/">
+        <a class="level is-marginless" href="/category/wiki/MySQL/">
             <span class="level-start">
                 <span class="level-item">MySQL</span>
             </span>
@@ -623,7 +616,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/wiki/NGINX/">
+        <a class="level is-marginless" href="/category/wiki/NGINX/">
             <span class="level-start">
                 <span class="level-item">NGINX</span>
             </span>
@@ -631,7 +624,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/wiki/Pillow/">
+        <a class="level is-marginless" href="/category/wiki/Pillow/">
             <span class="level-start">
                 <span class="level-item">Pillow</span>
             </span>
@@ -639,7 +632,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/wiki/Provision/">
+        <a class="level is-marginless" href="/category/wiki/Provision/">
             <span class="level-start">
                 <span class="level-item">Provision</span>
             </span>
@@ -647,7 +640,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/wiki/Requests/">
+        <a class="level is-marginless" href="/category/wiki/Requests/">
             <span class="level-start">
                 <span class="level-item">Requests</span>
             </span>
@@ -655,7 +648,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/wiki/Scrapy/">
+        <a class="level is-marginless" href="/category/wiki/Scrapy/">
             <span class="level-start">
                 <span class="level-item">Scrapy</span>
             </span>
@@ -663,7 +656,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/wiki/Selenium/">
+        <a class="level is-marginless" href="/category/wiki/Selenium/">
             <span class="level-start">
                 <span class="level-item">Selenium</span>
             </span>
@@ -671,7 +664,7 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/wiki/Xpath/">
+        <a class="level is-marginless" href="/category/wiki/Xpath/">
             <span class="level-start">
                 <span class="level-item">Xpath</span>
             </span>
@@ -704,7 +697,7 @@
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-10-14T09:51:33.000Z">2021-10-14</time></div>
                     <a href="/2021/10/14/C-연산자-Operators/" class="has-link-black-ter is-size-6">[C++] 2.연산자(Operators)</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Development/">Development</a> / <a class="has-link-grey -link" href="/categories/Development/C/">C++</a>
+                        <a class="has-link-grey -link" href="/category/Development/">Development</a> / <a class="has-link-grey -link" href="/category/Development/C/">C++</a>
                     </p>
                 </div>
             </div>
@@ -723,7 +716,7 @@
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-10-13T12:35:26.000Z">2021-10-13</time></div>
                     <a href="/2021/10/13/C-자료형-DataTypes/" class="has-link-black-ter is-size-6">[C++] 1.자료형(DataTypes)</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Development/">Development</a> / <a class="has-link-grey -link" href="/categories/Development/C/">C++</a>
+                        <a class="has-link-grey -link" href="/category/Development/">Development</a> / <a class="has-link-grey -link" href="/category/Development/C/">C++</a>
                     </p>
                 </div>
             </div>
@@ -742,7 +735,7 @@
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-10-10T03:45:08.000Z">2021-10-10</time></div>
                     <a href="/2021/10/10/summary-seminar-EDA/" class="has-link-black-ter is-size-6">[세미나요약] 데이터 분석, 의심에서 전달까지</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/DataScience/">DataScience</a> / <a class="has-link-grey -link" href="/categories/DataScience/Seminar/">Seminar</a>
+                        <a class="has-link-grey -link" href="/category/DataScience/">DataScience</a> / <a class="has-link-grey -link" href="/category/DataScience/Seminar/">Seminar</a>
                     </p>
                 </div>
             </div>
@@ -761,7 +754,7 @@
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-01T05:41:22.000Z">2019-09-01</time></div>
                     <a href="/2019/09/01/psnr-ssim/" class="has-link-black-ter is-size-6">[Metrics] PSNR &amp; SSIM</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/MachineLearning/">MachineLearning</a> / <a class="has-link-grey -link" href="/categories/MachineLearning/Vision/">Vision</a>
+                        <a class="has-link-grey -link" href="/category/MachineLearning/">MachineLearning</a> / <a class="has-link-grey -link" href="/category/MachineLearning/Vision/">Vision</a>
                     </p>
                 </div>
             </div>
@@ -780,7 +773,7 @@
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-08-26T12:54:53.000Z">2019-08-26</time></div>
                     <a href="/2019/08/26/DIP-chapter3/" class="has-link-black-ter is-size-6">[Book] Summary of Digital Image Processing Chapter 03</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Book/">Book</a> / <a class="has-link-grey -link" href="/categories/Book/Digital-Image-Processing/">Digital Image Processing</a>
+                        <a class="has-link-grey -link" href="/category/Book/">Book</a> / <a class="has-link-grey -link" href="/category/Book/Digital-Image-Processing/">Digital Image Processing</a>
                     </p>
                 </div>
             </div>

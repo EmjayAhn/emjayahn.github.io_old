@@ -179,7 +179,7 @@
                 <time class="level-item has-text-grey" datetime="2019-05-31T12:07:52.000Z">2019-05-31</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/MachineLearning/">MachineLearning</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/MachineLearning/Apache-Spark/">Apache Spark</a>
+                <a class="has-link-grey -link" href="/category/MachineLearning/">MachineLearning</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/category/MachineLearning/Apache-Spark/">Apache Spark</a>
                 </div>
                 
                 
@@ -209,10 +209,10 @@
 </li>
 </ul>
 <a id="more"></a>
-
 <h1 id="1-Spark-shell"><a href="#1-Spark-shell" class="headerlink" title="1. Spark-shell"></a>1. Spark-shell</h1><h2 id="1-1-Introduction"><a href="#1-1-Introduction" class="headerlink" title="1-1. Introduction"></a>1-1. Introduction</h2><p>shell의 spark home directory 에서 다음 명령어를 통해 spark shell 을 진입할 수 있습니다.</p>
 <pre><code>$ cd /spark_home_directory/
-$ ./bin/spark-shell</code></pre><p><img src="Untitled-d3bd9451-d568-49aa-bf5a-0f6b7bf598d9.png" alt></p>
+$ ./bin/spark-shell
+</code></pre><p><img src="Untitled-d3bd9451-d568-49aa-bf5a-0f6b7bf598d9.png" alt></p>
 <ul>
 <li>sc : spark context</li>
 <li>spark : spark session</li>
@@ -221,12 +221,14 @@ $ ./bin/spark-shell</code></pre><p><img src="Untitled-d3bd9451-d568-49aa-bf5a-0f
 <pre><code>$ jps
 // jps 명령어를 통해 현재 돌고 있는 spark process 를 확인할 수 있다. 
 // spark processor 가 jvm 을 바탕으로 돌기 때문에, jvm 프로세스가 도는 것을 확인하므로써
-// 확인 할 수 있는 것이다.</code></pre><p><a href="http://localhost:4040" target="_blank" rel="noopener">http://localhost:4040</a>, 즉 해당 서버의 ip:4040 포트를 통해서 드라이버에서 제공되는 웹 UI 를 확인할 수 있다. 이 웹 UI 를 통해 현재 작동하는 프로세서와 클러스터들을 관리 할 수 있다.</p>
+// 확인 할 수 있는 것이다.
+</code></pre><p><a href="http://localhost:4040" target="_blank" rel="noopener">http://localhost:4040</a>, 즉 해당 서버의 ip:4040 포트를 통해서 드라이버에서 제공되는 웹 UI 를 확인할 수 있다. 이 웹 UI 를 통해 현재 작동하는 프로세서와 클러스터들을 관리 할 수 있다.</p>
 <h2 id="1-2-RDD"><a href="#1-2-RDD" class="headerlink" title="1-2. RDD"></a>1-2. RDD</h2><p>spark는 data를 처리할 때, RDD 와 Spark SQL 을 통해서 data object 를 생성하고 이를 바탕으로 다양한 pipeline 으로 동작 할 수 있다. RDD 를 처음 접해보는 실습.</p>
 <pre><code>//scala shell
 val data = 1 to 10000
 val distData = sc.parallelize(data)
-distData.filter(_ &lt; 10).collect()</code></pre><ul>
+distData.filter(_ &lt; 10).collect()
+</code></pre><ul>
 <li><code>data</code> 가 RDD</li>
 <li>sc.parallelize의 return 형 역시 parallelize 된 RDD, 즉 distData 도 RDD</li>
 <li>마지막 command line 은 10보다 작은 data 에 대해 filtering 하고 각 executor 에서 실행된 자료를 collect()</li>
@@ -242,7 +244,8 @@ val data = sc.textFile(&quot;file_name&quot;)
 val distData = data.map(r =&gt; r + &quot;_experiment!!&quot;)
 
 // 앞선 map 이 수행되고, 각 element(data) 갯수를 세개 된다.
-distData.count</code></pre><p>여기서는 .count 가 action api 이므로, .count 가 수행될 때, 앞선 command 들이 수행되게 된다.</p>
+distData.count
+</code></pre><p>여기서는 .count 가 action api 이므로, .count 가 수행될 때, 앞선 command 들이 수행되게 된다.</p>
 <p><code>sc.textFile()</code> 의 경우 ‘\n’, newline 을 기준으로 element 를 RDD 에 담게 된다.</p>
 <p><code>RDD.toDebugString</code> 를 통해 해당 RDD 의 Lineage 를 확인 할 수 있다.</p>
 <ul>
@@ -267,7 +270,8 @@ newData.toDebugString
 // shuffle 로 인해 stage 가 2개가 되는 것을 확인 할 수 있다.(indentation)
 
 newData.count
-// action api 를 수행하여 앞선 command 를 모두 수행</code></pre><p><img src="Untitled-95d981bb-62a7-457f-9378-0b41db4d5b42.png" alt></p>
+// action api 를 수행하여 앞선 command 를 모두 수행
+</code></pre><p><img src="Untitled-95d981bb-62a7-457f-9378-0b41db4d5b42.png" alt></p>
 <p>위 command line 에 대한 DAG 를 웹 UI 를 통해 확인하면, 다음과 같이 stage 가 repartition을 기점으로 나누어 지는 것을 확인 할 수 있다.</p>
 <p><img src="Untitled-ef367f62-d6f5-47da-9086-cdaa914aa5d7.png" alt></p>
 <p>총 Partition의 갯수 (Task의 갯수)를 확인해 보면,  default 로 수행된 partition 2 개와, 우리가 설정해준 Partition 의 갯수인 10개를 합하여 12개인 것을 확인 할 수 있다.</p>
@@ -275,7 +279,8 @@ newData.count
 <p>여기서 한 스텝을 더 들어가보면, spark 만의 특이한 특징을 확인 할 수 있다.</p>
 <pre><code>// 위 코드에 이어서, newData 에 대해
 // newData RDD를 collect 해서 cli에 찍는 command 를 수행해보자.
-newData.collect.foreach(println)</code></pre><p>collect api 와 RDD의 element를 print 를 하는 action api 를 수행할 때, 지금까지 공부한 것으로 생각해 보면, text를 읽어서, 2개의 Partition 을 나누고, 다시 10개의 Partition 을 나누는 작업으로 이전의 12 개의 Task 와 다를게 없을 것 같은 느낌이다. 하지만 UI 를 통해 확인해보면, 10개의 Partition 으로 2개가 skipped 되었다고 확인할 수 있다. DAG 에서도, skipped 된 stage에 대해서 회색으로 확인된다.</p>
+newData.collect.foreach(println)
+</code></pre><p>collect api 와 RDD의 element를 print 를 하는 action api 를 수행할 때, 지금까지 공부한 것으로 생각해 보면, text를 읽어서, 2개의 Partition 을 나누고, 다시 10개의 Partition 을 나누는 작업으로 이전의 12 개의 Task 와 다를게 없을 것 같은 느낌이다. 하지만 UI 를 통해 확인해보면, 10개의 Partition 으로 2개가 skipped 되었다고 확인할 수 있다. DAG 에서도, skipped 된 stage에 대해서 회색으로 확인된다.</p>
 <p><img src="Untitled-6e461b14-8e34-4edb-91ad-6dd9ba2ba516.png" alt></p>
 <p><img src="Untitled-85afaaf0-58d6-4533-995d-c5ec919da985.png" alt></p>
 <p>이는 spark 에서 이 커맨드라인을 수행할 때, process 간 통신이 file 을 기반으로한 통신을 했기 때문이다. 제일 처음 <code>newData</code> 에 대해서 수행 될 때, 첫 stage 에서 shuffle 이 수행 될 때, 해당 파일을 각 executor 에서 shuffle write 을 하고 저장해두었다가, 두번째 stage 에서 shuffle  이 수행 될때, shuffle read 를 하는 방식으로 file을 기반으로 processor 가 통신하게 된다.</p>
@@ -294,7 +299,8 @@ distData.cache
 distData.take(5)
 
 // action : collect
-distData.collect</code></pre><p><code>distData.take(5)</code> 까지 한 결과를 UI 에서 cache 를 살펴보면, 다음과 같다.</p>
+distData.collect
+</code></pre><p><code>distData.take(5)</code> 까지 한 결과를 UI 에서 cache 를 살펴보면, 다음과 같다.</p>
 <p><img src="Untitled-54196c66-b41c-4216-af72-5a70b030b321.png" alt></p>
 <p>우리가 설정 한 것 처럼, RDD 의 이름이 myData 로 들어간것을 확인 할 수 있고 cache  역시 확인 할 수 있다. 하지만, Cached  된 비율을 확인하면 전체 RDD  에서 50% 만 된 것을 확인 할 수 있다. 반면에, <code>distData.collect</code> action 을 취하게 되면, Fraction Cached  가 100% 가 된 것을 확인 할 수 있다.</p>
 <p><img src="Untitled-8f50bedc-ace7-4c09-9450-fb277ee5830b.png" alt></p>
@@ -306,7 +312,8 @@ distData.collect</code></pre><p><code>distData.take(5)</code> 까지 한 결과�
 val wordcountRDD = originalDataRDD.flatMap(line =&gt; line.split(&quot; &quot;))
                                         .map(word =&gt; (word, 1)).reduceByKey(_ + _)
 
-wordcountRDD.collect.foreach(println)</code></pre><ol>
+wordcountRDD.collect.foreach(println)
+</code></pre><ol>
 <li>originalDataRDD 에서 text-file을 읽고,</li>
 <li>line 마다 띄어쓰기를 기준으로 split 하고 이를 .flatMap 을 통해, flatten 하게 됩니다.</li>
 <li>그리고 .map 을 통해 (word, 1) tuple 형태로 mapping 합니다.</li>
@@ -488,7 +495,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
             </h3>
             <ul class="menu-list">
             <li>
-        <a class="level is-marginless" href="/categories/Book/">
+        <a class="level is-marginless" href="/category/Book/">
             <span class="level-start">
                 <span class="level-item">Book</span>
             </span>
@@ -496,7 +503,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
                 <span class="level-item tag">1</span>
             </span>
         </a><ul><li>
-        <a class="level is-marginless" href="/categories/Book/Digital-Image-Processing/">
+        <a class="level is-marginless" href="/category/Book/Digital-Image-Processing/">
             <span class="level-start">
                 <span class="level-item">Digital Image Processing</span>
             </span>
@@ -504,7 +511,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
                 <span class="level-item tag">1</span>
             </span>
         </a></li></ul></li><li>
-        <a class="level is-marginless" href="/categories/DataScience/">
+        <a class="level is-marginless" href="/category/DataScience/">
             <span class="level-start">
                 <span class="level-item">DataScience</span>
             </span>
@@ -512,7 +519,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
                 <span class="level-item tag">1</span>
             </span>
         </a><ul><li>
-        <a class="level is-marginless" href="/categories/DataScience/Seminar/">
+        <a class="level is-marginless" href="/category/DataScience/Seminar/">
             <span class="level-start">
                 <span class="level-item">Seminar</span>
             </span>
@@ -520,7 +527,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
                 <span class="level-item tag">1</span>
             </span>
         </a></li></ul></li><li>
-        <a class="level is-marginless" href="/categories/DataStructure/">
+        <a class="level is-marginless" href="/category/DataStructure/">
             <span class="level-start">
                 <span class="level-item">DataStructure</span>
             </span>
@@ -528,7 +535,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
                 <span class="level-item tag">2</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/Development/">
+        <a class="level is-marginless" href="/category/Development/">
             <span class="level-start">
                 <span class="level-item">Development</span>
             </span>
@@ -536,7 +543,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
                 <span class="level-item tag">6</span>
             </span>
         </a><ul><li>
-        <a class="level is-marginless" href="/categories/Development/C/">
+        <a class="level is-marginless" href="/category/Development/C/">
             <span class="level-start">
                 <span class="level-item">C++</span>
             </span>
@@ -544,7 +551,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
                 <span class="level-item tag">2</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/Development/Linux/">
+        <a class="level is-marginless" href="/category/Development/Linux/">
             <span class="level-start">
                 <span class="level-item">Linux</span>
             </span>
@@ -552,7 +559,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/Development/Python/">
+        <a class="level is-marginless" href="/category/Development/Python/">
             <span class="level-start">
                 <span class="level-item">Python</span>
             </span>
@@ -560,7 +567,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
                 <span class="level-item tag">3</span>
             </span>
         </a></li></ul></li><li>
-        <a class="level is-marginless" href="/categories/Diary/">
+        <a class="level is-marginless" href="/category/Diary/">
             <span class="level-start">
                 <span class="level-item">Diary</span>
             </span>
@@ -568,7 +575,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
                 <span class="level-item tag">43</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/Google-Cloud-Platform/">
+        <a class="level is-marginless" href="/category/Google-Cloud-Platform/">
             <span class="level-start">
                 <span class="level-item">Google Cloud Platform</span>
             </span>
@@ -576,7 +583,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/Lecture/">
+        <a class="level is-marginless" href="/category/Lecture/">
             <span class="level-start">
                 <span class="level-item">Lecture</span>
             </span>
@@ -584,7 +591,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
                 <span class="level-item tag">10</span>
             </span>
         </a><ul><li>
-        <a class="level is-marginless" href="/categories/Lecture/CS224n/">
+        <a class="level is-marginless" href="/category/Lecture/CS224n/">
             <span class="level-start">
                 <span class="level-item">CS224n</span>
             </span>
@@ -592,7 +599,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
                 <span class="level-item tag">2</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/Lecture/CS231n/">
+        <a class="level is-marginless" href="/category/Lecture/CS231n/">
             <span class="level-start">
                 <span class="level-item">CS231n</span>
             </span>
@@ -600,7 +607,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
                 <span class="level-item tag">7</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/Lecture/딥러닝을-이용한-자연어-처리/">
+        <a class="level is-marginless" href="/category/Lecture/딥러닝을-이용한-자연어-처리/">
             <span class="level-start">
                 <span class="level-item">딥러닝을 이용한 자연어 처리</span>
             </span>
@@ -608,7 +615,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
                 <span class="level-item tag">1</span>
             </span>
         </a></li></ul></li><li>
-        <a class="level is-marginless" href="/categories/MachineLearning/">
+        <a class="level is-marginless" href="/category/MachineLearning/">
             <span class="level-start">
                 <span class="level-item">MachineLearning</span>
             </span>
@@ -616,7 +623,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
                 <span class="level-item tag">6</span>
             </span>
         </a><ul><li>
-        <a class="level is-marginless" href="/categories/MachineLearning/Apache-Spark/">
+        <a class="level is-marginless" href="/category/MachineLearning/Apache-Spark/">
             <span class="level-start">
                 <span class="level-item">Apache Spark</span>
             </span>
@@ -624,7 +631,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/MachineLearning/Pytorch/">
+        <a class="level is-marginless" href="/category/MachineLearning/Pytorch/">
             <span class="level-start">
                 <span class="level-item">Pytorch</span>
             </span>
@@ -632,7 +639,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
                 <span class="level-item tag">3</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/MachineLearning/Vision/">
+        <a class="level is-marginless" href="/category/MachineLearning/Vision/">
             <span class="level-start">
                 <span class="level-item">Vision</span>
             </span>
@@ -640,7 +647,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
                 <span class="level-item tag">1</span>
             </span>
         </a></li></ul></li><li>
-        <a class="level is-marginless" href="/categories/Math/">
+        <a class="level is-marginless" href="/category/Math/">
             <span class="level-start">
                 <span class="level-item">Math</span>
             </span>
@@ -648,7 +655,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
                 <span class="level-item tag">2</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/Paper/">
+        <a class="level is-marginless" href="/category/Paper/">
             <span class="level-start">
                 <span class="level-item">Paper</span>
             </span>
@@ -656,7 +663,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
                 <span class="level-item tag">2</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/wiki/">
+        <a class="level is-marginless" href="/category/wiki/">
             <span class="level-start">
                 <span class="level-item">wiki</span>
             </span>
@@ -664,7 +671,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
                 <span class="level-item tag">9</span>
             </span>
         </a><ul><li>
-        <a class="level is-marginless" href="/categories/wiki/MySQL/">
+        <a class="level is-marginless" href="/category/wiki/MySQL/">
             <span class="level-start">
                 <span class="level-item">MySQL</span>
             </span>
@@ -672,7 +679,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/wiki/NGINX/">
+        <a class="level is-marginless" href="/category/wiki/NGINX/">
             <span class="level-start">
                 <span class="level-item">NGINX</span>
             </span>
@@ -680,7 +687,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/wiki/Pillow/">
+        <a class="level is-marginless" href="/category/wiki/Pillow/">
             <span class="level-start">
                 <span class="level-item">Pillow</span>
             </span>
@@ -688,7 +695,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/wiki/Provision/">
+        <a class="level is-marginless" href="/category/wiki/Provision/">
             <span class="level-start">
                 <span class="level-item">Provision</span>
             </span>
@@ -696,7 +703,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/wiki/Requests/">
+        <a class="level is-marginless" href="/category/wiki/Requests/">
             <span class="level-start">
                 <span class="level-item">Requests</span>
             </span>
@@ -704,7 +711,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/wiki/Scrapy/">
+        <a class="level is-marginless" href="/category/wiki/Scrapy/">
             <span class="level-start">
                 <span class="level-item">Scrapy</span>
             </span>
@@ -712,7 +719,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/wiki/Selenium/">
+        <a class="level is-marginless" href="/category/wiki/Selenium/">
             <span class="level-start">
                 <span class="level-item">Selenium</span>
             </span>
@@ -720,7 +727,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/wiki/Xpath/">
+        <a class="level is-marginless" href="/category/wiki/Xpath/">
             <span class="level-start">
                 <span class="level-item">Xpath</span>
             </span>
@@ -753,7 +760,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-10-14T09:51:33.000Z">2021-10-14</time></div>
                     <a href="/2021/10/14/C-연산자-Operators/" class="has-link-black-ter is-size-6">[C++] 2.연산자(Operators)</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Development/">Development</a> / <a class="has-link-grey -link" href="/categories/Development/C/">C++</a>
+                        <a class="has-link-grey -link" href="/category/Development/">Development</a> / <a class="has-link-grey -link" href="/category/Development/C/">C++</a>
                     </p>
                 </div>
             </div>
@@ -772,7 +779,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-10-13T12:35:26.000Z">2021-10-13</time></div>
                     <a href="/2021/10/13/C-자료형-DataTypes/" class="has-link-black-ter is-size-6">[C++] 1.자료형(DataTypes)</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Development/">Development</a> / <a class="has-link-grey -link" href="/categories/Development/C/">C++</a>
+                        <a class="has-link-grey -link" href="/category/Development/">Development</a> / <a class="has-link-grey -link" href="/category/Development/C/">C++</a>
                     </p>
                 </div>
             </div>
@@ -791,7 +798,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-10-10T03:45:08.000Z">2021-10-10</time></div>
                     <a href="/2021/10/10/summary-seminar-EDA/" class="has-link-black-ter is-size-6">[세미나요약] 데이터 분석, 의심에서 전달까지</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/DataScience/">DataScience</a> / <a class="has-link-grey -link" href="/categories/DataScience/Seminar/">Seminar</a>
+                        <a class="has-link-grey -link" href="/category/DataScience/">DataScience</a> / <a class="has-link-grey -link" href="/category/DataScience/Seminar/">Seminar</a>
                     </p>
                 </div>
             </div>
@@ -810,7 +817,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-01T05:41:22.000Z">2019-09-01</time></div>
                     <a href="/2019/09/01/psnr-ssim/" class="has-link-black-ter is-size-6">[Metrics] PSNR &amp; SSIM</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/MachineLearning/">MachineLearning</a> / <a class="has-link-grey -link" href="/categories/MachineLearning/Vision/">Vision</a>
+                        <a class="has-link-grey -link" href="/category/MachineLearning/">MachineLearning</a> / <a class="has-link-grey -link" href="/category/MachineLearning/Vision/">Vision</a>
                     </p>
                 </div>
             </div>
@@ -829,7 +836,7 @@ wordcountRDD.collect.foreach(println)</code></pre><ol>
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-08-26T12:54:53.000Z">2019-08-26</time></div>
                     <a href="/2019/08/26/DIP-chapter3/" class="has-link-black-ter is-size-6">[Book] Summary of Digital Image Processing Chapter 03</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Book/">Book</a> / <a class="has-link-grey -link" href="/categories/Book/Digital-Image-Processing/">Digital Image Processing</a>
+                        <a class="has-link-grey -link" href="/category/Book/">Book</a> / <a class="has-link-grey -link" href="/category/Book/Digital-Image-Processing/">Digital Image Processing</a>
                     </p>
                 </div>
             </div>
