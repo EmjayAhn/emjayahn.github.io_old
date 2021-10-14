@@ -2,7 +2,7 @@
 <html lang="en">
 <head><meta name="generator" content="Hexo 3.9.0">
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-<title>Archives - Emjay, 오늘도 새롭게</title>
+<title>[C++] 2.연산자(Operators) - Emjay, 오늘도 새롭게</title>
 <meta name="naver-site-verification" content="139bdfd66b5dc8101d114c24fabb93c84d0dd64d">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta property="al:ios:url" content="applinks://docs">
@@ -21,20 +21,21 @@
   });
 </script>
 
-<link rel="canonical" href="https://emjayahn.github.io/archives/page/9/">
+<link rel="canonical" href="https://emjayahn.github.io/2021/10/14/c-연산자-operators/">
 
-    <meta name="description" content="공부한 것, 알게된 것을 기록하는 블로그입니다.">
-<meta name="keywords" content="데이터사이언스,머신러닝,딥러닝,개발,machine learning,deep learning,datascience,datascientist">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Emjay, 오늘도 새롭게">
-<meta property="og:url" content="https://emjayahn.github.io/archives/page/9/index.html">
+    <meta name="description" content="2. 연산자 (Operators)C와 C++이 필요해, 제 머릿속 메모리의 Recall 이 필요했습니다. 요즘엔 주로 Python을 사용하다보니, C, C++ 의 기초문법과 CodeStyle을 다시 떠올려야합니다. 학생 때 열심히 공부했으나 방구석 한켠에 먼지 쌓인 열혈강의 C, C++책과 인터넷자료, 유튜브를 통해 Remind하고 공부하는 내용을 요약 정">
+<meta name="keywords" content="Language,C++,C">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[C++] 2.연산자(Operators)">
+<meta property="og:url" content="https://emjayahn.github.io/2021/10/14/C-연산자-Operators/index.html">
 <meta property="og:site_name" content="Emjay, 오늘도 새롭게">
-<meta property="og:description" content="공부한 것, 알게된 것을 기록하는 블로그입니다.">
+<meta property="og:description" content="2. 연산자 (Operators)C와 C++이 필요해, 제 머릿속 메모리의 Recall 이 필요했습니다. 요즘엔 주로 Python을 사용하다보니, C, C++ 의 기초문법과 CodeStyle을 다시 떠올려야합니다. 학생 때 열심히 공부했으나 방구석 한켠에 먼지 쌓인 열혈강의 C, C++책과 인터넷자료, 유튜브를 통해 Remind하고 공부하는 내용을 요약 정">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://emjayahn.github.io/images/og_emjay_image.png">
+<meta property="og:updated_time" content="2021-10-14T09:54:39.224Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Emjay, 오늘도 새롭게">
-<meta name="twitter:description" content="공부한 것, 알게된 것을 기록하는 블로그입니다.">
+<meta name="twitter:title" content="[C++] 2.연산자(Operators)">
+<meta name="twitter:description" content="2. 연산자 (Operators)C와 C++이 필요해, 제 머릿속 메모리의 Recall 이 필요했습니다. 요즘엔 주로 Python을 사용하다보니, C, C++ 의 기초문법과 CodeStyle을 다시 떠올려야합니다. 학생 때 열심히 공부했으나 방구석 한켠에 먼지 쌓인 열혈강의 C, C++책과 인터넷자료, 유튜브를 통해 Remind하고 공부하는 내용을 요약 정">
 <meta name="twitter:image" content="https://emjayahn.github.io/images/og_emjay_image.png">
 <meta property="fb:app_id" content="jjminjae">
 
@@ -42,7 +43,7 @@
 
 
 
-<link rel="alternative" href="/rss2.xml" title="Emjay, 오늘도 새롭게" type="application/atom+xml">
+<link rel="alternative" href="/rss2.xml" title="[C++] 2.연산자(Operators)" type="application/atom+xml">
 
 
 
@@ -116,7 +117,7 @@
 <link rel="stylesheet" href="/css/style.css">
 
 <!--Canonical : 유사하거나 중복된 페이지의 표준 페이지 정의-->
-<link rel="canonical" href="https://emjayahn.github.io/archives/page/9/"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<link rel="canonical" href="https://emjayahn.github.io/2021/10/14/c-연산자-operators/"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 <body class="is-3-column">
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><nav class="navbar navbar-main">
@@ -124,7 +125,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/Emjaybloglogo_edit.png" alt="Emjay, 오늘도 새롭게" height="28">
+                <img src="/images/Emjaybloglogo_edit.png" alt="[C++] 2.연산자(Operators)" height="28">
             
             </a>
         </div>
@@ -167,156 +168,120 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
-<div class="card widget">
-    <div class="card-content">
-        <h3 class="tag is-link">
-        2018
-        </h3>
-        <div class="timeline">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
         
-            <article class="media">
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2021-10-14T09:51:33.000Z">2021-10-14</time>
                 
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2018-10-23T04:31:39.000Z">2018-10-23</time>
-                        <a href="/2018/10/23/181023-TodayWhatILearned/" class="has-link-black-ter is-size-6">181023 TodayWhatILearned</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/Diary/">Diary</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/Development/">Development</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/Development/C/">C++</a>
                 </div>
-            </article>
-        
-            <article class="media">
                 
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2018-10-22T13:49:03.000Z">2018-10-22</time>
-                        <a href="/2018/10/22/Queue/" class="has-link-black-ter is-size-6">Queue</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/DataStructure/">DataStructure</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
                 
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2018-10-22T13:18:03.000Z">2018-10-22</time>
-                        <a href="/2018/10/22/Stack/" class="has-link-black-ter is-size-6">Stack</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/DataStructure/">DataStructure</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
+                <span class="level-item has-text-grey">
+                    
+                    
+                    4 minutes read (About 545 words)
+                </span>
                 
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2018-10-22T01:17:15.000Z">2018-10-22</time>
-                        <a href="/2018/10/22/181022-TodayWhatILearned/" class="has-link-black-ter is-size-6">181022 TodayWhatILearned</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/Diary/">Diary</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
                 
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2018-10-19T12:00:07.000Z">2018-10-19</time>
-                        <a href="/2018/10/19/181019_TodayWhatILearned/" class="has-link-black-ter is-size-6">181019 TodayWhatILearned</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/Diary/">Diary</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2018-10-18T12:12:13.000Z">2018-10-18</time>
-                        <a href="/2018/10/18/181018-TodayWhatILearned/" class="has-link-black-ter is-size-6">181018_DailyScrum</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/Diary/">Diary</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
+            </div>
         </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                [C++] 2.연산자(Operators)
+            
+        </h1>
+        <div class="content">
+            <h1 id="2-연산자-Operators"><a href="#2-연산자-Operators" class="headerlink" title="2. 연산자 (Operators)"></a>2. 연산자 (Operators)</h1><p>C와 C++이 필요해, 제 머릿속 메모리의 Recall 이 필요했습니다. 요즘엔 주로 Python을 사용하다보니, C, C++ 의 기초문법과 CodeStyle을 다시 떠올려야합니다. 학생 때 열심히 공부했으나 방구석 한켠에 먼지 쌓인 열혈강의 C, C++책과 인터넷자료, 유튜브를 통해 Remind하고 공부하는 내용을 요약 정리하려고 합니다. 본 글에서는 C에 대한 내용보다 C++ 내용이 주를 이룰 예정입니다. </p>
+<p>모든 연산자에 대한 리뷰보다는 조금 까다롭거나, 쉽게 잊을 수 있는 연산자 등을 위주로 정리하려고 합니다.</p>
+<a id="more"></a>
+
+<h3 id="산술연산자"><a href="#산술연산자" class="headerlink" title="산술연산자(+, -, *, /, %, +=)"></a>산술연산자(+, -, *, /, %, +=)</h3><p>/ : 나누기,</p>
+<figure class="highlight cpp hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 이 때, 정수와 정수간의 연산은 result 에는 2가 저장됨</span></span><br><span class="line"><span class="hljs-keyword">int</span> result = <span class="hljs-number">7</span> / <span class="hljs-number">3</span>;</span><br><span class="line"><span class="hljs-comment">// 이 때, 나머지는 모듈러스 연산자로 계산</span></span><br><span class="line"><span class="hljs-keyword">int</span> remain = <span class="hljs-number">7</span> % <span class="hljs-number">3</span>;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 이 경우는, 에러는 발생시키지 않으나 warning sign 을 확인할 수 있음.</span></span><br><span class="line"><span class="hljs-comment">// int type의 result에 float 혹은 double 형태의 연산값을 저장하기에 warning sign 발생</span></span><br><span class="line"><span class="hljs-keyword">int</span> result = <span class="hljs-number">7.0</span> / <span class="hljs-number">3.0</span>;</span><br><span class="line"><span class="hljs-comment">// 이를 막기위해 작성자의 의도를 담아 TypeCasting 을 해주는 것을 추천</span></span><br><span class="line"><span class="hljs-keyword">int</span> result = (<span class="hljs-keyword">int</span>)(<span class="hljs-number">7.0</span> / <span class="hljs-number">3.0</span>);</span><br></pre></td></tr></table></figure>
+
+<p>% : Modulus 나머지 연산자, Modulus는 argument 가 모두 정수여야 계산 가능. 실수간의 Modulus계산은 에러</p>
+<p>+= : a += 10 → a = a + 10</p>
+<h3 id="증감연산자-—"><a href="#증감연산자-—" class="headerlink" title="증감연산자(++, —)"></a>증감연산자(++, —)</h3><p>증감연산자는 정수의 경우 1을 더하거나 빼는 경우이지만, 포인터에서는 메모리 단위로 증가하는 것.</p>
+<p>즉, 증감연산자는 unit 단위로 증가 또는 감소 하는 연산</p>
+<p>++ : a++ → a = a + 1, ++a → a = a + 1</p>
+<p>— : a— → a = a - 1, —a → a = a-1</p>
+<p>앞에 붙는 경우(전치)와 뒤에 붙는 경우(후치)는 연산의 우선순위가 변화. 후위는 우선순위가 가장 마지막, 전위는 우선순위가 먼저 수행.</p>
+<figure class="highlight cpp hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">int</span> result = <span class="hljs-number">10</span>;</span><br><span class="line"><span class="hljs-keyword">int</span> a = <span class="hljs-number">0</span>;</span><br><span class="line">a = result++; <span class="hljs-comment">// a=10, result=11</span></span><br><span class="line"></span><br><span class="line">result = <span class="hljs-number">10</span>;</span><br><span class="line">a = <span class="hljs-number">0</span>;</span><br><span class="line">a = ++result; <span class="hljs-comment">// a=11, result=11</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="논리연산자-Booleans-not-amp-amp-and-or"><a href="#논리연산자-Booleans-not-amp-amp-and-or" class="headerlink" title="논리연산자(Booleans), !(not), &amp;&amp;(and), ||(or)"></a>논리연산자(Booleans), !(not), &amp;&amp;(and), ||(or)</h3><p>true: 0이 아닌 모든 값, 일반적으로 1</p>
+<p>false: 0</p>
+<p>boolean 자료형: <code>bool</code> (true, false)</p>
+<figure class="highlight cpp hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">bool</span> istrue = <span class="hljs-literal">true</span>; <span class="hljs-comment">// isture -&gt; true</span></span><br><span class="line"><span class="hljs-keyword">int</span> istrue_integer = <span class="hljs-literal">true</span>; <span class="hljs-comment">//istrue_integer -&gt; 1</span></span><br></pre></td></tr></table></figure>
+
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/C/">C</a>, <a class="has-link-grey -link" href="/tags/C/">C++</a>, <a class="has-link-grey -link" href="/tags/Language/">Language</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5d2ca2d817ca3533" async="async"></script>
+
+        
     </div>
 </div>
 
-        
-    
 
-    
+
+
+
 <div class="card card-transparent">
-    <nav class="pagination is-centered" role="navigation" aria-label="pagination">
-        <div class="pagination-previous">
-            <a class="is-flex-grow has-text-black-ter" href="/archives/page/8/">Previous</a>
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2021/10/13/C-자료형-DataTypes/">
+                <span class="level-item">[C++] 1.자료형(DataTypes)</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
         </div>
-        <div class="pagination-next is-invisible is-hidden-mobile">
-            <a class="is-flex-grow has-text-black-ter" href="/archives/page/10/">Next</a>
-        </div>
-        <ul class="pagination-list is-hidden-mobile">
-            
-            <li><a class="pagination-link has-text-black-ter" href="/archives/">1</a></li>
-            
-            <li><span class="pagination-ellipsis has-text-black-ter">&hellip;</span></li>
-            
-            <li><a class="pagination-link has-text-black-ter" href="/archives/page/8/">8</a></li>
-            
-            <li><a class="pagination-link is-current" href="/archives/page/9/">9</a></li>
-            
-        </ul>
-    </nav>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">Comments</h3>
+        
+<div id="lv-container" data-id="city" data-uid="MTAyMC80MjIzMS8xODc3OA==">
+    <script type="text/javascript">
+        (function(d, s) {
+            var j, e = d.getElementsByTagName(s)[0];
+
+            if (typeof LivereTower === 'function') { return; }
+
+            j = d.createElement(s);
+            j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+            j.async = true;
+
+            e.parentNode.insertBefore(j, e);
+        })(document, 'script');
+    </script>
+    <noscript> Please activate JavaScript for write a comment in LiveRe</noscript>
+</div>
+
+    </div>
 </div>
 </div>
                 
@@ -950,7 +915,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/Emjaybloglogo_edit.png" alt="Emjay, 오늘도 새롭게" height="28">
+                    <img src="/images/Emjaybloglogo_edit.png" alt="[C++] 2.연산자(Operators)" height="28">
                 
                 </a>
                 <p class="is-size-7">
