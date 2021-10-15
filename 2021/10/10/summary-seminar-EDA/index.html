@@ -1,207 +1,291 @@
+
 <!DOCTYPE html>
 <html lang="en">
-<head><meta name="generator" content="Hexo 3.9.0">
-    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-<title>[세미나요약] 데이터 분석, 의심에서 전달까지 - Emjay, 오늘도 새롭게</title>
-<meta name="naver-site-verification" content="139bdfd66b5dc8101d114c24fabb93c84d0dd64d">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta property="al:ios:url" content="applinks://docs">
-<meta property="al:ios:app_store_id" content="12345">
-<meta property="al:ios:app_name" content="App Links">
-<meta property="al:android:url" content="applinks://docs">
-<meta property="al:android:app_name" content="App Links">
-<meta property="al:android:package" content="org.applinks">
-<meta property="al:web:url" content="http://applinks.org/documentation">
-
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<script>
-  (adsbygoogle = window.adsbygoogle || []).push({
-    google_ad_client: "ca-pub-4220998811671882",
-    enable_page_level_ads: true
-  });
-</script>
-
-<link rel="canonical" href="https://emjayahn.github.io/2021/10/10/summary-seminar-eda/">
-
+    
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Emjay, 오늘도 새롭게">
+    <title>[세미나요약] 데이터 분석, 의심에서 전달까지 - Emjay, 오늘도 새롭게</title>
+    <meta name="author" content="EmjayAhn(Minjae Ahn)">
+    
+        <meta name="keywords" content="데이터사이언스,머신러닝,딥러닝,개발,machine learning,deep learning,datascience,datascientist,">
+    
+    
+    
+        
+            <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss2.xml">
+        
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"EmjayAhn(Minjae Ahn)","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","mailto"]},"articleBody":"2021년 10월 8일, 한국에너지기술연구원 이제현 박사님이 진행하신 ‘데이터 분석, 의심에서 전달까지’ 제목으로 진행된 세미나를 참석했습니다. 본 글은 세미나 내용의 요약입니다.\n\n[세미나 발표 PDF 자료]세미나 발표 pdf 자료\n1. 데이터 의심하기1-1. 레퍼런스의 중요성\n분석결과의 신뢰도, 결과의 책임을 위해 데이터의 출처가 명확해야한다. 출처가 분명하지 않은 데이터는 사용하지 않는 것이 최선\n\n1-2. 데이터의 건정성\n데이터 자체의 건정성\n결측치 : 데이터가 없음 → 데이터가 없는 것도 가끔은 중요한 메시지가 될 수 있다. (예: 이미지 데이터 내의 까만 이미지 → 빛이 없다고 해석 가능) 결측치에 대한 해석은 결국, 데이터의 도메인 관점에서 생각\n중복데이터 : 같은 데이터가 여러개 → Key feature 를 중심으로 논리적으로 판단해야한다. 중복데이터에 대해 일괄적인 처리 이전에 고민해보아야 할 문제 (예: 같은 자리에 건물이 겹쳐 있음 : 비정상적인 데이터, 같은 시간 같은 가게에 손님이 두명 : 정상적인 데이터)\n이상치 : (사전적의미) 정상적인 범위에서 벗어나는 데이터 → 통계 분석을 통해 이상치 후보군을 추리고, 도메인 접근을 통해 진짜 이상치인지 판별해야한다. (예: 대학 중퇴자가 왜 소득이 높지? → 빌게이츠, 스티브잡스, 마크 저커버그, 잭도시 등) 이상치로 볼수 있는 데이터가 있다 하더라도, 내가 하는 분석의 목적에 따라서 데이터가 이상치 일수도, 아닐수도 있다. 기계적인 처리는 하면 안됨\n\n\n\n1-3. 너무 믿지 말아야할 데이터\n너무 믿지 말아야할 데이터 : (예: 영화 장르데이터 → 해리포터 1, 2, 3,4 … 의 장르가 모두 다름. 어떤 절대적 기준에 의해 장르 구분이 된 것이 아니라, 누군가의 주관적 관점으로 새긴 데이터)\n\n1-4. 필요 데이터\n본격적인 프로젝트 시행 이전에, 필요한 데이터를 빠르게 계획하고, 살펴본뒤 레퍼런스 체크를 시행해야한다.\n\n1-5. 데이터 파악\n데이터 파악 : 통계치는 같은데 그림을 그리면 다르게 해석된다. 반드시 데이터는 그려보아야 한다. (예: 데이터 사우르스, 통계가 얼마나 눈을 가리는지 보여주는 예시)\n  \n\n데이터를 제대로 의심하는 방법 : Exploratory Data Analysis. 데이터를 받았을 때 이렇게 저렇게 찾아보는 과정. (예: 장님이 코끼리를 만져보는 과정) 한명의 장님(나) 여러 방법으로 그려보고 살펴보면서 데이터를 3d 다양한 관점에서 바라보아야 한다. 데이터에 대해 그림을 그릴 때마다 가설을 세우고, 다음 그림을 그릴 때 내 가설을 보완해나아가야함. 마치 셀프 강화학습 처럼\n\n결국 EDA + Hypothesis + Graph = self-강화학습\n\n\n\n2. 분석 방법 의심하기\n사장님이 감자를 잘라달라\n감자 썰기의 관건: 무엇을 만들 것인가\n요리의 목적에 따라 다양한 감자 형태, 다양한 조리방식이 있을 수 있다\n\n\n데이터 분석: 무엇을 할 것인가?\n데이터 분석의 관건: 무엇을 위한 분석인가\n현황 분석(현황 내용전달), 대안 제시 (설득력: 대안의 장점과 단점), 예측모델개발 (신뢰성: 검증결과, 예상오차) 등 목적에 따라 데이터 뿐만 아니라 그에 따른 다양한 데이터 분석 방법이 필요하다\n\n\n망치와 모루 전략 (Hammer and Anvil Tactic)\n모루가 버티는 동안 망치가 때린다 (마케도니아 알렉산더 대왕)\n모루가 중요하다: 지지않아야하고, 이겨한다 → 수학적 엄밀함 (다양한 통계분석방법, T 검정, 층화 추출, 다양한 매트릭, 정규화, 카이제곱, 교차검증 등) 통계학은 의심의 학문이다 : 내가 전체 데이터를 모두 볼 수 없기 때문에 부분만 보고, 부분이 전체에 적용이 될지 → 이 불안을 해소하기 위한 것이 통계학, 수학\n망치 : 나만의 인사이트 → 아무도 못한 생각을 통해 전쟁에서 이기자\n인사이트 도출 방법: 데이터 자르기 (Segment)\nAirbnb “국내, 300마일”\n인사이트 도출방법: 독창적 시각화 (Visualization)\n나이팅게일 → 다쳐서가 아니라 더러워서 사람이 죽는다.\nHans Rosling, Ted, 2007 → Animated bubble chart : 세상은 점점 나아지고 있다, 경향성을 새롭게 보여줌\nDanny Dorling → Slow Down 가속 성장의 시대는 끝났다.\n송강호 → 배우는 오담을 가져온다. 알고보면 그 오답이 진짜 정답이다.\n데이터를 받으면, 공부한대로, 정해진 루틴대로 분석하고 visualization 을 진행함.. 남들도 그렇게 하고 있다. 세상에 없는 방법?\n남들보다 더 많은 시간과 정성 쏟기 + 스스로 생각하기\n\n\n\n\n\n\n\n\n\n3. 고객에게 잘 전달하기\n결과를 보고하는 데이터 분석가의 주의사항\n내 업무 시간 순이 아니라 상대방 논리에 따라 보고하기\n결론 없이 사실만 나열하면 안됨\n경영 용어가 아닌 통계 용어를 남발하면 안됨\n\n\n분석을 원하는 사람들의 진짜 원하는 것 찾아내기\n자신들 조차 원하는게 뭔지 정확히 모른다\n다양한 질문들과 상황을 통해 그들이 원하는 것이 무엇인지 파악\n\n\n데이터 vs 도메인\n영문과 교수예시: 우리 영문과는 영어가 모국어처럼 입에 붙어야 비로소 국문과랑 같은 출발선에 서는거다.\n초벌 데이터 분석으로 알아내는 것 = 도메인에서는 모두 알고 있는 것\n데이터를 분석해서 실무자에게 공유해야 하는 내용 + 흥미를 보이는 지점, 애매하게 파악하고 있는 부분 캐치 + 심층 분석\n\n\n\n4. 끊임없는 의심\n내 분석결과를 살표본다 : Insight\n내 아이디어를 빠르게 적용 : Agile, 코딩잘하기\n호기심 : 흥미요소\n\n5. 경계하는 자세\n생명에 대한 예의\n국가별 코로나 19 사망자 데이터 분석\n안좋은 소식에 대한 분석결과는 tone &amp; manner 를 지켜서..\n\n\n데이터 밖의 세계\n컴퓨터, 데이터 속에서만 사는가? vs 어차피, 결국 숫자일 뿐이야?\n\n\n식사를 마친 손님 : 얼마나 좋은 재료, 어떤 기법을 사용한 요리?  X → 음식이 제때 나오고, 맛있게 배부른 곳 → 음식을 어떻게 만들었는지는 그 다음 문제\n데이터 분석 : 원래 목적을 잘 파악해서 다가가는게 중요 → 어떤 분석방법, 시각화는 나중, 남들이 잘 하지 않는 시도를 많이 해보기\n\n세미나 발표 pdf 자료\n","dateCreated":"2021-10-10T12:45:08+09:00","dateModified":"2021-10-13T21:52:20+09:00","datePublished":"2021-10-10T12:45:08+09:00","description":"2021년 10월 8일, 한국에너지기술연구원 이제현 박사님이 진행하신 ‘데이터 분석, 의심에서 전달까지’ 제목으로 진행된 세미나를 참석했습니다. 본 글은 세미나 내용의 요약입니다.","headline":"[세미나요약] 데이터 분석, 의심에서 전달까지","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://emjayahn.github.io/2021/10/10/summary-seminar-EDA/"},"publisher":{"@type":"Organization","name":"EmjayAhn(Minjae Ahn)","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","mailto"]},"url":"https://emjayahn.github.io/2021/10/10/summary-seminar-EDA/","keywords":"DataAnalysis, DataScience, Seminar, Data"}</script>
     <meta name="description" content="2021년 10월 8일, 한국에너지기술연구원 이제현 박사님이 진행하신 ‘데이터 분석, 의심에서 전달까지’ 제목으로 진행된 세미나를 참석했습니다. 본 글은 세미나 내용의 요약입니다.">
 <meta name="keywords" content="DataAnalysis,DataScience,Seminar,Data">
-<meta property="og:type" content="article">
+<meta property="og:type" content="blog">
 <meta property="og:title" content="[세미나요약] 데이터 분석, 의심에서 전달까지">
 <meta property="og:url" content="https://emjayahn.github.io/2021/10/10/summary-seminar-EDA/index.html">
 <meta property="og:site_name" content="Emjay, 오늘도 새롭게">
 <meta property="og:description" content="2021년 10월 8일, 한국에너지기술연구원 이제현 박사님이 진행하신 ‘데이터 분석, 의심에서 전달까지’ 제목으로 진행된 세미나를 참석했습니다. 본 글은 세미나 내용의 요약입니다.">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://emjayahn.github.io/images/og_emjay_image.png">
+<meta property="og:image" content="https://emjayahn.github.io/2021/10/10/summary-seminar-EDA/Untitled.png">
 <meta property="og:updated_time" content="2021-10-13T12:52:20.709Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[세미나요약] 데이터 분석, 의심에서 전달까지">
 <meta name="twitter:description" content="2021년 10월 8일, 한국에너지기술연구원 이제현 박사님이 진행하신 ‘데이터 분석, 의심에서 전달까지’ 제목으로 진행된 세미나를 참석했습니다. 본 글은 세미나 내용의 요약입니다.">
-<meta name="twitter:image" content="https://emjayahn.github.io/images/og_emjay_image.png">
-<meta property="fb:app_id" content="jjminjae">
-
-
-
-
-
-<link rel="alternative" href="/rss2.xml" title="[세미나요약] 데이터 분석, 의심에서 전달까지" type="application/atom+xml">
-
-
-
-<link rel="icon" href="/images/favicon.svg">
-
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
-
-
+<meta name="twitter:image" content="https://emjayahn.github.io/2021/10/10/summary-seminar-EDA/Untitled.png">
     
     
-    
-    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
-    
-
-    
-    
-    
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
-    
-
-    
-    
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
-
-
+        
     
     
     
     
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/all.css">
+    <link rel="stylesheet" href="/assets/css/jquery.fancybox.css">
+    <link rel="stylesheet" href="/assets/css/thumbs.css">
+    <link rel="stylesheet" href="/assets/css/tranquilpeak.css">
+    <!--STYLES END-->
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128251719-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
 
-<link rel="stylesheet" href="/css/back-to-top.css">
+        gtag('config', 'UA-128251719-1');
+    </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
-    
-    
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128251719-1"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'UA-128251719-1');
-</script>
-
-
-    
-    
-    
-    
-
-    
-    
-<link rel="stylesheet" href="/css/progressbar.css">
-<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
-
-    
-    
     
 
     
+        
     
-    
-
-
-<link rel="stylesheet" href="/css/style.css">
-
-<!--Canonical : 유사하거나 중복된 페이지의 표준 페이지 정의-->
-<link rel="canonical" href="https://emjayahn.github.io/2021/10/10/summary-seminar-eda/"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
-<body class="is-3-column">
-    <!-- hexo-inject:begin --><!-- hexo-inject:end --><nav class="navbar navbar-main">
-    <div class="container">
-        <div class="navbar-brand is-flex-center">
-            <a class="navbar-item navbar-logo" href="/">
+
+    <body>
+        <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+
+<header id="header" data-behavior="5">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a
+            class="header-title-link"
+            href="/"
+            aria-label=""
+        >
+            Emjay, 오늘도 새롭게
+        </a>
+    </div>
+    
+        
+            <a
+                class="header-right-picture "
+                href="#about"
+                aria-label="Open the link: /#about"
+            >
+        
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+<nav id="sidebar" data-behavior="5">
+    <div class="sidebar-container">
+        
+        
+            <ul class="sidebar-buttons">
             
-                <img src="/images/Emjaybloglogo_edit.png" alt="[세미나요약] 데이터 분석, 의심에서 전달까지" height="28">
-            
-            </a>
-        </div>
-        <div class="navbar-menu">
-            
-            <div class="navbar-start">
-                
-                <a class="navbar-item" href="/">Home</a>
-                
-                <a class="navbar-item" href="/archives">Archives</a>
-                
-                <a class="navbar-item" href="/categories">Categories</a>
-                
-                <a class="navbar-item" href="/tags">Tags</a>
-                
-                <a class="navbar-item" href="/about">About</a>
-                
-            </div>
-            
-            <div class="navbar-end">
-                
+                <li class="sidebar-button">
                     
-                    
-                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="https://github.com/emjayahn">
-                        
-                        <i class="fab fa-github"></i>
-                        
+                        <a
+                            class="sidebar-button-link "
+                            href="/"
+                            
+                            rel="noopener"
+                            title="Home"
+                        >
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Home</span>
                     </a>
+            </li>
+            
+                <li class="sidebar-button">
                     
-                
-                
-                
-                <a class="navbar-item search" title="Search" href="javascript:;">
-                    <i class="fas fa-search"></i>
-                </a>
-                
-            </div>
-        </div>
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-categories"
+                            
+                            rel="noopener"
+                            title="Categories"
+                        >
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="Tags"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link open-algolia-search"
+                            href="/all-archives"
+                            
+                            rel="noopener"
+                            title="Archives"
+                        >
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="#about"
+                            
+                            rel="noopener"
+                            title="About"
+                        >
+                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://github.com/emjayahn"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="GitHub"
+                        >
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://facebook.com/jjminjae"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Facebook"
+                        >
+                        <i class="sidebar-button-icon fab fa-facebook" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Facebook</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/mailto"
+                            
+                            rel="noopener"
+                            title="Mail"
+                        >
+                        <i class="sidebar-button-icon fa fa-envelope" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Mail</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/atom.xml"
+                            
+                            rel="noopener"
+                            title="RSS"
+                        >
+                        <i class="sidebar-button-icon fa fa-rss" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
     </div>
 </nav>
-    
-    <section class="section">
-        <div class="container">
-            <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2021-10-10T03:45:08.000Z">2021-10-10</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/DataScience/">DataScience</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/DataScience/Seminar/">Seminar</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    13 minutes read (About 1924 words)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+
             
-                [세미나요약] 데이터 분석, 의심에서 전달까지
-            
+            <div id="main" data-behavior="5"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            [세미나요약] 데이터 분석, 의심에서 전달까지
         </h1>
-        <div class="content">
+    
+    
+        <div class="post-meta">
+    <time datetime="2021-10-10T12:45:08+09:00">
+	
+		    Oct 10, 2021
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/DataScience/">DataScience</a>, <a class="category-link" href="/categories/DataScience/Seminar/">Seminar</a>
+
+
+    
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
             <p>2021년 10월 8일, 한국에너지기술연구원 이제현 박사님이 진행하신 ‘데이터 분석, 의심에서 전달까지’ 제목으로 진행된 세미나를 참석했습니다. 본 글은 세미나 내용의 요약입니다.</p>
 <a id="more"></a>
-
 <p>[세미나 발표 PDF 자료]<br><a href="http://www.bigdata-map.kr/board/open" target="_blank" rel="noopener">세미나 발표 pdf 자료</a></p>
 <h2 id="1-데이터-의심하기"><a href="#1-데이터-의심하기" class="headerlink" title="1. 데이터 의심하기"></a>1. 데이터 의심하기</h2><h3 id="1-1-레퍼런스의-중요성"><a href="#1-1-레퍼런스의-중요성" class="headerlink" title="1-1. 레퍼런스의 중요성"></a>1-1. 레퍼런스의 중요성</h3><ul>
 <li>분석결과의 신뢰도, 결과의 책임을 위해 데이터의 출처가 명확해야한다. 출처가 분명하지 않은 데이터는 사용하지 않는 것이 최선</li>
@@ -302,885 +386,329 @@
 </ul>
 <p><a href="http://www.bigdata-map.kr/board/open" target="_blank" rel="noopener">세미나 발표 pdf 자료</a></p>
 
-        </div>
-        
-        <div class="level is-size-7 is-uppercase">
-            <div class="level-start">
-                <div class="level-item">
-                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <a class="has-link-grey -link" href="/tags/Data/">Data</a>, <a class="has-link-grey -link" href="/tags/DataAnalysis/">DataAnalysis</a>, <a class="has-link-grey -link" href="/tags/DataScience/">DataScience</a>, <a class="has-link-grey -link" href="/tags/Seminar/">Seminar</a>
-                </div>
-            </div>
-        </div>
-        
-        
-        
-        
-<div class="sharethis-inline-share-buttons"></div>
-<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5d2ca2d817ca3533" async="async"></script>
-
-        
-    </div>
-</div>
-
-
-
-
-
-    <!-- add buy me a coffee button -->
-<center><script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="cHgDES9Ut" data-color="#ffffff" data-emoji data-font="Comic" data-text="Buy Me a coffee" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#FFDD00"></script></center><br><br>
-<div class="card card-transparent">
-    <div class="level post-navigation is-flex-wrap is-mobile">
-        
-        <div class="level-start">
-            <a class="level level-item has-link-grey  article-nav-prev" href="/2021/10/13/C-자료형-DataTypes/">
-                <i class="level-item fas fa-chevron-left"></i>
-                <span class="level-item">[C++] 1.자료형(DataTypes)</span>
-            </a>
-        </div>
-        
-        
-        <div class="level-end">
-            <a class="level level-item has-link-grey  article-nav-next" href="/2019/09/01/psnr-ssim/">
-                <span class="level-item">[Metrics] PSNR &amp; SSIM</span>
-                <i class="level-item fas fa-chevron-right"></i>
-            </a>
-        </div>
-        
-    </div>
-</div>
-
-
-
-<div class="card">
-    <div class="card-content">
-        <h3 class="title is-5 has-text-weight-normal">Comments</h3>
-        
-<div id="lv-container" data-id="city" data-uid="MTAyMC80MjIzMS8xODc3OA==">
-    <script type="text/javascript">
-        (function(d, s) {
-            var j, e = d.getElementsByTagName(s)[0];
-
-            if (typeof LivereTower === 'function') { return; }
-
-            j = d.createElement(s);
-            j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-            j.async = true;
-
-            e.parentNode.insertBefore(j, e);
-        })(document, 'script');
-    </script>
-    <noscript> Please activate JavaScript for write a comment in LiveRe</noscript>
-</div>
-
-    </div>
-</div>
-
-</div>
-                
-
-
-
-
-<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
-    
-        
-<div class="card widget">
-    <div class="card-content">
-        <nav class="level">
-            <div class="level-item has-text-centered">
-                <div>
-                    
-                        <img class="image is-128x128 has-mb-6" src="/images/profile.jpeg" alt="Emjay Ahn">
-                    
-                    
-                    <p class="is-size-4 is-block">
-                        Emjay Ahn
-                    </p>
-                    
-                    
-                    <p class="is-size-6 is-block">
-                        data scientist
-                    </p>
-                    
-                    
-                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
-                        <i class="fas fa-map-marker-alt has-mr-7"></i>
-                        <span>Seoul, Korea</span>
-                    </p>
-                    
-                </div>
-            </div>
-        </nav>
-        <nav class="level is-mobile">
-            <div class="level-item has-text-centered is-marginless">
-                <div>
-                    <p class="heading">
-                        Posts
-                    </p>
-                    <p class="title has-text-weight-normal">
-                        86
-                    </p>
-                </div>
-            </div>
-            <div class="level-item has-text-centered is-marginless">
-                <div>
-                    <p class="heading">
-                        Categories
-                    </p>
-                    <p class="title has-text-weight-normal">
-                        30
-                    </p>
-                </div>
-            </div>
-            <div class="level-item has-text-centered is-marginless">
-                <div>
-                    <p class="heading">
-                        Tags
-                    </p>
-                    <p class="title has-text-weight-normal">
-                        39
-                    </p>
-                </div>
-            </div>
-        </nav>
-        <div class="level">
-            <a class="level-item button is-link is-rounded" href="https://github.com/emjayahn" target="_blank">
-                Follow</a>
-        </div>
-        
-        
-        <div class="level is-mobile">
             
-            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="https://github.com/emjayahn">
-                
-                <i class="fab fa-github"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="https://facebook.com/jjminjae">
-                
-                <i class="fab fa-facebook"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/rss2.xml">
-                
-                <i class="fas fa-rss"></i>
-                
-            </a>
-            
-        </div>
-        
-    </div>
-</div>
-    
-        
-    
-        
-<div class="card widget">
-    <div class="card-content">
-        <div class="menu">
-            <h3 class="menu-label">
-                Categories
-            </h3>
-            <ul class="menu-list">
-            <li>
-        <a class="level is-marginless" href="/categories/Book/">
-            <span class="level-start">
-                <span class="level-item">Book</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a><ul><li>
-        <a class="level is-marginless" href="/categories/Book/Digital-Image-Processing/">
-            <span class="level-start">
-                <span class="level-item">Digital Image Processing</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a></li></ul></li><li>
-        <a class="level is-marginless" href="/categories/DataScience/">
-            <span class="level-start">
-                <span class="level-item">DataScience</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a><ul><li>
-        <a class="level is-marginless" href="/categories/DataScience/Seminar/">
-            <span class="level-start">
-                <span class="level-item">Seminar</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a></li></ul></li><li>
-        <a class="level is-marginless" href="/categories/DataStructure/">
-            <span class="level-start">
-                <span class="level-item">DataStructure</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">2</span>
-            </span>
-        </a></li><li>
-        <a class="level is-marginless" href="/categories/Development/">
-            <span class="level-start">
-                <span class="level-item">Development</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">6</span>
-            </span>
-        </a><ul><li>
-        <a class="level is-marginless" href="/categories/Development/C/">
-            <span class="level-start">
-                <span class="level-item">C++</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">2</span>
-            </span>
-        </a></li><li>
-        <a class="level is-marginless" href="/categories/Development/Linux/">
-            <span class="level-start">
-                <span class="level-item">Linux</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a></li><li>
-        <a class="level is-marginless" href="/categories/Development/Python/">
-            <span class="level-start">
-                <span class="level-item">Python</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">3</span>
-            </span>
-        </a></li></ul></li><li>
-        <a class="level is-marginless" href="/categories/Diary/">
-            <span class="level-start">
-                <span class="level-item">Diary</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">43</span>
-            </span>
-        </a></li><li>
-        <a class="level is-marginless" href="/categories/Google-Cloud-Platform/">
-            <span class="level-start">
-                <span class="level-item">Google Cloud Platform</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a></li><li>
-        <a class="level is-marginless" href="/categories/Lecture/">
-            <span class="level-start">
-                <span class="level-item">Lecture</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">10</span>
-            </span>
-        </a><ul><li>
-        <a class="level is-marginless" href="/categories/Lecture/CS224n/">
-            <span class="level-start">
-                <span class="level-item">CS224n</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">2</span>
-            </span>
-        </a></li><li>
-        <a class="level is-marginless" href="/categories/Lecture/CS231n/">
-            <span class="level-start">
-                <span class="level-item">CS231n</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">7</span>
-            </span>
-        </a></li><li>
-        <a class="level is-marginless" href="/categories/Lecture/딥러닝을-이용한-자연어-처리/">
-            <span class="level-start">
-                <span class="level-item">딥러닝을 이용한 자연어 처리</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a></li></ul></li><li>
-        <a class="level is-marginless" href="/categories/MachineLearning/">
-            <span class="level-start">
-                <span class="level-item">MachineLearning</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">6</span>
-            </span>
-        </a><ul><li>
-        <a class="level is-marginless" href="/categories/MachineLearning/Apache-Spark/">
-            <span class="level-start">
-                <span class="level-item">Apache Spark</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a></li><li>
-        <a class="level is-marginless" href="/categories/MachineLearning/Pytorch/">
-            <span class="level-start">
-                <span class="level-item">Pytorch</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">3</span>
-            </span>
-        </a></li><li>
-        <a class="level is-marginless" href="/categories/MachineLearning/Vision/">
-            <span class="level-start">
-                <span class="level-item">Vision</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a></li></ul></li><li>
-        <a class="level is-marginless" href="/categories/Math/">
-            <span class="level-start">
-                <span class="level-item">Math</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">2</span>
-            </span>
-        </a></li><li>
-        <a class="level is-marginless" href="/categories/Paper/">
-            <span class="level-start">
-                <span class="level-item">Paper</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">2</span>
-            </span>
-        </a></li><li>
-        <a class="level is-marginless" href="/categories/wiki/">
-            <span class="level-start">
-                <span class="level-item">wiki</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">9</span>
-            </span>
-        </a><ul><li>
-        <a class="level is-marginless" href="/categories/wiki/MySQL/">
-            <span class="level-start">
-                <span class="level-item">MySQL</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a></li><li>
-        <a class="level is-marginless" href="/categories/wiki/NGINX/">
-            <span class="level-start">
-                <span class="level-item">NGINX</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a></li><li>
-        <a class="level is-marginless" href="/categories/wiki/Pillow/">
-            <span class="level-start">
-                <span class="level-item">Pillow</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a></li><li>
-        <a class="level is-marginless" href="/categories/wiki/Provision/">
-            <span class="level-start">
-                <span class="level-item">Provision</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a></li><li>
-        <a class="level is-marginless" href="/categories/wiki/Requests/">
-            <span class="level-start">
-                <span class="level-item">Requests</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a></li><li>
-        <a class="level is-marginless" href="/categories/wiki/Scrapy/">
-            <span class="level-start">
-                <span class="level-item">Scrapy</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a></li><li>
-        <a class="level is-marginless" href="/categories/wiki/Selenium/">
-            <span class="level-start">
-                <span class="level-item">Selenium</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a></li><li>
-        <a class="level is-marginless" href="/categories/wiki/Xpath/">
-            <span class="level-start">
-                <span class="level-item">Xpath</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a></li></ul></li>
-            </ul>
+
+
         </div>
     </div>
-</div>
-    
+    <div id="post-footer" class="post-footer main-content-wrap">
         
-<div class="card widget">
-    <div class="card-content">
-        <h3 class="menu-label">
-            Recent
-        </h3>
-        
-        <article class="media">
-            
-            <a href="/2021/10/14/C-연산자-Operators/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="[C++] 2.연산자(Operators)">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-10-14T09:51:33.000Z">2021-10-14</time></div>
-                    <a href="/2021/10/14/C-연산자-Operators/" class="has-link-black-ter is-size-6">[C++] 2.연산자(Operators)</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Development/">Development</a> / <a class="has-link-grey -link" href="/categories/Development/C/">C++</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2021/10/13/C-자료형-DataTypes/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="[C++] 1.자료형(DataTypes)">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-10-13T12:35:26.000Z">2021-10-13</time></div>
-                    <a href="/2021/10/13/C-자료형-DataTypes/" class="has-link-black-ter is-size-6">[C++] 1.자료형(DataTypes)</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Development/">Development</a> / <a class="has-link-grey -link" href="/categories/Development/C/">C++</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2021/10/10/summary-seminar-EDA/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="[세미나요약] 데이터 분석, 의심에서 전달까지">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-10-10T03:45:08.000Z">2021-10-10</time></div>
-                    <a href="/2021/10/10/summary-seminar-EDA/" class="has-link-black-ter is-size-6">[세미나요약] 데이터 분석, 의심에서 전달까지</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/DataScience/">DataScience</a> / <a class="has-link-grey -link" href="/categories/DataScience/Seminar/">Seminar</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/09/01/psnr-ssim/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="[Metrics] PSNR &amp; SSIM">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-01T05:41:22.000Z">2019-09-01</time></div>
-                    <a href="/2019/09/01/psnr-ssim/" class="has-link-black-ter is-size-6">[Metrics] PSNR &amp; SSIM</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/MachineLearning/">MachineLearning</a> / <a class="has-link-grey -link" href="/categories/MachineLearning/Vision/">Vision</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/08/26/DIP-chapter3/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="[Book] Summary of Digital Image Processing Chapter 03">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-08-26T12:54:53.000Z">2019-08-26</time></div>
-                    <a href="/2019/08/26/DIP-chapter3/" class="has-link-black-ter is-size-6">[Book] Summary of Digital Image Processing Chapter 03</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Book/">Book</a> / <a class="has-link-grey -link" href="/categories/Book/Digital-Image-Processing/">Digital Image Processing</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-    </div>
-</div>
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Data/">Data</a> <a class="tag tag--primary tag--small t-link" href="/tags/DataAnalysis/">DataAnalysis</a> <a class="tag tag--primary tag--small t-link" href="/tags/DataScience/">DataScience</a> <a class="tag tag--primary tag--small t-link" href="/tags/Seminar/">Seminar</a>
 
-    
-        <div class="card widget">
-    <div class="card-content">
-        <div class="menu">
-        <h3 class="menu-label">
-            Archives
-        </h3>
-        <ul class="menu-list">
+            </div>
         
-        <li>
-            <a class="level is-marginless" href="/archives/2021/10/">
-                <span class="level-start">
-                    <span class="level-item">October 2021</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">3</span>
-                </span>
-            </a>
-        </li>
         
-        <li>
-            <a class="level is-marginless" href="/archives/2019/09/">
-                <span class="level-start">
-                    <span class="level-item">September 2019</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">1</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2019/08/">
-                <span class="level-start">
-                    <span class="level-item">August 2019</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">5</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2019/07/">
-                <span class="level-start">
-                    <span class="level-item">July 2019</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">6</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2019/06/">
-                <span class="level-start">
-                    <span class="level-item">June 2019</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">2</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2019/05/">
-                <span class="level-start">
-                    <span class="level-item">May 2019</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">9</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2019/01/">
-                <span class="level-start">
-                    <span class="level-item">January 2019</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">3</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2018/12/">
-                <span class="level-start">
-                    <span class="level-item">December 2018</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">12</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2018/11/">
-                <span class="level-start">
-                    <span class="level-item">November 2018</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">25</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2018/10/">
-                <span class="level-start">
-                    <span class="level-item">October 2018</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">20</span>
-                </span>
-            </a>
-        </li>
-        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2021/10/13/C-자료형-DataTypes/"
+                    data-tooltip="[C++] 1.자료형(DataTypes)"
+                    aria-label="PREVIOUS: [C++] 1.자료형(DataTypes)"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2019/09/01/psnr-ssim/"
+                    data-tooltip="[Metrics] PSNR &amp; SSIM"
+                    aria-label="NEXT: [Metrics] PSNR &amp; SSIM"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
         </ul>
-        </div>
-    </div>
-</div>
-    
-    
-        <div class="column-right-shadow is-hidden-widescreen ">
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Share this post"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
         
             
-<div class="card widget">
-    <div class="card-content">
-        <h3 class="menu-label">
-            Tag Cloud
-        </h3>
-        <a href="/tags/C/" style="font-size: 12.5px;">C</a> <a href="/tags/C/" style="font-size: 12.5px;">C++</a> <a href="/tags/CS224n/" style="font-size: 12.5px;">CS224n</a> <a href="/tags/CS231n/" style="font-size: 17.5px;">CS231n</a> <a href="/tags/Classification-확률론적생성모형-Generative-생성모형-분류모델/" style="font-size: 10px;">Classification, 확률론적생성모형, Generative, 생성모형, 분류모델</a> <a href="/tags/Crawling-Web-Requests/" style="font-size: 10px;">Crawling, Web, Requests</a> <a href="/tags/Data/" style="font-size: 10px;">Data</a> <a href="/tags/DataAnalysis/" style="font-size: 10px;">DataAnalysis</a> <a href="/tags/DataScience/" style="font-size: 10px;">DataScience</a> <a href="/tags/Gan/" style="font-size: 10px;">Gan</a> <a href="/tags/Google-Cloud-Platform/" style="font-size: 10px;">Google Cloud Platform</a> <a href="/tags/Language/" style="font-size: 12.5px;">Language</a> <a href="/tags/Seminar/" style="font-size: 10px;">Seminar</a> <a href="/tags/TWIL/" style="font-size: 15px;">TWIL</a> <a href="/tags/Thread/" style="font-size: 10px;">Thread</a> <a href="/tags/Vanilla-Gan/" style="font-size: 10px;">Vanilla Gan</a> <a href="/tags/crontab/" style="font-size: 10px;">crontab</a> <a href="/tags/datastructure/" style="font-size: 10px;">datastructure</a> <a href="/tags/datastructure-stack/" style="font-size: 10px;">datastructure, stack</a> <a href="/tags/decorator/" style="font-size: 10px;">decorator</a> <a href="/tags/generator/" style="font-size: 10px;">generator</a> <a href="/tags/iterable/" style="font-size: 10px;">iterable</a> <a href="/tags/iterator/" style="font-size: 10px;">iterator</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/mysql-MYSQL-database/" style="font-size: 10px;">mysql, MYSQL, database</a> <a href="/tags/nginx-proxy/" style="font-size: 10px;">nginx, proxy</a> <a href="/tags/paper/" style="font-size: 10px;">paper</a> <a href="/tags/pillow-Pillow-image/" style="font-size: 10px;">pillow, Pillow, image</a> <a href="/tags/python/" style="font-size: 12.5px;">python</a> <a href="/tags/scrapy-crawling-web/" style="font-size: 10px;">scrapy, crawling, web</a> <a href="/tags/summary/" style="font-size: 20px;">summary</a> <a href="/tags/논문/" style="font-size: 10px;">논문</a> <a href="/tags/데코레이터/" style="font-size: 10px;">데코레이터</a> <a href="/tags/리눅스/" style="font-size: 10px;">리눅스</a> <a href="/tags/이터러블/" style="font-size: 10px;">이터러블</a> <a href="/tags/이터레이터/" style="font-size: 10px;">이터레이터</a> <a href="/tags/자동화-selenium-webdriver/" style="font-size: 10px;">자동화, selenium, webdriver</a> <a href="/tags/제너레이터/" style="font-size: 10px;">제너레이터</a> <a href="/tags/크론탭/" style="font-size: 10px;">크론탭</a>
-    </div>
-</div>
-
-        
-        </div>
-    
-</div>
-
-                
-
-
-
-
-<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
-    
-        
-<div class="card widget">
-    <div class="card-content">
-        <h3 class="menu-label">
-            Tag Cloud
-        </h3>
-        <a href="/tags/C/" style="font-size: 12.5px;">C</a> <a href="/tags/C/" style="font-size: 12.5px;">C++</a> <a href="/tags/CS224n/" style="font-size: 12.5px;">CS224n</a> <a href="/tags/CS231n/" style="font-size: 17.5px;">CS231n</a> <a href="/tags/Classification-확률론적생성모형-Generative-생성모형-분류모델/" style="font-size: 10px;">Classification, 확률론적생성모형, Generative, 생성모형, 분류모델</a> <a href="/tags/Crawling-Web-Requests/" style="font-size: 10px;">Crawling, Web, Requests</a> <a href="/tags/Data/" style="font-size: 10px;">Data</a> <a href="/tags/DataAnalysis/" style="font-size: 10px;">DataAnalysis</a> <a href="/tags/DataScience/" style="font-size: 10px;">DataScience</a> <a href="/tags/Gan/" style="font-size: 10px;">Gan</a> <a href="/tags/Google-Cloud-Platform/" style="font-size: 10px;">Google Cloud Platform</a> <a href="/tags/Language/" style="font-size: 12.5px;">Language</a> <a href="/tags/Seminar/" style="font-size: 10px;">Seminar</a> <a href="/tags/TWIL/" style="font-size: 15px;">TWIL</a> <a href="/tags/Thread/" style="font-size: 10px;">Thread</a> <a href="/tags/Vanilla-Gan/" style="font-size: 10px;">Vanilla Gan</a> <a href="/tags/crontab/" style="font-size: 10px;">crontab</a> <a href="/tags/datastructure/" style="font-size: 10px;">datastructure</a> <a href="/tags/datastructure-stack/" style="font-size: 10px;">datastructure, stack</a> <a href="/tags/decorator/" style="font-size: 10px;">decorator</a> <a href="/tags/generator/" style="font-size: 10px;">generator</a> <a href="/tags/iterable/" style="font-size: 10px;">iterable</a> <a href="/tags/iterator/" style="font-size: 10px;">iterator</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/mysql-MYSQL-database/" style="font-size: 10px;">mysql, MYSQL, database</a> <a href="/tags/nginx-proxy/" style="font-size: 10px;">nginx, proxy</a> <a href="/tags/paper/" style="font-size: 10px;">paper</a> <a href="/tags/pillow-Pillow-image/" style="font-size: 10px;">pillow, Pillow, image</a> <a href="/tags/python/" style="font-size: 12.5px;">python</a> <a href="/tags/scrapy-crawling-web/" style="font-size: 10px;">scrapy, crawling, web</a> <a href="/tags/summary/" style="font-size: 20px;">summary</a> <a href="/tags/논문/" style="font-size: 10px;">논문</a> <a href="/tags/데코레이터/" style="font-size: 10px;">데코레이터</a> <a href="/tags/리눅스/" style="font-size: 10px;">리눅스</a> <a href="/tags/이터러블/" style="font-size: 10px;">이터러블</a> <a href="/tags/이터레이터/" style="font-size: 10px;">이터레이터</a> <a href="/tags/자동화-selenium-webdriver/" style="font-size: 10px;">자동화, selenium, webdriver</a> <a href="/tags/제너레이터/" style="font-size: 10px;">제너레이터</a> <a href="/tags/크론탭/" style="font-size: 10px;">크론탭</a>
-    </div>
-</div>
-
-    
-    
-</div>
-
-            </div>
-        </div>
-    </section>
-    <footer class="footer">
-    <div class="container">
-        <div class="level">
-            <div class="level-start has-text-centered-mobile">
-                <a class="footer-logo is-block has-mb-6" href="/">
-                
-                    <img src="/images/Emjaybloglogo_edit.png" alt="[세미나요약] 데이터 분석, 의심에서 전달까지" height="28">
-                
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://emjayahn.github.io/2021/10/10/summary-seminar-EDA/"
+                    title="Share on Facebook"
+                    aria-label="Share on Facebook"
+                >
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
                 </a>
-                <p class="is-size-7">
-                &copy; 2021 EmjayAhn(Minjae Ahn)&nbsp;
-                
-                </p>
-            </div>
-            <div class="level-end">
+            </li>
+        
             
-                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
-                
-                
-                <p class="control">
-                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
-                        
-                        <i class="fab fa-creative-commons"></i>
-                        
-                    </a>
-                </p>
-                
-                <p class="control">
-                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
-                        
-                        <i class="fab fa-creative-commons-by"></i>
-                        
-                    </a>
-                </p>
-                
-                <p class="control">
-                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/emjayahn/">
-                        
-                        <i class="fab fa-github"></i>
-                        
-                    </a>
-                </p>
-                
-                </div>
             
-            </div>
-        </div>
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://twitter.com/intent/tweet?text=https://emjayahn.github.io/2021/10/10/summary-seminar-EDA/"
+                    title="Share on Twitter"
+                    aria-label="Share on Twitter"
+                >
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+                <li class="post-action">
+                    <a
+                        class="post-action-btn btn btn--default"
+                        href="#disqus_thread"
+                        aria-label="Leave a comment"
+                    >
+                        <i class="fa fa-comment"></i>
+                    </a>
+                </li>
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+                <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+            
+        
     </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2021 EmjayAhn(Minjae Ahn). All Rights Reserved.
+    </span>
 </footer>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
-<script>moment.locale("en");</script>
 
-
-    
-    
-    
-    <script src="/js/animation.js"></script>
-    
-
-    
-    
-    
-    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
-    <script src="/js/gallery.js" defer></script>
-    
-
-    
-    
-
-<div id="outdated">
-    <h6>Your browser is out-of-date!</h6>
-    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
-            my browser now </a></p>
-    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2021/10/13/C-자료형-DataTypes/"
+                    data-tooltip="[C++] 1.자료형(DataTypes)"
+                    aria-label="PREVIOUS: [C++] 1.자료형(DataTypes)"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2019/09/01/psnr-ssim/"
+                    data-tooltip="[Metrics] PSNR &amp; SSIM"
+                    aria-label="NEXT: [Metrics] PSNR &amp; SSIM"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Share this post"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://emjayahn.github.io/2021/10/10/summary-seminar-EDA/"
+                    title="Share on Facebook"
+                    aria-label="Share on Facebook"
+                >
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://twitter.com/intent/tweet?text=https://emjayahn.github.io/2021/10/10/summary-seminar-EDA/"
+                    title="Share on Twitter"
+                    aria-label="Share on Twitter"
+                >
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+                <li class="post-action">
+                    <a
+                        class="post-action-btn btn btn--default"
+                        href="#disqus_thread"
+                        aria-label="Leave a comment"
+                    >
+                        <i class="fa fa-comment"></i>
+                    </a>
+                </li>
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        outdatedBrowser({
-            bgColor: '#f25648',
-            color: '#ffffff',
-            lowerThan: 'flex'
-        });
-    });
-</script>
 
 
-    
-    
-<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    MathJax.Hub.Config({
-        'HTML-CSS': {
-            matchFontHeight: false
-        },
-        SVG: {
-            matchFontHeight: false
-        },
-        CommonHTML: {
-            matchFontHeight: false
-        },
-        tex2jax: {
-            inlineMath: [
-                ['$','$'],
-                ['\\(','\\)']
-            ]
-        }
-    });
-});
-</script>
-
-    
-    
-
-<a id="back-to-top" title="Back to Top" href="javascript:;">
-    <i class="fas fa-chevron-up"></i>
-</a>
-<script src="/js/back-to-top.js" defer></script>
-
-
-    
-    
-
-    
-    
-    
-    
-
-    
-    
-    
-    
-    
-    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
-    <script src="/js/clipboard.js" defer></script>
-    
-
-    
-    
-    
+                </div>
+                
+    <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+        <i id="btn-close-shareoptions" class="fa fa-times"></i>
+        <ul class="share-options">
+            
+                
+                
+                <li class="share-option">
+                    <a
+                        class="share-option-btn"
+                        target="new"
+                        href="https://www.facebook.com/sharer/sharer.php?u=https://emjayahn.github.io/2021/10/10/summary-seminar-EDA/"
+                        aria-label="Share on Facebook"
+                    >
+                        <i class="fab fa-facebook" aria-hidden="true"></i><span>Share on Facebook</span>
+                    </a>
+                </li>
+            
+                
+                
+                <li class="share-option">
+                    <a
+                        class="share-option-btn"
+                        target="new"
+                        href="https://twitter.com/intent/tweet?text=https://emjayahn.github.io/2021/10/10/summary-seminar-EDA/"
+                        aria-label="Share on Twitter"
+                    >
+                        <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+                    </a>
+                </li>
+            
+        </ul>
+    </div>
 
 
-<script src="/js/main.js" defer></script>
-
-    
-    <div class="searchbox ins-search">
-    <div class="searchbox-container ins-search-container">
-        <div class="searchbox-input-wrapper">
-            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
-            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+            
         </div>
-        <div class="searchbox-result-wrapper ins-section-wrapper">
-            <div class="ins-section-container"></div>
+        
+
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
         </div>
+        
+            <h4 id="about-card-name">EmjayAhn(Minjae Ahn)</h4>
+        
+            <div id="about-card-bio"><p>author.bio</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>author.job</p>
+
+            </div>
+        
+        
     </div>
 </div>
-<script>
-    (function (window) {
-        var INSIGHT_CONFIG = {
-            TRANSLATION: {
-                POSTS: 'Posts',
-                PAGES: 'Pages',
-                CATEGORIES: 'Categories',
-                TAGS: 'Tags',
-                UNTITLED: '(Untitled)',
-            },
-            CONTENT_URL: '/content.json',
-        };
-        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
-    })(window);
-</script>
-<script src="/js/insight.js" defer></script>
-<link rel="stylesheet" href="/css/search.css">
-<link rel="stylesheet" href="/css/insight.css">
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover_blue.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/jquery.js"></script>
+<script src="/assets/js/jquery.fancybox.js"></script>
+<script src="/assets/js/thumbs.js"></script>
+<script src="/assets/js/tranquilpeak.js"></script>
+<!--SCRIPTS END-->
+
+
     
-<script type="text/x-mathjax-config">
+        <script>
+          var disqus_config = function() {
+            this.page.url = 'https://emjayahn.github.io/2021/10/10/summary-seminar-EDA/';
+              
+            this.page.identifier = '2021/10/10/summary-seminar-EDA/';
+              
+          };
+          (function() {
+            var d = document, s = d.createElement('script');
+            var disqus_shortname = 'emjay-blog';
+            s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+          })();
+        </script>
+    
+
+
+
+
+    <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
         tex2jax: {
             inlineMath: [ ["$","$"], ["\\(","\\)"] ],
@@ -1195,6 +723,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 </script>
 <!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML'></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

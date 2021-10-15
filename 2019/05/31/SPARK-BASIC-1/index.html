@@ -1,204 +1,301 @@
+
 <!DOCTYPE html>
 <html lang="en">
-<head><meta name="generator" content="Hexo 3.9.0">
-    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-<title>SPARK BASIC 1 - Emjay, 오늘도 새롭게</title>
-<meta name="naver-site-verification" content="139bdfd66b5dc8101d114c24fabb93c84d0dd64d">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta property="al:ios:url" content="applinks://docs">
-<meta property="al:ios:app_store_id" content="12345">
-<meta property="al:ios:app_name" content="App Links">
-<meta property="al:android:url" content="applinks://docs">
-<meta property="al:android:app_name" content="App Links">
-<meta property="al:android:package" content="org.applinks">
-<meta property="al:web:url" content="http://applinks.org/documentation">
-
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<script>
-  (adsbygoogle = window.adsbygoogle || []).push({
-    google_ad_client: "ca-pub-4220998811671882",
-    enable_page_level_ads: true
-  });
-</script>
-
-<link rel="canonical" href="https://emjayahn.github.io/2019/05/31/spark-basic-1/">
-
+    
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Emjay, 오늘도 새롭게">
+    <title>SPARK BASIC 1 - Emjay, 오늘도 새롭게</title>
+    <meta name="author" content="EmjayAhn(Minjae Ahn)">
+    
+        <meta name="keywords" content="데이터사이언스,머신러닝,딥러닝,개발,machine learning,deep learning,datascience,datascientist,">
+    
+    
+    
+        
+            <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss2.xml">
+        
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"EmjayAhn(Minjae Ahn)","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","mailto"]},"articleBody":"Apache Spark Basic 1\nSPARK 를 공부하면서 실습 과정을 정리해서 남깁니다.\n실습환경\nCentOS\nSpark 2.4.3\nHadoop 2.7\n\n\n\n\n1. Spark-shell1-1. Introductionshell의 spark home directory 에서 다음 명령어를 통해 spark shell 을 진입할 수 있습니다.\n$ cd /spark_home_directory/\n$ ./bin/spark-shell\n\n\nsc : spark context\nspark : spark session\n\nspark context 와 spark session 의 경우, spark shell에 띄우면서 내부적으로 선언된 변수명이다. \n$ jps\n// jps 명령어를 통해 현재 돌고 있는 spark process 를 확인할 수 있다. \n// spark processor 가 jvm 을 바탕으로 돌기 때문에, jvm 프로세스가 도는 것을 확인하므로써\n// 확인 할 수 있는 것이다.\nhttp://localhost:4040, 즉 해당 서버의 ip:4040 포트를 통해서 드라이버에서 제공되는 웹 UI 를 확인할 수 있다. 이 웹 UI 를 통해 현재 작동하는 프로세서와 클러스터들을 관리 할 수 있다.\n1-2. RDDspark는 data를 처리할 때, RDD 와 Spark SQL 을 통해서 data object 를 생성하고 이를 바탕으로 다양한 pipeline 으로 동작 할 수 있다. RDD 를 처음 접해보는 실습.\n//scala shell\nval data = 1 to 10000\nval distData = sc.parallelize(data)\ndistData.filter(_ &lt; 10).collect()\n\ndata 가 RDD\nsc.parallelize의 return 형 역시 parallelize 된 RDD, 즉 distData 도 RDD\n마지막 command line 은 10보다 작은 data 에 대해 filtering 하고 각 executor 에서 실행된 자료를 collect()\nspark 의 특징은 .collect() 와 같은 action api 가 실행될 때 모든 것이 실행되는 Lazy Evaluation (RDD)으로 동작한다.\n\n드라이버 웹 UI 를 통해 이를 확인 할 수 있다. 이전 command line 에서는 아무 동작도 일어나지 않다가 collect() action api 수행을 통해 실제로 command들이 수행되는 것을 확인 할 수 있다. local 에서 default 로 동작하기 때문에 2개의 partition 으로 동작하며, 어떤 shuffling 도 일어나지 않았기 때문에 1개의 stage 임을 확인 할 수 있다.\n\n// scala shell\n// sc.textFile 을 통해 textfile, md 파일등을 읽어드릴 수 있다.\nval data = sc.textFile(&quot;file_name&quot;)\n\n// rdd 의 .map api 를 통해서 rdd 의 element 마다 \nval distData = data.map(r =&gt; r + &quot;_experiment!!&quot;)\n\n// 앞선 map 이 수행되고, 각 element(data) 갯수를 세개 된다.\ndistData.count\n여기서는 .count 가 action api 이므로, .count 가 수행될 때, 앞선 command 들이 수행되게 된다.\nsc.textFile() 의 경우 ‘\\n’, newline 을 기준으로 element 를 RDD 에 담게 된다.\nRDD.toDebugString 를 통해 해당 RDD 의 Lineage 를 확인 할 수 있다.\n\n가장 왼쪽에 있는 | 를 통해 stage 정보 역시 확인 할 수 있다. shuffle 이 일어나게 되면, stage가 바뀌므로, 서로 다른 stage  에 있는 command 의 경우, 다른 indent에 있게 된다.\n\n\nRDD.getNumPartitions 를 통해 해당 RDD의 Partition 갯수 (=Task 의 갯수), 즉 병렬화 수준을 확인 할 수 있다.\n\nShuffle!!suffle 이 일어나는 경우는 api 마다 다양할 수 있다. 가장 기본적으로, 우리가 default partition 갯수를 변경하므로써 shuffle 이 일어나는 것을 확인 할 수 있다.\nval data = sc.textFile(&quot;file_name&quot;)\n\ndata.getNumPartitions\n// Partition 의 숫자를 확인해보면, default 이므로 2 인 것을 확인 할 수 있다.\n\nval newData = data.repartition(10)\n\nnewData.getNumPartitions\n// Partition 갯수가 10로 변경된 것을 확인 할 수 있다.\n\nnewData.toDebugString\n// newData 의 Lineage 를 확인하면, repartition 이 일어나면서 shuffle 이 되고,\n// shuffle 로 인해 stage 가 2개가 되는 것을 확인 할 수 있다.(indentation)\n\nnewData.count\n// action api 를 수행하여 앞선 command 를 모두 수행\n\n위 command line 에 대한 DAG 를 웹 UI 를 통해 확인하면, 다음과 같이 stage 가 repartition을 기점으로 나누어 지는 것을 확인 할 수 있다.\n\n총 Partition의 갯수 (Task의 갯수)를 확인해 보면,  default 로 수행된 partition 2 개와, 우리가 설정해준 Partition 의 갯수인 10개를 합하여 12개인 것을 확인 할 수 있다.\n\n여기서 한 스텝을 더 들어가보면, spark 만의 특이한 특징을 확인 할 수 있다.\n// 위 코드에 이어서, newData 에 대해\n// newData RDD를 collect 해서 cli에 찍는 command 를 수행해보자.\nnewData.collect.foreach(println)\ncollect api 와 RDD의 element를 print 를 하는 action api 를 수행할 때, 지금까지 공부한 것으로 생각해 보면, text를 읽어서, 2개의 Partition 을 나누고, 다시 10개의 Partition 을 나누는 작업으로 이전의 12 개의 Task 와 다를게 없을 것 같은 느낌이다. 하지만 UI 를 통해 확인해보면, 10개의 Partition 으로 2개가 skipped 되었다고 확인할 수 있다. DAG 에서도, skipped 된 stage에 대해서 회색으로 확인된다.\n\n\n이는 spark 에서 이 커맨드라인을 수행할 때, process 간 통신이 file 을 기반으로한 통신을 했기 때문이다. 제일 처음 newData 에 대해서 수행 될 때, 첫 stage 에서 shuffle 이 수행 될 때, 해당 파일을 각 executor 에서 shuffle write 을 하고 저장해두었다가, 두번째 stage 에서 shuffle  이 수행 될때, shuffle read 를 하는 방식으로 file을 기반으로 processor 가 통신하게 된다.\n\n따라서, spark 가 같은 command line 을 수행하게 되면 미리 shuffle write  된 file 을 읽기만 함으로써 앞선 stage 의 동일한 반복 작업을 수행하지 않게 되는 것이다. UI 를 확인 해보아도, shuffle read 만 수행 되었다. \n\nSaveFile!!!RDD.saveAsTextFile(&quot;directory_name&quot;) api 를 활용하여, 어떤 처리가 끝난 RDD 를 저장할 수 있다. 이 때 주의 할 점은 parameter 에 들어 가는 것이 directory_name 이라는 것이다. 또한 partition 별로 파일이 저장된다. (e.g. 10개의 partition 이라면, 10개의 file이 저장된다.)\nCache!!!spark가 자랑하는 가장 큰 특징은, data(RDD) 를 memory에 cache  함으로써 처리의 속도가 매우 빠르다는 점이다. RDD.cache api 를 통해 memory 에 캐시할 수 있다. \n// distData RDD 에 이름을 부여\ndistData.name = &quot;myData&quot;\n\n// cache!\ndistData.cache\n\n// action : 5 개의 data 를 가져옴\ndistData.take(5)\n\n// action : collect\ndistData.collect\ndistData.take(5) 까지 한 결과를 UI 에서 cache 를 살펴보면, 다음과 같다.\n\n우리가 설정 한 것 처럼, RDD 의 이름이 myData 로 들어간것을 확인 할 수 있고 cache  역시 확인 할 수 있다. 하지만, Cached  된 비율을 확인하면 전체 RDD  에서 50% 만 된 것을 확인 할 수 있다. 반면에, distData.collect action 을 취하게 되면, Fraction Cached  가 100% 가 된 것을 확인 할 수 있다.\n\n이는 우리의 action 에 따라 cache 할 용량이 달라 질 수 있기 때문이다. spark 입장에서 take(5) api 는 전체 RDD 중 5개의 element data 만 가져오면되고, 이 때 2개의 Partition 중 하나의 Partition 만 cache 해도 충분하기 때문에 Fraction Cached가 50%라고 나오는 것이다. 반면 collect api 는 collect 자체가 각 executor 에 있는 data 를 driver 로 모두 가져오는 것이므로 100% cache 하게 된다.\nCache 에서 중요한 것은, 각 executor 의 cache 를 위한 가용 메모리 공간이 해당 Partition의 용량보다 작을 경우, 저장 할 수 있는 용량만큼 저장되는 것이 아니라, 해당 Partition 은 아예 저장이 안되게 된다. 이 점은 Cache를 할 때, Partition 의 용량과 해당 Executor 의 가용 메모리 공간을 미리 파악하여, 설계해야 한다.\nWord Count 예제!!!우리가 데이터 분석을 할 때, 가장 basic 한 방법은 해당 데이터의 갯수를 세어 보는 것이다. 본 예제에서는 텍스트 파일을 읽어, 띄어쓰기를 바탕으로 word token을 나누고, 이를 세어보자.\nWordCount 예제는 매우 basic 한 코드이므로, 어떤 로직으로 돌아가는지 완벽한 이해와 코드작성이 필수라고 생각한다.\nval originalDataRDD = sc.textFile(&quot;text-file&quot;)\nval wordcountRDD = originalDataRDD.flatMap(line =&gt; line.split(&quot; &quot;))\n                                        .map(word =&gt; (word, 1)).reduceByKey(_ + _)\n\nwordcountRDD.collect.foreach(println)\n\noriginalDataRDD 에서 text-file을 읽고,\nline 마다 띄어쓰기를 기준으로 split 하고 이를 .flatMap 을 통해, flatten 하게 됩니다.\n그리고 .map 을 통해 (word, 1) tuple 형태로 mapping 합니다.\n.reduceByKey 를 통해 같은 word 에 대해 그 counting 갯수를 더하게 된 것을 RDD 로 return 하게 됩니다.\n\n","dateCreated":"2019-05-31T21:07:52+09:00","dateModified":"2019-07-17T00:53:55+09:00","datePublished":"2019-05-31T21:07:52+09:00","description":"Apache Spark Basic 1\nSPARK 를 공부하면서 실습 과정을 정리해서 남깁니다.\n실습환경\nCentOS\nSpark 2.4.3\nHadoop 2.7\n\n\n","headline":"SPARK BASIC 1","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://emjayahn.github.io/2019/05/31/SPARK-BASIC-1/"},"publisher":{"@type":"Organization","name":"EmjayAhn(Minjae Ahn)","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","mailto"]},"url":"https://emjayahn.github.io/2019/05/31/SPARK-BASIC-1/"}</script>
     <meta name="description" content="Apache Spark Basic 1 SPARK 를 공부하면서 실습 과정을 정리해서 남깁니다. 실습환경 CentOS Spark 2.4.3 Hadoop 2.7">
 <meta name="keywords" content="데이터사이언스,머신러닝,딥러닝,개발,machine learning,deep learning,datascience,datascientist">
-<meta property="og:type" content="article">
+<meta property="og:type" content="blog">
 <meta property="og:title" content="SPARK BASIC 1">
 <meta property="og:url" content="https://emjayahn.github.io/2019/05/31/SPARK-BASIC-1/index.html">
 <meta property="og:site_name" content="Emjay, 오늘도 새롭게">
 <meta property="og:description" content="Apache Spark Basic 1 SPARK 를 공부하면서 실습 과정을 정리해서 남깁니다. 실습환경 CentOS Spark 2.4.3 Hadoop 2.7">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://emjayahn.github.io/images/og_emjay_image.png">
+<meta property="og:image" content="https://emjayahn.github.io/2019/05/31/SPARK-BASIC-1/Untitled-d3bd9451-d568-49aa-bf5a-0f6b7bf598d9.png">
+<meta property="og:image" content="https://emjayahn.github.io/2019/05/31/SPARK-BASIC-1/Untitled-a49c2d30-d7d2-43bf-a2d0-7a54ff94d0c6.png">
+<meta property="og:image" content="https://emjayahn.github.io/2019/05/31/SPARK-BASIC-1/Untitled-62b02b6f-4150-4dcf-8543-655381c951f7.png">
+<meta property="og:image" content="https://emjayahn.github.io/2019/05/31/SPARK-BASIC-1/Untitled-a773c2aa-c715-4ccb-8b21-66eaaf1e22b3.png">
+<meta property="og:image" content="https://emjayahn.github.io/2019/05/31/SPARK-BASIC-1/Untitled-95d981bb-62a7-457f-9378-0b41db4d5b42.png">
+<meta property="og:image" content="https://emjayahn.github.io/2019/05/31/SPARK-BASIC-1/Untitled-ef367f62-d6f5-47da-9086-cdaa914aa5d7.png">
+<meta property="og:image" content="https://emjayahn.github.io/2019/05/31/SPARK-BASIC-1/Untitled-6bf929e7-3f6d-4f2f-8898-04ca7ba404b6.png">
+<meta property="og:image" content="https://emjayahn.github.io/2019/05/31/SPARK-BASIC-1/Untitled-6e461b14-8e34-4edb-91ad-6dd9ba2ba516.png">
+<meta property="og:image" content="https://emjayahn.github.io/2019/05/31/SPARK-BASIC-1/Untitled-85afaaf0-58d6-4533-995d-c5ec919da985.png">
+<meta property="og:image" content="https://emjayahn.github.io/2019/05/31/SPARK-BASIC-1/Untitled-310cc7d4-4e31-4362-bf74-f0e046a27052.png">
+<meta property="og:image" content="https://emjayahn.github.io/2019/05/31/SPARK-BASIC-1/Untitled-e89e6c5f-89f8-475c-af4a-78c1e3ae8377.png">
+<meta property="og:image" content="https://emjayahn.github.io/2019/05/31/SPARK-BASIC-1/Untitled-54196c66-b41c-4216-af72-5a70b030b321.png">
+<meta property="og:image" content="https://emjayahn.github.io/2019/05/31/SPARK-BASIC-1/Untitled-8f50bedc-ace7-4c09-9450-fb277ee5830b.png">
 <meta property="og:updated_time" content="2019-07-16T15:53:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SPARK BASIC 1">
 <meta name="twitter:description" content="Apache Spark Basic 1 SPARK 를 공부하면서 실습 과정을 정리해서 남깁니다. 실습환경 CentOS Spark 2.4.3 Hadoop 2.7">
-<meta name="twitter:image" content="https://emjayahn.github.io/images/og_emjay_image.png">
-<meta property="fb:app_id" content="jjminjae">
-
-
-
-
-
-<link rel="alternative" href="/rss2.xml" title="SPARK BASIC 1" type="application/atom+xml">
-
-
-
-<link rel="icon" href="/images/favicon.svg">
-
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
-
-
+<meta name="twitter:image" content="https://emjayahn.github.io/2019/05/31/SPARK-BASIC-1/Untitled-d3bd9451-d568-49aa-bf5a-0f6b7bf598d9.png">
     
     
-    
-    <style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
-    
-
-    
-    
-    
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
-    
-
-    
-    
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
-
-
+        
     
     
     
     
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/all.css">
+    <link rel="stylesheet" href="/assets/css/jquery.fancybox.css">
+    <link rel="stylesheet" href="/assets/css/thumbs.css">
+    <link rel="stylesheet" href="/assets/css/tranquilpeak.css">
+    <!--STYLES END-->
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128251719-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
 
-<link rel="stylesheet" href="/css/back-to-top.css">
+        gtag('config', 'UA-128251719-1');
+    </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
-    
-    
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128251719-1"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'UA-128251719-1');
-</script>
-
-
-    
-    
-    
-    
-
-    
-    
-<link rel="stylesheet" href="/css/progressbar.css">
-<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
-
-    
-    
     
 
     
+        
     
-    
-
-
-<link rel="stylesheet" href="/css/style.css">
-
-<!--Canonical : 유사하거나 중복된 페이지의 표준 페이지 정의-->
-<link rel="canonical" href="https://emjayahn.github.io/2019/05/31/spark-basic-1/"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
-<body class="is-3-column">
-    <!-- hexo-inject:begin --><!-- hexo-inject:end --><nav class="navbar navbar-main">
-    <div class="container">
-        <div class="navbar-brand is-flex-center">
-            <a class="navbar-item navbar-logo" href="/">
+
+    <body>
+        <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+
+<header id="header" data-behavior="5">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a
+            class="header-title-link"
+            href="/"
+            aria-label=""
+        >
+            Emjay, 오늘도 새롭게
+        </a>
+    </div>
+    
+        
+            <a
+                class="header-right-picture "
+                href="#about"
+                aria-label="Open the link: /#about"
+            >
+        
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+<nav id="sidebar" data-behavior="5">
+    <div class="sidebar-container">
+        
+        
+            <ul class="sidebar-buttons">
             
-                <img src="/images/Emjaybloglogo_edit.png" alt="SPARK BASIC 1" height="28">
-            
-            </a>
-        </div>
-        <div class="navbar-menu">
-            
-            <div class="navbar-start">
-                
-                <a class="navbar-item" href="/">Home</a>
-                
-                <a class="navbar-item" href="/archives">Archives</a>
-                
-                <a class="navbar-item" href="/categories">Categories</a>
-                
-                <a class="navbar-item" href="/tags">Tags</a>
-                
-                <a class="navbar-item" href="/about">About</a>
-                
-            </div>
-            
-            <div class="navbar-end">
-                
+                <li class="sidebar-button">
                     
-                    
-                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="https://github.com/emjayahn">
-                        
-                        <i class="fab fa-github"></i>
-                        
+                        <a
+                            class="sidebar-button-link "
+                            href="/"
+                            
+                            rel="noopener"
+                            title="Home"
+                        >
+                        <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Home</span>
                     </a>
+            </li>
+            
+                <li class="sidebar-button">
                     
-                
-                
-                
-                <a class="navbar-item search" title="Search" href="javascript:;">
-                    <i class="fas fa-search"></i>
-                </a>
-                
-            </div>
-        </div>
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-categories"
+                            
+                            rel="noopener"
+                            title="Categories"
+                        >
+                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="Tags"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link open-algolia-search"
+                            href="/all-archives"
+                            
+                            rel="noopener"
+                            title="Archives"
+                        >
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="#about"
+                            
+                            rel="noopener"
+                            title="About"
+                        >
+                        <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://github.com/emjayahn"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="GitHub"
+                        >
+                        <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="https://facebook.com/jjminjae"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Facebook"
+                        >
+                        <i class="sidebar-button-icon fab fa-facebook" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Facebook</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/mailto"
+                            
+                            rel="noopener"
+                            title="Mail"
+                        >
+                        <i class="sidebar-button-icon fa fa-envelope" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Mail</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/atom.xml"
+                            
+                            rel="noopener"
+                            title="RSS"
+                        >
+                        <i class="sidebar-button-icon fa fa-rss" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
     </div>
 </nav>
-    
-    <section class="section">
-        <div class="container">
-            <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-05-31T12:07:52.000Z">2019-05-31</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/MachineLearning/">MachineLearning</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/MachineLearning/Apache-Spark/">Apache Spark</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    14 minutes read (About 2156 words)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+
             
-                SPARK BASIC 1
-            
+            <div id="main" data-behavior="5"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            SPARK BASIC 1
         </h1>
-        <div class="content">
+    
+    
+        <div class="post-meta">
+    <time datetime="2019-05-31T21:07:52+09:00">
+	
+		    May 31, 2019
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/MachineLearning/">MachineLearning</a>, <a class="category-link" href="/categories/MachineLearning/Apache-Spark/">Apache Spark</a>
+
+
+    
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
             <h1 id="Apache-Spark-Basic-1"><a href="#Apache-Spark-Basic-1" class="headerlink" title="Apache Spark Basic 1"></a>Apache Spark Basic 1</h1><ul>
 <li>SPARK 를 공부하면서 실습 과정을 정리해서 남깁니다.</li>
 <li>실습환경<ol>
@@ -209,10 +306,10 @@
 </li>
 </ul>
 <a id="more"></a>
-
 <h1 id="1-Spark-shell"><a href="#1-Spark-shell" class="headerlink" title="1. Spark-shell"></a>1. Spark-shell</h1><h2 id="1-1-Introduction"><a href="#1-1-Introduction" class="headerlink" title="1-1. Introduction"></a>1-1. Introduction</h2><p>shell의 spark home directory 에서 다음 명령어를 통해 spark shell 을 진입할 수 있습니다.</p>
 <pre><code>$ cd /spark_home_directory/
-$ ./bin/spark-shell</code></pre><p><img src="Untitled-d3bd9451-d568-49aa-bf5a-0f6b7bf598d9.png" alt></p>
+$ ./bin/spark-shell
+</code></pre><p><img src="Untitled-d3bd9451-d568-49aa-bf5a-0f6b7bf598d9.png" alt></p>
 <ul>
 <li>sc : spark context</li>
 <li>spark : spark session</li>
@@ -221,12 +318,14 @@ $ ./bin/spark-shell</code></pre><p><img src="Untitled-d3bd9451-d568-49aa-bf5a-0f
 <pre><code>$ jps
 // jps 명령어를 통해 현재 돌고 있는 spark process 를 확인할 수 있다. 
 // spark processor 가 jvm 을 바탕으로 돌기 때문에, jvm 프로세스가 도는 것을 확인하므로써
-// 확인 할 수 있는 것이다.</code></pre><p><a href="http://localhost:4040" target="_blank" rel="noopener">http://localhost:4040</a>, 즉 해당 서버의 ip:4040 포트를 통해서 드라이버에서 제공되는 웹 UI 를 확인할 수 있다. 이 웹 UI 를 통해 현재 작동하는 프로세서와 클러스터들을 관리 할 수 있다.</p>
+// 확인 할 수 있는 것이다.
+</code></pre><p><a href="http://localhost:4040" target="_blank" rel="noopener">http://localhost:4040</a>, 즉 해당 서버의 ip:4040 포트를 통해서 드라이버에서 제공되는 웹 UI 를 확인할 수 있다. 이 웹 UI 를 통해 현재 작동하는 프로세서와 클러스터들을 관리 할 수 있다.</p>
 <h2 id="1-2-RDD"><a href="#1-2-RDD" class="headerlink" title="1-2. RDD"></a>1-2. RDD</h2><p>spark는 data를 처리할 때, RDD 와 Spark SQL 을 통해서 data object 를 생성하고 이를 바탕으로 다양한 pipeline 으로 동작 할 수 있다. RDD 를 처음 접해보는 실습.</p>
 <pre><code>//scala shell
 val data = 1 to 10000
 val distData = sc.parallelize(data)
-distData.filter(_ &lt; 10).collect()</code></pre><ul>
+distData.filter(_ &lt; 10).collect()
+</code></pre><ul>
 <li><code>data</code> 가 RDD</li>
 <li>sc.parallelize의 return 형 역시 parallelize 된 RDD, 즉 distData 도 RDD</li>
 <li>마지막 command line 은 10보다 작은 data 에 대해 filtering 하고 각 executor 에서 실행된 자료를 collect()</li>
@@ -242,7 +341,8 @@ val data = sc.textFile(&quot;file_name&quot;)
 val distData = data.map(r =&gt; r + &quot;_experiment!!&quot;)
 
 // 앞선 map 이 수행되고, 각 element(data) 갯수를 세개 된다.
-distData.count</code></pre><p>여기서는 .count 가 action api 이므로, .count 가 수행될 때, 앞선 command 들이 수행되게 된다.</p>
+distData.count
+</code></pre><p>여기서는 .count 가 action api 이므로, .count 가 수행될 때, 앞선 command 들이 수행되게 된다.</p>
 <p><code>sc.textFile()</code> 의 경우 ‘\n’, newline 을 기준으로 element 를 RDD 에 담게 된다.</p>
 <p><code>RDD.toDebugString</code> 를 통해 해당 RDD 의 Lineage 를 확인 할 수 있다.</p>
 <ul>
@@ -267,7 +367,8 @@ newData.toDebugString
 // shuffle 로 인해 stage 가 2개가 되는 것을 확인 할 수 있다.(indentation)
 
 newData.count
-// action api 를 수행하여 앞선 command 를 모두 수행</code></pre><p><img src="Untitled-95d981bb-62a7-457f-9378-0b41db4d5b42.png" alt></p>
+// action api 를 수행하여 앞선 command 를 모두 수행
+</code></pre><p><img src="Untitled-95d981bb-62a7-457f-9378-0b41db4d5b42.png" alt></p>
 <p>위 command line 에 대한 DAG 를 웹 UI 를 통해 확인하면, 다음과 같이 stage 가 repartition을 기점으로 나누어 지는 것을 확인 할 수 있다.</p>
 <p><img src="Untitled-ef367f62-d6f5-47da-9086-cdaa914aa5d7.png" alt></p>
 <p>총 Partition의 갯수 (Task의 갯수)를 확인해 보면,  default 로 수행된 partition 2 개와, 우리가 설정해준 Partition 의 갯수인 10개를 합하여 12개인 것을 확인 할 수 있다.</p>
@@ -275,7 +376,8 @@ newData.count
 <p>여기서 한 스텝을 더 들어가보면, spark 만의 특이한 특징을 확인 할 수 있다.</p>
 <pre><code>// 위 코드에 이어서, newData 에 대해
 // newData RDD를 collect 해서 cli에 찍는 command 를 수행해보자.
-newData.collect.foreach(println)</code></pre><p>collect api 와 RDD의 element를 print 를 하는 action api 를 수행할 때, 지금까지 공부한 것으로 생각해 보면, text를 읽어서, 2개의 Partition 을 나누고, 다시 10개의 Partition 을 나누는 작업으로 이전의 12 개의 Task 와 다를게 없을 것 같은 느낌이다. 하지만 UI 를 통해 확인해보면, 10개의 Partition 으로 2개가 skipped 되었다고 확인할 수 있다. DAG 에서도, skipped 된 stage에 대해서 회색으로 확인된다.</p>
+newData.collect.foreach(println)
+</code></pre><p>collect api 와 RDD의 element를 print 를 하는 action api 를 수행할 때, 지금까지 공부한 것으로 생각해 보면, text를 읽어서, 2개의 Partition 을 나누고, 다시 10개의 Partition 을 나누는 작업으로 이전의 12 개의 Task 와 다를게 없을 것 같은 느낌이다. 하지만 UI 를 통해 확인해보면, 10개의 Partition 으로 2개가 skipped 되었다고 확인할 수 있다. DAG 에서도, skipped 된 stage에 대해서 회색으로 확인된다.</p>
 <p><img src="Untitled-6e461b14-8e34-4edb-91ad-6dd9ba2ba516.png" alt></p>
 <p><img src="Untitled-85afaaf0-58d6-4533-995d-c5ec919da985.png" alt></p>
 <p>이는 spark 에서 이 커맨드라인을 수행할 때, process 간 통신이 file 을 기반으로한 통신을 했기 때문이다. 제일 처음 <code>newData</code> 에 대해서 수행 될 때, 첫 stage 에서 shuffle 이 수행 될 때, 해당 파일을 각 executor 에서 shuffle write 을 하고 저장해두었다가, 두번째 stage 에서 shuffle  이 수행 될때, shuffle read 를 하는 방식으로 file을 기반으로 processor 가 통신하게 된다.</p>
@@ -294,7 +396,8 @@ distData.cache
 distData.take(5)
 
 // action : collect
-distData.collect</code></pre><p><code>distData.take(5)</code> 까지 한 결과를 UI 에서 cache 를 살펴보면, 다음과 같다.</p>
+distData.collect
+</code></pre><p><code>distData.take(5)</code> 까지 한 결과를 UI 에서 cache 를 살펴보면, 다음과 같다.</p>
 <p><img src="Untitled-54196c66-b41c-4216-af72-5a70b030b321.png" alt></p>
 <p>우리가 설정 한 것 처럼, RDD 의 이름이 myData 로 들어간것을 확인 할 수 있고 cache  역시 확인 할 수 있다. 하지만, Cached  된 비율을 확인하면 전체 RDD  에서 50% 만 된 것을 확인 할 수 있다. 반면에, <code>distData.collect</code> action 을 취하게 되면, Fraction Cached  가 100% 가 된 것을 확인 할 수 있다.</p>
 <p><img src="Untitled-8f50bedc-ace7-4c09-9450-fb277ee5830b.png" alt></p>
@@ -306,883 +409,330 @@ distData.collect</code></pre><p><code>distData.take(5)</code> 까지 한 결과�
 val wordcountRDD = originalDataRDD.flatMap(line =&gt; line.split(&quot; &quot;))
                                         .map(word =&gt; (word, 1)).reduceByKey(_ + _)
 
-wordcountRDD.collect.foreach(println)</code></pre><ol>
+wordcountRDD.collect.foreach(println)
+</code></pre><ol>
 <li>originalDataRDD 에서 text-file을 읽고,</li>
 <li>line 마다 띄어쓰기를 기준으로 split 하고 이를 .flatMap 을 통해, flatten 하게 됩니다.</li>
 <li>그리고 .map 을 통해 (word, 1) tuple 형태로 mapping 합니다.</li>
 <li>.reduceByKey 를 통해 같은 word 에 대해 그 counting 갯수를 더하게 된 것을 RDD 로 return 하게 됩니다.</li>
 </ol>
 
-        </div>
-        
-        
-        
-        
-<div class="sharethis-inline-share-buttons"></div>
-<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5d2ca2d817ca3533" async="async"></script>
-
-        
-    </div>
-</div>
-
-
-
-
-
-    <!-- add buy me a coffee button -->
-<center><script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="cHgDES9Ut" data-color="#ffffff" data-emoji data-font="Comic" data-text="Buy Me a coffee" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#FFDD00"></script></center><br><br>
-<div class="card card-transparent">
-    <div class="level post-navigation is-flex-wrap is-mobile">
-        
-        <div class="level-start">
-            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/06/03/Classification-Metrics/">
-                <i class="level-item fas fa-chevron-left"></i>
-                <span class="level-item">Classification Metrics</span>
-            </a>
-        </div>
-        
-        
-        <div class="level-end">
-            <a class="level level-item has-link-grey  article-nav-next" href="/2019/05/20/CS231n-Lecture05-Summary/">
-                <span class="level-item">[CS231n]Lecture05-CNN</span>
-                <i class="level-item fas fa-chevron-right"></i>
-            </a>
-        </div>
-        
-    </div>
-</div>
-
-
-
-<div class="card">
-    <div class="card-content">
-        <h3 class="title is-5 has-text-weight-normal">Comments</h3>
-        
-<div id="lv-container" data-id="city" data-uid="MTAyMC80MjIzMS8xODc3OA==">
-    <script type="text/javascript">
-        (function(d, s) {
-            var j, e = d.getElementsByTagName(s)[0];
-
-            if (typeof LivereTower === 'function') { return; }
-
-            j = d.createElement(s);
-            j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-            j.async = true;
-
-            e.parentNode.insertBefore(j, e);
-        })(document, 'script');
-    </script>
-    <noscript> Please activate JavaScript for write a comment in LiveRe</noscript>
-</div>
-
-    </div>
-</div>
-
-</div>
-                
-
-
-
-
-<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
-    
-        
-<div class="card widget">
-    <div class="card-content">
-        <nav class="level">
-            <div class="level-item has-text-centered">
-                <div>
-                    
-                        <img class="image is-128x128 has-mb-6" src="/images/profile.jpeg" alt="Emjay Ahn">
-                    
-                    
-                    <p class="is-size-4 is-block">
-                        Emjay Ahn
-                    </p>
-                    
-                    
-                    <p class="is-size-6 is-block">
-                        data scientist
-                    </p>
-                    
-                    
-                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
-                        <i class="fas fa-map-marker-alt has-mr-7"></i>
-                        <span>Seoul, Korea</span>
-                    </p>
-                    
-                </div>
-            </div>
-        </nav>
-        <nav class="level is-mobile">
-            <div class="level-item has-text-centered is-marginless">
-                <div>
-                    <p class="heading">
-                        Posts
-                    </p>
-                    <p class="title has-text-weight-normal">
-                        86
-                    </p>
-                </div>
-            </div>
-            <div class="level-item has-text-centered is-marginless">
-                <div>
-                    <p class="heading">
-                        Categories
-                    </p>
-                    <p class="title has-text-weight-normal">
-                        30
-                    </p>
-                </div>
-            </div>
-            <div class="level-item has-text-centered is-marginless">
-                <div>
-                    <p class="heading">
-                        Tags
-                    </p>
-                    <p class="title has-text-weight-normal">
-                        39
-                    </p>
-                </div>
-            </div>
-        </nav>
-        <div class="level">
-            <a class="level-item button is-link is-rounded" href="https://github.com/emjayahn" target="_blank">
-                Follow</a>
-        </div>
-        
-        
-        <div class="level is-mobile">
             
-            <a class="level-item button is-white is-marginless" target="_blank" title="Github" href="https://github.com/emjayahn">
-                
-                <i class="fab fa-github"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="Facebook" href="https://facebook.com/jjminjae">
-                
-                <i class="fab fa-facebook"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank" title="RSS" href="/rss2.xml">
-                
-                <i class="fas fa-rss"></i>
-                
-            </a>
-            
-        </div>
-        
-    </div>
-</div>
-    
-        
-    
-        
-<div class="card widget">
-    <div class="card-content">
-        <div class="menu">
-            <h3 class="menu-label">
-                Categories
-            </h3>
-            <ul class="menu-list">
-            <li>
-        <a class="level is-marginless" href="/categories/Book/">
-            <span class="level-start">
-                <span class="level-item">Book</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a><ul><li>
-        <a class="level is-marginless" href="/categories/Book/Digital-Image-Processing/">
-            <span class="level-start">
-                <span class="level-item">Digital Image Processing</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a></li></ul></li><li>
-        <a class="level is-marginless" href="/categories/DataScience/">
-            <span class="level-start">
-                <span class="level-item">DataScience</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a><ul><li>
-        <a class="level is-marginless" href="/categories/DataScience/Seminar/">
-            <span class="level-start">
-                <span class="level-item">Seminar</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a></li></ul></li><li>
-        <a class="level is-marginless" href="/categories/DataStructure/">
-            <span class="level-start">
-                <span class="level-item">DataStructure</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">2</span>
-            </span>
-        </a></li><li>
-        <a class="level is-marginless" href="/categories/Development/">
-            <span class="level-start">
-                <span class="level-item">Development</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">6</span>
-            </span>
-        </a><ul><li>
-        <a class="level is-marginless" href="/categories/Development/C/">
-            <span class="level-start">
-                <span class="level-item">C++</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">2</span>
-            </span>
-        </a></li><li>
-        <a class="level is-marginless" href="/categories/Development/Linux/">
-            <span class="level-start">
-                <span class="level-item">Linux</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a></li><li>
-        <a class="level is-marginless" href="/categories/Development/Python/">
-            <span class="level-start">
-                <span class="level-item">Python</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">3</span>
-            </span>
-        </a></li></ul></li><li>
-        <a class="level is-marginless" href="/categories/Diary/">
-            <span class="level-start">
-                <span class="level-item">Diary</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">43</span>
-            </span>
-        </a></li><li>
-        <a class="level is-marginless" href="/categories/Google-Cloud-Platform/">
-            <span class="level-start">
-                <span class="level-item">Google Cloud Platform</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a></li><li>
-        <a class="level is-marginless" href="/categories/Lecture/">
-            <span class="level-start">
-                <span class="level-item">Lecture</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">10</span>
-            </span>
-        </a><ul><li>
-        <a class="level is-marginless" href="/categories/Lecture/CS224n/">
-            <span class="level-start">
-                <span class="level-item">CS224n</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">2</span>
-            </span>
-        </a></li><li>
-        <a class="level is-marginless" href="/categories/Lecture/CS231n/">
-            <span class="level-start">
-                <span class="level-item">CS231n</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">7</span>
-            </span>
-        </a></li><li>
-        <a class="level is-marginless" href="/categories/Lecture/딥러닝을-이용한-자연어-처리/">
-            <span class="level-start">
-                <span class="level-item">딥러닝을 이용한 자연어 처리</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a></li></ul></li><li>
-        <a class="level is-marginless" href="/categories/MachineLearning/">
-            <span class="level-start">
-                <span class="level-item">MachineLearning</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">6</span>
-            </span>
-        </a><ul><li>
-        <a class="level is-marginless" href="/categories/MachineLearning/Apache-Spark/">
-            <span class="level-start">
-                <span class="level-item">Apache Spark</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a></li><li>
-        <a class="level is-marginless" href="/categories/MachineLearning/Pytorch/">
-            <span class="level-start">
-                <span class="level-item">Pytorch</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">3</span>
-            </span>
-        </a></li><li>
-        <a class="level is-marginless" href="/categories/MachineLearning/Vision/">
-            <span class="level-start">
-                <span class="level-item">Vision</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a></li></ul></li><li>
-        <a class="level is-marginless" href="/categories/Math/">
-            <span class="level-start">
-                <span class="level-item">Math</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">2</span>
-            </span>
-        </a></li><li>
-        <a class="level is-marginless" href="/categories/Paper/">
-            <span class="level-start">
-                <span class="level-item">Paper</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">2</span>
-            </span>
-        </a></li><li>
-        <a class="level is-marginless" href="/categories/wiki/">
-            <span class="level-start">
-                <span class="level-item">wiki</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">9</span>
-            </span>
-        </a><ul><li>
-        <a class="level is-marginless" href="/categories/wiki/MySQL/">
-            <span class="level-start">
-                <span class="level-item">MySQL</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a></li><li>
-        <a class="level is-marginless" href="/categories/wiki/NGINX/">
-            <span class="level-start">
-                <span class="level-item">NGINX</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a></li><li>
-        <a class="level is-marginless" href="/categories/wiki/Pillow/">
-            <span class="level-start">
-                <span class="level-item">Pillow</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a></li><li>
-        <a class="level is-marginless" href="/categories/wiki/Provision/">
-            <span class="level-start">
-                <span class="level-item">Provision</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a></li><li>
-        <a class="level is-marginless" href="/categories/wiki/Requests/">
-            <span class="level-start">
-                <span class="level-item">Requests</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a></li><li>
-        <a class="level is-marginless" href="/categories/wiki/Scrapy/">
-            <span class="level-start">
-                <span class="level-item">Scrapy</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a></li><li>
-        <a class="level is-marginless" href="/categories/wiki/Selenium/">
-            <span class="level-start">
-                <span class="level-item">Selenium</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a></li><li>
-        <a class="level is-marginless" href="/categories/wiki/Xpath/">
-            <span class="level-start">
-                <span class="level-item">Xpath</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a></li></ul></li>
-            </ul>
+
+
         </div>
     </div>
-</div>
-    
+    <div id="post-footer" class="post-footer main-content-wrap">
         
-<div class="card widget">
-    <div class="card-content">
-        <h3 class="menu-label">
-            Recent
-        </h3>
         
-        <article class="media">
-            
-            <a href="/2021/10/14/C-연산자-Operators/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="[C++] 2.연산자(Operators)">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-10-14T09:51:33.000Z">2021-10-14</time></div>
-                    <a href="/2021/10/14/C-연산자-Operators/" class="has-link-black-ter is-size-6">[C++] 2.연산자(Operators)</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Development/">Development</a> / <a class="has-link-grey -link" href="/categories/Development/C/">C++</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2021/10/13/C-자료형-DataTypes/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="[C++] 1.자료형(DataTypes)">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-10-13T12:35:26.000Z">2021-10-13</time></div>
-                    <a href="/2021/10/13/C-자료형-DataTypes/" class="has-link-black-ter is-size-6">[C++] 1.자료형(DataTypes)</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Development/">Development</a> / <a class="has-link-grey -link" href="/categories/Development/C/">C++</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2021/10/10/summary-seminar-EDA/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="[세미나요약] 데이터 분석, 의심에서 전달까지">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2021-10-10T03:45:08.000Z">2021-10-10</time></div>
-                    <a href="/2021/10/10/summary-seminar-EDA/" class="has-link-black-ter is-size-6">[세미나요약] 데이터 분석, 의심에서 전달까지</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/DataScience/">DataScience</a> / <a class="has-link-grey -link" href="/categories/DataScience/Seminar/">Seminar</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/09/01/psnr-ssim/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="[Metrics] PSNR &amp; SSIM">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-09-01T05:41:22.000Z">2019-09-01</time></div>
-                    <a href="/2019/09/01/psnr-ssim/" class="has-link-black-ter is-size-6">[Metrics] PSNR &amp; SSIM</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/MachineLearning/">MachineLearning</a> / <a class="has-link-grey -link" href="/categories/MachineLearning/Vision/">Vision</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/08/26/DIP-chapter3/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="[Book] Summary of Digital Image Processing Chapter 03">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-08-26T12:54:53.000Z">2019-08-26</time></div>
-                    <a href="/2019/08/26/DIP-chapter3/" class="has-link-black-ter is-size-6">[Book] Summary of Digital Image Processing Chapter 03</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/Book/">Book</a> / <a class="has-link-grey -link" href="/categories/Book/Digital-Image-Processing/">Digital Image Processing</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-    </div>
-</div>
-
-    
-        <div class="card widget">
-    <div class="card-content">
-        <div class="menu">
-        <h3 class="menu-label">
-            Archives
-        </h3>
-        <ul class="menu-list">
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2021/10/">
-                <span class="level-start">
-                    <span class="level-item">October 2021</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">3</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2019/09/">
-                <span class="level-start">
-                    <span class="level-item">September 2019</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">1</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2019/08/">
-                <span class="level-start">
-                    <span class="level-item">August 2019</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">5</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2019/07/">
-                <span class="level-start">
-                    <span class="level-item">July 2019</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">6</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2019/06/">
-                <span class="level-start">
-                    <span class="level-item">June 2019</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">2</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2019/05/">
-                <span class="level-start">
-                    <span class="level-item">May 2019</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">9</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2019/01/">
-                <span class="level-start">
-                    <span class="level-item">January 2019</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">3</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2018/12/">
-                <span class="level-start">
-                    <span class="level-item">December 2018</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">12</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2018/11/">
-                <span class="level-start">
-                    <span class="level-item">November 2018</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">25</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2018/10/">
-                <span class="level-start">
-                    <span class="level-item">October 2018</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">20</span>
-                </span>
-            </a>
-        </li>
-        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2019/06/03/Classification-Metrics/"
+                    data-tooltip="Classification Metrics"
+                    aria-label="PREVIOUS: Classification Metrics"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2019/05/20/CS231n-Lecture05-Summary/"
+                    data-tooltip="[CS231n]Lecture05-CNN"
+                    aria-label="NEXT: [CS231n]Lecture05-CNN"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
         </ul>
-        </div>
-    </div>
-</div>
-    
-    
-        <div class="column-right-shadow is-hidden-widescreen ">
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Share this post"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
         
             
-<div class="card widget">
-    <div class="card-content">
-        <h3 class="menu-label">
-            Tag Cloud
-        </h3>
-        <a href="/tags/C/" style="font-size: 12.5px;">C</a> <a href="/tags/C/" style="font-size: 12.5px;">C++</a> <a href="/tags/CS224n/" style="font-size: 12.5px;">CS224n</a> <a href="/tags/CS231n/" style="font-size: 17.5px;">CS231n</a> <a href="/tags/Classification-확률론적생성모형-Generative-생성모형-분류모델/" style="font-size: 10px;">Classification, 확률론적생성모형, Generative, 생성모형, 분류모델</a> <a href="/tags/Crawling-Web-Requests/" style="font-size: 10px;">Crawling, Web, Requests</a> <a href="/tags/Data/" style="font-size: 10px;">Data</a> <a href="/tags/DataAnalysis/" style="font-size: 10px;">DataAnalysis</a> <a href="/tags/DataScience/" style="font-size: 10px;">DataScience</a> <a href="/tags/Gan/" style="font-size: 10px;">Gan</a> <a href="/tags/Google-Cloud-Platform/" style="font-size: 10px;">Google Cloud Platform</a> <a href="/tags/Language/" style="font-size: 12.5px;">Language</a> <a href="/tags/Seminar/" style="font-size: 10px;">Seminar</a> <a href="/tags/TWIL/" style="font-size: 15px;">TWIL</a> <a href="/tags/Thread/" style="font-size: 10px;">Thread</a> <a href="/tags/Vanilla-Gan/" style="font-size: 10px;">Vanilla Gan</a> <a href="/tags/crontab/" style="font-size: 10px;">crontab</a> <a href="/tags/datastructure/" style="font-size: 10px;">datastructure</a> <a href="/tags/datastructure-stack/" style="font-size: 10px;">datastructure, stack</a> <a href="/tags/decorator/" style="font-size: 10px;">decorator</a> <a href="/tags/generator/" style="font-size: 10px;">generator</a> <a href="/tags/iterable/" style="font-size: 10px;">iterable</a> <a href="/tags/iterator/" style="font-size: 10px;">iterator</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/mysql-MYSQL-database/" style="font-size: 10px;">mysql, MYSQL, database</a> <a href="/tags/nginx-proxy/" style="font-size: 10px;">nginx, proxy</a> <a href="/tags/paper/" style="font-size: 10px;">paper</a> <a href="/tags/pillow-Pillow-image/" style="font-size: 10px;">pillow, Pillow, image</a> <a href="/tags/python/" style="font-size: 12.5px;">python</a> <a href="/tags/scrapy-crawling-web/" style="font-size: 10px;">scrapy, crawling, web</a> <a href="/tags/summary/" style="font-size: 20px;">summary</a> <a href="/tags/논문/" style="font-size: 10px;">논문</a> <a href="/tags/데코레이터/" style="font-size: 10px;">데코레이터</a> <a href="/tags/리눅스/" style="font-size: 10px;">리눅스</a> <a href="/tags/이터러블/" style="font-size: 10px;">이터러블</a> <a href="/tags/이터레이터/" style="font-size: 10px;">이터레이터</a> <a href="/tags/자동화-selenium-webdriver/" style="font-size: 10px;">자동화, selenium, webdriver</a> <a href="/tags/제너레이터/" style="font-size: 10px;">제너레이터</a> <a href="/tags/크론탭/" style="font-size: 10px;">크론탭</a>
-    </div>
-</div>
-
-        
-        </div>
-    
-</div>
-
-                
-
-
-
-
-<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
-    
-        
-<div class="card widget">
-    <div class="card-content">
-        <h3 class="menu-label">
-            Tag Cloud
-        </h3>
-        <a href="/tags/C/" style="font-size: 12.5px;">C</a> <a href="/tags/C/" style="font-size: 12.5px;">C++</a> <a href="/tags/CS224n/" style="font-size: 12.5px;">CS224n</a> <a href="/tags/CS231n/" style="font-size: 17.5px;">CS231n</a> <a href="/tags/Classification-확률론적생성모형-Generative-생성모형-분류모델/" style="font-size: 10px;">Classification, 확률론적생성모형, Generative, 생성모형, 분류모델</a> <a href="/tags/Crawling-Web-Requests/" style="font-size: 10px;">Crawling, Web, Requests</a> <a href="/tags/Data/" style="font-size: 10px;">Data</a> <a href="/tags/DataAnalysis/" style="font-size: 10px;">DataAnalysis</a> <a href="/tags/DataScience/" style="font-size: 10px;">DataScience</a> <a href="/tags/Gan/" style="font-size: 10px;">Gan</a> <a href="/tags/Google-Cloud-Platform/" style="font-size: 10px;">Google Cloud Platform</a> <a href="/tags/Language/" style="font-size: 12.5px;">Language</a> <a href="/tags/Seminar/" style="font-size: 10px;">Seminar</a> <a href="/tags/TWIL/" style="font-size: 15px;">TWIL</a> <a href="/tags/Thread/" style="font-size: 10px;">Thread</a> <a href="/tags/Vanilla-Gan/" style="font-size: 10px;">Vanilla Gan</a> <a href="/tags/crontab/" style="font-size: 10px;">crontab</a> <a href="/tags/datastructure/" style="font-size: 10px;">datastructure</a> <a href="/tags/datastructure-stack/" style="font-size: 10px;">datastructure, stack</a> <a href="/tags/decorator/" style="font-size: 10px;">decorator</a> <a href="/tags/generator/" style="font-size: 10px;">generator</a> <a href="/tags/iterable/" style="font-size: 10px;">iterable</a> <a href="/tags/iterator/" style="font-size: 10px;">iterator</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/mysql-MYSQL-database/" style="font-size: 10px;">mysql, MYSQL, database</a> <a href="/tags/nginx-proxy/" style="font-size: 10px;">nginx, proxy</a> <a href="/tags/paper/" style="font-size: 10px;">paper</a> <a href="/tags/pillow-Pillow-image/" style="font-size: 10px;">pillow, Pillow, image</a> <a href="/tags/python/" style="font-size: 12.5px;">python</a> <a href="/tags/scrapy-crawling-web/" style="font-size: 10px;">scrapy, crawling, web</a> <a href="/tags/summary/" style="font-size: 20px;">summary</a> <a href="/tags/논문/" style="font-size: 10px;">논문</a> <a href="/tags/데코레이터/" style="font-size: 10px;">데코레이터</a> <a href="/tags/리눅스/" style="font-size: 10px;">리눅스</a> <a href="/tags/이터러블/" style="font-size: 10px;">이터러블</a> <a href="/tags/이터레이터/" style="font-size: 10px;">이터레이터</a> <a href="/tags/자동화-selenium-webdriver/" style="font-size: 10px;">자동화, selenium, webdriver</a> <a href="/tags/제너레이터/" style="font-size: 10px;">제너레이터</a> <a href="/tags/크론탭/" style="font-size: 10px;">크론탭</a>
-    </div>
-</div>
-
-    
-    
-</div>
-
-            </div>
-        </div>
-    </section>
-    <footer class="footer">
-    <div class="container">
-        <div class="level">
-            <div class="level-start has-text-centered-mobile">
-                <a class="footer-logo is-block has-mb-6" href="/">
-                
-                    <img src="/images/Emjaybloglogo_edit.png" alt="SPARK BASIC 1" height="28">
-                
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://emjayahn.github.io/2019/05/31/SPARK-BASIC-1/"
+                    title="Share on Facebook"
+                    aria-label="Share on Facebook"
+                >
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
                 </a>
-                <p class="is-size-7">
-                &copy; 2021 EmjayAhn(Minjae Ahn)&nbsp;
-                
-                </p>
-            </div>
-            <div class="level-end">
+            </li>
+        
             
-                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
-                
-                
-                <p class="control">
-                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
-                        
-                        <i class="fab fa-creative-commons"></i>
-                        
-                    </a>
-                </p>
-                
-                <p class="control">
-                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
-                        
-                        <i class="fab fa-creative-commons-by"></i>
-                        
-                    </a>
-                </p>
-                
-                <p class="control">
-                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/emjayahn/">
-                        
-                        <i class="fab fa-github"></i>
-                        
-                    </a>
-                </p>
-                
-                </div>
             
-            </div>
-        </div>
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://twitter.com/intent/tweet?text=https://emjayahn.github.io/2019/05/31/SPARK-BASIC-1/"
+                    title="Share on Twitter"
+                    aria-label="Share on Twitter"
+                >
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+                <li class="post-action">
+                    <a
+                        class="post-action-btn btn btn--default"
+                        href="#disqus_thread"
+                        aria-label="Leave a comment"
+                    >
+                        <i class="fa fa-comment"></i>
+                    </a>
+                </li>
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+                <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+            
+        
     </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2021 EmjayAhn(Minjae Ahn). All Rights Reserved.
+    </span>
 </footer>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
-<script>moment.locale("en");</script>
 
-
-    
-    
-    
-    <script src="/js/animation.js"></script>
-    
-
-    
-    
-    
-    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
-    <script src="/js/gallery.js" defer></script>
-    
-
-    
-    
-
-<div id="outdated">
-    <h6>Your browser is out-of-date!</h6>
-    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
-            my browser now </a></p>
-    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2019/06/03/Classification-Metrics/"
+                    data-tooltip="Classification Metrics"
+                    aria-label="PREVIOUS: Classification Metrics"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/2019/05/20/CS231n-Lecture05-Summary/"
+                    data-tooltip="[CS231n]Lecture05-CNN"
+                    aria-label="NEXT: [CS231n]Lecture05-CNN"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Share this post"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://emjayahn.github.io/2019/05/31/SPARK-BASIC-1/"
+                    title="Share on Facebook"
+                    aria-label="Share on Facebook"
+                >
+                    <i class="fab fa-facebook" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a
+                    class="post-action-btn btn btn--default"
+                    target="new" href="https://twitter.com/intent/tweet?text=https://emjayahn.github.io/2019/05/31/SPARK-BASIC-1/"
+                    title="Share on Twitter"
+                    aria-label="Share on Twitter"
+                >
+                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+                <li class="post-action">
+                    <a
+                        class="post-action-btn btn btn--default"
+                        href="#disqus_thread"
+                        aria-label="Leave a comment"
+                    >
+                        <i class="fa fa-comment"></i>
+                    </a>
+                </li>
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        outdatedBrowser({
-            bgColor: '#f25648',
-            color: '#ffffff',
-            lowerThan: 'flex'
-        });
-    });
-</script>
 
 
-    
-    
-<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    MathJax.Hub.Config({
-        'HTML-CSS': {
-            matchFontHeight: false
-        },
-        SVG: {
-            matchFontHeight: false
-        },
-        CommonHTML: {
-            matchFontHeight: false
-        },
-        tex2jax: {
-            inlineMath: [
-                ['$','$'],
-                ['\\(','\\)']
-            ]
-        }
-    });
-});
-</script>
-
-    
-    
-
-<a id="back-to-top" title="Back to Top" href="javascript:;">
-    <i class="fas fa-chevron-up"></i>
-</a>
-<script src="/js/back-to-top.js" defer></script>
-
-
-    
-    
-
-    
-    
-    
-    
-
-    
-    
-    
-    
-    
-    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
-    <script src="/js/clipboard.js" defer></script>
-    
-
-    
-    
-    
+                </div>
+                
+    <div id="share-options-bar" class="share-options-bar" data-behavior="5">
+        <i id="btn-close-shareoptions" class="fa fa-times"></i>
+        <ul class="share-options">
+            
+                
+                
+                <li class="share-option">
+                    <a
+                        class="share-option-btn"
+                        target="new"
+                        href="https://www.facebook.com/sharer/sharer.php?u=https://emjayahn.github.io/2019/05/31/SPARK-BASIC-1/"
+                        aria-label="Share on Facebook"
+                    >
+                        <i class="fab fa-facebook" aria-hidden="true"></i><span>Share on Facebook</span>
+                    </a>
+                </li>
+            
+                
+                
+                <li class="share-option">
+                    <a
+                        class="share-option-btn"
+                        target="new"
+                        href="https://twitter.com/intent/tweet?text=https://emjayahn.github.io/2019/05/31/SPARK-BASIC-1/"
+                        aria-label="Share on Twitter"
+                    >
+                        <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
+                    </a>
+                </li>
+            
+        </ul>
+    </div>
 
 
-<script src="/js/main.js" defer></script>
-
-    
-    <div class="searchbox ins-search">
-    <div class="searchbox-container ins-search-container">
-        <div class="searchbox-input-wrapper">
-            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
-            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+            
         </div>
-        <div class="searchbox-result-wrapper ins-section-wrapper">
-            <div class="ins-section-container"></div>
+        
+
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
         </div>
+        
+            <h4 id="about-card-name">EmjayAhn(Minjae Ahn)</h4>
+        
+            <div id="about-card-bio"><p>author.bio</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>author.job</p>
+
+            </div>
+        
+        
     </div>
 </div>
-<script>
-    (function (window) {
-        var INSIGHT_CONFIG = {
-            TRANSLATION: {
-                POSTS: 'Posts',
-                PAGES: 'Pages',
-                CATEGORIES: 'Categories',
-                TAGS: 'Tags',
-                UNTITLED: '(Untitled)',
-            },
-            CONTENT_URL: '/content.json',
-        };
-        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
-    })(window);
-</script>
-<script src="/js/insight.js" defer></script>
-<link rel="stylesheet" href="/css/search.css">
-<link rel="stylesheet" href="/css/insight.css">
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover_blue.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/jquery.js"></script>
+<script src="/assets/js/jquery.fancybox.js"></script>
+<script src="/assets/js/thumbs.js"></script>
+<script src="/assets/js/tranquilpeak.js"></script>
+<!--SCRIPTS END-->
+
+
     
-<script type="text/x-mathjax-config">
+        <script>
+          var disqus_config = function() {
+            this.page.url = 'https://emjayahn.github.io/2019/05/31/SPARK-BASIC-1/';
+              
+            this.page.identifier = '2019/05/31/SPARK-BASIC-1/';
+              
+          };
+          (function() {
+            var d = document, s = d.createElement('script');
+            var disqus_shortname = 'emjay-blog';
+            s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+          })();
+        </script>
+    
+
+
+
+
+    <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
         tex2jax: {
             inlineMath: [ ["$","$"], ["\\(","\\)"] ],
@@ -1197,6 +747,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 </script>
 <!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML'></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>
