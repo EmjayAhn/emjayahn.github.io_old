@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Emjay, 오늘도 새롭게">
     <title>Requests - Emjay, 오늘도 새롭게</title>
-    <meta name="author" content="EmjayAhn(Minjae Ahn)">
+    <meta name="author" content="EmjayAhn">
     
         <meta name="keywords" content="데이터사이언스,머신러닝,딥러닝,개발,machine learning,deep learning,datascience,datascientist,">
     
@@ -17,7 +17,7 @@
             <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss2.xml">
         
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"EmjayAhn(Minjae Ahn)","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","mailto"]},"articleBody":"WEB CRAWLING 1\n공부한 내용을 스스로 보기 쉽게 정리한 글입니다.\nRequests \nRequests 패키지는 크롤링 하고자 하는 페이지를 url 값을 통해 가져와 객체로 변환 해주는 기능을 가지고 있다. \n\n\n1. Installation\nRequests 를 이용하기 위해 package 를 설치해준다.1$ pip3 install requests\n\n\n\n\nrequest를 이용하면서, json 형식으로의 크롤링과, html 형식으로 css  selecting 을 위한 크롤링을 실습해 볼 것이므로, BeautifulSoup Package 역시 같이 설치해준다. (BeautifulSoup은 html parser 를 이용해보기 위함이다.)\npython-forecastio 는 dark sky 의 api를 활용해 날씨 데이터를 받아올때 사용해보기 위해 설치한다.\n12$ pip3 install bs4$ pip3 install python-forecastio\n\nimport 할 것들\n1234import requestsimport forecastiofrom bs4 import BeautifulSoupfrom pandas.io.json import json_normalize\n\n\n2. [ jSON ] Dark Sky api 활용 날씨정보 가져오기\nDarkSky api 는 위도와 경도를 입력하면, 날씨 정보를 주는 api 이다.\nhttps://darsky.net/dev/ 에 가입 후, TOKEN 을 받는다.\n\n위에서 받은 개인의 TOKEN 을 활용해 url 을 먼저, formating을 해준다.\n\nrequests의 get 메소드를 활용해 url 의 정보를 받아온다.\n받아온 정보를 requests 의 json 메소드로 json 형식으로 변환해준다.\njson 을 확인하고 원하는 정보를 return 해준다.12345def forecast(lat, lng):  url = \"https://api.darksky.net/forecast/&#123;&#125;/&#123;&#125;,&#123;&#125;\".format(TOKEN, lat, lng)      response = requests.get(url)      json_obj = response.json()      return json_obj[\"hourly\"][\"summary\"]\n\n\n3. [ html ] BS4 활용 html selecting 해서 가져오기\n네이버의 실시간 검색순위 부분의 text 를 크롤링 해보자\nhtml 파일을 BS4 를 활용해 받아온뒤, CSS selecting 으로 원하는 text data 를 가져온다.\n\n123456789101112131415from bs4 import BeautifulSoupdef naver():  url = \"https://www.naver.com\"  df = pd.DataFrame(columns=[\"rank\", \"keyword\"])  response = requests.get(url)  dom = BeautifulSoup(response.content, \"html.parser\")  # BeautifulSoup(markup, features, builder, parse_only, from_encoding, exclude_encodings)  for keyword in keywords:        df.loc[len(df)] = &#123;            \"rank\":keyword.select_one('.ah_r').text,            \"keyword\":keyword.select_one('.ah_k').text        &#125;    return df\n\nprint(response.content)의 모양을 보자.\n따라서, BeautifulSoup 으로 html 형식으로 parsing 해주고, css 를 활용해 selecting 해준다.\n.select 는 여러개의 엘리먼트를 선택 -&gt; 결과가 리스트\n.select_one은 하나의 엘리먼트를 선택 -&gt; 결과가 하나의 객체\n\n","dateCreated":"2018-10-24T12:02:50+09:00","dateModified":"2018-11-29T23:02:02+09:00","datePublished":"2018-10-24T12:02:50+09:00","description":"","headline":"Requests","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://emjayahn.github.io/2018/10/24/Requests/"},"publisher":{"@type":"Organization","name":"EmjayAhn(Minjae Ahn)","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","mailto"]},"url":"https://emjayahn.github.io/2018/10/24/Requests/","keywords":"Crawling, Web, Requests"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"},"articleBody":"WEB CRAWLING 1\n공부한 내용을 스스로 보기 쉽게 정리한 글입니다.\nRequests \nRequests 패키지는 크롤링 하고자 하는 페이지를 url 값을 통해 가져와 객체로 변환 해주는 기능을 가지고 있다. \n\n\n1. Installation\nRequests 를 이용하기 위해 package 를 설치해준다.1$ pip3 install requests\n\n\n\n\nrequest를 이용하면서, json 형식으로의 크롤링과, html 형식으로 css  selecting 을 위한 크롤링을 실습해 볼 것이므로, BeautifulSoup Package 역시 같이 설치해준다. (BeautifulSoup은 html parser 를 이용해보기 위함이다.)\npython-forecastio 는 dark sky 의 api를 활용해 날씨 데이터를 받아올때 사용해보기 위해 설치한다.\n12$ pip3 install bs4$ pip3 install python-forecastio\n\nimport 할 것들\n1234import requestsimport forecastiofrom bs4 import BeautifulSoupfrom pandas.io.json import json_normalize\n\n\n2. [ jSON ] Dark Sky api 활용 날씨정보 가져오기\nDarkSky api 는 위도와 경도를 입력하면, 날씨 정보를 주는 api 이다.\nhttps://darsky.net/dev/ 에 가입 후, TOKEN 을 받는다.\n\n위에서 받은 개인의 TOKEN 을 활용해 url 을 먼저, formating을 해준다.\n\nrequests의 get 메소드를 활용해 url 의 정보를 받아온다.\n받아온 정보를 requests 의 json 메소드로 json 형식으로 변환해준다.\njson 을 확인하고 원하는 정보를 return 해준다.12345def forecast(lat, lng):  url = \"https://api.darksky.net/forecast/&#123;&#125;/&#123;&#125;,&#123;&#125;\".format(TOKEN, lat, lng)      response = requests.get(url)      json_obj = response.json()      return json_obj[\"hourly\"][\"summary\"]\n\n\n3. [ html ] BS4 활용 html selecting 해서 가져오기\n네이버의 실시간 검색순위 부분의 text 를 크롤링 해보자\nhtml 파일을 BS4 를 활용해 받아온뒤, CSS selecting 으로 원하는 text data 를 가져온다.\n\n123456789101112131415from bs4 import BeautifulSoupdef naver():  url = \"https://www.naver.com\"  df = pd.DataFrame(columns=[\"rank\", \"keyword\"])  response = requests.get(url)  dom = BeautifulSoup(response.content, \"html.parser\")  # BeautifulSoup(markup, features, builder, parse_only, from_encoding, exclude_encodings)  for keyword in keywords:        df.loc[len(df)] = &#123;            \"rank\":keyword.select_one('.ah_r').text,            \"keyword\":keyword.select_one('.ah_k').text        &#125;    return df\n\nprint(response.content)의 모양을 보자.\n따라서, BeautifulSoup 으로 html 형식으로 parsing 해주고, css 를 활용해 selecting 해준다.\n.select 는 여러개의 엘리먼트를 선택 -&gt; 결과가 리스트\n.select_one은 하나의 엘리먼트를 선택 -&gt; 결과가 하나의 객체\n\n","dateCreated":"2018-10-24T12:02:50+09:00","dateModified":"2018-11-29T23:02:02+09:00","datePublished":"2018-10-24T12:02:50+09:00","description":"","headline":"Requests","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://emjayahn.github.io/2018/10/24/Requests/"},"publisher":{"@type":"Organization","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478","logo":{"@type":"ImageObject","url":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"}},"url":"https://emjayahn.github.io/2018/10/24/Requests/","keywords":"Crawling, Web, Requests"}</script>
     <meta name="description" content="WEB CRAWLING 1 공부한 내용을 스스로 보기 쉽게 정리한 글입니다. Requests  Requests 패키지는 크롤링 하고자 하는 페이지를 url 값을 통해 가져와 객체로 변환 해주는 기능을 가지고 있다.    1. Installation Requests 를 이용하기 위해 package 를 설치해준다.1$ pip3 install requests">
 <meta name="keywords" content="Crawling, Web, Requests">
 <meta property="og:type" content="blog">
@@ -109,52 +109,10 @@
                             href="/"
                             
                             rel="noopener"
-                            title="Home"
+                            title="홈"
                         >
                         <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Home</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-categories"
-                            
-                            rel="noopener"
-                            title="Categories"
-                        >
-                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Categories</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-tags"
-                            
-                            rel="noopener"
-                            title="Tags"
-                        >
-                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Tags</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link open-algolia-search"
-                            href="/all-archives"
-                            
-                            rel="noopener"
-                            title="Archives"
-                        >
-                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Archives</span>
+                        <span class="sidebar-button-desc">홈</span>
                     </a>
             </li>
             
@@ -165,10 +123,52 @@
                             href="#about"
                             
                             rel="noopener"
-                            title="About"
+                            title="Emjay"
                         >
                         <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">About</span>
+                        <span class="sidebar-button-desc">Emjay</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-categories"
+                            
+                            rel="noopener"
+                            title="카테고리"
+                        >
+                        <i class="sidebar-button-icon fa fa-code" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">카테고리</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="태그"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">태그</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link open-algolia-search"
+                            href="/all-archives"
+                            
+                            rel="noopener"
+                            title="아카이브"
+                        >
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">아카이브</span>
                     </a>
             </li>
             
@@ -212,7 +212,25 @@
                     
                         <a
                             class="sidebar-button-link "
-                            href="/mailto"
+                            href="https://instagram.com/emjay.data_science"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Instagram"
+                        >
+                        <i class="sidebar-button-icon fab fa-instagram" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Instagram</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="mailto:emjay.data@gmail.com"
+                            
+                                target="_blank"
                             
                             rel="noopener"
                             title="Mail"
@@ -340,6 +358,7 @@
             </div>
         
         
+        
             <div class="post-actions-wrap">
     <nav>
         <ul class="post-actions post-action-nav">
@@ -443,13 +462,14 @@
             
         
     </div>
+    
 </article>
 
 
 
                 <footer id="footer" class="main-content-wrap">
     <span class="copyrights">
-        Copyrights &copy; 2021 EmjayAhn(Minjae Ahn). All Rights Reserved.
+        Copyrights &copy; 2021 EmjayAhn. All Rights Reserved.
     </span>
 </footer>
 
@@ -597,19 +617,25 @@
             <i class="fa fa-times"></i>
         </div>
         
-            <h4 id="about-card-name">EmjayAhn(Minjae Ahn)</h4>
+            <h4 id="about-card-name">EmjayAhn</h4>
         
-            <div id="about-card-bio"><p>author.bio</p>
+            <div id="about-card-bio"><p>나스미디어</p>
 </div>
         
         
             <div id="about-card-job">
                 <i class="fa fa-briefcase"></i>
                 <br/>
-                <p>author.job</p>
+                <p>Data Scientist</p>
 
             </div>
         
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker-alt"></i>
+                <br/>
+                서울, 대한민국
+            </div>
         
     </div>
 </div>

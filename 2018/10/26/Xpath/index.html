@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Emjay, 오늘도 새롭게">
     <title>Xpath - Emjay, 오늘도 새롭게</title>
-    <meta name="author" content="EmjayAhn(Minjae Ahn)">
+    <meta name="author" content="EmjayAhn">
     
         <meta name="keywords" content="데이터사이언스,머신러닝,딥러닝,개발,machine learning,deep learning,datascience,datascientist,">
     
@@ -17,7 +17,7 @@
             <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss2.xml">
         
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"EmjayAhn(Minjae Ahn)","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","mailto"]},"articleBody":"xpath\n공부한 내용을 스스로 보기 쉽게 정리한 글입니다.\n\n1. xpath란?\nxpath = XML Path Language\nXML 문서의 element나 attribute의 value에 접근하기 위한 언어\nXML 문서를 해석하기 위한 언어이므로, 기본적으로 path expression 이 바탕이 되어있다.\n연산, 문자열 처리를 위한 라이브러리를 내장하고 있다.\n\n2. Location Path\nelement 를 찾으러 가는 것이므로, location을 나타내기 위한 연산자는 다음과 같다.\n\n\nelement_name : element_name 과 일치하는 모든 element를 선택한다.\n/ :\n가장 처음 쓰는 /는 절대경로를 의미한다.\nPath 중간에 쓰는 /는 조건에 맞는 바로 다음 하위 엘리먼트를 검색한다. (css selector에서 &gt;와 같다)\n\n\n// : 가장 상위 엘리먼트\n. : 현재 엘리먼트\n* : 조건에 맞는 전체 하위 엘리먼트를 검색한다(css selector 에서 한칸 띄우는 것 과 같다)\nelement[조건] : 엘리먼트에 조건에 해당되는 것을 검색한다\n(예) p[2] : p 엘리먼트 중 두번째 엘리먼트를 선택 주의:1부터 시작, 0이 아님 \n(예) [@(attribute_key=&quot;attribute_value&quot;)] : 속성값으로 엘리먼트를 선택[@id=&quot;main&quot;] : “main” 이라는 id 를 선택[@class=&quot;pp&quot;] : “pp” 라는 class 를 선택\n\n\nnot(조건) : 조건이 아닌 엘리먼트를 찾는다.\n/text() : 해당 엘리먼트의 text 데이터를 가져온다\n/@attribute_name : 해당 엘리먼트의 attribute_name 에 할당된 value 값을 가져옴\n/@href : 해당 엘리먼트의 href의 value 값을 가져옴\n\n\n\n","dateCreated":"2018-10-26T22:02:50+09:00","dateModified":"2018-11-29T23:03:48+09:00","datePublished":"2018-10-26T22:02:50+09:00","description":"","headline":"Xpath","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://emjayahn.github.io/2018/10/26/Xpath/"},"publisher":{"@type":"Organization","name":"EmjayAhn(Minjae Ahn)","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","mailto"]},"url":"https://emjayahn.github.io/2018/10/26/Xpath/"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"},"articleBody":"xpath\n공부한 내용을 스스로 보기 쉽게 정리한 글입니다.\n\n1. xpath란?\nxpath = XML Path Language\nXML 문서의 element나 attribute의 value에 접근하기 위한 언어\nXML 문서를 해석하기 위한 언어이므로, 기본적으로 path expression 이 바탕이 되어있다.\n연산, 문자열 처리를 위한 라이브러리를 내장하고 있다.\n\n2. Location Path\nelement 를 찾으러 가는 것이므로, location을 나타내기 위한 연산자는 다음과 같다.\n\n\nelement_name : element_name 과 일치하는 모든 element를 선택한다.\n/ :\n가장 처음 쓰는 /는 절대경로를 의미한다.\nPath 중간에 쓰는 /는 조건에 맞는 바로 다음 하위 엘리먼트를 검색한다. (css selector에서 &gt;와 같다)\n\n\n// : 가장 상위 엘리먼트\n. : 현재 엘리먼트\n* : 조건에 맞는 전체 하위 엘리먼트를 검색한다(css selector 에서 한칸 띄우는 것 과 같다)\nelement[조건] : 엘리먼트에 조건에 해당되는 것을 검색한다\n(예) p[2] : p 엘리먼트 중 두번째 엘리먼트를 선택 주의:1부터 시작, 0이 아님 \n(예) [@(attribute_key=&quot;attribute_value&quot;)] : 속성값으로 엘리먼트를 선택[@id=&quot;main&quot;] : “main” 이라는 id 를 선택[@class=&quot;pp&quot;] : “pp” 라는 class 를 선택\n\n\nnot(조건) : 조건이 아닌 엘리먼트를 찾는다.\n/text() : 해당 엘리먼트의 text 데이터를 가져온다\n/@attribute_name : 해당 엘리먼트의 attribute_name 에 할당된 value 값을 가져옴\n/@href : 해당 엘리먼트의 href의 value 값을 가져옴\n\n\n\n","dateCreated":"2018-10-26T22:02:50+09:00","dateModified":"2018-11-29T23:03:48+09:00","datePublished":"2018-10-26T22:02:50+09:00","description":"","headline":"Xpath","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://emjayahn.github.io/2018/10/26/Xpath/"},"publisher":{"@type":"Organization","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478","logo":{"@type":"ImageObject","url":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"}},"url":"https://emjayahn.github.io/2018/10/26/Xpath/"}</script>
     <meta name="description" content="xpath 공부한 내용을 스스로 보기 쉽게 정리한 글입니다.  1. xpath란? xpath = XML Path Language XML 문서의 element나 attribute의 value에 접근하기 위한 언어 XML 문서를 해석하기 위한 언어이므로, 기본적으로 path expression 이 바탕이 되어있다. 연산, 문자열 처리를 위한 라이브러리를 내장하">
 <meta name="keywords" content="데이터사이언스,머신러닝,딥러닝,개발,machine learning,deep learning,datascience,datascientist">
 <meta property="og:type" content="blog">
@@ -109,52 +109,10 @@
                             href="/"
                             
                             rel="noopener"
-                            title="Home"
+                            title="홈"
                         >
                         <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Home</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-categories"
-                            
-                            rel="noopener"
-                            title="Categories"
-                        >
-                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Categories</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-tags"
-                            
-                            rel="noopener"
-                            title="Tags"
-                        >
-                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Tags</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link open-algolia-search"
-                            href="/all-archives"
-                            
-                            rel="noopener"
-                            title="Archives"
-                        >
-                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Archives</span>
+                        <span class="sidebar-button-desc">홈</span>
                     </a>
             </li>
             
@@ -165,10 +123,52 @@
                             href="#about"
                             
                             rel="noopener"
-                            title="About"
+                            title="Emjay"
                         >
                         <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">About</span>
+                        <span class="sidebar-button-desc">Emjay</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-categories"
+                            
+                            rel="noopener"
+                            title="카테고리"
+                        >
+                        <i class="sidebar-button-icon fa fa-code" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">카테고리</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="태그"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">태그</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link open-algolia-search"
+                            href="/all-archives"
+                            
+                            rel="noopener"
+                            title="아카이브"
+                        >
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">아카이브</span>
                     </a>
             </li>
             
@@ -212,7 +212,25 @@
                     
                         <a
                             class="sidebar-button-link "
-                            href="/mailto"
+                            href="https://instagram.com/emjay.data_science"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Instagram"
+                        >
+                        <i class="sidebar-button-icon fab fa-instagram" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Instagram</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="mailto:emjay.data@gmail.com"
+                            
+                                target="_blank"
                             
                             rel="noopener"
                             title="Mail"
@@ -325,6 +343,7 @@
     <div id="post-footer" class="post-footer main-content-wrap">
         
         
+        
             <div class="post-actions-wrap">
     <nav>
         <ul class="post-actions post-action-nav">
@@ -428,13 +447,14 @@
             
         
     </div>
+    
 </article>
 
 
 
                 <footer id="footer" class="main-content-wrap">
     <span class="copyrights">
-        Copyrights &copy; 2021 EmjayAhn(Minjae Ahn). All Rights Reserved.
+        Copyrights &copy; 2021 EmjayAhn. All Rights Reserved.
     </span>
 </footer>
 
@@ -582,19 +602,25 @@
             <i class="fa fa-times"></i>
         </div>
         
-            <h4 id="about-card-name">EmjayAhn(Minjae Ahn)</h4>
+            <h4 id="about-card-name">EmjayAhn</h4>
         
-            <div id="about-card-bio"><p>author.bio</p>
+            <div id="about-card-bio"><p>나스미디어</p>
 </div>
         
         
             <div id="about-card-job">
                 <i class="fa fa-briefcase"></i>
                 <br/>
-                <p>author.job</p>
+                <p>Data Scientist</p>
 
             </div>
         
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker-alt"></i>
+                <br/>
+                서울, 대한민국
+            </div>
         
     </div>
 </div>

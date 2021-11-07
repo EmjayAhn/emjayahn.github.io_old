@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Emjay, 오늘도 새롭게">
     <title>Linear Model with Pytorch - Emjay, 오늘도 새롭게</title>
-    <meta name="author" content="EmjayAhn(Minjae Ahn)">
+    <meta name="author" content="EmjayAhn">
     
         <meta name="keywords" content="데이터사이언스,머신러닝,딥러닝,개발,machine learning,deep learning,datascience,datascientist,">
     
@@ -17,7 +17,7 @@
             <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss2.xml">
         
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"EmjayAhn(Minjae Ahn)","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","mailto"]},"articleBody":"Linear Model with Pytorch\n이 글의 목적은, 지난 Linear Regression 에서 좀더 나아가서, 다양한 Regression 예제들을 Linear Model (WX) 형태로 pytorch 를 이용해 풀어 보는 것입니다.\nPytorch 를 사용하여 Modeling 과 loss function 등을 class 형태, 내장 loss 함수등을 사용해보겠습니다.\n\n\n12345678910import torchimport torch.nn as nnimport torch.optim as optimimport torch.nn.functional as Fimport numpy as npimport warningswarnings.filterwarnings(\"ignore\")%config InlineBackend.figure_format = 'retina'%matplotlib inline\n1. Quadratic Regression Model\nf(x) = w_0 + w_1x + w_2x^212345678x = np.linspace(-10, 10, 100)y = x**2 + 0.7 * x + 3.0 + 20 * np.random.rand(len(x))plt.plot(x, y, 'o')plt.grid()plt.xlabel('x')plt.ylabel('y')plt.show()\n\n12345x_train = torch.FloatTensor([[each_x**2, each_x, 1] for each_x in x])y_train = torch.FloatTensor(y)print(\"x_train shape: \", x_train.shape)print(\"y_train shape: \", y_train.shape)\nx_train shape:  torch.Size([100, 3])\ny_train shape:  torch.Size([100])\n1234567891011121314151617W = torch.zeros(3, requires_grad=True)optimizer = optim.SGD([W], lr=0.0001)epochs = 10000for epoch in range(1, epochs + 1):    hypothesis = x_train.matmul(W)        loss = torch.mean((hypothesis - y_train) ** 2)        optimizer.zero_grad()    loss.backward()    optimizer.step()        if epoch % 1000 == 0:        print(\"epoch: &#123;&#125; -- Parameters: W: &#123;&#125; -- loss &#123;&#125;\".format(epoch, W.data, loss.data))\nepoch: 1000 -- Parameters: W: tensor([1.1738, 0.4943, 1.0699]) -- loss 85.30189514160156\nepoch: 2000 -- Parameters: W: tensor([1.1581, 0.4949, 2.0311]) -- loss 76.05414581298828\nepoch: 3000 -- Parameters: W: tensor([1.1437, 0.4949, 2.9105]) -- loss 68.31205749511719\nepoch: 4000 -- Parameters: W: tensor([1.1305, 0.4949, 3.7151]) -- loss 61.83049011230469\nepoch: 5000 -- Parameters: W: tensor([1.1185, 0.4949, 4.4514]) -- loss 56.4041862487793\nepoch: 6000 -- Parameters: W: tensor([1.1075, 0.4949, 5.1250]) -- loss 51.86140060424805\nepoch: 7000 -- Parameters: W: tensor([1.0974, 0.4949, 5.7414]) -- loss 48.058231353759766\nepoch: 8000 -- Parameters: W: tensor([1.0882, 0.4949, 6.3054]) -- loss 44.8742790222168\nepoch: 9000 -- Parameters: W: tensor([1.0798, 0.4949, 6.8214]) -- loss 42.20869445800781\nepoch: 10000 -- Parameters: W: tensor([1.0721, 0.4949, 7.2935]) -- loss 39.97709655761719\n12345plt.plot(x, y, 'o', label='train data')plt.plot(x, (x_train.data.matmul(W.data).numpy()), '-r', linewidth=3, label='fitted')plt.grid()plt.legend()plt.show()\n\n2. Cubic Regression Model\nf(x) = w_0 + w_1x + w_2x^2 + w_3x^32.1 Generate Toy data\n100개의 data 를 생성합니다.\n\n12x = np.linspace(-1, 1, 100)y = 3*x**3 - 0.2 * x ** 2 + 0.7 * x + 3 + 0.5 * np.random.rand(len(x))\n12345plt.plot(x, y, 'o')plt.grid()plt.xlabel('x')plt.ylabel('y')plt.show()\n\n2.2 Define Model\nx_train과 y_train 을 만들어줍니다.\n\n123x_train = torch.FloatTensor([[xval**3, xval**2, xval, 1]for xval in x])y_train = torch.FloatTensor([y]).view(100, -1)y_train.shape\ntorch.Size([100, 1])\n\n이번에 Model을 nn.Module 추상 클래스를 상속 받아, class 형태로 모델링 해보겠습니다.\n\n1234567class CubicModel(nn.Module):    def __init__(self):        super().__init__()        self.linear = nn.Linear(4, 1)        def forward(self, x):        return self.linear(x)\n1model = CubicModel()\n\ntrain 시킬 때, loss 역시 nn.functional 에 있는 내장 mse loss 를 사용하여 보겠습니다.\n\n1234567891011121314151617optimizer = optim.SGD(model.parameters(), lr=0.001)epochs = 15000for epoch in range(1, epochs + 1):    hypothesis = model(x_train)        # define loss    loss  = F.mse_loss(hypothesis, y_train)        # Backprop &amp; update parameters    optimizer.zero_grad()    loss.backward()    optimizer.step()        if epoch % 1500 == 0:        print(\"epoch: &#123;&#125; -- loss &#123;&#125;\".format(epoch, loss.data))\nepoch: 1500 -- loss 0.22306101024150848\nepoch: 3000 -- loss 0.11560291796922684\nepoch: 4500 -- loss 0.09848319739103317\nepoch: 6000 -- loss 0.08879078179597855\nepoch: 7500 -- loss 0.08104882389307022\nepoch: 9000 -- loss 0.07452096790075302\nepoch: 10500 -- loss 0.06889640539884567\nepoch: 12000 -- loss 0.06398065388202667\nepoch: 13500 -- loss 0.05964164435863495\nepoch: 15000 -- loss 0.055785566568374634\n12345plt.plot(x, y, 'o', label='train data')plt.plot(x, model(x_train).data.numpy(), '-r', linewidth=3, label='fitted')plt.grid()plt.legend()plt.show()\n\n3. Exponential Regression Model\nf(x) = e^{w_0x}\ng(x) = \\ln f(x) = w_0x\nExponential 의 경우, Linear Model 형태를 만들어 주기 위해, log 를 씌워 주워 train 을 시킨후, 다시 exponential 을 양변에 취해주는 형태로 modeling 을 하여야 한다.\n\n3.1 Generate Toy data123np.random.seed(20190505)x = np.linspace(-1, 1, 50)y = np.exp(2 * x) + 0.2 * (2 * np.random.rand(len(x)) - 1)\n12345plt.plot(x, y, 'o')plt.grid()plt.xlabel('x')plt.ylabel('y')plt.show()\n\n3.2 Define Model123x_train = torch.FloatTensor([[xval, 1] for xval in x])y_train = torch.FloatTensor([np.log(y)]).view(50, -1)y_train.shape\ntorch.Size([50, 1])\n1234567class ExpModel(nn.Module):    def __init__(self):        super().__init__()        self.linear = nn.Linear(2, 1)            def forward(self, x):        return self.linear(x)\n\n이번에는 optimize algorithm 중 Adam 을 사용해 보겠습니다.\nAdam 은 adaptive 하게 learning rate 를 조정해 주는 algorithm 입니다.\n\n1234567891011121314151617model = ExpModel()optimizer = optim.Adam(model.parameters())epochs = 15000for epoch in range(1, epochs + 1):    hypothesis = model(x_train)        loss = F.mse_loss(hypothesis, y_train)        optimizer.zero_grad()    loss.backward()    optimizer.step()        if epoch % 1000 == 0:        print(\"epoch: &#123;&#125; -- loss &#123;&#125;\".format(epoch, loss.data))\nepoch: 1000 -- loss 1.4807509183883667\nepoch: 2000 -- loss 0.6568859815597534\nepoch: 3000 -- loss 0.2930431365966797\nepoch: 4000 -- loss 0.1839657723903656\nepoch: 5000 -- loss 0.1683545857667923\nepoch: 6000 -- loss 0.16775406897068024\nepoch: 7000 -- loss 0.16775156557559967\nepoch: 8000 -- loss 0.16775153577327728\nepoch: 9000 -- loss 0.16775155067443848\nepoch: 10000 -- loss 0.16775155067443848\nepoch: 11000 -- loss 0.16775155067443848\nepoch: 12000 -- loss 0.16775155067443848\nepoch: 13000 -- loss 0.16775153577327728\nepoch: 14000 -- loss 0.1677515208721161\nepoch: 15000 -- loss 0.1677515208721161\n12345plt.plot(x, y, 'o', label='train data')plt.plot(x, np.exp(model(x_train).data.numpy()), '-r', linewidth=3, label='fitted')plt.grid()plt.legend()plt.show()\n\n4. Sine &amp; Cosine Regression\nf(x) = w_0\\cos(\\pi x) + w_1\\sin(\\pi  x)4.1 Generate Toy data12x = np.linspace(-2, 2, 100)y = 2 * np.cos(np.pi * x) + 1.5 * np.sin(np.pi * x) + 2 * np.random.rand(len(x)) - 1\n12345plt.plot(x, y, 'o')plt.grid()plt.xlabel('x')plt.ylabel('y')plt.show()\n\n4.2 Modeling123x_train = torch.FloatTensor([[np.cos(np.pi*xval), np.sin(np.pi*xval), 1] for xval in x])y_train = torch.FloatTensor(y).view(100, -1)y_train.shape\ntorch.Size([100, 1])\n1234567class SinCosModel(nn.Module):    def __init__(self):        super().__init__()        self.linear = nn.Linear(3, 1)            def forward(self, x):        return self.linear(x)\n1234567891011121314151617model = SinCosModel()optimizer = optim.Adam(model.parameters())epochs = 10000for epoch in range(1, epochs + 1):    hypothesis = model(x_train)        loss = F.mse_loss(hypothesis, y_train)        optimizer.zero_grad()    loss.backward()    optimizer.step()        if epoch % 1000 == 0:        print(\"epoch: &#123;&#125; -- loss &#123;&#125;\".format(epoch, loss.data))\nepoch: 1000 -- loss 1.1333037614822388\nepoch: 2000 -- loss 0.45972707867622375\nepoch: 3000 -- loss 0.36056602001190186\nepoch: 4000 -- loss 0.3566252291202545\nepoch: 5000 -- loss 0.3566077649593353\nepoch: 6000 -- loss 0.3566077947616577\nepoch: 7000 -- loss 0.3566077649593353\nepoch: 8000 -- loss 0.3566077947616577\nepoch: 9000 -- loss 0.3566077947616577\nepoch: 10000 -- loss 0.3566077649593353\n12345plt.plot(x, y, 'o', label='train data')plt.plot(x, model(x_train).data.numpy(), '-r', linewidth=3, label='fitted')plt.grid()plt.legend()plt.show()\n\n","dateCreated":"2019-05-04T23:54:06+09:00","dateModified":"2019-07-17T00:55:51+09:00","datePublished":"2019-05-04T23:54:06+09:00","description":"Linear Model with Pytorch\n이 글의 목적은, 지난 Linear Regression 에서 좀더 나아가서, 다양한 Regression 예제들을 Linear Model (WX) 형태로 pytorch 를 이용해 풀어 보는 것입니다.\nPytorch 를 사용하여 Modeling 과 loss function 등을 class 형태, 내장 loss 함수등을 사용해보겠습니다.\n","headline":"Linear Model with Pytorch","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://emjayahn.github.io/2019/05/04/Linear-Model-with-Pytorch/"},"publisher":{"@type":"Organization","name":"EmjayAhn(Minjae Ahn)","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","mailto"]},"url":"https://emjayahn.github.io/2019/05/04/Linear-Model-with-Pytorch/"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"},"articleBody":"Linear Model with Pytorch\n이 글의 목적은, 지난 Linear Regression 에서 좀더 나아가서, 다양한 Regression 예제들을 Linear Model (WX) 형태로 pytorch 를 이용해 풀어 보는 것입니다.\nPytorch 를 사용하여 Modeling 과 loss function 등을 class 형태, 내장 loss 함수등을 사용해보겠습니다.\n\n\n12345678910import torchimport torch.nn as nnimport torch.optim as optimimport torch.nn.functional as Fimport numpy as npimport warningswarnings.filterwarnings(\"ignore\")%config InlineBackend.figure_format = 'retina'%matplotlib inline\n1. Quadratic Regression Model\nf(x) = w_0 + w_1x + w_2x^212345678x = np.linspace(-10, 10, 100)y = x**2 + 0.7 * x + 3.0 + 20 * np.random.rand(len(x))plt.plot(x, y, 'o')plt.grid()plt.xlabel('x')plt.ylabel('y')plt.show()\n\n12345x_train = torch.FloatTensor([[each_x**2, each_x, 1] for each_x in x])y_train = torch.FloatTensor(y)print(\"x_train shape: \", x_train.shape)print(\"y_train shape: \", y_train.shape)\nx_train shape:  torch.Size([100, 3])\ny_train shape:  torch.Size([100])\n1234567891011121314151617W = torch.zeros(3, requires_grad=True)optimizer = optim.SGD([W], lr=0.0001)epochs = 10000for epoch in range(1, epochs + 1):    hypothesis = x_train.matmul(W)        loss = torch.mean((hypothesis - y_train) ** 2)        optimizer.zero_grad()    loss.backward()    optimizer.step()        if epoch % 1000 == 0:        print(\"epoch: &#123;&#125; -- Parameters: W: &#123;&#125; -- loss &#123;&#125;\".format(epoch, W.data, loss.data))\nepoch: 1000 -- Parameters: W: tensor([1.1738, 0.4943, 1.0699]) -- loss 85.30189514160156\nepoch: 2000 -- Parameters: W: tensor([1.1581, 0.4949, 2.0311]) -- loss 76.05414581298828\nepoch: 3000 -- Parameters: W: tensor([1.1437, 0.4949, 2.9105]) -- loss 68.31205749511719\nepoch: 4000 -- Parameters: W: tensor([1.1305, 0.4949, 3.7151]) -- loss 61.83049011230469\nepoch: 5000 -- Parameters: W: tensor([1.1185, 0.4949, 4.4514]) -- loss 56.4041862487793\nepoch: 6000 -- Parameters: W: tensor([1.1075, 0.4949, 5.1250]) -- loss 51.86140060424805\nepoch: 7000 -- Parameters: W: tensor([1.0974, 0.4949, 5.7414]) -- loss 48.058231353759766\nepoch: 8000 -- Parameters: W: tensor([1.0882, 0.4949, 6.3054]) -- loss 44.8742790222168\nepoch: 9000 -- Parameters: W: tensor([1.0798, 0.4949, 6.8214]) -- loss 42.20869445800781\nepoch: 10000 -- Parameters: W: tensor([1.0721, 0.4949, 7.2935]) -- loss 39.97709655761719\n12345plt.plot(x, y, 'o', label='train data')plt.plot(x, (x_train.data.matmul(W.data).numpy()), '-r', linewidth=3, label='fitted')plt.grid()plt.legend()plt.show()\n\n2. Cubic Regression Model\nf(x) = w_0 + w_1x + w_2x^2 + w_3x^32.1 Generate Toy data\n100개의 data 를 생성합니다.\n\n12x = np.linspace(-1, 1, 100)y = 3*x**3 - 0.2 * x ** 2 + 0.7 * x + 3 + 0.5 * np.random.rand(len(x))\n12345plt.plot(x, y, 'o')plt.grid()plt.xlabel('x')plt.ylabel('y')plt.show()\n\n2.2 Define Model\nx_train과 y_train 을 만들어줍니다.\n\n123x_train = torch.FloatTensor([[xval**3, xval**2, xval, 1]for xval in x])y_train = torch.FloatTensor([y]).view(100, -1)y_train.shape\ntorch.Size([100, 1])\n\n이번에 Model을 nn.Module 추상 클래스를 상속 받아, class 형태로 모델링 해보겠습니다.\n\n1234567class CubicModel(nn.Module):    def __init__(self):        super().__init__()        self.linear = nn.Linear(4, 1)        def forward(self, x):        return self.linear(x)\n1model = CubicModel()\n\ntrain 시킬 때, loss 역시 nn.functional 에 있는 내장 mse loss 를 사용하여 보겠습니다.\n\n1234567891011121314151617optimizer = optim.SGD(model.parameters(), lr=0.001)epochs = 15000for epoch in range(1, epochs + 1):    hypothesis = model(x_train)        # define loss    loss  = F.mse_loss(hypothesis, y_train)        # Backprop &amp; update parameters    optimizer.zero_grad()    loss.backward()    optimizer.step()        if epoch % 1500 == 0:        print(\"epoch: &#123;&#125; -- loss &#123;&#125;\".format(epoch, loss.data))\nepoch: 1500 -- loss 0.22306101024150848\nepoch: 3000 -- loss 0.11560291796922684\nepoch: 4500 -- loss 0.09848319739103317\nepoch: 6000 -- loss 0.08879078179597855\nepoch: 7500 -- loss 0.08104882389307022\nepoch: 9000 -- loss 0.07452096790075302\nepoch: 10500 -- loss 0.06889640539884567\nepoch: 12000 -- loss 0.06398065388202667\nepoch: 13500 -- loss 0.05964164435863495\nepoch: 15000 -- loss 0.055785566568374634\n12345plt.plot(x, y, 'o', label='train data')plt.plot(x, model(x_train).data.numpy(), '-r', linewidth=3, label='fitted')plt.grid()plt.legend()plt.show()\n\n3. Exponential Regression Model\nf(x) = e^{w_0x}\ng(x) = \\ln f(x) = w_0x\nExponential 의 경우, Linear Model 형태를 만들어 주기 위해, log 를 씌워 주워 train 을 시킨후, 다시 exponential 을 양변에 취해주는 형태로 modeling 을 하여야 한다.\n\n3.1 Generate Toy data123np.random.seed(20190505)x = np.linspace(-1, 1, 50)y = np.exp(2 * x) + 0.2 * (2 * np.random.rand(len(x)) - 1)\n12345plt.plot(x, y, 'o')plt.grid()plt.xlabel('x')plt.ylabel('y')plt.show()\n\n3.2 Define Model123x_train = torch.FloatTensor([[xval, 1] for xval in x])y_train = torch.FloatTensor([np.log(y)]).view(50, -1)y_train.shape\ntorch.Size([50, 1])\n1234567class ExpModel(nn.Module):    def __init__(self):        super().__init__()        self.linear = nn.Linear(2, 1)            def forward(self, x):        return self.linear(x)\n\n이번에는 optimize algorithm 중 Adam 을 사용해 보겠습니다.\nAdam 은 adaptive 하게 learning rate 를 조정해 주는 algorithm 입니다.\n\n1234567891011121314151617model = ExpModel()optimizer = optim.Adam(model.parameters())epochs = 15000for epoch in range(1, epochs + 1):    hypothesis = model(x_train)        loss = F.mse_loss(hypothesis, y_train)        optimizer.zero_grad()    loss.backward()    optimizer.step()        if epoch % 1000 == 0:        print(\"epoch: &#123;&#125; -- loss &#123;&#125;\".format(epoch, loss.data))\nepoch: 1000 -- loss 1.4807509183883667\nepoch: 2000 -- loss 0.6568859815597534\nepoch: 3000 -- loss 0.2930431365966797\nepoch: 4000 -- loss 0.1839657723903656\nepoch: 5000 -- loss 0.1683545857667923\nepoch: 6000 -- loss 0.16775406897068024\nepoch: 7000 -- loss 0.16775156557559967\nepoch: 8000 -- loss 0.16775153577327728\nepoch: 9000 -- loss 0.16775155067443848\nepoch: 10000 -- loss 0.16775155067443848\nepoch: 11000 -- loss 0.16775155067443848\nepoch: 12000 -- loss 0.16775155067443848\nepoch: 13000 -- loss 0.16775153577327728\nepoch: 14000 -- loss 0.1677515208721161\nepoch: 15000 -- loss 0.1677515208721161\n12345plt.plot(x, y, 'o', label='train data')plt.plot(x, np.exp(model(x_train).data.numpy()), '-r', linewidth=3, label='fitted')plt.grid()plt.legend()plt.show()\n\n4. Sine &amp; Cosine Regression\nf(x) = w_0\\cos(\\pi x) + w_1\\sin(\\pi  x)4.1 Generate Toy data12x = np.linspace(-2, 2, 100)y = 2 * np.cos(np.pi * x) + 1.5 * np.sin(np.pi * x) + 2 * np.random.rand(len(x)) - 1\n12345plt.plot(x, y, 'o')plt.grid()plt.xlabel('x')plt.ylabel('y')plt.show()\n\n4.2 Modeling123x_train = torch.FloatTensor([[np.cos(np.pi*xval), np.sin(np.pi*xval), 1] for xval in x])y_train = torch.FloatTensor(y).view(100, -1)y_train.shape\ntorch.Size([100, 1])\n1234567class SinCosModel(nn.Module):    def __init__(self):        super().__init__()        self.linear = nn.Linear(3, 1)            def forward(self, x):        return self.linear(x)\n1234567891011121314151617model = SinCosModel()optimizer = optim.Adam(model.parameters())epochs = 10000for epoch in range(1, epochs + 1):    hypothesis = model(x_train)        loss = F.mse_loss(hypothesis, y_train)        optimizer.zero_grad()    loss.backward()    optimizer.step()        if epoch % 1000 == 0:        print(\"epoch: &#123;&#125; -- loss &#123;&#125;\".format(epoch, loss.data))\nepoch: 1000 -- loss 1.1333037614822388\nepoch: 2000 -- loss 0.45972707867622375\nepoch: 3000 -- loss 0.36056602001190186\nepoch: 4000 -- loss 0.3566252291202545\nepoch: 5000 -- loss 0.3566077649593353\nepoch: 6000 -- loss 0.3566077947616577\nepoch: 7000 -- loss 0.3566077649593353\nepoch: 8000 -- loss 0.3566077947616577\nepoch: 9000 -- loss 0.3566077947616577\nepoch: 10000 -- loss 0.3566077649593353\n12345plt.plot(x, y, 'o', label='train data')plt.plot(x, model(x_train).data.numpy(), '-r', linewidth=3, label='fitted')plt.grid()plt.legend()plt.show()\n\n","dateCreated":"2019-05-04T23:54:06+09:00","dateModified":"2019-07-17T00:55:51+09:00","datePublished":"2019-05-04T23:54:06+09:00","description":"Linear Model with Pytorch\n이 글의 목적은, 지난 Linear Regression 에서 좀더 나아가서, 다양한 Regression 예제들을 Linear Model (WX) 형태로 pytorch 를 이용해 풀어 보는 것입니다.\nPytorch 를 사용하여 Modeling 과 loss function 등을 class 형태, 내장 loss 함수등을 사용해보겠습니다.\n","headline":"Linear Model with Pytorch","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://emjayahn.github.io/2019/05/04/Linear-Model-with-Pytorch/"},"publisher":{"@type":"Organization","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478","logo":{"@type":"ImageObject","url":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"}},"url":"https://emjayahn.github.io/2019/05/04/Linear-Model-with-Pytorch/"}</script>
     <meta name="description" content="Linear Model with Pytorch 이 글의 목적은, 지난 Linear Regression 에서 좀더 나아가서, 다양한 Regression 예제들을 Linear Model (WX) 형태로 pytorch 를 이용해 풀어 보는 것입니다. Pytorch 를 사용하여 Modeling 과 loss function 등을 class 형태, 내장 loss 함수">
 <meta name="keywords" content="데이터사이언스,머신러닝,딥러닝,개발,machine learning,deep learning,datascience,datascientist">
 <meta property="og:type" content="blog">
@@ -118,52 +118,10 @@
                             href="/"
                             
                             rel="noopener"
-                            title="Home"
+                            title="홈"
                         >
                         <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Home</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-categories"
-                            
-                            rel="noopener"
-                            title="Categories"
-                        >
-                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Categories</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-tags"
-                            
-                            rel="noopener"
-                            title="Tags"
-                        >
-                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Tags</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link open-algolia-search"
-                            href="/all-archives"
-                            
-                            rel="noopener"
-                            title="Archives"
-                        >
-                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Archives</span>
+                        <span class="sidebar-button-desc">홈</span>
                     </a>
             </li>
             
@@ -174,10 +132,52 @@
                             href="#about"
                             
                             rel="noopener"
-                            title="About"
+                            title="Emjay"
                         >
                         <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">About</span>
+                        <span class="sidebar-button-desc">Emjay</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-categories"
+                            
+                            rel="noopener"
+                            title="카테고리"
+                        >
+                        <i class="sidebar-button-icon fa fa-code" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">카테고리</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="태그"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">태그</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link open-algolia-search"
+                            href="/all-archives"
+                            
+                            rel="noopener"
+                            title="아카이브"
+                        >
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">아카이브</span>
                     </a>
             </li>
             
@@ -221,7 +221,25 @@
                     
                         <a
                             class="sidebar-button-link "
-                            href="/mailto"
+                            href="https://instagram.com/emjay.data_science"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Instagram"
+                        >
+                        <i class="sidebar-button-icon fab fa-instagram" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Instagram</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="mailto:emjay.data@gmail.com"
+                            
+                                target="_blank"
                             
                             rel="noopener"
                             title="Mail"
@@ -411,6 +429,7 @@ epoch: 10000 -- loss 0.3566077649593353
     <div id="post-footer" class="post-footer main-content-wrap">
         
         
+        
             <div class="post-actions-wrap">
     <nav>
         <ul class="post-actions post-action-nav">
@@ -514,13 +533,14 @@ epoch: 10000 -- loss 0.3566077649593353
             
         
     </div>
+    
 </article>
 
 
 
                 <footer id="footer" class="main-content-wrap">
     <span class="copyrights">
-        Copyrights &copy; 2021 EmjayAhn(Minjae Ahn). All Rights Reserved.
+        Copyrights &copy; 2021 EmjayAhn. All Rights Reserved.
     </span>
 </footer>
 
@@ -668,19 +688,25 @@ epoch: 10000 -- loss 0.3566077649593353
             <i class="fa fa-times"></i>
         </div>
         
-            <h4 id="about-card-name">EmjayAhn(Minjae Ahn)</h4>
+            <h4 id="about-card-name">EmjayAhn</h4>
         
-            <div id="about-card-bio"><p>author.bio</p>
+            <div id="about-card-bio"><p>나스미디어</p>
 </div>
         
         
             <div id="about-card-job">
                 <i class="fa fa-briefcase"></i>
                 <br/>
-                <p>author.job</p>
+                <p>Data Scientist</p>
 
             </div>
         
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker-alt"></i>
+                <br/>
+                서울, 대한민국
+            </div>
         
     </div>
 </div>

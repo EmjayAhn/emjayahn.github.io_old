@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Emjay, 오늘도 새롭게">
     <title>math_cheatsheet - Emjay, 오늘도 새롭게</title>
-    <meta name="author" content="EmjayAhn(Minjae Ahn)">
+    <meta name="author" content="EmjayAhn">
     
         <meta name="keywords" content="데이터사이언스,머신러닝,딥러닝,개발,machine learning,deep learning,datascience,datascientist,">
     
@@ -17,7 +17,7 @@
             <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss2.xml">
         
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"EmjayAhn(Minjae Ahn)","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","mailto"]},"articleBody":"이산확률분포베르누이 분포 (bernoulli distribution)\n동전 생각하기\n결과가 두가지 중 하나\n\n확률변수를 1 or 0 으루 주었을 때,\n\n\\text{Bern}(x;\\mu) = \\mu^x(1-\\mu)^{(1-x)}\n확률변수를 1 or -1 로 주었을 때,\n\n\\text{Bern}(x; \\mu) = \\mu^{(1+x)/2} (1-\\mu)^{(1-x)/2}\n\n1234#예제코드#베르누이 분포 SciPy#100개 samplingsp.stats.bernoulli(mu).rvs(100, random_state=0)\n이항분포 (binomial distribution)\n동전을 N번 던졌다\n성공확률이 $\\mu$ 인 베르누이 시도를 $N$ 번 반복 할 때, 성공 횟수를 $X$ 라 하면,\n\nX \\sim \\text{Bin}(x;N,\\mu) \n\\text{Bin}(x;N,\\mu) = \\binom N x  \\mu^x(1-\\mu)^{N-x} \n1sp.stats.binom(N, mu).rvs(100, random_state=0)\n카테고리 분포 (Categorical distribution)\n주사위 생각해!\n$K$ 개의 카테고리가 있을 때,x = (x_1, x_2, x_3, x_4, ... , x_k) \n\n각 원소 x_i 가 1이 나올 수 있는 확률 ($i$번쨰 원소의 성공확률)을 $\\mu_i$ 라 하면, \n\\text{Cat}(x;\\mu) = \\mu_1^{x_1} \\mu_2^{x_2}  \\cdots \\mu_K^{x_K}  =  \\prod_{k=1}^K \\mu_k^{x_k} \n이 표현은 One-Hot-Encoding 으로 카테고리 분포를 표현 했기에 가능하다. \n단, \n0 \\leq \\mu_i \\leq 1 \n\\sum_{k=1}^K \\mu_k = 1 \n123#카테고리 분포는 SciPy 의 메소드가 없으므로, 다항분포의 N을 1로 준다.#mu 는 각 term 이 나올 수 있는 확률 vectorsp.stats.multinomial(1, mu)\n다항 분포 (Multinomial distribution)\n주사위를 여러번 던졌다.\n카테고리 시도를 $N$ 번 반복하여 $k$ $(k=1,…,K)$ 가 $x_k$ 번 나올 확률분포.\n\n123#N : number of trial#mu 는 각 term 이 나올 수 있는 확률 vectorsp.stats.multinomial(N, mu)\n","dateCreated":"2018-11-23T22:14:19+09:00","dateModified":"2018-11-29T23:04:01+09:00","datePublished":"2018-11-23T22:14:19+09:00","description":"","headline":"math_cheatsheet","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://emjayahn.github.io/2018/11/23/math-cheatsheet/"},"publisher":{"@type":"Organization","name":"EmjayAhn(Minjae Ahn)","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","mailto"]},"url":"https://emjayahn.github.io/2018/11/23/math-cheatsheet/"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"},"articleBody":"이산확률분포베르누이 분포 (bernoulli distribution)\n동전 생각하기\n결과가 두가지 중 하나\n\n확률변수를 1 or 0 으루 주었을 때,\n\n\\text{Bern}(x;\\mu) = \\mu^x(1-\\mu)^{(1-x)}\n확률변수를 1 or -1 로 주었을 때,\n\n\\text{Bern}(x; \\mu) = \\mu^{(1+x)/2} (1-\\mu)^{(1-x)/2}\n\n1234#예제코드#베르누이 분포 SciPy#100개 samplingsp.stats.bernoulli(mu).rvs(100, random_state=0)\n이항분포 (binomial distribution)\n동전을 N번 던졌다\n성공확률이 $\\mu$ 인 베르누이 시도를 $N$ 번 반복 할 때, 성공 횟수를 $X$ 라 하면,\n\nX \\sim \\text{Bin}(x;N,\\mu) \n\\text{Bin}(x;N,\\mu) = \\binom N x  \\mu^x(1-\\mu)^{N-x} \n1sp.stats.binom(N, mu).rvs(100, random_state=0)\n카테고리 분포 (Categorical distribution)\n주사위 생각해!\n$K$ 개의 카테고리가 있을 때,x = (x_1, x_2, x_3, x_4, ... , x_k) \n\n각 원소 x_i 가 1이 나올 수 있는 확률 ($i$번쨰 원소의 성공확률)을 $\\mu_i$ 라 하면, \n\\text{Cat}(x;\\mu) = \\mu_1^{x_1} \\mu_2^{x_2}  \\cdots \\mu_K^{x_K}  =  \\prod_{k=1}^K \\mu_k^{x_k} \n이 표현은 One-Hot-Encoding 으로 카테고리 분포를 표현 했기에 가능하다. \n단, \n0 \\leq \\mu_i \\leq 1 \n\\sum_{k=1}^K \\mu_k = 1 \n123#카테고리 분포는 SciPy 의 메소드가 없으므로, 다항분포의 N을 1로 준다.#mu 는 각 term 이 나올 수 있는 확률 vectorsp.stats.multinomial(1, mu)\n다항 분포 (Multinomial distribution)\n주사위를 여러번 던졌다.\n카테고리 시도를 $N$ 번 반복하여 $k$ $(k=1,…,K)$ 가 $x_k$ 번 나올 확률분포.\n\n123#N : number of trial#mu 는 각 term 이 나올 수 있는 확률 vectorsp.stats.multinomial(N, mu)\n","dateCreated":"2018-11-23T22:14:19+09:00","dateModified":"2018-11-29T23:04:01+09:00","datePublished":"2018-11-23T22:14:19+09:00","description":"","headline":"math_cheatsheet","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://emjayahn.github.io/2018/11/23/math-cheatsheet/"},"publisher":{"@type":"Organization","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478","logo":{"@type":"ImageObject","url":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"}},"url":"https://emjayahn.github.io/2018/11/23/math-cheatsheet/"}</script>
     <meta name="description" content="이산확률분포베르누이 분포 (bernoulli distribution) 동전 생각하기 결과가 두가지 중 하나  확률변수를 1 or 0 으루 주었을 때,  \text{Bern}(x;\mu) = \mu^x(1-\mu)^{(1-x)} 확률변수를 1 or -1 로 주었을 때,  \text{Bern}(x; \mu) = \mu^{(1+x)/2} (1-\mu)^{(1-x">
 <meta name="keywords" content="데이터사이언스,머신러닝,딥러닝,개발,machine learning,deep learning,datascience,datascientist">
 <meta property="og:type" content="blog">
@@ -109,52 +109,10 @@
                             href="/"
                             
                             rel="noopener"
-                            title="Home"
+                            title="홈"
                         >
                         <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Home</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-categories"
-                            
-                            rel="noopener"
-                            title="Categories"
-                        >
-                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Categories</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-tags"
-                            
-                            rel="noopener"
-                            title="Tags"
-                        >
-                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Tags</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link open-algolia-search"
-                            href="/all-archives"
-                            
-                            rel="noopener"
-                            title="Archives"
-                        >
-                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Archives</span>
+                        <span class="sidebar-button-desc">홈</span>
                     </a>
             </li>
             
@@ -165,10 +123,52 @@
                             href="#about"
                             
                             rel="noopener"
-                            title="About"
+                            title="Emjay"
                         >
                         <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">About</span>
+                        <span class="sidebar-button-desc">Emjay</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-categories"
+                            
+                            rel="noopener"
+                            title="카테고리"
+                        >
+                        <i class="sidebar-button-icon fa fa-code" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">카테고리</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="태그"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">태그</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link open-algolia-search"
+                            href="/all-archives"
+                            
+                            rel="noopener"
+                            title="아카이브"
+                        >
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">아카이브</span>
                     </a>
             </li>
             
@@ -212,7 +212,25 @@
                     
                         <a
                             class="sidebar-button-link "
-                            href="/mailto"
+                            href="https://instagram.com/emjay.data_science"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Instagram"
+                        >
+                        <i class="sidebar-button-icon fab fa-instagram" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Instagram</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="mailto:emjay.data@gmail.com"
+                            
+                                target="_blank"
                             
                             rel="noopener"
                             title="Mail"
@@ -326,6 +344,7 @@
     <div id="post-footer" class="post-footer main-content-wrap">
         
         
+        
             <div class="post-actions-wrap">
     <nav>
         <ul class="post-actions post-action-nav">
@@ -429,13 +448,14 @@
             
         
     </div>
+    
 </article>
 
 
 
                 <footer id="footer" class="main-content-wrap">
     <span class="copyrights">
-        Copyrights &copy; 2021 EmjayAhn(Minjae Ahn). All Rights Reserved.
+        Copyrights &copy; 2021 EmjayAhn. All Rights Reserved.
     </span>
 </footer>
 
@@ -583,19 +603,25 @@
             <i class="fa fa-times"></i>
         </div>
         
-            <h4 id="about-card-name">EmjayAhn(Minjae Ahn)</h4>
+            <h4 id="about-card-name">EmjayAhn</h4>
         
-            <div id="about-card-bio"><p>author.bio</p>
+            <div id="about-card-bio"><p>나스미디어</p>
 </div>
         
         
             <div id="about-card-job">
                 <i class="fa fa-briefcase"></i>
                 <br/>
-                <p>author.job</p>
+                <p>Data Scientist</p>
 
             </div>
         
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker-alt"></i>
+                <br/>
+                서울, 대한민국
+            </div>
         
     </div>
 </div>

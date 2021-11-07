@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Emjay, 오늘도 새롭게">
     <title>[Book] Summary of Digital Image Processing Chapter 03 - Emjay, 오늘도 새롭게</title>
-    <meta name="author" content="EmjayAhn(Minjae Ahn)">
+    <meta name="author" content="EmjayAhn">
     
         <meta name="keywords" content="데이터사이언스,머신러닝,딥러닝,개발,machine learning,deep learning,datascience,datascientist,">
     
@@ -17,7 +17,7 @@
             <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss2.xml">
         
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"EmjayAhn(Minjae Ahn)","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","mailto"]},"articleBody":"Chapter 3: Intensity Transformations and Spatial FilteringRafael C.Gonzalez and Richard E.Woods. Digital Image Processing. PEARSON 을 다시 한번 읽어보며, 개인적으로 정리한 글입니다.\n3.1 Background3.1.1 The Basics of Intensity Transformations and Spatial Filtering\n모든 spatial domain process 에서 operator  와 input image f(x,y), output image g(x, y) 로 표현된다.\n\ng(x, y) = T[f(x, y)]3.2 Some Basic Intensity Transformation Functions3.2.1 Image Negatives\nNegative transformation\n이미지 반전 효과\n\ns = L-1-r3.2.2 Log Transormationss=c*log(1+r)\nc : constant, assumed r ≥ 0\nlow intensity value of input → wider range of output levels\n\n3.2.3 Power-Law(Gamma) Transformationss = cr^\\gamma=c(r+\\epsilon)^\\gammac, gamma: positive constants\n\ngamma 의 값에 따라서, intensity의 어떤 부분이 강조되는지가 다르다.\nOriginal Image 와 monitor 에 비추는 이미지간의 차이를 중요하게 다룰 때, gamma correction 을 사용하게 된다.\n일반적인 contrast를 다룰 때 중요하게 사용되기도 한다. MRI 사진 sample 예\n\n3.2.4 Piecewise-Linear Transformation Functions1. Contrast stretching\nLow-contrast image 은 sensing 면에서 떨어질 수 있으므로, intensity range를 연장하여, 큰 범위의 intensity 를 사용할 수 있도록 하는 방법\n(input_intensity, output_intensity)→ (r1, s1) 과 (r2, s2)의 관계를 조절하여 contrast transform 형태를 조절한다. 극단적으로 r1=r2, s1=0, s2=L-1 이면, binary image 를 생성한다.(thresholding function)\n\n2. Intensity-level slicing\n관심있는 영역의 Intensity-level 외에는 모두 0으로 처리하거나, 관심있는 영역은 특정 intensity level 로 두고, 나머지 level 은 그대로 두는 형태등이 있을 수 있다.\n\n3. Bit-plane slicing\n8bit 의 이미지 슬라이드 중, significant order의 bit slide 중 특정 부분을 slicing\n\n3.3 Histogram Processing3.3.1 Histogram Equalization\nAssume monotonic transformation: one-to-one mapping or many-to-one mapping\noutput pdf ps, input pdf pr\n\np_s(s) = p_r(r)|\\frac{dr}{ds}|\n이 식은?\n\ns=T(r)=(L-1)\\int_{0}^{r}{p_r(w)dw}\nhistogram equalization, histogram linearization\n\ns_k=T(r_k)=(L-1)\\sum_{j=0}^{k}p_r(r_j) = \\frac{L-1}{MN}\\sum_{j=0}^{k}{n_j}\noutput image 의 p_s,  distribution 이 uniform 되게 하는 형태\n결과적으로, 같은 이미지 형태이지만, 밝기와 contrast 가 모두 다르더라도 일정한 historgram 이 되도록 transform 해준다.\n\n3.3.2 Histogram Matching(Specifiaction)\nUniform historgram이 항상 좋은 것은 아니다.\nhistogram matching, histogram specification : The method used to generate a processed image that has specified histogram\n\n(1) histogram p_r(r) 을 계산, s_k 를 구하기 위해 histogram equalization transformation 식을 계산\n(2) 원하는 p_z(z) 를 이용하여, function G 를 계산\n(3)(2)에서 계산한 G를 이용해 z_k (k=0, 1, 2, …L-1) 까지 계산\n(4) inverse of G 계산\n(5)  r → z trasnformation 계산\n3.3.3 Local Histogram Processing\n이 전 두가지 histogram processing model 은 global  한 영역에서 진행, 즉 전체 이미지에 대해 intensity distribution 을 확인하고, 이를 이용해 transformation 을 진행 하였다.\n이러한 modeling 스킬을 Local enhancement 에 사용가능\nLocal enhancement 는 neighborhood 를 정하고, 중심을 이동해가며, neighborhood 안에서의 histogram equalization 이나 histogram specification transformation 등을 이용할 수 있다.\n계산을 줄이기 위해, nonoverlapping region 을 사용하여 위 방법을 동일하게 사용할 수 있으나, blocky effect 를 발생시킬 수 있음\nblocky effect (p.161)\n\n3.3.4 Using Histogram Statistics for Image Enhancement3.4 Fundamentals of Spatial Filtering3.4.1 The mechanics of Spatial FIltering\nNeighborhood (typically a small rectangle) 2. predefined operation\n\n3.4.2 Spatial Correlation and Convolution\ncorrelation, convolution: 180 degree 반전\n\n3.4.3 Vector Representation of Linear FiltteringR=\\sum_{k=1}^{9}w_kz_k=\\boldsymbol{w}^T\\boldsymbol{z}3.4.4 Generating Spatial Filter Masks\nmn mask\nAverage value of masked values → image smoothing\n위치에 따른 gaussian filter 예 (standard deviation?(p.173))\n\n3.5 Smoothing Spatial Filters\nsmoothing for blurring, noise reduction\nblurring : removal of small details from an image prior to object extraction, bridging of small gaps in lines or curves\nnoise reduction: blurring by linear or non-linear filtering\n\n3.5.1 Smoothing Linear Filters\naveraging filters == lowpass filters\nReplace the value of every pixel in an image by the average of the intensity levels in neighborhood defined by the filter mask → reduced “sharp” transitions in intensity\nbox filter : all coefficient are euqal in filter\n\n3.5.2 Order-Statistic(Nonlinear) Filters\nmedian filter (popular): effective in impulse noise-reduction (salt-pepper noise)\nimplement\nsort values of neighborhood\ndetermine their median\nassign the value to filtered image\n\n\n\n3.6 Sharpening Spatial Filters\nhighlight transitions\n\n3.6.1 Foundation3.6.2 Using the Second Derivative for Image Sharpeing—The Laplacian\ncapture intensity discontinuities in an image and deemphasize\n\ng(x, y)=f(x, y) + c[\\triangledown^2f(x,y)]3.6.3 Unsharp Masking and Highboost Filtering\nunsharp masking\nBlur the original image\nSubtract the blurred image from the original (the resulting difference is called the mask)\nAdd the mask to the original\n\n\n\ng_{mask}(x,y)=f(x,y)-\\bar{f}(x,y)g(x,y) = f(x, y) + k*g_{mask}(x, y), \\quad k>=0\nk&gt;1 , highboost filtering\nk&lt;1, de-emphasizes unsharp mask\n\n3.6.4 Using First-Order Derivatives for (Nonlinear) Image Sharpening—The gradient\nUsing the magnitude of the gradient, magnitude M(x, y)\n\nM(x, y)=mag(\\triangledown f)=\\sqrt{g_x^2+g_y^2}=|g_x|+|g_y|","dateCreated":"2019-08-26T21:54:53+09:00","dateModified":"2019-08-26T22:17:59+09:00","datePublished":"2019-08-26T21:54:53+09:00","description":"Chapter 3: Intensity Transformations and Spatial FilteringRafael C.Gonzalez and Richard E.Woods. Digital Image Processing. PEARSON 을 다시 한번 읽어보며, 개인적으로 정리한 글입니다.","headline":"[Book] Summary of Digital Image Processing Chapter 03","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://emjayahn.github.io/2019/08/26/DIP-chapter3/"},"publisher":{"@type":"Organization","name":"EmjayAhn(Minjae Ahn)","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","mailto"]},"url":"https://emjayahn.github.io/2019/08/26/DIP-chapter3/"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"},"articleBody":"Chapter 3: Intensity Transformations and Spatial FilteringRafael C.Gonzalez and Richard E.Woods. Digital Image Processing. PEARSON 을 다시 한번 읽어보며, 개인적으로 정리한 글입니다.\n3.1 Background3.1.1 The Basics of Intensity Transformations and Spatial Filtering\n모든 spatial domain process 에서 operator  와 input image f(x,y), output image g(x, y) 로 표현된다.\n\ng(x, y) = T[f(x, y)]3.2 Some Basic Intensity Transformation Functions3.2.1 Image Negatives\nNegative transformation\n이미지 반전 효과\n\ns = L-1-r3.2.2 Log Transormationss=c*log(1+r)\nc : constant, assumed r ≥ 0\nlow intensity value of input → wider range of output levels\n\n3.2.3 Power-Law(Gamma) Transformationss = cr^\\gamma=c(r+\\epsilon)^\\gammac, gamma: positive constants\n\ngamma 의 값에 따라서, intensity의 어떤 부분이 강조되는지가 다르다.\nOriginal Image 와 monitor 에 비추는 이미지간의 차이를 중요하게 다룰 때, gamma correction 을 사용하게 된다.\n일반적인 contrast를 다룰 때 중요하게 사용되기도 한다. MRI 사진 sample 예\n\n3.2.4 Piecewise-Linear Transformation Functions1. Contrast stretching\nLow-contrast image 은 sensing 면에서 떨어질 수 있으므로, intensity range를 연장하여, 큰 범위의 intensity 를 사용할 수 있도록 하는 방법\n(input_intensity, output_intensity)→ (r1, s1) 과 (r2, s2)의 관계를 조절하여 contrast transform 형태를 조절한다. 극단적으로 r1=r2, s1=0, s2=L-1 이면, binary image 를 생성한다.(thresholding function)\n\n2. Intensity-level slicing\n관심있는 영역의 Intensity-level 외에는 모두 0으로 처리하거나, 관심있는 영역은 특정 intensity level 로 두고, 나머지 level 은 그대로 두는 형태등이 있을 수 있다.\n\n3. Bit-plane slicing\n8bit 의 이미지 슬라이드 중, significant order의 bit slide 중 특정 부분을 slicing\n\n3.3 Histogram Processing3.3.1 Histogram Equalization\nAssume monotonic transformation: one-to-one mapping or many-to-one mapping\noutput pdf ps, input pdf pr\n\np_s(s) = p_r(r)|\\frac{dr}{ds}|\n이 식은?\n\ns=T(r)=(L-1)\\int_{0}^{r}{p_r(w)dw}\nhistogram equalization, histogram linearization\n\ns_k=T(r_k)=(L-1)\\sum_{j=0}^{k}p_r(r_j) = \\frac{L-1}{MN}\\sum_{j=0}^{k}{n_j}\noutput image 의 p_s,  distribution 이 uniform 되게 하는 형태\n결과적으로, 같은 이미지 형태이지만, 밝기와 contrast 가 모두 다르더라도 일정한 historgram 이 되도록 transform 해준다.\n\n3.3.2 Histogram Matching(Specifiaction)\nUniform historgram이 항상 좋은 것은 아니다.\nhistogram matching, histogram specification : The method used to generate a processed image that has specified histogram\n\n(1) histogram p_r(r) 을 계산, s_k 를 구하기 위해 histogram equalization transformation 식을 계산\n(2) 원하는 p_z(z) 를 이용하여, function G 를 계산\n(3)(2)에서 계산한 G를 이용해 z_k (k=0, 1, 2, …L-1) 까지 계산\n(4) inverse of G 계산\n(5)  r → z trasnformation 계산\n3.3.3 Local Histogram Processing\n이 전 두가지 histogram processing model 은 global  한 영역에서 진행, 즉 전체 이미지에 대해 intensity distribution 을 확인하고, 이를 이용해 transformation 을 진행 하였다.\n이러한 modeling 스킬을 Local enhancement 에 사용가능\nLocal enhancement 는 neighborhood 를 정하고, 중심을 이동해가며, neighborhood 안에서의 histogram equalization 이나 histogram specification transformation 등을 이용할 수 있다.\n계산을 줄이기 위해, nonoverlapping region 을 사용하여 위 방법을 동일하게 사용할 수 있으나, blocky effect 를 발생시킬 수 있음\nblocky effect (p.161)\n\n3.3.4 Using Histogram Statistics for Image Enhancement3.4 Fundamentals of Spatial Filtering3.4.1 The mechanics of Spatial FIltering\nNeighborhood (typically a small rectangle) 2. predefined operation\n\n3.4.2 Spatial Correlation and Convolution\ncorrelation, convolution: 180 degree 반전\n\n3.4.3 Vector Representation of Linear FiltteringR=\\sum_{k=1}^{9}w_kz_k=\\boldsymbol{w}^T\\boldsymbol{z}3.4.4 Generating Spatial Filter Masks\nmn mask\nAverage value of masked values → image smoothing\n위치에 따른 gaussian filter 예 (standard deviation?(p.173))\n\n3.5 Smoothing Spatial Filters\nsmoothing for blurring, noise reduction\nblurring : removal of small details from an image prior to object extraction, bridging of small gaps in lines or curves\nnoise reduction: blurring by linear or non-linear filtering\n\n3.5.1 Smoothing Linear Filters\naveraging filters == lowpass filters\nReplace the value of every pixel in an image by the average of the intensity levels in neighborhood defined by the filter mask → reduced “sharp” transitions in intensity\nbox filter : all coefficient are euqal in filter\n\n3.5.2 Order-Statistic(Nonlinear) Filters\nmedian filter (popular): effective in impulse noise-reduction (salt-pepper noise)\nimplement\nsort values of neighborhood\ndetermine their median\nassign the value to filtered image\n\n\n\n3.6 Sharpening Spatial Filters\nhighlight transitions\n\n3.6.1 Foundation3.6.2 Using the Second Derivative for Image Sharpeing—The Laplacian\ncapture intensity discontinuities in an image and deemphasize\n\ng(x, y)=f(x, y) + c[\\triangledown^2f(x,y)]3.6.3 Unsharp Masking and Highboost Filtering\nunsharp masking\nBlur the original image\nSubtract the blurred image from the original (the resulting difference is called the mask)\nAdd the mask to the original\n\n\n\ng_{mask}(x,y)=f(x,y)-\\bar{f}(x,y)g(x,y) = f(x, y) + k*g_{mask}(x, y), \\quad k>=0\nk&gt;1 , highboost filtering\nk&lt;1, de-emphasizes unsharp mask\n\n3.6.4 Using First-Order Derivatives for (Nonlinear) Image Sharpening—The gradient\nUsing the magnitude of the gradient, magnitude M(x, y)\n\nM(x, y)=mag(\\triangledown f)=\\sqrt{g_x^2+g_y^2}=|g_x|+|g_y|","dateCreated":"2019-08-26T21:54:53+09:00","dateModified":"2019-08-26T22:17:59+09:00","datePublished":"2019-08-26T21:54:53+09:00","description":"Chapter 3: Intensity Transformations and Spatial FilteringRafael C.Gonzalez and Richard E.Woods. Digital Image Processing. PEARSON 을 다시 한번 읽어보며, 개인적으로 정리한 글입니다.","headline":"[Book] Summary of Digital Image Processing Chapter 03","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://emjayahn.github.io/2019/08/26/DIP-chapter3/"},"publisher":{"@type":"Organization","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478","logo":{"@type":"ImageObject","url":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"}},"url":"https://emjayahn.github.io/2019/08/26/DIP-chapter3/"}</script>
     <meta name="description" content="Chapter 3: Intensity Transformations and Spatial FilteringRafael C.Gonzalez and Richard E.Woods. Digital Image Processing. PEARSON 을 다시 한번 읽어보며, 개인적으로 정리한 글입니다.">
 <meta name="keywords" content="데이터사이언스,머신러닝,딥러닝,개발,machine learning,deep learning,datascience,datascientist">
 <meta property="og:type" content="blog">
@@ -109,52 +109,10 @@
                             href="/"
                             
                             rel="noopener"
-                            title="Home"
+                            title="홈"
                         >
                         <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Home</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-categories"
-                            
-                            rel="noopener"
-                            title="Categories"
-                        >
-                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Categories</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-tags"
-                            
-                            rel="noopener"
-                            title="Tags"
-                        >
-                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Tags</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link open-algolia-search"
-                            href="/all-archives"
-                            
-                            rel="noopener"
-                            title="Archives"
-                        >
-                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Archives</span>
+                        <span class="sidebar-button-desc">홈</span>
                     </a>
             </li>
             
@@ -165,10 +123,52 @@
                             href="#about"
                             
                             rel="noopener"
-                            title="About"
+                            title="Emjay"
                         >
                         <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">About</span>
+                        <span class="sidebar-button-desc">Emjay</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-categories"
+                            
+                            rel="noopener"
+                            title="카테고리"
+                        >
+                        <i class="sidebar-button-icon fa fa-code" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">카테고리</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="태그"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">태그</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link open-algolia-search"
+                            href="/all-archives"
+                            
+                            rel="noopener"
+                            title="아카이브"
+                        >
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">아카이브</span>
                     </a>
             </li>
             
@@ -212,7 +212,25 @@
                     
                         <a
                             class="sidebar-button-link "
-                            href="/mailto"
+                            href="https://instagram.com/emjay.data_science"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Instagram"
+                        >
+                        <i class="sidebar-button-icon fab fa-instagram" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Instagram</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="mailto:emjay.data@gmail.com"
+                            
+                                target="_blank"
                             
                             rel="noopener"
                             title="Mail"
@@ -400,6 +418,7 @@
     <div id="post-footer" class="post-footer main-content-wrap">
         
         
+        
             <div class="post-actions-wrap">
     <nav>
         <ul class="post-actions post-action-nav">
@@ -503,13 +522,14 @@
             
         
     </div>
+    
 </article>
 
 
 
                 <footer id="footer" class="main-content-wrap">
     <span class="copyrights">
-        Copyrights &copy; 2021 EmjayAhn(Minjae Ahn). All Rights Reserved.
+        Copyrights &copy; 2021 EmjayAhn. All Rights Reserved.
     </span>
 </footer>
 
@@ -657,19 +677,25 @@
             <i class="fa fa-times"></i>
         </div>
         
-            <h4 id="about-card-name">EmjayAhn(Minjae Ahn)</h4>
+            <h4 id="about-card-name">EmjayAhn</h4>
         
-            <div id="about-card-bio"><p>author.bio</p>
+            <div id="about-card-bio"><p>나스미디어</p>
 </div>
         
         
             <div id="about-card-job">
                 <i class="fa fa-briefcase"></i>
                 <br/>
-                <p>author.job</p>
+                <p>Data Scientist</p>
 
             </div>
         
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker-alt"></i>
+                <br/>
+                서울, 대한민국
+            </div>
         
     </div>
 </div>

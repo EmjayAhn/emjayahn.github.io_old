@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Emjay, 오늘도 새롭게">
     <title>Pillow - Emjay, 오늘도 새롭게</title>
-    <meta name="author" content="EmjayAhn(Minjae Ahn)">
+    <meta name="author" content="EmjayAhn">
     
         <meta name="keywords" content="데이터사이언스,머신러닝,딥러닝,개발,machine learning,deep learning,datascience,datascientist,">
     
@@ -17,7 +17,7 @@
             <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss2.xml">
         
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"EmjayAhn(Minjae Ahn)","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","mailto"]},"articleBody":"Pillow\n공부한 내용을 스스로 보기 쉽게 정리한 글입니다.\n\n\nPillow 는 Python에서 이미지를 핸들링 하기위한 라이브러리이다. 스크린 샷, 이미지 크롭, 썸네일등을 만들 수 있다.\n또한, 다양한 이미지 확장자를 다룰수 있다. (예, jpg, png)\n\nPillow install1pip install Pillow\n1. Import Convention\nPillow 를 사용하기에 앞서, Import 해야한다.1from PIL import Image\n\n\n2. Pillow 메소드(1) open()\n이름 그대로, 경로와 파일 이름을 적어주면, 해당 이미지리턴하여 Variable 에 할당한다.\n1image = Image.open(\"imagefile_name\")\n(2) crop()\n이름 그대로, image 를 잘라준다. 이 때 Parameter 는 box형태로 들어가게 된다.\nbox 는 (left, upper, right, lower) 로 들어가게 된든데, pixel 단위로 들어가면 된다\n이미지의 가장 왼쪽과 위쪽 라인을 기준으로, \n\nleft px 만큼\nupper px 만큼\n(왼쪽을 기준으로) right px 만큼\n(위쪽을 기준으로) bottom px 만큼 잘라, box 로 만들어 준다.123box = (10, 10, 110, 110)image.crop(box)### 이렇게 되면 가로세로 100px 만큼의 이미지가 만들어진다.\n\n\n(3) thumbnail()\n썸네일을 만들어준다.\n썸네일의 활용 방안은 한 가지 사진을 어플리케이션 곳곳에서 사용한다고 할 때, 데이터 사이즈가 큰 원본 사진을 계속 해서 들고 다니며 사용하면 어플리케이션에 따라 메모리 낭비, 서버용량 낭비, 트래픽 낭비 등으로 이어질 수 있다. 따라서, 이미지의 데이터 크기와 해상도를 낮춰 사용할 수 있다.12image.thumbnail((pixel, pixel))#thumbnail 메소드를 사용하여, 원하는 pixel 수로 줄일 수 있다.\n\n\n","dateCreated":"2018-10-25T21:22:20+09:00","dateModified":"2018-11-29T23:01:32+09:00","datePublished":"2018-10-25T21:22:20+09:00","description":"","headline":"Pillow","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://emjayahn.github.io/2018/10/25/Pillow/"},"publisher":{"@type":"Organization","name":"EmjayAhn(Minjae Ahn)","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","mailto"]},"url":"https://emjayahn.github.io/2018/10/25/Pillow/","keywords":"pillow, Pillow, image"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"},"articleBody":"Pillow\n공부한 내용을 스스로 보기 쉽게 정리한 글입니다.\n\n\nPillow 는 Python에서 이미지를 핸들링 하기위한 라이브러리이다. 스크린 샷, 이미지 크롭, 썸네일등을 만들 수 있다.\n또한, 다양한 이미지 확장자를 다룰수 있다. (예, jpg, png)\n\nPillow install1pip install Pillow\n1. Import Convention\nPillow 를 사용하기에 앞서, Import 해야한다.1from PIL import Image\n\n\n2. Pillow 메소드(1) open()\n이름 그대로, 경로와 파일 이름을 적어주면, 해당 이미지리턴하여 Variable 에 할당한다.\n1image = Image.open(\"imagefile_name\")\n(2) crop()\n이름 그대로, image 를 잘라준다. 이 때 Parameter 는 box형태로 들어가게 된다.\nbox 는 (left, upper, right, lower) 로 들어가게 된든데, pixel 단위로 들어가면 된다\n이미지의 가장 왼쪽과 위쪽 라인을 기준으로, \n\nleft px 만큼\nupper px 만큼\n(왼쪽을 기준으로) right px 만큼\n(위쪽을 기준으로) bottom px 만큼 잘라, box 로 만들어 준다.123box = (10, 10, 110, 110)image.crop(box)### 이렇게 되면 가로세로 100px 만큼의 이미지가 만들어진다.\n\n\n(3) thumbnail()\n썸네일을 만들어준다.\n썸네일의 활용 방안은 한 가지 사진을 어플리케이션 곳곳에서 사용한다고 할 때, 데이터 사이즈가 큰 원본 사진을 계속 해서 들고 다니며 사용하면 어플리케이션에 따라 메모리 낭비, 서버용량 낭비, 트래픽 낭비 등으로 이어질 수 있다. 따라서, 이미지의 데이터 크기와 해상도를 낮춰 사용할 수 있다.12image.thumbnail((pixel, pixel))#thumbnail 메소드를 사용하여, 원하는 pixel 수로 줄일 수 있다.\n\n\n","dateCreated":"2018-10-25T21:22:20+09:00","dateModified":"2018-11-29T23:01:32+09:00","datePublished":"2018-10-25T21:22:20+09:00","description":"","headline":"Pillow","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://emjayahn.github.io/2018/10/25/Pillow/"},"publisher":{"@type":"Organization","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478","logo":{"@type":"ImageObject","url":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"}},"url":"https://emjayahn.github.io/2018/10/25/Pillow/","keywords":"pillow, Pillow, image"}</script>
     <meta name="description" content="Pillow 공부한 내용을 스스로 보기 쉽게 정리한 글입니다.   Pillow 는 Python에서 이미지를 핸들링 하기위한 라이브러리이다. 스크린 샷, 이미지 크롭, 썸네일등을 만들 수 있다. 또한, 다양한 이미지 확장자를 다룰수 있다. (예, jpg, png)  Pillow install1pip install Pillow 1. Import Conventi">
 <meta name="keywords" content="pillow, Pillow, image">
 <meta property="og:type" content="blog">
@@ -109,52 +109,10 @@
                             href="/"
                             
                             rel="noopener"
-                            title="Home"
+                            title="홈"
                         >
                         <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Home</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-categories"
-                            
-                            rel="noopener"
-                            title="Categories"
-                        >
-                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Categories</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-tags"
-                            
-                            rel="noopener"
-                            title="Tags"
-                        >
-                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Tags</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link open-algolia-search"
-                            href="/all-archives"
-                            
-                            rel="noopener"
-                            title="Archives"
-                        >
-                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Archives</span>
+                        <span class="sidebar-button-desc">홈</span>
                     </a>
             </li>
             
@@ -165,10 +123,52 @@
                             href="#about"
                             
                             rel="noopener"
-                            title="About"
+                            title="Emjay"
                         >
                         <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">About</span>
+                        <span class="sidebar-button-desc">Emjay</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-categories"
+                            
+                            rel="noopener"
+                            title="카테고리"
+                        >
+                        <i class="sidebar-button-icon fa fa-code" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">카테고리</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="태그"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">태그</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link open-algolia-search"
+                            href="/all-archives"
+                            
+                            rel="noopener"
+                            title="아카이브"
+                        >
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">아카이브</span>
                     </a>
             </li>
             
@@ -212,7 +212,25 @@
                     
                         <a
                             class="sidebar-button-link "
-                            href="/mailto"
+                            href="https://instagram.com/emjay.data_science"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Instagram"
+                        >
+                        <i class="sidebar-button-icon fab fa-instagram" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Instagram</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="mailto:emjay.data@gmail.com"
+                            
+                                target="_blank"
                             
                             rel="noopener"
                             title="Mail"
@@ -329,6 +347,7 @@
             </div>
         
         
+        
             <div class="post-actions-wrap">
     <nav>
         <ul class="post-actions post-action-nav">
@@ -432,13 +451,14 @@
             
         
     </div>
+    
 </article>
 
 
 
                 <footer id="footer" class="main-content-wrap">
     <span class="copyrights">
-        Copyrights &copy; 2021 EmjayAhn(Minjae Ahn). All Rights Reserved.
+        Copyrights &copy; 2021 EmjayAhn. All Rights Reserved.
     </span>
 </footer>
 
@@ -586,19 +606,25 @@
             <i class="fa fa-times"></i>
         </div>
         
-            <h4 id="about-card-name">EmjayAhn(Minjae Ahn)</h4>
+            <h4 id="about-card-name">EmjayAhn</h4>
         
-            <div id="about-card-bio"><p>author.bio</p>
+            <div id="about-card-bio"><p>나스미디어</p>
 </div>
         
         
             <div id="about-card-job">
                 <i class="fa fa-briefcase"></i>
                 <br/>
-                <p>author.job</p>
+                <p>Data Scientist</p>
 
             </div>
         
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker-alt"></i>
+                <br/>
+                서울, 대한민국
+            </div>
         
     </div>
 </div>

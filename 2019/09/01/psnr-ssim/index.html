@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Emjay, 오늘도 새롭게">
     <title>[Metrics] PSNR &amp; SSIM - Emjay, 오늘도 새롭게</title>
-    <meta name="author" content="EmjayAhn(Minjae Ahn)">
+    <meta name="author" content="EmjayAhn">
     
         <meta name="keywords" content="데이터사이언스,머신러닝,딥러닝,개발,machine learning,deep learning,datascience,datascientist,">
     
@@ -17,7 +17,7 @@
             <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss2.xml">
         
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"EmjayAhn(Minjae Ahn)","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","mailto"]},"articleBody":"PSNR &amp; SSIMImage Reconstruction을 수행하는 중, Model Selection 을 위한 비교 metric 중 하나인 PSNR, SSIM 을 정리한 글입니다.\n\n1. PSNR1-1. 정의 및 특징Peak Signal-to-Noise Ratio\n 영상 정보, 화질을 평가할 때 사용되는 Metric. 현재 나는 Image Reconstruction Task 를 수행하며, 다양한 모델의 비교를 위해 사용하기 위해 공부하는 내용이다.\n품질이 좋은 이미지는 큰 PSNR 값을 가지며, 품질이 좋지 않은 이미지는 작은 PSNR 값을 가지게 된다. \n\nPeak Signal-to-Noise Ratio\n\nPSNR = 10log_{10}(\\frac{MAX_I^2}{MSE})=20log_{10}(\\frac{MAX_I}{\\sqrt{MSE}}))=20log_{10}(MAX_I)-10log_{10}(MSE)\nMAXI 는 해당 영상의 최댓값, 해당 채널의 최댓값에서 최솟값을 빼서 구함\ne.g. 8-bit gray scale 의 경우, 255-0 = 255\n\n\n단위: db(log scale)\n무손실 영상의 경우 MSE 가 0이기 때문에, PSNR 은 정의 되지 않는다.\nMSE = \\frac{1}{mn}\\sum_{i=0}^{m-1}\\sum_{j=0}^{n-1}[I(i,j)-K(i, j)]^2\nI : mxn 사이즈의 grayscale image\n\nK: I 에 잡음이 포함된 이미지 (왜곡된 이미지)\n\n1-2. 한계PSNR은 intensity 의 값들을 위 식에 의해 종합하여 평가하는 방식이기 때문에, 실제로 사람이 봤을 때 느끼는 것과 다른 점수를 뱉어낼 때가 있다. 즉, 사람의 지각품질을 제대로 반영하지 못하기 때문에 이를 보완하기 위해 PSNR-HVS, PSNR-HVS-M, SSIM, VIF 등의 Metric 이 개발되었다.\n2. SSIM2-1. 정의 및 특징위 PSNR 의 한계를 극복하기 위해, 개발된 metric 으로써, Structural Similarity 의 줄임말이다. 사람의 지각 능력과 metric 을 일치시키는 목적에 개발되었다. 사람은 영상에서 구조 정보를 반영하여 영상을 바라보게 되는데, 영상이 얼마나 그 구조 정보를 변화시키지 않았는가를 살펴보는 metric 이다.\n즉, 원본이미지(x)와 왜곡이미지(y)의 Luminance(l), Contrast(c), Structure(s)를 비교한다.\ncontrast: 이미지의 표준편차값\nstructure: (이미지-평균밝기) / 표준편차\nl(x, y)=\\frac{2\\mu_x \\mu_y+c_1}{\\mu_x^2+\\mu_y^2+c_1}c(x,y)=\\frac{2\\sigma_x\\sigma_y+c_2}{\\sigma_x^2+\\sigma_y^2+c_2}s(x,y)=\\frac{\\sigma_{xy}+c_3}{\\sigma_x\\sigma_y+c_3}SSIM(x,y)=[l(x,y)^{\\alpha}c(x,y)^{\\beta}s(x,y)^{\\gamma}]c_3=c_2/2위에 c3 와 c2 의 조건을 추가하면 SSIM 은 다음과 같이 축약된다.\n3. Reference\nhttps://kr.mathworks.com/help/images/ref/ssim.html\nhttps://bskyvision.com/\nhttps://en.wikipedia.org/wiki/Structural_similarity\nhttps://ko.wikipedia.org/wiki/\n\n","dateCreated":"2019-09-01T14:41:22+09:00","dateModified":"2019-09-01T14:46:58+09:00","datePublished":"2019-09-01T14:41:22+09:00","description":"PSNR &amp; SSIMImage Reconstruction을 수행하는 중, Model Selection 을 위한 비교 metric 중 하나인 PSNR, SSIM 을 정리한 글입니다.","headline":"[Metrics] PSNR & SSIM","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://emjayahn.github.io/2019/09/01/psnr-ssim/"},"publisher":{"@type":"Organization","name":"EmjayAhn(Minjae Ahn)","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","mailto"]},"url":"https://emjayahn.github.io/2019/09/01/psnr-ssim/"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"},"articleBody":"PSNR &amp; SSIMImage Reconstruction을 수행하는 중, Model Selection 을 위한 비교 metric 중 하나인 PSNR, SSIM 을 정리한 글입니다.\n\n1. PSNR1-1. 정의 및 특징Peak Signal-to-Noise Ratio\n 영상 정보, 화질을 평가할 때 사용되는 Metric. 현재 나는 Image Reconstruction Task 를 수행하며, 다양한 모델의 비교를 위해 사용하기 위해 공부하는 내용이다.\n품질이 좋은 이미지는 큰 PSNR 값을 가지며, 품질이 좋지 않은 이미지는 작은 PSNR 값을 가지게 된다. \n\nPeak Signal-to-Noise Ratio\n\nPSNR = 10log_{10}(\\frac{MAX_I^2}{MSE})=20log_{10}(\\frac{MAX_I}{\\sqrt{MSE}}))=20log_{10}(MAX_I)-10log_{10}(MSE)\nMAXI 는 해당 영상의 최댓값, 해당 채널의 최댓값에서 최솟값을 빼서 구함\ne.g. 8-bit gray scale 의 경우, 255-0 = 255\n\n\n단위: db(log scale)\n무손실 영상의 경우 MSE 가 0이기 때문에, PSNR 은 정의 되지 않는다.\nMSE = \\frac{1}{mn}\\sum_{i=0}^{m-1}\\sum_{j=0}^{n-1}[I(i,j)-K(i, j)]^2\nI : mxn 사이즈의 grayscale image\n\nK: I 에 잡음이 포함된 이미지 (왜곡된 이미지)\n\n1-2. 한계PSNR은 intensity 의 값들을 위 식에 의해 종합하여 평가하는 방식이기 때문에, 실제로 사람이 봤을 때 느끼는 것과 다른 점수를 뱉어낼 때가 있다. 즉, 사람의 지각품질을 제대로 반영하지 못하기 때문에 이를 보완하기 위해 PSNR-HVS, PSNR-HVS-M, SSIM, VIF 등의 Metric 이 개발되었다.\n2. SSIM2-1. 정의 및 특징위 PSNR 의 한계를 극복하기 위해, 개발된 metric 으로써, Structural Similarity 의 줄임말이다. 사람의 지각 능력과 metric 을 일치시키는 목적에 개발되었다. 사람은 영상에서 구조 정보를 반영하여 영상을 바라보게 되는데, 영상이 얼마나 그 구조 정보를 변화시키지 않았는가를 살펴보는 metric 이다.\n즉, 원본이미지(x)와 왜곡이미지(y)의 Luminance(l), Contrast(c), Structure(s)를 비교한다.\ncontrast: 이미지의 표준편차값\nstructure: (이미지-평균밝기) / 표준편차\nl(x, y)=\\frac{2\\mu_x \\mu_y+c_1}{\\mu_x^2+\\mu_y^2+c_1}c(x,y)=\\frac{2\\sigma_x\\sigma_y+c_2}{\\sigma_x^2+\\sigma_y^2+c_2}s(x,y)=\\frac{\\sigma_{xy}+c_3}{\\sigma_x\\sigma_y+c_3}SSIM(x,y)=[l(x,y)^{\\alpha}c(x,y)^{\\beta}s(x,y)^{\\gamma}]c_3=c_2/2위에 c3 와 c2 의 조건을 추가하면 SSIM 은 다음과 같이 축약된다.\n3. Reference\nhttps://kr.mathworks.com/help/images/ref/ssim.html\nhttps://bskyvision.com/\nhttps://en.wikipedia.org/wiki/Structural_similarity\nhttps://ko.wikipedia.org/wiki/\n\n","dateCreated":"2019-09-01T14:41:22+09:00","dateModified":"2019-09-01T14:46:58+09:00","datePublished":"2019-09-01T14:41:22+09:00","description":"PSNR &amp; SSIMImage Reconstruction을 수행하는 중, Model Selection 을 위한 비교 metric 중 하나인 PSNR, SSIM 을 정리한 글입니다.","headline":"[Metrics] PSNR & SSIM","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://emjayahn.github.io/2019/09/01/psnr-ssim/"},"publisher":{"@type":"Organization","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478","logo":{"@type":"ImageObject","url":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"}},"url":"https://emjayahn.github.io/2019/09/01/psnr-ssim/"}</script>
     <meta name="description" content="PSNR &amp;amp; SSIMImage Reconstruction을 수행하는 중, Model Selection 을 위한 비교 metric 중 하나인 PSNR, SSIM 을 정리한 글입니다.">
 <meta name="keywords" content="데이터사이언스,머신러닝,딥러닝,개발,machine learning,deep learning,datascience,datascientist">
 <meta property="og:type" content="blog">
@@ -111,52 +111,10 @@
                             href="/"
                             
                             rel="noopener"
-                            title="Home"
+                            title="홈"
                         >
                         <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Home</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-categories"
-                            
-                            rel="noopener"
-                            title="Categories"
-                        >
-                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Categories</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-tags"
-                            
-                            rel="noopener"
-                            title="Tags"
-                        >
-                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Tags</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link open-algolia-search"
-                            href="/all-archives"
-                            
-                            rel="noopener"
-                            title="Archives"
-                        >
-                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Archives</span>
+                        <span class="sidebar-button-desc">홈</span>
                     </a>
             </li>
             
@@ -167,10 +125,52 @@
                             href="#about"
                             
                             rel="noopener"
-                            title="About"
+                            title="Emjay"
                         >
                         <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">About</span>
+                        <span class="sidebar-button-desc">Emjay</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-categories"
+                            
+                            rel="noopener"
+                            title="카테고리"
+                        >
+                        <i class="sidebar-button-icon fa fa-code" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">카테고리</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="태그"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">태그</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link open-algolia-search"
+                            href="/all-archives"
+                            
+                            rel="noopener"
+                            title="아카이브"
+                        >
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">아카이브</span>
                     </a>
             </li>
             
@@ -214,7 +214,25 @@
                     
                         <a
                             class="sidebar-button-link "
-                            href="/mailto"
+                            href="https://instagram.com/emjay.data_science"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Instagram"
+                        >
+                        <i class="sidebar-button-icon fab fa-instagram" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Instagram</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="mailto:emjay.data@gmail.com"
+                            
+                                target="_blank"
                             
                             rel="noopener"
                             title="Mail"
@@ -325,6 +343,7 @@
     <div id="post-footer" class="post-footer main-content-wrap">
         
         
+        
             <div class="post-actions-wrap">
     <nav>
         <ul class="post-actions post-action-nav">
@@ -428,13 +447,14 @@
             
         
     </div>
+    
 </article>
 
 
 
                 <footer id="footer" class="main-content-wrap">
     <span class="copyrights">
-        Copyrights &copy; 2021 EmjayAhn(Minjae Ahn). All Rights Reserved.
+        Copyrights &copy; 2021 EmjayAhn. All Rights Reserved.
     </span>
 </footer>
 
@@ -582,19 +602,25 @@
             <i class="fa fa-times"></i>
         </div>
         
-            <h4 id="about-card-name">EmjayAhn(Minjae Ahn)</h4>
+            <h4 id="about-card-name">EmjayAhn</h4>
         
-            <div id="about-card-bio"><p>author.bio</p>
+            <div id="about-card-bio"><p>나스미디어</p>
 </div>
         
         
             <div id="about-card-job">
                 <i class="fa fa-briefcase"></i>
                 <br/>
-                <p>author.job</p>
+                <p>Data Scientist</p>
 
             </div>
         
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker-alt"></i>
+                <br/>
+                서울, 대한민국
+            </div>
         
     </div>
 </div>

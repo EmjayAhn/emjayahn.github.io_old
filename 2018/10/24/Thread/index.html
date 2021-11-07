@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Emjay, 오늘도 새롭게">
     <title>Thread - Emjay, 오늘도 새롭게</title>
-    <meta name="author" content="EmjayAhn(Minjae Ahn)">
+    <meta name="author" content="EmjayAhn">
     
         <meta name="keywords" content="데이터사이언스,머신러닝,딥러닝,개발,machine learning,deep learning,datascience,datascientist,">
     
@@ -17,7 +17,7 @@
             <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss2.xml">
         
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"EmjayAhn(Minjae Ahn)","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","mailto"]},"articleBody":"Thread\n공부한 내용을 스스로 보기 쉽게 정리한 글입니다.\n\n파이썬 기본 : Single Thread (Main Thread)\nthreading 모듈 : main thread에서 subthread 를 생성하여 진행하는 방식\nmultiprocessing 모듈 : double cpu\n\n\n\nThreadPoolExecutor : API - 멀티스레드와 멀티프로세스 동일한 형태로 디자인(Pool 클래스만 변경하면됨)\n\nthreading.Thread() arguement12345Thread(group=, target=, args= , kwargs=, *, daemon=None)#target= : 실제 스레드에서 돌아가게 될 함수#args= : tuple 로 target 함수에 들어가게될 argument#kwargs= : dictionary로 target 함수에 들어가게될 argument#daemon : 데몬 스레드로 돌아갈지 여부\n12345#Thread 의 메소드start(): #스레드의 실행, self 의 run() 메소드를 호출run(): #스레드가 실제로 수행하게될 작업name : #스레드의 이름threading.locals() : #해당 스레드 내부에서 사용할 로컬 변수 지정\n","dateCreated":"2018-10-24T12:02:50+09:00","dateModified":"2019-08-06T22:13:46+09:00","datePublished":"2018-10-24T12:02:50+09:00","description":"","headline":"Thread","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://emjayahn.github.io/2018/10/24/Thread/"},"publisher":{"@type":"Organization","name":"EmjayAhn(Minjae Ahn)","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","mailto"]},"url":"https://emjayahn.github.io/2018/10/24/Thread/","keywords":"Thread"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"},"articleBody":"Thread\n공부한 내용을 스스로 보기 쉽게 정리한 글입니다.\n\n파이썬 기본 : Single Thread (Main Thread)\nthreading 모듈 : main thread에서 subthread 를 생성하여 진행하는 방식\nmultiprocessing 모듈 : double cpu\n\n\n\nThreadPoolExecutor : API - 멀티스레드와 멀티프로세스 동일한 형태로 디자인(Pool 클래스만 변경하면됨)\n\nthreading.Thread() arguement12345Thread(group=, target=, args= , kwargs=, *, daemon=None)#target= : 실제 스레드에서 돌아가게 될 함수#args= : tuple 로 target 함수에 들어가게될 argument#kwargs= : dictionary로 target 함수에 들어가게될 argument#daemon : 데몬 스레드로 돌아갈지 여부\n12345#Thread 의 메소드start(): #스레드의 실행, self 의 run() 메소드를 호출run(): #스레드가 실제로 수행하게될 작업name : #스레드의 이름threading.locals() : #해당 스레드 내부에서 사용할 로컬 변수 지정\n","dateCreated":"2018-10-24T12:02:50+09:00","dateModified":"2019-08-06T22:13:46+09:00","datePublished":"2018-10-24T12:02:50+09:00","description":"","headline":"Thread","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://emjayahn.github.io/2018/10/24/Thread/"},"publisher":{"@type":"Organization","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478","logo":{"@type":"ImageObject","url":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"}},"url":"https://emjayahn.github.io/2018/10/24/Thread/","keywords":"Thread"}</script>
     <meta name="description" content="Thread 공부한 내용을 스스로 보기 쉽게 정리한 글입니다.  파이썬 기본 : Single Thread (Main Thread) threading 모듈 : main thread에서 subthread 를 생성하여 진행하는 방식 multiprocessing 모듈 : double cpu    ThreadPoolExecutor : API - 멀티스레드와 멀티프로">
 <meta name="keywords" content="Thread">
 <meta property="og:type" content="blog">
@@ -109,52 +109,10 @@
                             href="/"
                             
                             rel="noopener"
-                            title="Home"
+                            title="홈"
                         >
                         <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Home</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-categories"
-                            
-                            rel="noopener"
-                            title="Categories"
-                        >
-                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Categories</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-tags"
-                            
-                            rel="noopener"
-                            title="Tags"
-                        >
-                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Tags</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link open-algolia-search"
-                            href="/all-archives"
-                            
-                            rel="noopener"
-                            title="Archives"
-                        >
-                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Archives</span>
+                        <span class="sidebar-button-desc">홈</span>
                     </a>
             </li>
             
@@ -165,10 +123,52 @@
                             href="#about"
                             
                             rel="noopener"
-                            title="About"
+                            title="Emjay"
                         >
                         <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">About</span>
+                        <span class="sidebar-button-desc">Emjay</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-categories"
+                            
+                            rel="noopener"
+                            title="카테고리"
+                        >
+                        <i class="sidebar-button-icon fa fa-code" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">카테고리</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="태그"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">태그</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link open-algolia-search"
+                            href="/all-archives"
+                            
+                            rel="noopener"
+                            title="아카이브"
+                        >
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">아카이브</span>
                     </a>
             </li>
             
@@ -212,7 +212,25 @@
                     
                         <a
                             class="sidebar-button-link "
-                            href="/mailto"
+                            href="https://instagram.com/emjay.data_science"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Instagram"
+                        >
+                        <i class="sidebar-button-icon fab fa-instagram" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Instagram</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="mailto:emjay.data@gmail.com"
+                            
+                                target="_blank"
                             
                             rel="noopener"
                             title="Mail"
@@ -309,6 +327,7 @@
     <a class="tag tag--primary tag--small t-link" href="/tags/Thread/">Thread</a>
 
             </div>
+        
         
         
             <div class="post-actions-wrap">
@@ -414,13 +433,14 @@
             
         
     </div>
+    
 </article>
 
 
 
                 <footer id="footer" class="main-content-wrap">
     <span class="copyrights">
-        Copyrights &copy; 2021 EmjayAhn(Minjae Ahn). All Rights Reserved.
+        Copyrights &copy; 2021 EmjayAhn. All Rights Reserved.
     </span>
 </footer>
 
@@ -568,19 +588,25 @@
             <i class="fa fa-times"></i>
         </div>
         
-            <h4 id="about-card-name">EmjayAhn(Minjae Ahn)</h4>
+            <h4 id="about-card-name">EmjayAhn</h4>
         
-            <div id="about-card-bio"><p>author.bio</p>
+            <div id="about-card-bio"><p>나스미디어</p>
 </div>
         
         
             <div id="about-card-job">
                 <i class="fa fa-briefcase"></i>
                 <br/>
-                <p>author.job</p>
+                <p>Data Scientist</p>
 
             </div>
         
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker-alt"></i>
+                <br/>
+                서울, 대한민국
+            </div>
         
     </div>
 </div>

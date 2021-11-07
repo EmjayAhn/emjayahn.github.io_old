@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Emjay, 오늘도 새롭게">
     <title>[CS231n]Lecture04-Backprop/NeuralNetworks - Emjay, 오늘도 새롭게</title>
-    <meta name="author" content="EmjayAhn(Minjae Ahn)">
+    <meta name="author" content="EmjayAhn">
     
         <meta name="keywords" content="데이터사이언스,머신러닝,딥러닝,개발,machine learning,deep learning,datascience,datascientist,">
     
@@ -17,7 +17,7 @@
             <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss2.xml">
         
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"EmjayAhn(Minjae Ahn)","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","mailto"]},"articleBody":"Lecture 04: Backpropagation and Neural Networks\n이 글은, Standford University 의 CS231n 강의를 듣고 스스로 정리 목적을 위해 적은 글입니다.\n\n\n1. Backpropagation1-1. 핵심Backprop의 한줄요약: 각 parameter 에 대해 Loss Function 의 gradient 를 구하기 위해 사용하는 graphical representation of ChainRule\n언뜻 보면 어려울 수 도 있지만, just ChainRule\n\n위의 그림을 예를 들어 살펴 보면, y 에 대한 f의 gradient 는 q에 대한 f의 gradient  y 에 대한 q 의 gradient 으로 볼 수 있다. 이를 해석하자면, f 에게 미치는 y 의 영향 = f 에게 미치는 q의 영향  q 에게 미치는 y 의 영향으로 볼 수 있다.\nBackpropagation 의 가장 중요한 특징!!\ngradient 를 구하기 위해 node 를 기준으로 앞과 뒤만 보면 된다.\n\n또한, 위 그림을 보게 되면, Forward passing 과 마찬가지로, Backprop 시에도, 이전 노드에서 전달 되는 Gradient 를 node 에서 local gradient 와의 연산으로 다음 Node 에 gradient 를 전달해 줄 수 있다.\n1-2. Back prop 시, 각 node  의 역할\n\nAdd gate : gradient distributor\nadd gate 를 기점으로, 각 입력(forward 방향의 입력)의 gradient로 local gradient 를 구하면 1이므로, 전달 되는 gradient 와 각각 1씩 곱해져 전달 되게 된다. 이 현상을 보게 되면 동등하게 나눠주는 역할을 하므로 gradient distributor 라고 볼 수 있다.\n\n\nMax gate : gradient router\n\nMax gate 는 gradient 를 한쪽에는 전체, 다른 쪽에는 0 을 준다.\n해석적으로 보자면, max 연산을 통해 forward 방향에서 영향을 준 branch 에게 gradient 를 전달해 주는 것이 합적\nmax(x, y) = \\begin{cases} x \\quad\\quad if \\quad x > y \\\\\\\\ y \\quad\\quad if \\quad x < y \\end{cases}\n수식으로 보자면, x 에 대한 gradient, y 에 대한 gradient 가 각각 (1, 0), (0, 1)  로 local gradient 가 계산되기 때문이다.\n\ngradient 가 전달될 길을 결정해주는 면에서, 네트워크에서 path 를 설정해 주는 router의 기능과 비슷하다.\n\n\nMul gate : gradient switcher + scaler\n곱셈연산의 gradient 의 경우, x 에 대한 gradient 는 y 가 되므로, 서로 바꿔주는 역할을 한다. 이 때, forward 상에서의 결과 값으로 곱해주므로, scale 역할까지 함께 하게 된다.\n\n\n\n2. Neural Networks강의에서는 Neural Network 에 대한 intuition 을 위해, biological neuron 과 비교하였다. 모델 architecture 로서의 neuron 과 biological neuron 의 공통점은 다음과 같다.\n\ninput impulse\ninput axon → dendrite\n(cell body)activation &amp; activation function\noutput axon\n\n이러한 비교는, 나의 개인적인 Neural Network에 대한 공부와 이해에 도움이 되지 않기에 큰 감동은 없다. \n\n4강에 대한 핵심 사항은, Backpropagation 에 대한 수식적 이해와 그 이해를 통해 Backpropagation 이 gradient를 구함에 있어, 얼마나 편한 representation 인지이다. 공부하며 어려웠던 것은, backprop in vectorized 에서, Jacobian Matrix 의 표현이 scalar  backprop 때와는 달리 한번에 머릿속으로 상상되지 않았기에, 손으로 써가며 따라 갔어야만 했다.\n\n3. ReferenceLecture 4 | Introduction to Neural Networks\nSyllabus | CS 231N\n","dateCreated":"2019-05-18T23:21:08+09:00","dateModified":"2019-07-28T10:13:57+09:00","datePublished":"2019-05-18T23:21:08+09:00","description":"Lecture 04: Backpropagation and Neural Networks\n이 글은, Standford University 의 CS231n 강의를 듣고 스스로 정리 목적을 위해 적은 글입니다.\n","headline":"[CS231n]Lecture04-Backprop/NeuralNetworks","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://emjayahn.github.io/2019/05/18/CS231n-Lecture04-Summary/"},"publisher":{"@type":"Organization","name":"EmjayAhn(Minjae Ahn)","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","mailto"]},"url":"https://emjayahn.github.io/2019/05/18/CS231n-Lecture04-Summary/","keywords":"summary, CS231n"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"},"articleBody":"Lecture 04: Backpropagation and Neural Networks\n이 글은, Standford University 의 CS231n 강의를 듣고 스스로 정리 목적을 위해 적은 글입니다.\n\n\n1. Backpropagation1-1. 핵심Backprop의 한줄요약: 각 parameter 에 대해 Loss Function 의 gradient 를 구하기 위해 사용하는 graphical representation of ChainRule\n언뜻 보면 어려울 수 도 있지만, just ChainRule\n\n위의 그림을 예를 들어 살펴 보면, y 에 대한 f의 gradient 는 q에 대한 f의 gradient  y 에 대한 q 의 gradient 으로 볼 수 있다. 이를 해석하자면, f 에게 미치는 y 의 영향 = f 에게 미치는 q의 영향  q 에게 미치는 y 의 영향으로 볼 수 있다.\nBackpropagation 의 가장 중요한 특징!!\ngradient 를 구하기 위해 node 를 기준으로 앞과 뒤만 보면 된다.\n\n또한, 위 그림을 보게 되면, Forward passing 과 마찬가지로, Backprop 시에도, 이전 노드에서 전달 되는 Gradient 를 node 에서 local gradient 와의 연산으로 다음 Node 에 gradient 를 전달해 줄 수 있다.\n1-2. Back prop 시, 각 node  의 역할\n\nAdd gate : gradient distributor\nadd gate 를 기점으로, 각 입력(forward 방향의 입력)의 gradient로 local gradient 를 구하면 1이므로, 전달 되는 gradient 와 각각 1씩 곱해져 전달 되게 된다. 이 현상을 보게 되면 동등하게 나눠주는 역할을 하므로 gradient distributor 라고 볼 수 있다.\n\n\nMax gate : gradient router\n\nMax gate 는 gradient 를 한쪽에는 전체, 다른 쪽에는 0 을 준다.\n해석적으로 보자면, max 연산을 통해 forward 방향에서 영향을 준 branch 에게 gradient 를 전달해 주는 것이 합적\nmax(x, y) = \\begin{cases} x \\quad\\quad if \\quad x > y \\\\\\\\ y \\quad\\quad if \\quad x < y \\end{cases}\n수식으로 보자면, x 에 대한 gradient, y 에 대한 gradient 가 각각 (1, 0), (0, 1)  로 local gradient 가 계산되기 때문이다.\n\ngradient 가 전달될 길을 결정해주는 면에서, 네트워크에서 path 를 설정해 주는 router의 기능과 비슷하다.\n\n\nMul gate : gradient switcher + scaler\n곱셈연산의 gradient 의 경우, x 에 대한 gradient 는 y 가 되므로, 서로 바꿔주는 역할을 한다. 이 때, forward 상에서의 결과 값으로 곱해주므로, scale 역할까지 함께 하게 된다.\n\n\n\n2. Neural Networks강의에서는 Neural Network 에 대한 intuition 을 위해, biological neuron 과 비교하였다. 모델 architecture 로서의 neuron 과 biological neuron 의 공통점은 다음과 같다.\n\ninput impulse\ninput axon → dendrite\n(cell body)activation &amp; activation function\noutput axon\n\n이러한 비교는, 나의 개인적인 Neural Network에 대한 공부와 이해에 도움이 되지 않기에 큰 감동은 없다. \n\n4강에 대한 핵심 사항은, Backpropagation 에 대한 수식적 이해와 그 이해를 통해 Backpropagation 이 gradient를 구함에 있어, 얼마나 편한 representation 인지이다. 공부하며 어려웠던 것은, backprop in vectorized 에서, Jacobian Matrix 의 표현이 scalar  backprop 때와는 달리 한번에 머릿속으로 상상되지 않았기에, 손으로 써가며 따라 갔어야만 했다.\n\n3. ReferenceLecture 4 | Introduction to Neural Networks\nSyllabus | CS 231N\n","dateCreated":"2019-05-18T23:21:08+09:00","dateModified":"2019-07-28T10:13:57+09:00","datePublished":"2019-05-18T23:21:08+09:00","description":"Lecture 04: Backpropagation and Neural Networks\n이 글은, Standford University 의 CS231n 강의를 듣고 스스로 정리 목적을 위해 적은 글입니다.\n","headline":"[CS231n]Lecture04-Backprop/NeuralNetworks","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://emjayahn.github.io/2019/05/18/CS231n-Lecture04-Summary/"},"publisher":{"@type":"Organization","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478","logo":{"@type":"ImageObject","url":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"}},"url":"https://emjayahn.github.io/2019/05/18/CS231n-Lecture04-Summary/","keywords":"summary, CS231n"}</script>
     <meta name="description" content="Lecture 04: Backpropagation and Neural Networks 이 글은, Standford University 의 CS231n 강의를 듣고 스스로 정리 목적을 위해 적은 글입니다.">
 <meta name="keywords" content="summary,CS231n">
 <meta property="og:type" content="blog">
@@ -113,52 +113,10 @@
                             href="/"
                             
                             rel="noopener"
-                            title="Home"
+                            title="홈"
                         >
                         <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Home</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-categories"
-                            
-                            rel="noopener"
-                            title="Categories"
-                        >
-                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Categories</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-tags"
-                            
-                            rel="noopener"
-                            title="Tags"
-                        >
-                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Tags</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link open-algolia-search"
-                            href="/all-archives"
-                            
-                            rel="noopener"
-                            title="Archives"
-                        >
-                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Archives</span>
+                        <span class="sidebar-button-desc">홈</span>
                     </a>
             </li>
             
@@ -169,10 +127,52 @@
                             href="#about"
                             
                             rel="noopener"
-                            title="About"
+                            title="Emjay"
                         >
                         <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">About</span>
+                        <span class="sidebar-button-desc">Emjay</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-categories"
+                            
+                            rel="noopener"
+                            title="카테고리"
+                        >
+                        <i class="sidebar-button-icon fa fa-code" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">카테고리</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="태그"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">태그</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link open-algolia-search"
+                            href="/all-archives"
+                            
+                            rel="noopener"
+                            title="아카이브"
+                        >
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">아카이브</span>
                     </a>
             </li>
             
@@ -216,7 +216,25 @@
                     
                         <a
                             class="sidebar-button-link "
-                            href="/mailto"
+                            href="https://instagram.com/emjay.data_science"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Instagram"
+                        >
+                        <i class="sidebar-button-icon fab fa-instagram" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Instagram</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="mailto:emjay.data@gmail.com"
+                            
+                                target="_blank"
                             
                             rel="noopener"
                             title="Mail"
@@ -348,6 +366,7 @@
             </div>
         
         
+        
             <div class="post-actions-wrap">
     <nav>
         <ul class="post-actions post-action-nav">
@@ -451,13 +470,14 @@
             
         
     </div>
+    
 </article>
 
 
 
                 <footer id="footer" class="main-content-wrap">
     <span class="copyrights">
-        Copyrights &copy; 2021 EmjayAhn(Minjae Ahn). All Rights Reserved.
+        Copyrights &copy; 2021 EmjayAhn. All Rights Reserved.
     </span>
 </footer>
 
@@ -605,19 +625,25 @@
             <i class="fa fa-times"></i>
         </div>
         
-            <h4 id="about-card-name">EmjayAhn(Minjae Ahn)</h4>
+            <h4 id="about-card-name">EmjayAhn</h4>
         
-            <div id="about-card-bio"><p>author.bio</p>
+            <div id="about-card-bio"><p>나스미디어</p>
 </div>
         
         
             <div id="about-card-job">
                 <i class="fa fa-briefcase"></i>
                 <br/>
-                <p>author.job</p>
+                <p>Data Scientist</p>
 
             </div>
         
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker-alt"></i>
+                <br/>
+                서울, 대한민국
+            </div>
         
     </div>
 </div>

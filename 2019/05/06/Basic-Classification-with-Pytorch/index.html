@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Emjay, 오늘도 새롭게">
     <title>Basic Classification with Pytorch - Emjay, 오늘도 새롭게</title>
-    <meta name="author" content="EmjayAhn(Minjae Ahn)">
+    <meta name="author" content="EmjayAhn">
     
         <meta name="keywords" content="데이터사이언스,머신러닝,딥러닝,개발,machine learning,deep learning,datascience,datascientist,">
     
@@ -17,7 +17,7 @@
             <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss2.xml">
         
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"EmjayAhn(Minjae Ahn)","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","mailto"]},"articleBody":"Basic Classification with Pytorch\n이번 post 는 pytorch 를 활용해 기초적인 분류 모델링을 해보면서, pytorch에 익숙함을 높이는 것이 목적입니다.\n\n\n123456789101112import torchimport torch.nn as nnimport torch.nn.functional as Fimport torch.optim as optimimport numpy as npimport matplotlib.pyplot as pltimport warningswarnings.filterwarnings(\"ignore\")%matplotlib inline%config InlineBackend.figure_format = 'retina'\n1. Binary Classification\nModeling\nSigmoid\nLoss : Binary Cross Entropy\n\n1.1 Generate Data123456789101112# plotting functiondef plot_scatter(W_, xy, labels):    for k, color in [(0, 'b'), (1, 'r')]:        idx = labels.flatten() == k        plt.scatter(xy[idx, 0], xy[idx, 1], c=color)            x1 = np.linspace(-0.1, 1.1)    x2 = -W_[1] / W_[2] * x1 - W_[0] / W_[2]    plt.plot(x1, x2, '--k')        plt.grid()    plt.show()\n1234567# Generate dataW = np.array([-4./5, 3./4., 1.0])xy = np.random.rand(30, 2)labels = np.zeros(len(xy))labels[W[0] + W[1] * xy[:, 0] + W[2] * xy[:, 1] &gt; 0] = 1\n1plot_scatter(W, xy, labels)\n\n1.2 Train data\nGenerate 한 data 로 부터, x 축 값, y 축 값, augmented term 으로 3가지 column 을 만들어 train data 로 만들어 줍니다.\n또한 대응 되는 label 도 model 에 적합한 모양으로 바꾸어 줍니다.\n\n1234x_train = torch.FloatTensor([[1.0, xval, yval] for xval, yval in xy])y_train = torch.FloatTensor(labels).view(-1, 1)print(x_train[:5])print(y_train[:5])\ntensor([[1.0000, 0.0192, 0.6049],\n        [1.0000, 0.0485, 0.2529],\n        [1.0000, 0.2412, 0.9115],\n        [1.0000, 0.9764, 0.1665],\n        [1.0000, 0.9021, 0.5825]])\ntensor([[0.],\n        [0.],\n        [1.],\n        [1.],\n        [1.]])\n1.3 Modeling\nLinear Model 형태와 Sigmoid 함수, Loss function 은 cross entropy 를 활용해 모델링을 합니다.\n여기선, 내장되어있는 함수들을 되도록 사용하지 않고, Low level 로 코드를 작성해 보겠습니다.\n\n12345678910111213141516171819202122# Low level modelingparameter_W = torch.FloatTensor([[-0.5, 0.7, 1.8]]).view(-1, 1)parameter_W.requires_grad_(True)optimizer = optim.SGD([parameter_W], lr=0.01)epochs = 10000for epoch in range(1, epochs + 1):    # Prediction    y_hat = F.sigmoid(torch.matmul(x_train, parameter_W))        # Loss function    loss = (-y_train * torch.log(y_hat) - (1 - y_train) * torch.log((1 - y_hat))).sum().mean()        # Backprop &amp; update    optimizer.zero_grad()    loss.backward()    optimizer.step()        if epoch % 1000 == 0:        print(\"epoch &#123;&#125; -- loss &#123;&#125;\".format(epoch, loss.data))\nepoch 1000 -- loss 6.368619441986084\nepoch 2000 -- loss 4.5249152183532715\nepoch 3000 -- loss 3.654862403869629\nepoch 4000 -- loss 3.122910261154175\nepoch 5000 -- loss 2.7545464038848877\nepoch 6000 -- loss 2.4800000190734863\nepoch 7000 -- loss 2.2651939392089844\nepoch 8000 -- loss 2.091233253479004\nepoch 9000 -- loss 1.9466761350631714\nepoch 10000 -- loss 1.8241318464279175\n1parameter_W.data.numpy()\narray([[-16.748823],\n       [ 16.618748],\n       [ 17.622692]], dtype=float32)\n\n아래 그림을 보면, Train이 잘 된 것을 알 수 있습니다.\n\n1plot_scatter(parameter_W.data.numpy(), xy, labels)\n\n2. Multiclass Classification2.1 Generate Data\n이번에는 3개의 label 을 가지고 있는 classification 을 Modeling 해 보겠습니다.\n또한, High Level 로 pytorch 의 추상 클래스를 이용해 모델링 해보겠습니다.\n\n123456789101112def plot_scatter(W1, W2, xy, labels):    for k, color in [(0, 'b'), (1, 'r'), (2, 'y')]:        idx = labels.flatten() == k        plt.scatter(xy[idx, 0], xy[idx, 1], c=color)            x1 = np.linspace(-0.6, 1.6)    x2 = -W1[1] / W1[2] * x1 - W1[0] / W1[2]    x3 = -W2[1] / W2[2] * x1 - W2[0] / W2[2]    plt.plot(x1, x2, '--k')    plt.plot(x1, x3, '--k')        plt.show()\n123456789# Generate dataW1 = np.array([-1, 3./4., 1.0])W2 = np.array([-1./5, 3./4., 1.0])xy = 2 * np.random.rand(100, 2) - 0.5labels = np.zeros(len(xy))labels[(W1[0] + W1[1] * xy[:, 0] + W1[2] * xy[:, 1] &gt; 0)] = 1labels[(W2[0] + W2[1] * xy[:, 0] + W2[2] * xy[:, 1] &lt; 0)] = 2\n1plot_scatter(W1, W2, xy, labels)\n\n2.2 Train data1234x_train = torch.FloatTensor([[1.0, xval, yval] for xval, yval in xy])y_train = torch.LongTensor(labels)print(x_train[-5:])print(y_train[-5:])\ntensor([[ 1.0000,  0.9641,  1.3851],\n        [ 1.0000, -0.4445,  1.0595],\n        [ 1.0000,  1.0854, -0.1216],\n        [ 1.0000,  0.8707,  0.1640],\n        [ 1.0000,  0.7043,  1.3483]])\ntensor([1, 0, 0, 0, 1])\n2.3 Modeling1234567class MultiModel(nn.Module):    def __init__(self):        super().__init__()        self.linear = nn.Linear(3, 3)    def forward(self, x):        return self.linear(x)\n1234567891011121314151617model = MultiModel()optimizer = optim.SGD(model.parameters(), lr=0.01)epochs = 10000for epoch in range(1, epochs + 1):    y_hat = model(x_train)        loss = F.cross_entropy(y_hat, y_train)        optimizer.zero_grad()    loss.backward()    optimizer.step()        if epoch % 1000 == 0:        print(\"epoch &#123;&#125; -- loss &#123;&#125;\".format(epoch, loss.data))\nepoch 1000 -- loss 0.6635385155677795\nepoch 2000 -- loss 0.5513403415679932\nepoch 3000 -- loss 0.4890784025192261\nepoch 4000 -- loss 0.44675758481025696\nepoch 5000 -- loss 0.4151267111301422\nepoch 6000 -- loss 0.39017024636268616\nepoch 7000 -- loss 0.369760125875473\nepoch 8000 -- loss 0.35262930393218994\nepoch 9000 -- loss 0.3379631042480469\nepoch 10000 -- loss 0.3252090811729431\n2.4 Accuracy 계산\nAccuracy 가 96 % 로 비교적 잘 분류 된 것을 확인 할 수 있습니다.\n\n12accuracy = (torch.ByteTensor(model(x_train).max(dim=1)[1] == y_train)).sum().item() / len(y_train)print(\"Accuracy: &#123;&#125;\".format(accuracy))\nAccuracy: 0.96\n","dateCreated":"2019-05-06T12:39:33+09:00","dateModified":"2019-07-17T00:55:30+09:00","datePublished":"2019-05-06T12:39:33+09:00","description":"Basic Classification with Pytorch\n이번 post 는 pytorch 를 활용해 기초적인 분류 모델링을 해보면서, pytorch에 익숙함을 높이는 것이 목적입니다.\n","headline":"Basic Classification with Pytorch","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://emjayahn.github.io/2019/05/06/Basic-Classification-with-Pytorch/"},"publisher":{"@type":"Organization","name":"EmjayAhn(Minjae Ahn)","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","mailto"]},"url":"https://emjayahn.github.io/2019/05/06/Basic-Classification-with-Pytorch/"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"},"articleBody":"Basic Classification with Pytorch\n이번 post 는 pytorch 를 활용해 기초적인 분류 모델링을 해보면서, pytorch에 익숙함을 높이는 것이 목적입니다.\n\n\n123456789101112import torchimport torch.nn as nnimport torch.nn.functional as Fimport torch.optim as optimimport numpy as npimport matplotlib.pyplot as pltimport warningswarnings.filterwarnings(\"ignore\")%matplotlib inline%config InlineBackend.figure_format = 'retina'\n1. Binary Classification\nModeling\nSigmoid\nLoss : Binary Cross Entropy\n\n1.1 Generate Data123456789101112# plotting functiondef plot_scatter(W_, xy, labels):    for k, color in [(0, 'b'), (1, 'r')]:        idx = labels.flatten() == k        plt.scatter(xy[idx, 0], xy[idx, 1], c=color)            x1 = np.linspace(-0.1, 1.1)    x2 = -W_[1] / W_[2] * x1 - W_[0] / W_[2]    plt.plot(x1, x2, '--k')        plt.grid()    plt.show()\n1234567# Generate dataW = np.array([-4./5, 3./4., 1.0])xy = np.random.rand(30, 2)labels = np.zeros(len(xy))labels[W[0] + W[1] * xy[:, 0] + W[2] * xy[:, 1] &gt; 0] = 1\n1plot_scatter(W, xy, labels)\n\n1.2 Train data\nGenerate 한 data 로 부터, x 축 값, y 축 값, augmented term 으로 3가지 column 을 만들어 train data 로 만들어 줍니다.\n또한 대응 되는 label 도 model 에 적합한 모양으로 바꾸어 줍니다.\n\n1234x_train = torch.FloatTensor([[1.0, xval, yval] for xval, yval in xy])y_train = torch.FloatTensor(labels).view(-1, 1)print(x_train[:5])print(y_train[:5])\ntensor([[1.0000, 0.0192, 0.6049],\n        [1.0000, 0.0485, 0.2529],\n        [1.0000, 0.2412, 0.9115],\n        [1.0000, 0.9764, 0.1665],\n        [1.0000, 0.9021, 0.5825]])\ntensor([[0.],\n        [0.],\n        [1.],\n        [1.],\n        [1.]])\n1.3 Modeling\nLinear Model 형태와 Sigmoid 함수, Loss function 은 cross entropy 를 활용해 모델링을 합니다.\n여기선, 내장되어있는 함수들을 되도록 사용하지 않고, Low level 로 코드를 작성해 보겠습니다.\n\n12345678910111213141516171819202122# Low level modelingparameter_W = torch.FloatTensor([[-0.5, 0.7, 1.8]]).view(-1, 1)parameter_W.requires_grad_(True)optimizer = optim.SGD([parameter_W], lr=0.01)epochs = 10000for epoch in range(1, epochs + 1):    # Prediction    y_hat = F.sigmoid(torch.matmul(x_train, parameter_W))        # Loss function    loss = (-y_train * torch.log(y_hat) - (1 - y_train) * torch.log((1 - y_hat))).sum().mean()        # Backprop &amp; update    optimizer.zero_grad()    loss.backward()    optimizer.step()        if epoch % 1000 == 0:        print(\"epoch &#123;&#125; -- loss &#123;&#125;\".format(epoch, loss.data))\nepoch 1000 -- loss 6.368619441986084\nepoch 2000 -- loss 4.5249152183532715\nepoch 3000 -- loss 3.654862403869629\nepoch 4000 -- loss 3.122910261154175\nepoch 5000 -- loss 2.7545464038848877\nepoch 6000 -- loss 2.4800000190734863\nepoch 7000 -- loss 2.2651939392089844\nepoch 8000 -- loss 2.091233253479004\nepoch 9000 -- loss 1.9466761350631714\nepoch 10000 -- loss 1.8241318464279175\n1parameter_W.data.numpy()\narray([[-16.748823],\n       [ 16.618748],\n       [ 17.622692]], dtype=float32)\n\n아래 그림을 보면, Train이 잘 된 것을 알 수 있습니다.\n\n1plot_scatter(parameter_W.data.numpy(), xy, labels)\n\n2. Multiclass Classification2.1 Generate Data\n이번에는 3개의 label 을 가지고 있는 classification 을 Modeling 해 보겠습니다.\n또한, High Level 로 pytorch 의 추상 클래스를 이용해 모델링 해보겠습니다.\n\n123456789101112def plot_scatter(W1, W2, xy, labels):    for k, color in [(0, 'b'), (1, 'r'), (2, 'y')]:        idx = labels.flatten() == k        plt.scatter(xy[idx, 0], xy[idx, 1], c=color)            x1 = np.linspace(-0.6, 1.6)    x2 = -W1[1] / W1[2] * x1 - W1[0] / W1[2]    x3 = -W2[1] / W2[2] * x1 - W2[0] / W2[2]    plt.plot(x1, x2, '--k')    plt.plot(x1, x3, '--k')        plt.show()\n123456789# Generate dataW1 = np.array([-1, 3./4., 1.0])W2 = np.array([-1./5, 3./4., 1.0])xy = 2 * np.random.rand(100, 2) - 0.5labels = np.zeros(len(xy))labels[(W1[0] + W1[1] * xy[:, 0] + W1[2] * xy[:, 1] &gt; 0)] = 1labels[(W2[0] + W2[1] * xy[:, 0] + W2[2] * xy[:, 1] &lt; 0)] = 2\n1plot_scatter(W1, W2, xy, labels)\n\n2.2 Train data1234x_train = torch.FloatTensor([[1.0, xval, yval] for xval, yval in xy])y_train = torch.LongTensor(labels)print(x_train[-5:])print(y_train[-5:])\ntensor([[ 1.0000,  0.9641,  1.3851],\n        [ 1.0000, -0.4445,  1.0595],\n        [ 1.0000,  1.0854, -0.1216],\n        [ 1.0000,  0.8707,  0.1640],\n        [ 1.0000,  0.7043,  1.3483]])\ntensor([1, 0, 0, 0, 1])\n2.3 Modeling1234567class MultiModel(nn.Module):    def __init__(self):        super().__init__()        self.linear = nn.Linear(3, 3)    def forward(self, x):        return self.linear(x)\n1234567891011121314151617model = MultiModel()optimizer = optim.SGD(model.parameters(), lr=0.01)epochs = 10000for epoch in range(1, epochs + 1):    y_hat = model(x_train)        loss = F.cross_entropy(y_hat, y_train)        optimizer.zero_grad()    loss.backward()    optimizer.step()        if epoch % 1000 == 0:        print(\"epoch &#123;&#125; -- loss &#123;&#125;\".format(epoch, loss.data))\nepoch 1000 -- loss 0.6635385155677795\nepoch 2000 -- loss 0.5513403415679932\nepoch 3000 -- loss 0.4890784025192261\nepoch 4000 -- loss 0.44675758481025696\nepoch 5000 -- loss 0.4151267111301422\nepoch 6000 -- loss 0.39017024636268616\nepoch 7000 -- loss 0.369760125875473\nepoch 8000 -- loss 0.35262930393218994\nepoch 9000 -- loss 0.3379631042480469\nepoch 10000 -- loss 0.3252090811729431\n2.4 Accuracy 계산\nAccuracy 가 96 % 로 비교적 잘 분류 된 것을 확인 할 수 있습니다.\n\n12accuracy = (torch.ByteTensor(model(x_train).max(dim=1)[1] == y_train)).sum().item() / len(y_train)print(\"Accuracy: &#123;&#125;\".format(accuracy))\nAccuracy: 0.96\n","dateCreated":"2019-05-06T12:39:33+09:00","dateModified":"2019-07-17T00:55:30+09:00","datePublished":"2019-05-06T12:39:33+09:00","description":"Basic Classification with Pytorch\n이번 post 는 pytorch 를 활용해 기초적인 분류 모델링을 해보면서, pytorch에 익숙함을 높이는 것이 목적입니다.\n","headline":"Basic Classification with Pytorch","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://emjayahn.github.io/2019/05/06/Basic-Classification-with-Pytorch/"},"publisher":{"@type":"Organization","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478","logo":{"@type":"ImageObject","url":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"}},"url":"https://emjayahn.github.io/2019/05/06/Basic-Classification-with-Pytorch/"}</script>
     <meta name="description" content="Basic Classification with Pytorch 이번 post 는 pytorch 를 활용해 기초적인 분류 모델링을 해보면서, pytorch에 익숙함을 높이는 것이 목적입니다.">
 <meta name="keywords" content="데이터사이언스,머신러닝,딥러닝,개발,machine learning,deep learning,datascience,datascientist">
 <meta property="og:type" content="blog">
@@ -113,52 +113,10 @@
                             href="/"
                             
                             rel="noopener"
-                            title="Home"
+                            title="홈"
                         >
                         <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Home</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-categories"
-                            
-                            rel="noopener"
-                            title="Categories"
-                        >
-                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Categories</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-tags"
-                            
-                            rel="noopener"
-                            title="Tags"
-                        >
-                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Tags</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link open-algolia-search"
-                            href="/all-archives"
-                            
-                            rel="noopener"
-                            title="Archives"
-                        >
-                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Archives</span>
+                        <span class="sidebar-button-desc">홈</span>
                     </a>
             </li>
             
@@ -169,10 +127,52 @@
                             href="#about"
                             
                             rel="noopener"
-                            title="About"
+                            title="Emjay"
                         >
                         <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">About</span>
+                        <span class="sidebar-button-desc">Emjay</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-categories"
+                            
+                            rel="noopener"
+                            title="카테고리"
+                        >
+                        <i class="sidebar-button-icon fa fa-code" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">카테고리</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="태그"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">태그</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link open-algolia-search"
+                            href="/all-archives"
+                            
+                            rel="noopener"
+                            title="아카이브"
+                        >
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">아카이브</span>
                     </a>
             </li>
             
@@ -216,7 +216,25 @@
                     
                         <a
                             class="sidebar-button-link "
-                            href="/mailto"
+                            href="https://instagram.com/emjay.data_science"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Instagram"
+                        >
+                        <i class="sidebar-button-icon fab fa-instagram" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Instagram</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="mailto:emjay.data@gmail.com"
+                            
+                                target="_blank"
                             
                             rel="noopener"
                             title="Mail"
@@ -380,6 +398,7 @@ epoch 10000 -- loss 0.3252090811729431
     <div id="post-footer" class="post-footer main-content-wrap">
         
         
+        
             <div class="post-actions-wrap">
     <nav>
         <ul class="post-actions post-action-nav">
@@ -483,13 +502,14 @@ epoch 10000 -- loss 0.3252090811729431
             
         
     </div>
+    
 </article>
 
 
 
                 <footer id="footer" class="main-content-wrap">
     <span class="copyrights">
-        Copyrights &copy; 2021 EmjayAhn(Minjae Ahn). All Rights Reserved.
+        Copyrights &copy; 2021 EmjayAhn. All Rights Reserved.
     </span>
 </footer>
 
@@ -637,19 +657,25 @@ epoch 10000 -- loss 0.3252090811729431
             <i class="fa fa-times"></i>
         </div>
         
-            <h4 id="about-card-name">EmjayAhn(Minjae Ahn)</h4>
+            <h4 id="about-card-name">EmjayAhn</h4>
         
-            <div id="about-card-bio"><p>author.bio</p>
+            <div id="about-card-bio"><p>나스미디어</p>
 </div>
         
         
             <div id="about-card-job">
                 <i class="fa fa-briefcase"></i>
                 <br/>
-                <p>author.job</p>
+                <p>Data Scientist</p>
 
             </div>
         
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker-alt"></i>
+                <br/>
+                서울, 대한민국
+            </div>
         
     </div>
 </div>

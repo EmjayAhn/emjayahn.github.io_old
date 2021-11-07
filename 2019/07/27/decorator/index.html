@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Emjay, 오늘도 새롭게">
     <title>[Python] 쉽게 쓰여진 Decorator - Emjay, 오늘도 새롭게</title>
-    <meta name="author" content="EmjayAhn(Minjae Ahn)">
+    <meta name="author" content="EmjayAhn">
     
         <meta name="keywords" content="데이터사이언스,머신러닝,딥러닝,개발,machine learning,deep learning,datascience,datascientist,">
     
@@ -17,7 +17,7 @@
             <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss2.xml">
         
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"EmjayAhn(Minjae Ahn)","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","mailto"]},"articleBody":"오픈소스나, 다른 사람들이 만든 코드를 재수정한 코드, 제가 짠 코드에 대해 다양한 디버깅과 좀 더 다른 기능을 추가하고 싶을 때, 우리는 Decorator 를 자주 접하게 됩니다. Python 실력을 한층 업그레이드 하기 위함과, 코딩의 또 다른 목적이이 귀차니즘의 해결 이라고 생각할 때 Decorator 에 대한 이해는 그 시작 관문이 됩니다. 이번 글에서는 이 Decorator 에 대한 개념을 쉽게 설명하려고 노력하였습니다.\n\n많은 책들에서 Decorator 의 설명을 본격적으로 들어가기에 앞서, python에서의 변수의 범위와 전역변수, 지역변수, 자유변수 등을 설명하고, 자칫 정신을 혼미하게 만들 수 있는 클로져(closure)를 설명한 뒤에 Decorator 를 만나게 됩니다. 물론 모두 Decorator 에서만아니라 파이썬을 다루고, 컴퓨터 과학을 공부하며, 필수적으로 알아야하는 중요한 개념이긴 하나, 이번 글에서는 예제들을 통해 Decorator 를 짜는 방법과 어떻게 구동이 되는지 실용적인 개념에 대해 요약 정리하려고 합니다.\n1. Decorator란?\nDecorator : 호출 가능한 객체 로써, 호출 가능한 객체를 입력으로 받아, 호출 가능한 객체 를 반환하는 함수\n\nDecorator 를 만들 때, 가장 첫번째로 성립해야하는 구조가 위처럼, Decorator 기능을 하게 될 함수가 호출 가능해야하고, 입력에 호출 가능한 객체를 받아, 반환하는 객체도 호출 가능한 객체로 반환 해주어야 합니다.위의 정의를 만족하는 세상에서 가장 간단한 Decorator 를 다음의 예제코드로 만들 수 있습니다.\n\n\n위의 간단한 코드의 동작 순서를 살펴봅니다.\n123456(3) 에서 say_hi 라는 함수 객체가 dumb_decorator 함수의 입력으로 들어가, dumb_decorator() 함수를 호출합니다.(1) 에서 dumb_decorator는 입력받은 함수 객체(say_hi) 자체를 반환합니다.dumb_decorator 가 반환한 함수객체를 (3)의 decorated 에 저장합니다. 3.에서 decorated는 함수 객체 자체입니다. (4) 에서 decorated() 로, 함수 객체를 실행한 결과를 text 에 저장합니다. 이 코드에서 결국 decorated 함수 객체가 실행되면, say_hi 함수가 실행되고, say_hi함수의 반환값인 &quot;Hi, Hi&quot; 가 text 에 저장되어,(5)에서 출력됩니다.\n위의 코드의 결과는 Hi, Hi 가 출력되는 아무 기능이 없는 기본 함수(say_hi)와 Decorator 입니다. 위와 같은 결과이지만, Decorator 문법인 @를 사용한 코드는 다음과 같습니다.\n\n\n위의 두 예제 코드는 같은 결과를 내지만, 앞서 정의된 dumb_decorator 가 첫번째 예제에서는 꾸미려고하는 say_hi 함수를 dumb_decorator의 입력으로 넣어주어 코드를 실행 시켜 주어야 했습니다. 두번째 예제에서는 꾸미려고하는 say_hi 함수의 선언시 @dumb_decorator 를 먼저 적어주고, 꾸며진 함수 say_hi() 를 실행하는 점에서 차이가 있습니다.앞서 처음에 등장한 구조적 정의를 위 예제에 대입하여 살펴봅니다.\n\nDecorator : 호출 가능한 객체 로써, 호출 가능한 객체를 입력으로 받아, 호출 가능한 객체 를 반환하는 함수\n\n호출 가능한 객체로써 (dumb_decorator), 호출 가능한 객체(say_hi)를 입력으로 받아, 호출 가능한 객체((1)에 return func)를 반환하는 함수 일 때, @decorator로 동작 할 수 있습니다.\n2. Decorator를 Decorator 처럼1에서 Decorator의 핵심적인 구조를 살펴보았습니다. 이제 본격적으로 Decorator를 사용되기 위해선, decorator 내부에 입력함수의 기능을 꾸며주는 wrapper 함수가 필요합니다. 예제로 살펴보겠습니다. \n\n\n첫번째 예제와 다른 점이라곤, 우리가 꾸미려고 하는 decorator 함수 안에 내부 wrapper 함수를 추가해줌으로써, 우리가 꾸미려는 내용을 선언해주었습니다. \n3. Decorator 의 장점?위에 본 예제를 극단적인 case 로 몰고 가보죠. 우리가 꾸며야할 함수가 많다고 상상해 보겠습니다. 기존에 잘 동작하던 프로그램이 있을 때, 프로그램의 로그가 궁금하다던가, 신경망을 학습시키는 코드에 대해 각 layer 의 gradient 나 출력값을 보고 싶을 수 있습니다. 우리가 decorator 를 사용하지 않는다면, 첫번째 코드 예시 처럼 일일히 다 실행시켜주어야 하는 문제가 발생합니다. 우리는 사용하려고 하는 함수를 선언할때 @decorator 를 붙여 줌으로써, 이러한 귀차니즘을 해결할 수 있습니다. 예제를 통해 살펴보겠습니다.기존에도 잘 돌아가는 프로그램 3개의 log 를 찍어야 하는 순간이 찾아왔다고 가정합니다. generator 를 사용하는 것과 그렇지 않은 것을 비교해봄으로써 generator 의 고마움을 느껴볼 수 있습니다. 이번 예제에서는 간단하게 그 log 를 프로그램 return 형의 글자(character) 수로 생각해보죠.\n\n\n기존에 존재하던 프로그램이 program_1, program_2, program_3 이라고 생각해보고, 추가적으로 우리가 my_decorator 라는 코드를 통해 각 프로그램의 로그(여기선, charater 수)를 찍어야 하는 task 가 주어졌습니다. 우리가 decorator 를 알기 전이라면, 위와 같이 코드를 작성해 준 후,실행부분에서 각 프로그램을 decorator 에 넣어주어, 꾸며진 결과 객체를 가지고, 이를 다시 실행해주는 행동을 반복해 주어야 합니다. 이제 decorator 의 고마움을 느껴볼 차례입니다.\n\n\n4. 마치며간단한 예제를 통해 Decorator 가 어떻게 동작하는지, 어떻게 구성해야하는지 핵심적인 부분이 이해됐길 바랍니다. 조금더 공부할 수 있는 키워드는 클로져 (closure), free variable 등이 있을 수 있습니다. 위 키워드의 공부를 통해 조금더 자유로운 generator 설계를 할 수 있을 것으로 믿습니다.\n","dateCreated":"2019-07-27T18:46:17+09:00","dateModified":"2019-08-06T22:13:29+09:00","datePublished":"2019-07-27T18:46:17+09:00","description":"오픈소스나, 다른 사람들이 만든 코드를 재수정한 코드, 제가 짠 코드에 대해 다양한 디버깅과 좀 더 다른 기능을 추가하고 싶을 때, 우리는 Decorator 를 자주 접하게 됩니다. Python 실력을 한층 업그레이드 하기 위함과, 코딩의 또 다른 목적이이 귀차니즘의 해결 이라고 생각할 때 Decorator 에 대한 이해는 그 시작 관문이 됩니다. 이번 글에서는 이 Decorator 에 대한 개념을 쉽게 설명하려고 노력하였습니다.","headline":"[Python] 쉽게 쓰여진 Decorator","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://emjayahn.github.io/2019/07/27/decorator/"},"publisher":{"@type":"Organization","name":"EmjayAhn(Minjae Ahn)","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","mailto"]},"url":"https://emjayahn.github.io/2019/07/27/decorator/","keywords":"python, decorator, 데코레이터"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"},"articleBody":"오픈소스나, 다른 사람들이 만든 코드를 재수정한 코드, 제가 짠 코드에 대해 다양한 디버깅과 좀 더 다른 기능을 추가하고 싶을 때, 우리는 Decorator 를 자주 접하게 됩니다. Python 실력을 한층 업그레이드 하기 위함과, 코딩의 또 다른 목적이이 귀차니즘의 해결 이라고 생각할 때 Decorator 에 대한 이해는 그 시작 관문이 됩니다. 이번 글에서는 이 Decorator 에 대한 개념을 쉽게 설명하려고 노력하였습니다.\n\n많은 책들에서 Decorator 의 설명을 본격적으로 들어가기에 앞서, python에서의 변수의 범위와 전역변수, 지역변수, 자유변수 등을 설명하고, 자칫 정신을 혼미하게 만들 수 있는 클로져(closure)를 설명한 뒤에 Decorator 를 만나게 됩니다. 물론 모두 Decorator 에서만아니라 파이썬을 다루고, 컴퓨터 과학을 공부하며, 필수적으로 알아야하는 중요한 개념이긴 하나, 이번 글에서는 예제들을 통해 Decorator 를 짜는 방법과 어떻게 구동이 되는지 실용적인 개념에 대해 요약 정리하려고 합니다.\n1. Decorator란?\nDecorator : 호출 가능한 객체 로써, 호출 가능한 객체를 입력으로 받아, 호출 가능한 객체 를 반환하는 함수\n\nDecorator 를 만들 때, 가장 첫번째로 성립해야하는 구조가 위처럼, Decorator 기능을 하게 될 함수가 호출 가능해야하고, 입력에 호출 가능한 객체를 받아, 반환하는 객체도 호출 가능한 객체로 반환 해주어야 합니다.위의 정의를 만족하는 세상에서 가장 간단한 Decorator 를 다음의 예제코드로 만들 수 있습니다.\n\n\n위의 간단한 코드의 동작 순서를 살펴봅니다.\n123456(3) 에서 say_hi 라는 함수 객체가 dumb_decorator 함수의 입력으로 들어가, dumb_decorator() 함수를 호출합니다.(1) 에서 dumb_decorator는 입력받은 함수 객체(say_hi) 자체를 반환합니다.dumb_decorator 가 반환한 함수객체를 (3)의 decorated 에 저장합니다. 3.에서 decorated는 함수 객체 자체입니다. (4) 에서 decorated() 로, 함수 객체를 실행한 결과를 text 에 저장합니다. 이 코드에서 결국 decorated 함수 객체가 실행되면, say_hi 함수가 실행되고, say_hi함수의 반환값인 &quot;Hi, Hi&quot; 가 text 에 저장되어,(5)에서 출력됩니다.\n위의 코드의 결과는 Hi, Hi 가 출력되는 아무 기능이 없는 기본 함수(say_hi)와 Decorator 입니다. 위와 같은 결과이지만, Decorator 문법인 @를 사용한 코드는 다음과 같습니다.\n\n\n위의 두 예제 코드는 같은 결과를 내지만, 앞서 정의된 dumb_decorator 가 첫번째 예제에서는 꾸미려고하는 say_hi 함수를 dumb_decorator의 입력으로 넣어주어 코드를 실행 시켜 주어야 했습니다. 두번째 예제에서는 꾸미려고하는 say_hi 함수의 선언시 @dumb_decorator 를 먼저 적어주고, 꾸며진 함수 say_hi() 를 실행하는 점에서 차이가 있습니다.앞서 처음에 등장한 구조적 정의를 위 예제에 대입하여 살펴봅니다.\n\nDecorator : 호출 가능한 객체 로써, 호출 가능한 객체를 입력으로 받아, 호출 가능한 객체 를 반환하는 함수\n\n호출 가능한 객체로써 (dumb_decorator), 호출 가능한 객체(say_hi)를 입력으로 받아, 호출 가능한 객체((1)에 return func)를 반환하는 함수 일 때, @decorator로 동작 할 수 있습니다.\n2. Decorator를 Decorator 처럼1에서 Decorator의 핵심적인 구조를 살펴보았습니다. 이제 본격적으로 Decorator를 사용되기 위해선, decorator 내부에 입력함수의 기능을 꾸며주는 wrapper 함수가 필요합니다. 예제로 살펴보겠습니다. \n\n\n첫번째 예제와 다른 점이라곤, 우리가 꾸미려고 하는 decorator 함수 안에 내부 wrapper 함수를 추가해줌으로써, 우리가 꾸미려는 내용을 선언해주었습니다. \n3. Decorator 의 장점?위에 본 예제를 극단적인 case 로 몰고 가보죠. 우리가 꾸며야할 함수가 많다고 상상해 보겠습니다. 기존에 잘 동작하던 프로그램이 있을 때, 프로그램의 로그가 궁금하다던가, 신경망을 학습시키는 코드에 대해 각 layer 의 gradient 나 출력값을 보고 싶을 수 있습니다. 우리가 decorator 를 사용하지 않는다면, 첫번째 코드 예시 처럼 일일히 다 실행시켜주어야 하는 문제가 발생합니다. 우리는 사용하려고 하는 함수를 선언할때 @decorator 를 붙여 줌으로써, 이러한 귀차니즘을 해결할 수 있습니다. 예제를 통해 살펴보겠습니다.기존에도 잘 돌아가는 프로그램 3개의 log 를 찍어야 하는 순간이 찾아왔다고 가정합니다. generator 를 사용하는 것과 그렇지 않은 것을 비교해봄으로써 generator 의 고마움을 느껴볼 수 있습니다. 이번 예제에서는 간단하게 그 log 를 프로그램 return 형의 글자(character) 수로 생각해보죠.\n\n\n기존에 존재하던 프로그램이 program_1, program_2, program_3 이라고 생각해보고, 추가적으로 우리가 my_decorator 라는 코드를 통해 각 프로그램의 로그(여기선, charater 수)를 찍어야 하는 task 가 주어졌습니다. 우리가 decorator 를 알기 전이라면, 위와 같이 코드를 작성해 준 후,실행부분에서 각 프로그램을 decorator 에 넣어주어, 꾸며진 결과 객체를 가지고, 이를 다시 실행해주는 행동을 반복해 주어야 합니다. 이제 decorator 의 고마움을 느껴볼 차례입니다.\n\n\n4. 마치며간단한 예제를 통해 Decorator 가 어떻게 동작하는지, 어떻게 구성해야하는지 핵심적인 부분이 이해됐길 바랍니다. 조금더 공부할 수 있는 키워드는 클로져 (closure), free variable 등이 있을 수 있습니다. 위 키워드의 공부를 통해 조금더 자유로운 generator 설계를 할 수 있을 것으로 믿습니다.\n","dateCreated":"2019-07-27T18:46:17+09:00","dateModified":"2021-11-07T13:54:50+09:00","datePublished":"2019-07-27T18:46:17+09:00","description":"오픈소스나, 다른 사람들이 만든 코드를 재수정한 코드, 제가 짠 코드에 대해 다양한 디버깅과 좀 더 다른 기능을 추가하고 싶을 때, 우리는 Decorator 를 자주 접하게 됩니다. Python 실력을 한층 업그레이드 하기 위함과, 코딩의 또 다른 목적이이 귀차니즘의 해결 이라고 생각할 때 Decorator 에 대한 이해는 그 시작 관문이 됩니다. 이번 글에서는 이 Decorator 에 대한 개념을 쉽게 설명하려고 노력하였습니다.","headline":"[Python] 쉽게 쓰여진 Decorator","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://emjayahn.github.io/2019/07/27/decorator/"},"publisher":{"@type":"Organization","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478","logo":{"@type":"ImageObject","url":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"}},"url":"https://emjayahn.github.io/2019/07/27/decorator/","keywords":"python, decorator, 데코레이터"}</script>
     <meta name="description" content="오픈소스나, 다른 사람들이 만든 코드를 재수정한 코드, 제가 짠 코드에 대해 다양한 디버깅과 좀 더 다른 기능을 추가하고 싶을 때, 우리는 Decorator 를 자주 접하게 됩니다. Python 실력을 한층 업그레이드 하기 위함과, 코딩의 또 다른 목적이이 귀차니즘의 해결 이라고 생각할 때 Decorator 에 대한 이해는 그 시작 관문이 됩니다. 이번 글">
 <meta name="keywords" content="python,decorator,데코레이터">
 <meta property="og:type" content="blog">
@@ -26,7 +26,7 @@
 <meta property="og:site_name" content="Emjay, 오늘도 새롭게">
 <meta property="og:description" content="오픈소스나, 다른 사람들이 만든 코드를 재수정한 코드, 제가 짠 코드에 대해 다양한 디버깅과 좀 더 다른 기능을 추가하고 싶을 때, 우리는 Decorator 를 자주 접하게 됩니다. Python 실력을 한층 업그레이드 하기 위함과, 코딩의 또 다른 목적이이 귀차니즘의 해결 이라고 생각할 때 Decorator 에 대한 이해는 그 시작 관문이 됩니다. 이번 글">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-06T13:13:29.000Z">
+<meta property="og:updated_time" content="2021-11-07T04:54:50.863Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Python] 쉽게 쓰여진 Decorator">
 <meta name="twitter:description" content="오픈소스나, 다른 사람들이 만든 코드를 재수정한 코드, 제가 짠 코드에 대해 다양한 디버깅과 좀 더 다른 기능을 추가하고 싶을 때, 우리는 Decorator 를 자주 접하게 됩니다. Python 실력을 한층 업그레이드 하기 위함과, 코딩의 또 다른 목적이이 귀차니즘의 해결 이라고 생각할 때 Decorator 에 대한 이해는 그 시작 관문이 됩니다. 이번 글">
@@ -109,52 +109,10 @@
                             href="/"
                             
                             rel="noopener"
-                            title="Home"
+                            title="홈"
                         >
                         <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Home</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-categories"
-                            
-                            rel="noopener"
-                            title="Categories"
-                        >
-                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Categories</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-tags"
-                            
-                            rel="noopener"
-                            title="Tags"
-                        >
-                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Tags</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link open-algolia-search"
-                            href="/all-archives"
-                            
-                            rel="noopener"
-                            title="Archives"
-                        >
-                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Archives</span>
+                        <span class="sidebar-button-desc">홈</span>
                     </a>
             </li>
             
@@ -165,10 +123,52 @@
                             href="#about"
                             
                             rel="noopener"
-                            title="About"
+                            title="Emjay"
                         >
                         <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">About</span>
+                        <span class="sidebar-button-desc">Emjay</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-categories"
+                            
+                            rel="noopener"
+                            title="카테고리"
+                        >
+                        <i class="sidebar-button-icon fa fa-code" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">카테고리</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="태그"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">태그</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link open-algolia-search"
+                            href="/all-archives"
+                            
+                            rel="noopener"
+                            title="아카이브"
+                        >
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">아카이브</span>
                     </a>
             </li>
             
@@ -212,7 +212,25 @@
                     
                         <a
                             class="sidebar-button-link "
-                            href="/mailto"
+                            href="https://instagram.com/emjay.data_science"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Instagram"
+                        >
+                        <i class="sidebar-button-icon fab fa-instagram" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Instagram</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="mailto:emjay.data@gmail.com"
+                            
+                                target="_blank"
                             
                             rel="noopener"
                             title="Mail"
@@ -328,6 +346,7 @@
             </div>
         
         
+        
             <div class="post-actions-wrap">
     <nav>
         <ul class="post-actions post-action-nav">
@@ -431,13 +450,14 @@
             
         
     </div>
+    
 </article>
 
 
 
                 <footer id="footer" class="main-content-wrap">
     <span class="copyrights">
-        Copyrights &copy; 2021 EmjayAhn(Minjae Ahn). All Rights Reserved.
+        Copyrights &copy; 2021 EmjayAhn. All Rights Reserved.
     </span>
 </footer>
 
@@ -585,19 +605,25 @@
             <i class="fa fa-times"></i>
         </div>
         
-            <h4 id="about-card-name">EmjayAhn(Minjae Ahn)</h4>
+            <h4 id="about-card-name">EmjayAhn</h4>
         
-            <div id="about-card-bio"><p>author.bio</p>
+            <div id="about-card-bio"><p>나스미디어</p>
 </div>
         
         
             <div id="about-card-job">
                 <i class="fa fa-briefcase"></i>
                 <br/>
-                <p>author.job</p>
+                <p>Data Scientist</p>
 
             </div>
         
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker-alt"></i>
+                <br/>
+                서울, 대한민국
+            </div>
         
     </div>
 </div>

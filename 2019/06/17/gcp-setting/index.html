@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Emjay, 오늘도 새롭게">
     <title>[GCP] Computing Engine 환경설정 - Emjay, 오늘도 새롭게</title>
-    <meta name="author" content="EmjayAhn(Minjae Ahn)">
+    <meta name="author" content="EmjayAhn">
     
         <meta name="keywords" content="데이터사이언스,머신러닝,딥러닝,개발,machine learning,deep learning,datascience,datascientist,">
     
@@ -17,7 +17,7 @@
             <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss2.xml">
         
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"EmjayAhn(Minjae Ahn)","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","mailto"]},"articleBody":"Computing Engine 환경설정\n이번 글은, Google Cloud Platform의 Computing Engine 인스턴스의 기본적인 환경설정 방법을 소개하는 글입니다. 직접 작업환경을 세팅하면서, 정리 하는 목적으로 작성하는 글입니다.\n\n\n\n다음과 같은 환경을 설정합니다.\n\n\n인스턴스 생성 및 네트워크 설정\n접속을 위한 ssh 생성 및 접속\npython3, pip3 설치\nCUDA 설치\ncuDNN 설치\nPytorch 설치\nJupyter 설치 및 환경설정\n\n1. 인스턴스 생성 및 네트워크 설정Compute Engine에서 자신의 목적에 맞는 리소스를 정해, 인스턴스를 생성해줍니다.\n\nJupyter  notebook 을 사용하기 위해, VPC 네트워크 → 방화벽 규칙 탭에서 방화벽 규칙을 만들어 줍니다. 후에 Tensorboard 와 다른 기타 환경들을 사용할 때 그에 맞는 포트 규칙을 동일한 방법으로 열어주면 됩니다. 아래의 4가지를 설정해주고 ‘만들기’ 클릭\n이름 : jupyter\n소스 IP 범위: 0.0.0.0/0\n대상 태그: jupyter\ntcp: 8888\nhttp, https: 체크\n\n2. 접속을 위한 RSA key pair 생성 및 ssh 접속\ngcp 에서 제공하는 gcloud로도 접속 할 수 있습니다.\n\n\n위에서 생성한 인스턴스에 접속하기 위해, RSA key pair 를 이를 통해 접속 해 봅니다. 아래의 명령어를 이용해 키페어를 생성해 줍니다. 이 때, USERNAME 은 gcp에 등록한 이메일로 설정합니다.\n $ ssh-keygen -t rsa -f ~/.ssh/[KEYFILE_NAME] -C “[USERNAME]”\n example) $ ssh-keygen -t rsa -f ~/.ssh/gcp-key -C “myemail@mail.com”\n\n\n앞으로 사용할 Password 를 입력하고, \n생성된 키페어는 .ssh 폴더 안에서 확인 할 수 있습니다. .ssh/[KEYFILE_NAME].pub 를 확인해 볼 수 있습니다.\n\n생성한 키페어를 gcp 의 메타데이터 탭 → SSH 키에 등록합니다.\n\n\n\nssh 접속\n $ ssh -i ~/.ssh/[KEYFILE_NAME] [USERNAME]@[GCP외부IP]\n\n\n3. Python3, PIP 설치위에서 서버에 접속했다면, 서버의 개발환경을 설정해 주기만 하면 됩니다. python3 와 pip 부터 설치해 봅니다.\n\nlocale 설정123456$ sudo apt install language-pack-ko$ sudo locale-gen ko_KR.UTF-8$ export LC_ALL=\"en_US.UTF-8\"$ export LC_CTYPE=\"en_US.UTF-8\"$ sudo dpkg-reconfigure locales\n\n\nen_US.UTF-8이 [*] 로 체크 되어 있는지까지 확인합니다.\n\nPython3, PIP 설치12$ sudo apt update$ sudo apt install python3-pip\n\n\n설치 후, python3 --version 으로 python 이 잘 설치 되었는지 확인합니다.\n4. CUDA 설치우리가 가장 원하는 리소스인 gpu를 활용한 연산을 위해 CUDA 를 설치 해 줍니다.\n\n먼저, 설치 파일을 다운로드 해줍니다.\n\n12// 루트에서$ wget https://developer.nvidia.com/compute/cuda/10.0/Prod/local_installers/cuda-repo-ubuntu1804-10-0-local-10.0.130-410.48_1.0-1_amd64\n\nls 로 cuda-repo-ubuntu1804-10-0-local-10.0.130-410.48_1.0-1_amd64.deb 이 잘 다운로드 되었는지 확인 해 줍니다. 다운로드 결과 .deb 확장자가 되어있지 않다면, 파일명에 .deb 를 뒤에 붙여 줍니다.\n\nmv cuda-repo-ubuntu1804-10-0-local-10.0.130-410.48_1.0-1_amd64 cuda-repo-ubuntu1804-10-0-local-10.0.130-410.48_1.0-1_amd64.deb\n\n설치12345$ sudo dpkg -i cuda-repo-ubuntu1804-10-0-local-10.0.130-410.48_1.0-1_amd64.deb$ sudo apt-key add /var/cuda-repo-&lt;version&gt;/7fa2af80.pub### $ sudo apt-key add /var/cuda-repo-10-0-local-10.0.130-410.48/7fa2af80.pub$ sudo apt update$ sudo apt install cuda\n\n\nCUDA 가 정상적으로 설치되었다면,  $ nvidia-smi 를 통해 자신의 gpu 상태를 확인 할 수 있습니다. 또한, /usr/local/cuda/version.txt 에 설치한 CUDA, 현재는 10.0의 version 을 확인 할 수 있습니다.\n\nNVIDA tool-kit 설치1sudo apt install nvidia-cuda-toolkit\n\n\n5. cuDNN 설치다음의 명령어를 통해 cuDNN 을 설치 할 수 있습니다.123$ sudo sh -c 'echo \"deb http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64 /\" &gt;&gt; /etc/apt/sources.list.d/cuda.list'$ sudo apt update$ sudo apt install libcudnn7-dev\n6. Pytorch 설치\n우리는 서버가 https 프로토콜을 사용한다고 체크했으므로 -H  flag 를 주어 sudo pip3 를 활용해야합니다.12$ sudo -H pip3 install https://download.pytorch.org/whl/cu100/torch-1.1.0-cp36-cp36m-linux_x86_64.whl$ sudo -H pip3 install https://download.pytorch.org/whl/cu100/torchvision-0.3.0-cp36-cp36m-linux_x86_64.whl\n\n\n7. Jupyter Notebook 설치 및 환경설정\nJupyter를 설치합니다.1$ sudo -H pip3 install jupyter\n\n\n설치 후, $ jupyter notebook 으로 주피터 커널이 켜지는지 확인합니다.\n\n주피터 config 파일을 생성합니다.\n1$ jupyter notebook --generate-config\n\n비밀번호를 생성합니다. 이 비밀번호는 지금 설치한 주피터 환경에 들어가기 위한 비밀번호 입니다.\n12345$ ipythonfrom notebook.auth import passwdpasswd()Enter Password: 사용할 비밀번호 입력Verify Password: 사용할 비밀번호 입력\n\n\n출력된 비밀번호 해쉬  sha1: ~~~ 를 복사해 둡니다.\n\n우리의 인스턴스는 https 프로토콜을 사용하므로, SSL 키파일을 생성해야 합니다.1$ openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout cert.pem -out cert.pem\n\n\n위 명령어를 입력하고, 뒤따라 나오는 정보들을 입력하여, .pem 파일을 생성합니다.\n\n\n에서 생성한 config 파일 수정1$ vi /home/[USERNAME]/.jupyter/jupyter_notebook_config.py\n\n\n\n\n123456// config 파일에 다음의 내용을 추가합니다.c = get_config()c.NotebookApp.ip = &apos;내부아이피주소&apos;c.NotebookApp.open_browser=Falsec.NotebookApp.password=&apos;3에서 생성한 비밀번호 해쉬 sha1:~&apos;c.Notebook.certfile=&apos;4에서 생성한 .pem 파일 경로 /home/USERNAME/cert.pem&apos;\n위까지 완료하게 되었으면, 주피터 서버를 열고,  https://외부아이피:8888  로 주피터를 접속 하는 것을 확인하시면 되겠습니다.\n","dateCreated":"2019-06-17T20:54:01+09:00","dateModified":"2019-11-04T12:10:35+09:00","datePublished":"2019-06-17T20:54:01+09:00","description":"Computing Engine 환경설정\n이번 글은, Google Cloud Platform의 Computing Engine 인스턴스의 기본적인 환경설정 방법을 소개하는 글입니다. 직접 작업환경을 세팅하면서, 정리 하는 목적으로 작성하는 글입니다.\n","headline":"[GCP] Computing Engine 환경설정","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://emjayahn.github.io/2019/06/17/gcp-setting/"},"publisher":{"@type":"Organization","name":"EmjayAhn(Minjae Ahn)","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","mailto"]},"url":"https://emjayahn.github.io/2019/06/17/gcp-setting/","keywords":"Google Cloud Platform"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"},"articleBody":"Computing Engine 환경설정\n이번 글은, Google Cloud Platform의 Computing Engine 인스턴스의 기본적인 환경설정 방법을 소개하는 글입니다. 직접 작업환경을 세팅하면서, 정리 하는 목적으로 작성하는 글입니다.\n\n\n\n다음과 같은 환경을 설정합니다.\n\n\n인스턴스 생성 및 네트워크 설정\n접속을 위한 ssh 생성 및 접속\npython3, pip3 설치\nCUDA 설치\ncuDNN 설치\nPytorch 설치\nJupyter 설치 및 환경설정\n\n1. 인스턴스 생성 및 네트워크 설정Compute Engine에서 자신의 목적에 맞는 리소스를 정해, 인스턴스를 생성해줍니다.\n\nJupyter  notebook 을 사용하기 위해, VPC 네트워크 → 방화벽 규칙 탭에서 방화벽 규칙을 만들어 줍니다. 후에 Tensorboard 와 다른 기타 환경들을 사용할 때 그에 맞는 포트 규칙을 동일한 방법으로 열어주면 됩니다. 아래의 4가지를 설정해주고 ‘만들기’ 클릭\n이름 : jupyter\n소스 IP 범위: 0.0.0.0/0\n대상 태그: jupyter\ntcp: 8888\nhttp, https: 체크\n\n2. 접속을 위한 RSA key pair 생성 및 ssh 접속\ngcp 에서 제공하는 gcloud로도 접속 할 수 있습니다.\n\n\n위에서 생성한 인스턴스에 접속하기 위해, RSA key pair 를 이를 통해 접속 해 봅니다. 아래의 명령어를 이용해 키페어를 생성해 줍니다. 이 때, USERNAME 은 gcp에 등록한 이메일로 설정합니다.\n $ ssh-keygen -t rsa -f ~/.ssh/[KEYFILE_NAME] -C “[USERNAME]”\n example) $ ssh-keygen -t rsa -f ~/.ssh/gcp-key -C “myemail@mail.com”\n\n\n앞으로 사용할 Password 를 입력하고, \n생성된 키페어는 .ssh 폴더 안에서 확인 할 수 있습니다. .ssh/[KEYFILE_NAME].pub 를 확인해 볼 수 있습니다.\n\n생성한 키페어를 gcp 의 메타데이터 탭 → SSH 키에 등록합니다.\n\n\n\nssh 접속\n $ ssh -i ~/.ssh/[KEYFILE_NAME] [USERNAME]@[GCP외부IP]\n\n\n3. Python3, PIP 설치위에서 서버에 접속했다면, 서버의 개발환경을 설정해 주기만 하면 됩니다. python3 와 pip 부터 설치해 봅니다.\n\nlocale 설정123456$ sudo apt install language-pack-ko$ sudo locale-gen ko_KR.UTF-8$ export LC_ALL=\"en_US.UTF-8\"$ export LC_CTYPE=\"en_US.UTF-8\"$ sudo dpkg-reconfigure locales\n\n\nen_US.UTF-8이 [*] 로 체크 되어 있는지까지 확인합니다.\n\nPython3, PIP 설치12$ sudo apt update$ sudo apt install python3-pip\n\n\n설치 후, python3 --version 으로 python 이 잘 설치 되었는지 확인합니다.\n4. CUDA 설치우리가 가장 원하는 리소스인 gpu를 활용한 연산을 위해 CUDA 를 설치 해 줍니다.\n\n먼저, 설치 파일을 다운로드 해줍니다.\n\n12// 루트에서$ wget https://developer.nvidia.com/compute/cuda/10.0/Prod/local_installers/cuda-repo-ubuntu1804-10-0-local-10.0.130-410.48_1.0-1_amd64\n\nls 로 cuda-repo-ubuntu1804-10-0-local-10.0.130-410.48_1.0-1_amd64.deb 이 잘 다운로드 되었는지 확인 해 줍니다. 다운로드 결과 .deb 확장자가 되어있지 않다면, 파일명에 .deb 를 뒤에 붙여 줍니다.\n\nmv cuda-repo-ubuntu1804-10-0-local-10.0.130-410.48_1.0-1_amd64 cuda-repo-ubuntu1804-10-0-local-10.0.130-410.48_1.0-1_amd64.deb\n\n설치12345$ sudo dpkg -i cuda-repo-ubuntu1804-10-0-local-10.0.130-410.48_1.0-1_amd64.deb$ sudo apt-key add /var/cuda-repo-&lt;version&gt;/7fa2af80.pub### $ sudo apt-key add /var/cuda-repo-10-0-local-10.0.130-410.48/7fa2af80.pub$ sudo apt update$ sudo apt install cuda\n\n\nCUDA 가 정상적으로 설치되었다면,  $ nvidia-smi 를 통해 자신의 gpu 상태를 확인 할 수 있습니다. 또한, /usr/local/cuda/version.txt 에 설치한 CUDA, 현재는 10.0의 version 을 확인 할 수 있습니다.\n\nNVIDA tool-kit 설치1sudo apt install nvidia-cuda-toolkit\n\n\n5. cuDNN 설치다음의 명령어를 통해 cuDNN 을 설치 할 수 있습니다.123$ sudo sh -c 'echo \"deb http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64 /\" &gt;&gt; /etc/apt/sources.list.d/cuda.list'$ sudo apt update$ sudo apt install libcudnn7-dev\n6. Pytorch 설치\n우리는 서버가 https 프로토콜을 사용한다고 체크했으므로 -H  flag 를 주어 sudo pip3 를 활용해야합니다.12$ sudo -H pip3 install https://download.pytorch.org/whl/cu100/torch-1.1.0-cp36-cp36m-linux_x86_64.whl$ sudo -H pip3 install https://download.pytorch.org/whl/cu100/torchvision-0.3.0-cp36-cp36m-linux_x86_64.whl\n\n\n7. Jupyter Notebook 설치 및 환경설정\nJupyter를 설치합니다.1$ sudo -H pip3 install jupyter\n\n\n설치 후, $ jupyter notebook 으로 주피터 커널이 켜지는지 확인합니다.\n\n주피터 config 파일을 생성합니다.\n1$ jupyter notebook --generate-config\n\n비밀번호를 생성합니다. 이 비밀번호는 지금 설치한 주피터 환경에 들어가기 위한 비밀번호 입니다.\n12345$ ipythonfrom notebook.auth import passwdpasswd()Enter Password: 사용할 비밀번호 입력Verify Password: 사용할 비밀번호 입력\n\n\n출력된 비밀번호 해쉬  sha1: ~~~ 를 복사해 둡니다.\n\n우리의 인스턴스는 https 프로토콜을 사용하므로, SSL 키파일을 생성해야 합니다.1$ openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout cert.pem -out cert.pem\n\n\n위 명령어를 입력하고, 뒤따라 나오는 정보들을 입력하여, .pem 파일을 생성합니다.\n\n\n에서 생성한 config 파일 수정1$ vi /home/[USERNAME]/.jupyter/jupyter_notebook_config.py\n\n\n\n\n123456// config 파일에 다음의 내용을 추가합니다.c = get_config()c.NotebookApp.ip = &apos;내부아이피주소&apos;c.NotebookApp.open_browser=Falsec.NotebookApp.password=&apos;3에서 생성한 비밀번호 해쉬 sha1:~&apos;c.Notebook.certfile=&apos;4에서 생성한 .pem 파일 경로 /home/USERNAME/cert.pem&apos;\n위까지 완료하게 되었으면, 주피터 서버를 열고,  https://외부아이피:8888  로 주피터를 접속 하는 것을 확인하시면 되겠습니다.\n","dateCreated":"2019-06-17T20:54:01+09:00","dateModified":"2019-11-04T12:10:35+09:00","datePublished":"2019-06-17T20:54:01+09:00","description":"Computing Engine 환경설정\n이번 글은, Google Cloud Platform의 Computing Engine 인스턴스의 기본적인 환경설정 방법을 소개하는 글입니다. 직접 작업환경을 세팅하면서, 정리 하는 목적으로 작성하는 글입니다.\n","headline":"[GCP] Computing Engine 환경설정","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://emjayahn.github.io/2019/06/17/gcp-setting/"},"publisher":{"@type":"Organization","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478","logo":{"@type":"ImageObject","url":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"}},"url":"https://emjayahn.github.io/2019/06/17/gcp-setting/","keywords":"Google Cloud Platform"}</script>
     <meta name="description" content="Computing Engine 환경설정 이번 글은, Google Cloud Platform의 Computing Engine 인스턴스의 기본적인 환경설정 방법을 소개하는 글입니다. 직접 작업환경을 세팅하면서, 정리 하는 목적으로 작성하는 글입니다.">
 <meta name="keywords" content="Google Cloud Platform">
 <meta property="og:type" content="blog">
@@ -113,52 +113,10 @@
                             href="/"
                             
                             rel="noopener"
-                            title="Home"
+                            title="홈"
                         >
                         <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Home</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-categories"
-                            
-                            rel="noopener"
-                            title="Categories"
-                        >
-                        <i class="sidebar-button-icon fa fa-bookmark" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Categories</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link "
-                            href="/all-tags"
-                            
-                            rel="noopener"
-                            title="Tags"
-                        >
-                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Tags</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link open-algolia-search"
-                            href="/all-archives"
-                            
-                            rel="noopener"
-                            title="Archives"
-                        >
-                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">Archives</span>
+                        <span class="sidebar-button-desc">홈</span>
                     </a>
             </li>
             
@@ -169,10 +127,52 @@
                             href="#about"
                             
                             rel="noopener"
-                            title="About"
+                            title="Emjay"
                         >
                         <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">About</span>
+                        <span class="sidebar-button-desc">Emjay</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-categories"
+                            
+                            rel="noopener"
+                            title="카테고리"
+                        >
+                        <i class="sidebar-button-icon fa fa-code" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">카테고리</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="태그"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">태그</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link open-algolia-search"
+                            href="/all-archives"
+                            
+                            rel="noopener"
+                            title="아카이브"
+                        >
+                        <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">아카이브</span>
                     </a>
             </li>
             
@@ -216,7 +216,25 @@
                     
                         <a
                             class="sidebar-button-link "
-                            href="/mailto"
+                            href="https://instagram.com/emjay.data_science"
+                            
+                                target="_blank"
+                            
+                            rel="noopener"
+                            title="Instagram"
+                        >
+                        <i class="sidebar-button-icon fab fa-instagram" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Instagram</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link "
+                            href="mailto:emjay.data@gmail.com"
+                            
+                                target="_blank"
                             
                             rel="noopener"
                             title="Mail"
@@ -409,6 +427,7 @@
             </div>
         
         
+        
             <div class="post-actions-wrap">
     <nav>
         <ul class="post-actions post-action-nav">
@@ -512,13 +531,14 @@
             
         
     </div>
+    
 </article>
 
 
 
                 <footer id="footer" class="main-content-wrap">
     <span class="copyrights">
-        Copyrights &copy; 2021 EmjayAhn(Minjae Ahn). All Rights Reserved.
+        Copyrights &copy; 2021 EmjayAhn. All Rights Reserved.
     </span>
 </footer>
 
@@ -666,19 +686,25 @@
             <i class="fa fa-times"></i>
         </div>
         
-            <h4 id="about-card-name">EmjayAhn(Minjae Ahn)</h4>
+            <h4 id="about-card-name">EmjayAhn</h4>
         
-            <div id="about-card-bio"><p>author.bio</p>
+            <div id="about-card-bio"><p>나스미디어</p>
 </div>
         
         
             <div id="about-card-job">
                 <i class="fa fa-briefcase"></i>
                 <br/>
-                <p>author.job</p>
+                <p>Data Scientist</p>
 
             </div>
         
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker-alt"></i>
+                <br/>
+                서울, 대한민국
+            </div>
         
     </div>
 </div>
