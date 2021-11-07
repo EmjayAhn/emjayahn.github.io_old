@@ -17,19 +17,19 @@
             <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss2.xml">
         
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"},"articleBody":"181109 TWIL\n오늘 한 일은 무엇인가\nCrawling miniproject 발표\nPrediction main project data 탐색\n\n\n내일 할 일은 무엇인가\nProject 모임\n\n\n무엇을 느꼈는가\nCrawling miniproject 의 troubleshooting 시간이 있었다. 발표를 끝내고 나서는 하나를 마쳤다는 시원한 감이 있었지만, comment 들을 듣고 많이 부족함을 느낀 시간이었다. 코드를 작성할 때, 공통된 요소의 추상화가 선택적이 아니라 필수적임을 알게되었다. 간단한 것이라도 반복적으로 작성하는 것은 python convention 에도, 또 프로그래밍의 근본적인 취지에도 어긋나는 것이다. 처음부터 일반화된 포맷으로 작성하기엔 아직 실력이 많이 부족하다. 간단한 구현에서 module 화까지 내가 짜는 대부분의 코드를 연습하다 보면 늘겠지…\n메인 프로젝트의 data 간의 연관성이 잘 보이지 않는다. 지난 시간에 알게된 하루 주기로의 delay가 반복됨을 알고 있었으나, datetime 형식으로, 혹은 int나 float 형식으로 ols 에 집어 넣으면 주기성을 잡아내지 못하는 것 같다. 시간 단위로 X feature 로 들어가면 좋을 것 같은데, ols formula 에 시간을 집어넣으면 계속 category 화 된다. 이렇기 때문에 그 해당 정확한 시간이 있지 않으면 coefficient 가 먹지 않지….\n시간을 표현하기 위해 60진법도 찾아보고, 1분 단위로 int 숫자에 mapping 할까도 생각해보았으나, 결국 mapping 해서 ols 에 돌리면 2400 이후 값은 없는데도 x 축에 들어가게 된다….\n\n\n","dateCreated":"2018-11-09T23:14:01+09:00","dateModified":"2018-11-09T23:23:02+09:00","datePublished":"2018-11-09T23:14:01+09:00","description":"","headline":"181109-TodayWhatILearned","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://emjayahn.github.io/2018/11/09/181109-TodayWhatILearned/"},"publisher":{"@type":"Organization","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478","logo":{"@type":"ImageObject","url":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"}},"url":"https://emjayahn.github.io/2018/11/09/181109-TodayWhatILearned/"}</script>
-    <meta name="description" content="181109 TWIL 오늘 한 일은 무엇인가 Crawling miniproject 발표 Prediction main project data 탐색   내일 할 일은 무엇인가 Project 모임   무엇을 느꼈는가 Crawling miniproject 의 troubleshooting 시간이 있었다. 발표를 끝내고 나서는 하나를 마쳤다는 시원한 감이 있었지만,">
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"},"articleBody":"181109 TWIL\n오늘 한 일은 무엇인가\nCrawling miniproject 발표\nPrediction main project data 탐색\n\n\n내일 할 일은 무엇인가\nProject 모임\n\n\n\n무엇을 느꼈는가\nCrawling miniproject 의 troubleshooting 시간이 있었다. 발표를 끝내고 나서는 하나를 마쳤다는 시원한 감이 있었지만, comment 들을 듣고 많이 부족함을 느낀 시간이었다. 코드를 작성할 때, 공통된 요소의 추상화가 선택적이 아니라 필수적임을 알게되었다. 간단한 것이라도 반복적으로 작성하는 것은 python convention 에도, 또 프로그래밍의 근본적인 취지에도 어긋나는 것이다. 처음부터 일반화된 포맷으로 작성하기엔 아직 실력이 많이 부족하다. 간단한 구현에서 module 화까지 내가 짜는 대부분의 코드를 연습하다 보면 늘겠지…\n메인 프로젝트의 data 간의 연관성이 잘 보이지 않는다. 지난 시간에 알게된 하루 주기로의 delay가 반복됨을 알고 있었으나, datetime 형식으로, 혹은 int나 float 형식으로 ols 에 집어 넣으면 주기성을 잡아내지 못하는 것 같다. 시간 단위로 X feature 로 들어가면 좋을 것 같은데, ols formula 에 시간을 집어넣으면 계속 category 화 된다. 이렇기 때문에 그 해당 정확한 시간이 있지 않으면 coefficient 가 먹지 않지….\n시간을 표현하기 위해 60진법도 찾아보고, 1분 단위로 int 숫자에 mapping 할까도 생각해보았으나, 결국 mapping 해서 ols 에 돌리면 2400 이후 값은 없는데도 x 축에 들어가게 된다….\n\n\n","dateCreated":"2018-11-09T23:14:01+09:00","dateModified":"2018-11-09T23:23:02+09:00","datePublished":"2018-11-09T23:14:01+09:00","description":"","headline":"181109-TodayWhatILearned","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://emjayahn.github.io/2018/11/09/181109-TodayWhatILearned/"},"publisher":{"@type":"Organization","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478","logo":{"@type":"ImageObject","url":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"}},"url":"https://emjayahn.github.io/2018/11/09/181109-TodayWhatILearned/"}</script>
+    <meta name="description" content="181109 TWIL 오늘 한 일은 무엇인가 Crawling miniproject 발표 Prediction main project data 탐색   내일 할 일은 무엇인가 Project 모임    무엇을 느꼈는가 Crawling miniproject 의 troubleshooting 시간이 있었다. 발표를 끝내고 나서는 하나를 마쳤다는 시원한 감이 있었지만,">
 <meta name="keywords" content="데이터사이언스,머신러닝,딥러닝,개발,machine learning,deep learning,datascience,datascientist">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="181109-TodayWhatILearned">
 <meta property="og:url" content="https://emjayahn.github.io/2018/11/09/181109-TodayWhatILearned/index.html">
 <meta property="og:site_name" content="Emjay, 오늘도 새롭게">
-<meta property="og:description" content="181109 TWIL 오늘 한 일은 무엇인가 Crawling miniproject 발표 Prediction main project data 탐색   내일 할 일은 무엇인가 Project 모임   무엇을 느꼈는가 Crawling miniproject 의 troubleshooting 시간이 있었다. 발표를 끝내고 나서는 하나를 마쳤다는 시원한 감이 있었지만,">
+<meta property="og:description" content="181109 TWIL 오늘 한 일은 무엇인가 Crawling miniproject 발표 Prediction main project data 탐색   내일 할 일은 무엇인가 Project 모임    무엇을 느꼈는가 Crawling miniproject 의 troubleshooting 시간이 있었다. 발표를 끝내고 나서는 하나를 마쳤다는 시원한 감이 있었지만,">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2018-11-09T14:23:02.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="181109-TodayWhatILearned">
-<meta name="twitter:description" content="181109 TWIL 오늘 한 일은 무엇인가 Crawling miniproject 발표 Prediction main project data 탐색   내일 할 일은 무엇인가 Project 모임   무엇을 느꼈는가 Crawling miniproject 의 troubleshooting 시간이 있었다. 발표를 끝내고 나서는 하나를 마쳤다는 시원한 감이 있었지만,">
+<meta name="twitter:description" content="181109 TWIL 오늘 한 일은 무엇인가 Crawling miniproject 발표 Prediction main project data 탐색   내일 할 일은 무엇인가 Project 모임    무엇을 느꼈는가 Crawling miniproject 의 troubleshooting 시간이 있었다. 발표를 끝내고 나서는 하나를 마쳤다는 시원한 감이 있었지만,">
     
     
         
@@ -148,20 +148,6 @@
                     
                         <a
                             class="sidebar-button-link "
-                            href="/all-tags"
-                            
-                            rel="noopener"
-                            title="태그"
-                        >
-                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">태그</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link open-algolia-search"
                             href="/all-archives"
                             
                             rel="noopener"
@@ -169,6 +155,20 @@
                         >
                         <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">아카이브</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link open-algolia-search"
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="태그"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">태그</span>
                     </a>
             </li>
             
@@ -307,7 +307,8 @@
 </ol>
 <hr>
 <h2 id="내일-할-일은-무엇인가"><a href="#내일-할-일은-무엇인가" class="headerlink" title="내일 할 일은 무엇인가"></a>내일 할 일은 무엇인가</h2><ol>
-<li>Project 모임<br><br></li>
+<li>Project 모임<br>
+</li>
 </ol>
 <hr>
 <h2 id="무엇을-느꼈는가"><a href="#무엇을-느꼈는가" class="headerlink" title="무엇을 느꼈는가"></a>무엇을 느꼈는가</h2><ul>
@@ -586,7 +587,7 @@
         
             <h4 id="about-card-name">EmjayAhn</h4>
         
-            <div id="about-card-bio"><p>나스미디어</p>
+            <div id="about-card-bio"><p>NasMedia, Data Science Team</p>
 </div>
         
         
@@ -601,7 +602,7 @@
             <div id="about-card-location">
                 <i class="fa fa-map-marker-alt"></i>
                 <br/>
-                서울, 대한민국
+                Seoul, Korea
             </div>
         
     </div>

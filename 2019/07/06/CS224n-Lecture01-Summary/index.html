@@ -17,7 +17,7 @@
             <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss2.xml">
         
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"},"articleBody":"[CS224n] Lecture 1: Introduction and Word VectorsStandford University 의 CS224n 강의를 듣고 정리하는 글입니다.\n\n1. Human Language and Word MeaningWord meaning 의 뜻 : symbol → idea or thing : Denotational Semantics\n우리가 ‘의자’라는 단어를 예로 들자면, 말하는 사람과 듣는 사람 모두 의자와 관련된 특정한 이미지와 아이디어 등을 생각해 볼 수 있다. 이렇게 단어에 대해 관념적인 것을 word meaning 이라고 할 수 있다. 그렇다면 컴퓨터에서 사용할 수 있는 word meaning 은 어떤 것이 있을까?\nIn Computer Word Representations\nWordNet: synonym 과 hypernyms 의 집합으로 표현 (e.g: nltk wordnet)\n아주 귀한 dataset 이지만,\n단점: Nuance (뉘앙스)를 담아내지 못함, 새로운 단어에 대해 사람이 직접 가공하여 추가해주어야 한다. 단어의 동의어에 대해 계산할 수 없음\n\n\nDiscrete Symbols: One-hot-vectors\n단점 : 벡터의 차원이 우리가 가지고 있는 단어의 갯수만큼 커지게 된다. Corpus 의 구성 단어가 커질 수록 계산 해야하는 벡터 차원이 매우 커진다. 이는 컴퓨팅 자원의 부족으로 인한 현실적 구현의 어려움을 야기시킨다.\nOne-hot-Vector 는 Vector Space 에서 모두 서로 orthogonal (직교)한다. 즉, similarity 가 모두 0으로 단어간의 관계를 알기 힘들다.\n\n\nBy CONTEXT: Word Vecttors\n“You shall know a word by the company it keeps” (J.R.Firth)\n어떤 특정 단어 w 가 나온다는 것은, 그 주변 단어들(context)이  있기 때문이다.\nWord Vectors == Word Embeddings == Word Representations == Distributed Representation\n\n\n\n2. Word2vec IntroductionWord2vec(Mikolov et al. 2013) 은 Word Vectors 를 만들기 위한 알고리즘 중 가장 기초 뼈대를 이루는 알고리즘이다.\n\n가지고 있는 텍스트 데이터를 구성하는 큰 CORPUS\nCorpus 의 모든 단어는 RandomVector 로 시작한다.\n각 position t 에 대해, 중심단어 c(center) 와 주변단어 o(outside) 를 생각할 수 있다.\n중심단어 c 가 주어질 때, 주변단어 o 의 확률을 구하기 위해(skip-gram)(반대로도 가능(cbow): 주변단어가 주어질 때, 중심단어의 확률을 구하는 방법), 중심단어 c 와 주변단어 o, word 벡터들에 대해 similarity를 구한다.\n위의 확률을 최대화 하기 위해 word vector 를 updating 한다.\n\n\n3. Word2vec objective function gradients문장의 특정 위치 t 에 대해 (t = 1, …, T), 중심단어w_j가 주어졌을때, 주변단어를 한정하는 window size m 에 대해  주변단어들을 예측하는 Likelihood 는 다음과 같습니다. likelihood 식을 해석해보면, 중심단어 w_t 에 대해 중심단어를 중심으로 window 사이즈 2m 개의 단어들의 확률을 모두 곱하고, T 개의 단어 갯수에 대해 또 다시 모두 곱합니다.\nLikelihood\\quad L(\\theta)= \\prod_{t=1}^{T}\\prod_{-m \\leq j \\leq m}P(w_{t+j}|w_{t};\\theta)목적함수는 likelihood 를 바탕으로 minimize와 average, 계산 편의를 위해 log 를 씌웠다는 것외에 likelihood 와 동일하다.\nobjective function \\quad J(\\theta) = - \\frac{1}{T}logL(\\theta)=-\\frac{1}{T}\\sum_{t=1}^{T}\\sum_{-m \\leq j \\leq m, j\\neq0}logP(w_{t+j} | w_{t};\\theta)단어가 등장할 확률을 구하는 방법은 Softmax Function 을 활용합니다.\n\nObjective Function 의 derivativeObjective Function 과 단어 확률 (Softmax) 의 미분을 구하는 과정이다. \n\n","dateCreated":"2019-07-06T17:38:25+09:00","dateModified":"2019-07-18T20:42:29+09:00","datePublished":"2019-07-06T17:38:25+09:00","description":"[CS224n] Lecture 1: Introduction and Word VectorsStandford University 의 CS224n 강의를 듣고 정리하는 글입니다.","headline":"[CS224n]Lecture01-WordVecs","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://emjayahn.github.io/2019/07/06/CS224n-Lecture01-Summary/"},"publisher":{"@type":"Organization","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478","logo":{"@type":"ImageObject","url":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"}},"url":"https://emjayahn.github.io/2019/07/06/CS224n-Lecture01-Summary/","keywords":"CS224n, summary"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"},"articleBody":"[CS224n] Lecture 1: Introduction and Word VectorsStandford University 의 CS224n 강의를 듣고 정리하는 글입니다.\n\n\n1. Human Language and Word MeaningWord meaning 의 뜻 : symbol → idea or thing : Denotational Semantics\n우리가 ‘의자’라는 단어를 예로 들자면, 말하는 사람과 듣는 사람 모두 의자와 관련된 특정한 이미지와 아이디어 등을 생각해 볼 수 있다. 이렇게 단어에 대해 관념적인 것을 word meaning 이라고 할 수 있다. 그렇다면 컴퓨터에서 사용할 수 있는 word meaning 은 어떤 것이 있을까?\nIn Computer Word Representations\nWordNet: synonym 과 hypernyms 의 집합으로 표현 (e.g: nltk wordnet)\n아주 귀한 dataset 이지만,\n단점: Nuance (뉘앙스)를 담아내지 못함, 새로운 단어에 대해 사람이 직접 가공하여 추가해주어야 한다. 단어의 동의어에 대해 계산할 수 없음\n\n\nDiscrete Symbols: One-hot-vectors\n단점 : 벡터의 차원이 우리가 가지고 있는 단어의 갯수만큼 커지게 된다. Corpus 의 구성 단어가 커질 수록 계산 해야하는 벡터 차원이 매우 커진다. 이는 컴퓨팅 자원의 부족으로 인한 현실적 구현의 어려움을 야기시킨다.\nOne-hot-Vector 는 Vector Space 에서 모두 서로 orthogonal (직교)한다. 즉, similarity 가 모두 0으로 단어간의 관계를 알기 힘들다.\n\n\nBy CONTEXT: Word Vecttors\n“You shall know a word by the company it keeps” (J.R.Firth)\n어떤 특정 단어 w 가 나온다는 것은, 그 주변 단어들(context)이  있기 때문이다.\nWord Vectors == Word Embeddings == Word Representations == Distributed Representation\n\n\n\n2. Word2vec IntroductionWord2vec(Mikolov et al. 2013) 은 Word Vectors 를 만들기 위한 알고리즘 중 가장 기초 뼈대를 이루는 알고리즘이다.\n\n가지고 있는 텍스트 데이터를 구성하는 큰 CORPUS\nCorpus 의 모든 단어는 RandomVector 로 시작한다.\n각 position t 에 대해, 중심단어 c(center) 와 주변단어 o(outside) 를 생각할 수 있다.\n중심단어 c 가 주어질 때, 주변단어 o 의 확률을 구하기 위해(skip-gram)(반대로도 가능(cbow): 주변단어가 주어질 때, 중심단어의 확률을 구하는 방법), 중심단어 c 와 주변단어 o, word 벡터들에 대해 similarity를 구한다.\n위의 확률을 최대화 하기 위해 word vector 를 updating 한다.\n\n\n3. Word2vec objective function gradients문장의 특정 위치 t 에 대해 (t = 1, …, T), 중심단어w_j가 주어졌을때, 주변단어를 한정하는 window size m 에 대해  주변단어들을 예측하는 Likelihood 는 다음과 같습니다. likelihood 식을 해석해보면, 중심단어 w_t 에 대해 중심단어를 중심으로 window 사이즈 2m 개의 단어들의 확률을 모두 곱하고, T 개의 단어 갯수에 대해 또 다시 모두 곱합니다.\n$$Likelihood\\quad L(\\theta)= \\prod_{t=1}^{T}\\prod_{-m \\leq j \\leq m}P(w_{t+j}|w_{t};\\theta)$$\n목적함수는 likelihood 를 바탕으로 minimize와 average, 계산 편의를 위해 log 를 씌웠다는 것외에 likelihood 와 동일하다.\n$$objective function \\quad J(\\theta) = - \\frac{1}{T}logL(\\theta)=-\\frac{1}{T}\\sum_{t=1}^{T}\\sum_{-m \\leq j \\leq m, j\\neq0}logP(w_{t+j} | w_{t};\\theta)$$\n단어가 등장할 확률을 구하는 방법은 Softmax Function 을 활용합니다.\n\nObjective Function 의 derivativeObjective Function 과 단어 확률 (Softmax) 의 미분을 구하는 과정이다. \n\n","dateCreated":"2019-07-06T17:38:25+09:00","dateModified":"2019-07-18T20:42:29+09:00","datePublished":"2019-07-06T17:38:25+09:00","description":"[CS224n] Lecture 1: Introduction and Word VectorsStandford University 의 CS224n 강의를 듣고 정리하는 글입니다.","headline":"[CS224n]Lecture01-WordVecs","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://emjayahn.github.io/2019/07/06/CS224n-Lecture01-Summary/"},"publisher":{"@type":"Organization","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478","logo":{"@type":"ImageObject","url":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"}},"url":"https://emjayahn.github.io/2019/07/06/CS224n-Lecture01-Summary/","keywords":"CS224n, summary"}</script>
     <meta name="description" content="[CS224n] Lecture 1: Introduction and Word VectorsStandford University 의 CS224n 강의를 듣고 정리하는 글입니다.">
 <meta name="keywords" content="CS224n,summary">
 <meta property="og:type" content="blog">
@@ -152,20 +152,6 @@
                     
                         <a
                             class="sidebar-button-link "
-                            href="/all-tags"
-                            
-                            rel="noopener"
-                            title="태그"
-                        >
-                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">태그</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link open-algolia-search"
                             href="/all-archives"
                             
                             rel="noopener"
@@ -173,6 +159,20 @@
                         >
                         <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">아카이브</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link open-algolia-search"
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="태그"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">태그</span>
                     </a>
             </li>
             
@@ -306,6 +306,7 @@
         <div class="main-content-wrap">
             <h1 id="CS224n-Lecture-1-Introduction-and-Word-Vectors"><a href="#CS224n-Lecture-1-Introduction-and-Word-Vectors" class="headerlink" title="[CS224n] Lecture 1: Introduction and Word Vectors"></a>[CS224n] Lecture 1: Introduction and Word Vectors</h1><p>Standford University 의 CS224n 강의를 듣고 정리하는 글입니다.</p>
 <a id="more"></a>
+
 <h2 id="1-Human-Language-and-Word-Meaning"><a href="#1-Human-Language-and-Word-Meaning" class="headerlink" title="1. Human Language and Word Meaning"></a>1. Human Language and Word Meaning</h2><p><strong>Word meaning</strong> 의 뜻 : symbol → idea or thing : Denotational Semantics</p>
 <p>우리가 ‘의자’라는 단어를 예로 들자면, 말하는 사람과 듣는 사람 모두 의자와 관련된 특정한 이미지와 아이디어 등을 생각해 볼 수 있다. 이렇게 단어에 대해 관념적인 것을 word meaning 이라고 할 수 있다. 그렇다면 컴퓨터에서 사용할 수 있는 <strong>word meaning</strong> 은 어떤 것이 있을까?</p>
 <h3 id="In-Computer-Word-Representations"><a href="#In-Computer-Word-Representations" class="headerlink" title="In Computer Word Representations"></a>In Computer Word Representations</h3><ol>
@@ -336,8 +337,10 @@
 </ol>
 <p><img src="Untitled-cc28ca48-12e4-4a20-a6c4-b0be86d339d8.png" alt></p>
 <h2 id="3-Word2vec-objective-function-gradients"><a href="#3-Word2vec-objective-function-gradients" class="headerlink" title="3. Word2vec objective function gradients"></a>3. Word2vec objective function gradients</h2><p>문장의 특정 위치 t 에 대해 (t = 1, …, T), 중심단어w_j가 주어졌을때, 주변단어를 한정하는 window size m 에 대해  주변단어들을 예측하는 Likelihood 는 다음과 같습니다. likelihood 식을 해석해보면, 중심단어 w_t 에 대해 중심단어를 중심으로 window 사이즈 2m 개의 단어들의 확률을 모두 곱하고, T 개의 단어 갯수에 대해 또 다시 모두 곱합니다.</p>
-<script type="math/tex; mode=display">Likelihood\quad L(\theta)= \prod_{t=1}^{T}\prod_{-m \leq j \leq m}P(w_{t+j}|w_{t};\theta)</script><p>목적함수는 likelihood 를 바탕으로 minimize와 average, 계산 편의를 위해 log 를 씌웠다는 것외에 likelihood 와 동일하다.</p>
-<script type="math/tex; mode=display">objective function \quad J(\theta) = - \frac{1}{T}logL(\theta)=-\frac{1}{T}\sum_{t=1}^{T}\sum_{-m \leq j \leq m, j\neq0}logP(w_{t+j} | w_{t};\theta)</script><p>단어가 등장할 확률을 구하는 방법은 Softmax Function 을 활용합니다.</p>
+<p>$$Likelihood\quad L(\theta)= \prod_{t=1}^{T}\prod_{-m \leq j \leq m}P(w_{t+j}|w_{t};\theta)$$</p>
+<p>목적함수는 likelihood 를 바탕으로 minimize와 average, 계산 편의를 위해 log 를 씌웠다는 것외에 likelihood 와 동일하다.</p>
+<p>$$objective function \quad J(\theta) = - \frac{1}{T}logL(\theta)=-\frac{1}{T}\sum_{t=1}^{T}\sum_{-m \leq j \leq m, j\neq0}logP(w_{t+j} | w_{t};\theta)$$</p>
+<p>단어가 등장할 확률을 구하는 방법은 Softmax Function 을 활용합니다.</p>
 <p><img src="Untitled-99acc04b-91fd-451c-868f-574d995778b3.png" alt></p>
 <h3 id="Objective-Function-의-derivative"><a href="#Objective-Function-의-derivative" class="headerlink" title="Objective Function 의 derivative"></a>Objective Function 의 derivative</h3><p>Objective Function 과 단어 확률 (Softmax) 의 미분을 구하는 과정이다. </p>
 <p><img src="Untitled-d45516b7-8024-457c-bda2-39092a1f6892.png" alt></p>
@@ -618,7 +621,7 @@
         
             <h4 id="about-card-name">EmjayAhn</h4>
         
-            <div id="about-card-bio"><p>나스미디어</p>
+            <div id="about-card-bio"><p>NasMedia, Data Science Team</p>
 </div>
         
         
@@ -633,7 +636,7 @@
             <div id="about-card-location">
                 <i class="fa fa-map-marker-alt"></i>
                 <br/>
-                서울, 대한민국
+                Seoul, Korea
             </div>
         
     </div>

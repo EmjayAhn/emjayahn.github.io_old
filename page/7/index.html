@@ -145,20 +145,6 @@
                     
                         <a
                             class="sidebar-button-link "
-                            href="/all-tags"
-                            
-                            rel="noopener"
-                            title="태그"
-                        >
-                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">태그</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link open-algolia-search"
                             href="/all-archives"
                             
                             rel="noopener"
@@ -166,6 +152,20 @@
                         >
                         <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">아카이브</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link open-algolia-search"
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="태그"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">태그</span>
                     </a>
             </li>
             
@@ -314,7 +314,8 @@
 <h2 id="내일-할-일은-무엇인가"><a href="#내일-할-일은-무엇인가" class="headerlink" title="내일 할 일은 무엇인가"></a>내일 할 일은 무엇인가</h2><ol>
 <li>프로젝트, 오늘까지 진행사항 코드 정리</li>
 <li>수학 회기 전체 정리</li>
-<li>프로젝트 생각하기<br><br></li>
+<li>프로젝트 생각하기<br>
+</li>
 </ol>
 <hr>
 <h2 id="무엇을-느꼈는가"><a href="#무엇을-느꼈는가" class="headerlink" title="무엇을 느꼈는가"></a>무엇을 느꼈는가</h2><ul>
@@ -390,7 +391,8 @@
 <li>Project 모임</li>
 <li>회기 부분 정리</li>
 <li>크롤링 프로젝트 개선 사항 고민</li>
-<li>(시간이 되면) A* 알고리즘 코드 짜보기<br><br></li>
+<li>(시간이 되면) A* 알고리즘 코드 짜보기<br>
+</li>
 </ol>
 <hr>
 <h2 id="무엇을-느꼈는가"><a href="#무엇을-느꼈는가" class="headerlink" title="무엇을 느꼈는가"></a>무엇을 느꼈는가</h2><ul>
@@ -465,7 +467,8 @@
 <li>Project Data 회기 돌려보기</li>
 <li>회기 부분 공부</li>
 <li>크롤링 프로젝트 개선 사항 고민</li>
-<li>(시간이 되면) A* 알고리즘 코드 짜보기<br><br></li>
+<li>(시간이 되면) A* 알고리즘 코드 짜보기<br>
+</li>
 </ol>
 <hr>
 <h2 id="무엇을-느꼈는가"><a href="#무엇을-느꼈는가" class="headerlink" title="무엇을 느꼈는가"></a>무엇을 느꼈는가</h2><ul>
@@ -542,7 +545,8 @@
 <li>Project 모임</li>
 <li>Pandas 라이브러리 정리</li>
 <li>miniProject Crawling 코드짜기</li>
-<li>A * 알고리즘 짜기<br><br></li>
+<li>A * 알고리즘 짜기<br>
+</li>
 </ol>
 <hr>
 <h2 id="무엇을-느꼈는가"><a href="#무엇을-느꼈는가" class="headerlink" title="무엇을 느꼈는가"></a>무엇을 느꼈는가</h2><ul>
@@ -617,7 +621,8 @@
 <h2 id="내일-할-일은-무엇인가"><a href="#내일-할-일은-무엇인가" class="headerlink" title="내일 할 일은 무엇인가"></a>내일 할 일은 무엇인가</h2><ol>
 <li>Database - MySQL 공부</li>
 <li>Pandas 라이브러리 살펴보기</li>
-<li>miniProject Crawling 주제 선정, 코드짜기<br><br></li>
+<li>miniProject Crawling 주제 선정, 코드짜기<br>
+</li>
 </ol>
 <hr>
 <h2 id="무엇을-느꼈는가"><a href="#무엇을-느꼈는가" class="headerlink" title="무엇을 느꼈는가"></a>무엇을 느꼈는가</h2><ul>
@@ -691,14 +696,18 @@
 </li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> usr/<span class="built_in">local</span>/mysql/bin</span><br></pre></td></tr></table></figure>
+
 <p>위 경로에서</p>
 <ul>
 <li>MySQL 서버에 접속<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo ./mysql -p</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql &gt;</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>패스워드 변경<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;ALTER USER <span class="string">'root'</span>@<span class="string">'localhost'</span> IDENTIFIED BY <span class="string">'바꾸고싶은 비밀번호'</span>;</span><br><span class="line">mysql&gt;FLUSH PRIVILEGES;</span><br><span class="line">mysql&gt;quit;</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 <h2 id="2-MySQL-Shell-Command"><a href="#2-MySQL-Shell-Command" class="headerlink" title="2. MySQL Shell Command"></a>2. MySQL Shell Command</h2><h3 id="1-DATABASE-생성-접속-삭제"><a href="#1-DATABASE-생성-접속-삭제" class="headerlink" title="(1) DATABASE 생성, 접속, 삭제"></a>(1) DATABASE 생성, 접속, 삭제</h3><ul>
@@ -719,6 +728,7 @@
 </li>
 <li><p>DB 지우기</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; DROP DATABASE DBNAME;</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 <h3 id="2-TABLE-생성-추가-삭제"><a href="#2-TABLE-생성-추가-삭제" class="headerlink" title="(2) TABLE 생성, 추가, 삭제"></a>(2) TABLE 생성, 추가, 삭제</h3><ul>
@@ -734,23 +744,31 @@
 </li>
 <li><p>example2 : constraint가 있을 때,</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; CREATE TABLE user2(</span><br><span class="line">  user_id INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">  name VARCHAR(20) NOT NULL,</span><br><span class="line">  email VARCHAR(30) UNIQUE NOT NULL,</span><br><span class="line">  age INT(3) DEFAULT<span class="string">'30'</span>,</span><br><span class="line">  rdate TIMESTAMP</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
-<p><br><br><br></p>
-<h2 id="3-수정"><a href="#3-수정" class="headerlink" title="(3) 수정"></a>(3) 수정</h2><h3 id="3-1-DATABASE-수정"><a href="#3-1-DATABASE-수정" class="headerlink" title="(3)-1. DATABASE 수정"></a>(3)-1. DATABASE 수정</h3><ul>
-<li>DATABASE 의 <strong>encoding</strong> 수정<br><br><br><br></li>
-<li><p>현재 문자열 encoding 확인</p>
+<br>
+<br>
+## (3) 수정
+### (3)-1. DATABASE 수정
+- DATABASE 의 **encoding** 수정
+<br>
+<br>
+- 현재 문자열 encoding 확인
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SHOW VARIABLES LIKE <span class="string">"CHARACTER_SET_DATABASE"</span>;</span><br></pre></td></tr></table></figure>
-</li>
+
+<ul>
 <li><p>mydb 데이터베이스의 문자열 인코딩을 <code>utf8</code> 로 변경</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; ALTER DATABASE mydb CHARACTER_SET = utf8;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>user 데이터베이스의 문자열 인코딩을 <code>ascii</code> 로 변경</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; ALTER DATABASE user CHARACTER_SET=ascii</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 <h3 id="3-2-TABLE-수정"><a href="#3-2-TABLE-수정" class="headerlink" title="(3)-2. TABLE 수정"></a>(3)-2. TABLE 수정</h3><ul>
 <li><code>user</code> 테이블에 <code>tmp</code>라는 컬럼명, <code>TEXT</code> 데이터 타입 컬럼을 추가<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; ALTER TABLE user ADD tmp TEXT;</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 
@@ -821,7 +839,8 @@
 <hr>
 <h2 id="내일-할-일은-무엇인가"><a href="#내일-할-일은-무엇인가" class="headerlink" title="내일 할 일은 무엇인가"></a>내일 할 일은 무엇인가</h2><ol>
 <li>Project 모임</li>
-<li>데이터 전처리, 데이터들의 의미 파악, 예측할 delay 부분 정의하기<br><br></li>
+<li>데이터 전처리, 데이터들의 의미 파악, 예측할 delay 부분 정의하기<br>
+</li>
 </ol>
 <hr>
 <h2 id="무엇을-느꼈는가"><a href="#무엇을-느꼈는가" class="headerlink" title="무엇을 느꼈는가"></a>무엇을 느꼈는가</h2><ul>
@@ -895,7 +914,8 @@
 <h2 id="내일-할-일은-무엇인가"><a href="#내일-할-일은-무엇인가" class="headerlink" title="내일 할 일은 무엇인가"></a>내일 할 일은 무엇인가</h2><ol>
 <li>선형회귀분석 정리 (패키지 별로 특징, 메서드 파라미터 위주)</li>
 <li>데이터 전처리 부분 공부</li>
-<li>Test data 처리는 어떻게 하는 건지 공부해보기<br><br></li>
+<li>Test data 처리는 어떻게 하는 건지 공부해보기<br>
+</li>
 </ol>
 <hr>
 <h2 id="무엇을-느꼈는가"><a href="#무엇을-느꼈는가" class="headerlink" title="무엇을 느꼈는가"></a>무엇을 느꼈는가</h2><ul>
@@ -969,7 +989,8 @@
 </ol>
 <hr>
 <h2 id="내일-할-일은-무엇인가"><a href="#내일-할-일은-무엇인가" class="headerlink" title="내일 할 일은 무엇인가"></a>내일 할 일은 무엇인가</h2><ol>
-<li>‘추정’에서 수식 부분 다시 보기<br><br></li>
+<li>‘추정’에서 수식 부분 다시 보기<br>
+</li>
 </ol>
 <hr>
 <h2 id="무엇을-느꼈는가"><a href="#무엇을-느꼈는가" class="headerlink" title="무엇을 느꼈는가"></a>무엇을 느꼈는가</h2><ul>
@@ -1042,7 +1063,8 @@
 <hr>
 <h2 id="내일-할-일은-무엇인가"><a href="#내일-할-일은-무엇인가" class="headerlink" title="내일 할 일은 무엇인가"></a>내일 할 일은 무엇인가</h2><ol>
 <li>‘추정’에서 수식 부분 다시 보기</li>
-<li>(Study) 데이터 구조 강의 듣기<br><br></li>
+<li>(Study) 데이터 구조 강의 듣기<br>
+</li>
 </ol>
 <hr>
 <h2 id="무엇을-느꼈는가"><a href="#무엇을-느꼈는가" class="headerlink" title="무엇을 느꼈는가"></a>무엇을 느꼈는가</h2><ul>
@@ -1050,7 +1072,8 @@
 </li>
 <li><p>오늘은 수학을 공부하느라 프로그래밍은 하지 못했다. 중간에 졸린 걸 해소해보고자 블로그 테마 색깔 수정과 그 수정을 위해 블로그의 코드 구조를 본게 전부 였다. 30분 푹빠져서 하다가 주객전도 되지않으려 다음으로 미뤘다.</p>
 </li>
-<li>위 주제들에 관해 알게된 것도 많은 하루였고, 뿌듯한 하루였다.</li>
+<li><p>위 주제들에 관해 알게된 것도 많은 하루였고, 뿌듯한 하루였다.</p>
+</li>
 </ul>
 <hr>
 
@@ -1129,7 +1152,7 @@
         
             <h4 id="about-card-name">EmjayAhn</h4>
         
-            <div id="about-card-bio"><p>나스미디어</p>
+            <div id="about-card-bio"><p>NasMedia, Data Science Team</p>
 </div>
         
         
@@ -1144,7 +1167,7 @@
             <div id="about-card-location">
                 <i class="fa fa-map-marker-alt"></i>
                 <br/>
-                서울, 대한민국
+                Seoul, Korea
             </div>
         
     </div>

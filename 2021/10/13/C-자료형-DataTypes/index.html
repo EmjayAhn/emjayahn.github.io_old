@@ -17,7 +17,7 @@
             <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss2.xml">
         
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"},"articleBody":"C와 C++이 필요해, 제 머릿속 메모리의 Recall 이 필요했습니다. 요즘엔 주로 Python을 사용하다보니, C, C++ 의 기초문법과 CodeStyle을 다시 떠올려야합니다. 학생 때 열심히 공부했으나 방구석 한켠에 먼지 쌓인 열혈강의 C, C++책과 인터넷자료, 유튜브를 통해 Remind하고 공부하는 내용을 요약 정리하려고 합니다. 본 글에서는 C에 대한 내용보다 C++ 내용이 주를 이룰 예정입니다. \n\n1. C++ 의 주석1// 주석\n2. C++ 의 자료형, DataType자료형s정수형 : char 1byte, short 2byte, int 4byte, long 4byte, long long 8byte 등\n실수형 : float 4byte, double 8byte 등\n평소엔 : signed int, signed 는 생략 (-128 ~ 127)\n\nMSB 0 000 0000 (2) : MSB - Most Significant Bit for sign\n\n양의 값만 할당 : unsigned int (0 ~ 255)\nunsigned 값에 256 을 할당하면? bit: 1111 1111 (2) + 1 (2) = 1 0000 0000 → 0으로 생각 (overflow)\nunsigned 값에 -1 을 할당하면? bit: 1111 1111 (2) = 255 (10) (-1의 정의는 1을 더했을 때 0이 되는 값으로 정의하므로 1111 1111로 표현되며(2의보수법), 이는 unsigned의 컴파일 결과 255로 표현된다)\n실수표현방법: 부동소수점 방식\n부동소수점 방식으로 소수와 실수를 표현하는 것은 글로 정리하는 것이 오히려 혼란을 야기할 수 있으므로, 추후에 필요하다면 손으로 쓴 풀이를 정리해보겠습니다.\n참고: 부동소수점 위키백과\n\n\n정수와 실수의 메모리 저장 방식은 각가 다른 것이 중요\n따라서 정수와 실수간의 연산 방식은 기존의 연산방식은 다름\nfloat 과 double 을 적절히 활용하여 실수값의 범위에 따라 사용\n\nTypeCasting(형변환)서로 다른 자료형끼리 연산은 되도록 자제해야하지만, 어쩔수 없이 수행해야만 하는 순간이 있기 마련이다. C++ 에서는 Python과 달리 compiler 에 의존하는 경우가 많기 때문에 TypeCasting 을 의식적으로 해주는 것이 코드 가독성과 예측성을 높이는 방법이다. TypeCasting 을 해주지 않아도, 실제로는 compiler 가 강제적으로 형변환하여 연산하지만, 이는 의도와 다른 결과를 만들어내 실수할 수 있는 여지를 많이 남기는 것이다. 습관처럼 예상하고 필요시 꼭 casting 하도록 하자.\n1234int int_number = 5float floating_number = 3.0//Type Castingfloat result = floating_number + (float)int_number","dateCreated":"2021-10-13T21:35:26+09:00","dateModified":"2021-10-13T21:49:11+09:00","datePublished":"2021-10-13T21:35:26+09:00","description":"C와 C++이 필요해, 제 머릿속 메모리의 Recall 이 필요했습니다. 요즘엔 주로 Python을 사용하다보니, C, C++ 의 기초문법과 CodeStyle을 다시 떠올려야합니다. 학생 때 열심히 공부했으나 방구석 한켠에 먼지 쌓인 열혈강의 C, C++책과 인터넷자료, 유튜브를 통해 Remind하고 공부하는 내용을 요약 정리하려고 합니다. 본 글에서는 C에 대한 내용보다 C++ 내용이 주를 이룰 예정입니다. ","headline":"[C++] 1.자료형(DataTypes)","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://emjayahn.github.io/2021/10/13/C-자료형-DataTypes/"},"publisher":{"@type":"Organization","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478","logo":{"@type":"ImageObject","url":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"}},"url":"https://emjayahn.github.io/2021/10/13/C-자료형-DataTypes/","keywords":"Language, C++, C"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"},"articleBody":"C와 C++이 필요해, 제 머릿속 메모리의 Recall 이 필요했습니다. 요즘엔 주로 Python을 사용하다보니, C, C++ 의 기초문법과 CodeStyle을 다시 떠올려야합니다. 학생 때 열심히 공부했으나 방구석 한켠에 먼지 쌓인 열혈강의 C, C++책과 인터넷자료, 유튜브를 통해 Remind하고 공부하는 내용을 요약 정리하려고 합니다. 본 글에서는 C에 대한 내용보다 C++ 내용이 주를 이룰 예정입니다. \n\n\n1. C++ 의 주석1// 주석\n\n2. C++ 의 자료형, DataType자료형s정수형 : char 1byte, short 2byte, int 4byte, long 4byte, long long 8byte 등\n실수형 : float 4byte, double 8byte 등\n평소엔 : signed int, signed 는 생략 (-128 ~ 127)\n\nMSB 0 000 0000 (2) : MSB - Most Significant Bit for sign\n\n양의 값만 할당 : unsigned int (0 ~ 255)\nunsigned 값에 256 을 할당하면? bit: 1111 1111 (2) + 1 (2) = 1 0000 0000 → 0으로 생각 (overflow)\nunsigned 값에 -1 을 할당하면? bit: 1111 1111 (2) = 255 (10) (-1의 정의는 1을 더했을 때 0이 되는 값으로 정의하므로 1111 1111로 표현되며(2의보수법), 이는 unsigned의 컴파일 결과 255로 표현된다)\n실수표현방법: 부동소수점 방식\n부동소수점 방식으로 소수와 실수를 표현하는 것은 글로 정리하는 것이 오히려 혼란을 야기할 수 있으므로, 추후에 필요하다면 손으로 쓴 풀이를 정리해보겠습니다.\n참고: 부동소수점 위키백과\n\n\n정수와 실수의 메모리 저장 방식은 각가 다른 것이 중요\n따라서 정수와 실수간의 연산 방식은 기존의 연산방식은 다름\nfloat 과 double 을 적절히 활용하여 실수값의 범위에 따라 사용\n\nTypeCasting(형변환)서로 다른 자료형끼리 연산은 되도록 자제해야하지만, 어쩔수 없이 수행해야만 하는 순간이 있기 마련이다. C++ 에서는 Python과 달리 compiler 에 의존하는 경우가 많기 때문에 TypeCasting 을 의식적으로 해주는 것이 코드 가독성과 예측성을 높이는 방법이다. TypeCasting 을 해주지 않아도, 실제로는 compiler 가 강제적으로 형변환하여 연산하지만, 이는 의도와 다른 결과를 만들어내 실수할 수 있는 여지를 많이 남기는 것이다. 습관처럼 예상하고 필요시 꼭 casting 하도록 하자.\n1234int int_number = 5float floating_number = 3.0//Type Castingfloat result = floating_number + (float)int_number","dateCreated":"2021-10-13T21:35:26+09:00","dateModified":"2021-10-13T21:49:11+09:00","datePublished":"2021-10-13T21:35:26+09:00","description":"C와 C++이 필요해, 제 머릿속 메모리의 Recall 이 필요했습니다. 요즘엔 주로 Python을 사용하다보니, C, C++ 의 기초문법과 CodeStyle을 다시 떠올려야합니다. 학생 때 열심히 공부했으나 방구석 한켠에 먼지 쌓인 열혈강의 C, C++책과 인터넷자료, 유튜브를 통해 Remind하고 공부하는 내용을 요약 정리하려고 합니다. 본 글에서는 C에 대한 내용보다 C++ 내용이 주를 이룰 예정입니다. ","headline":"[C++] 1.자료형(DataTypes)","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://emjayahn.github.io/2021/10/13/C-자료형-DataTypes/"},"publisher":{"@type":"Organization","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478","logo":{"@type":"ImageObject","url":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"}},"url":"https://emjayahn.github.io/2021/10/13/C-자료형-DataTypes/","keywords":"Language, C++, C"}</script>
     <meta name="description" content="C와 C++이 필요해, 제 머릿속 메모리의 Recall 이 필요했습니다. 요즘엔 주로 Python을 사용하다보니, C, C++ 의 기초문법과 CodeStyle을 다시 떠올려야합니다. 학생 때 열심히 공부했으나 방구석 한켠에 먼지 쌓인 열혈강의 C, C++책과 인터넷자료, 유튜브를 통해 Remind하고 공부하는 내용을 요약 정리하려고 합니다. 본 글에서는 C">
 <meta name="keywords" content="Language,C++,C">
 <meta property="og:type" content="blog">
@@ -148,20 +148,6 @@
                     
                         <a
                             class="sidebar-button-link "
-                            href="/all-tags"
-                            
-                            rel="noopener"
-                            title="태그"
-                        >
-                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">태그</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link open-algolia-search"
                             href="/all-archives"
                             
                             rel="noopener"
@@ -169,6 +155,20 @@
                         >
                         <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">아카이브</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link open-algolia-search"
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="태그"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">태그</span>
                     </a>
             </li>
             
@@ -302,7 +302,9 @@
         <div class="main-content-wrap">
             <p>C와 C++이 필요해, 제 머릿속 메모리의 Recall 이 필요했습니다. 요즘엔 주로 Python을 사용하다보니, C, C++ 의 기초문법과 CodeStyle을 다시 떠올려야합니다. 학생 때 열심히 공부했으나 방구석 한켠에 먼지 쌓인 열혈강의 C, C++책과 인터넷자료, 유튜브를 통해 Remind하고 공부하는 내용을 요약 정리하려고 합니다. 본 글에서는 C에 대한 내용보다 C++ 내용이 주를 이룰 예정입니다. </p>
 <a id="more"></a>
+
 <h2 id="1-C-의-주석"><a href="#1-C-의-주석" class="headerlink" title="1. C++ 의 주석"></a>1. C++ 의 주석</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 주석</span></span><br></pre></td></tr></table></figure>
+
 <h2 id="2-C-의-자료형-DataType"><a href="#2-C-의-자료형-DataType" class="headerlink" title="2. C++ 의 자료형, DataType"></a>2. C++ 의 자료형, DataType</h2><h3 id="자료형s"><a href="#자료형s" class="headerlink" title="자료형s"></a>자료형s</h3><p>정수형 : <code>char</code> 1byte, <code>short</code> 2byte, <code>int</code> 4byte, <code>long</code> 4byte, <code>long long</code> 8byte 등</p>
 <p>실수형 : <code>float</code> 4byte, <code>double</code> 8byte 등</p>
 <p>평소엔 : <code>signed int</code>, signed 는 생략 (-128 ~ 127)</p>
@@ -599,7 +601,7 @@
         
             <h4 id="about-card-name">EmjayAhn</h4>
         
-            <div id="about-card-bio"><p>나스미디어</p>
+            <div id="about-card-bio"><p>NasMedia, Data Science Team</p>
 </div>
         
         
@@ -614,7 +616,7 @@
             <div id="about-card-location">
                 <i class="fa fa-map-marker-alt"></i>
                 <br/>
-                서울, 대한민국
+                Seoul, Korea
             </div>
         
     </div>

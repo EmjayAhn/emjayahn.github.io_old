@@ -17,19 +17,19 @@
             <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss2.xml">
         
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"},"articleBody":"181121 TWIL\n오늘 한 일은 무엇인가\nA* Alogorithm : Pseudo Code  작성\n~ PACF 공부\n\n\n내일 할 일은 무엇인가\n시계열 모형의 추정 부분 나머지 공부\nNLTK, KoNLPY 메소드 정리\n\n\n무엇을 느꼈는가\nA* 알고리즘에 관련된 많은 자료들을 읽어보고, 정리하면서 어떻게 구체적으로 이 알고리즘이 흘러가는지파악했다. 기초적인 알고리즘들은 체계적으로 정리되어있는 자료들이 많지만, 이렇게 응용이 된 알고리즘들은업계와 학계에서 사용하면서 점차 개발됨에 따라 다양하고, 어느 방면에 효율성을 맞추느냐에 따라서 정말 다양하게파생된 것들이 많다. 그 중에서도 가장 간단하고 기본적인 원리가 설명되어있는 documentation 을 찾고,이해하려고 하다보니 시간이 많이 걸린 것 같다.\n이렇게 기본적인 이해를하고, 다양한 응용된 문서를 보니, 그 각각이 추구하고 있는 방향도 읽혀지는 것 같다.내일부터는 이렇게 파악된 것을 바탕으로 본격적인 코드 구현을 해보아야할 것 같다. 오늘 잠깐 생각한 바로는,우리가 배웠던 자료구조를 사용하는 것이 효율적인지, 파이썬에 내장되어있는 자료구조를 사용 할 것인지 간에효율을 결정하는데, 어떤 factor 를 기준으로 정해야 할지 모르겠다. 스터디 때 이 부분도 물어보고, 이야기를나눠보면 좋을 것 같다.\nAR, MA 가 p, q 차로 되었을 때, k에 따른 PACF 함수의 모양을 증명해 보면서, AR, MA 의 ACF,COV general form 을 계속 찾아보면서 증명하게 되었다. 사실은 이 부분까지 다시한번더 증명하고 이를참조하는 방향으로 증명을 써 내려가야하는 것이 맞지만, 이전에 했다는 핑계로 참조했는데, 찜찜하다.증명은 어렵지 않았으나, 외워야 한다는 것이 좀 압박이다.\n\n\n","dateCreated":"2018-11-21T08:10:19+09:00","dateModified":"2018-11-21T23:49:49+09:00","datePublished":"2018-11-21T08:10:19+09:00","description":"","headline":"181121-TodayWhatILearned","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://emjayahn.github.io/2018/11/21/181121-TodayWhatILearned/"},"publisher":{"@type":"Organization","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478","logo":{"@type":"ImageObject","url":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"}},"url":"https://emjayahn.github.io/2018/11/21/181121-TodayWhatILearned/"}</script>
-    <meta name="description" content="181121 TWIL 오늘 한 일은 무엇인가 A* Alogorithm : Pseudo Code  작성 ~ PACF 공부   내일 할 일은 무엇인가 시계열 모형의 추정 부분 나머지 공부 NLTK, KoNLPY 메소드 정리   무엇을 느꼈는가 A* 알고리즘에 관련된 많은 자료들을 읽어보고, 정리하면서 어떻게 구체적으로 이 알고리즘이 흘러가는지파악했다. 기초적인">
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"},"articleBody":"181121 TWIL\n오늘 한 일은 무엇인가\nA* Alogorithm : Pseudo Code  작성\n~ PACF 공부\n\n\n내일 할 일은 무엇인가\n시계열 모형의 추정 부분 나머지 공부\nNLTK, KoNLPY 메소드 정리\n\n\n\n무엇을 느꼈는가\nA* 알고리즘에 관련된 많은 자료들을 읽어보고, 정리하면서 어떻게 구체적으로 이 알고리즘이 흘러가는지파악했다. 기초적인 알고리즘들은 체계적으로 정리되어있는 자료들이 많지만, 이렇게 응용이 된 알고리즘들은업계와 학계에서 사용하면서 점차 개발됨에 따라 다양하고, 어느 방면에 효율성을 맞추느냐에 따라서 정말 다양하게파생된 것들이 많다. 그 중에서도 가장 간단하고 기본적인 원리가 설명되어있는 documentation 을 찾고,이해하려고 하다보니 시간이 많이 걸린 것 같다.\n이렇게 기본적인 이해를하고, 다양한 응용된 문서를 보니, 그 각각이 추구하고 있는 방향도 읽혀지는 것 같다.내일부터는 이렇게 파악된 것을 바탕으로 본격적인 코드 구현을 해보아야할 것 같다. 오늘 잠깐 생각한 바로는,우리가 배웠던 자료구조를 사용하는 것이 효율적인지, 파이썬에 내장되어있는 자료구조를 사용 할 것인지 간에효율을 결정하는데, 어떤 factor 를 기준으로 정해야 할지 모르겠다. 스터디 때 이 부분도 물어보고, 이야기를나눠보면 좋을 것 같다.\nAR, MA 가 p, q 차로 되었을 때, k에 따른 PACF 함수의 모양을 증명해 보면서, AR, MA 의 ACF,COV general form 을 계속 찾아보면서 증명하게 되었다. 사실은 이 부분까지 다시한번더 증명하고 이를참조하는 방향으로 증명을 써 내려가야하는 것이 맞지만, 이전에 했다는 핑계로 참조했는데, 찜찜하다.증명은 어렵지 않았으나, 외워야 한다는 것이 좀 압박이다.\n\n\n","dateCreated":"2018-11-21T08:10:19+09:00","dateModified":"2018-11-21T23:49:49+09:00","datePublished":"2018-11-21T08:10:19+09:00","description":"","headline":"181121-TodayWhatILearned","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://emjayahn.github.io/2018/11/21/181121-TodayWhatILearned/"},"publisher":{"@type":"Organization","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478","logo":{"@type":"ImageObject","url":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"}},"url":"https://emjayahn.github.io/2018/11/21/181121-TodayWhatILearned/"}</script>
+    <meta name="description" content="181121 TWIL 오늘 한 일은 무엇인가 A* Alogorithm : Pseudo Code  작성 ~ PACF 공부   내일 할 일은 무엇인가 시계열 모형의 추정 부분 나머지 공부 NLTK, KoNLPY 메소드 정리    무엇을 느꼈는가 A* 알고리즘에 관련된 많은 자료들을 읽어보고, 정리하면서 어떻게 구체적으로 이 알고리즘이 흘러가는지파악했다. 기초적">
 <meta name="keywords" content="데이터사이언스,머신러닝,딥러닝,개발,machine learning,deep learning,datascience,datascientist">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="181121-TodayWhatILearned">
 <meta property="og:url" content="https://emjayahn.github.io/2018/11/21/181121-TodayWhatILearned/index.html">
 <meta property="og:site_name" content="Emjay, 오늘도 새롭게">
-<meta property="og:description" content="181121 TWIL 오늘 한 일은 무엇인가 A* Alogorithm : Pseudo Code  작성 ~ PACF 공부   내일 할 일은 무엇인가 시계열 모형의 추정 부분 나머지 공부 NLTK, KoNLPY 메소드 정리   무엇을 느꼈는가 A* 알고리즘에 관련된 많은 자료들을 읽어보고, 정리하면서 어떻게 구체적으로 이 알고리즘이 흘러가는지파악했다. 기초적인">
+<meta property="og:description" content="181121 TWIL 오늘 한 일은 무엇인가 A* Alogorithm : Pseudo Code  작성 ~ PACF 공부   내일 할 일은 무엇인가 시계열 모형의 추정 부분 나머지 공부 NLTK, KoNLPY 메소드 정리    무엇을 느꼈는가 A* 알고리즘에 관련된 많은 자료들을 읽어보고, 정리하면서 어떻게 구체적으로 이 알고리즘이 흘러가는지파악했다. 기초적">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2018-11-21T14:49:49.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="181121-TodayWhatILearned">
-<meta name="twitter:description" content="181121 TWIL 오늘 한 일은 무엇인가 A* Alogorithm : Pseudo Code  작성 ~ PACF 공부   내일 할 일은 무엇인가 시계열 모형의 추정 부분 나머지 공부 NLTK, KoNLPY 메소드 정리   무엇을 느꼈는가 A* 알고리즘에 관련된 많은 자료들을 읽어보고, 정리하면서 어떻게 구체적으로 이 알고리즘이 흘러가는지파악했다. 기초적인">
+<meta name="twitter:description" content="181121 TWIL 오늘 한 일은 무엇인가 A* Alogorithm : Pseudo Code  작성 ~ PACF 공부   내일 할 일은 무엇인가 시계열 모형의 추정 부분 나머지 공부 NLTK, KoNLPY 메소드 정리    무엇을 느꼈는가 A* 알고리즘에 관련된 많은 자료들을 읽어보고, 정리하면서 어떻게 구체적으로 이 알고리즘이 흘러가는지파악했다. 기초적">
     
     
         
@@ -148,20 +148,6 @@
                     
                         <a
                             class="sidebar-button-link "
-                            href="/all-tags"
-                            
-                            rel="noopener"
-                            title="태그"
-                        >
-                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">태그</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link open-algolia-search"
                             href="/all-archives"
                             
                             rel="noopener"
@@ -169,6 +155,20 @@
                         >
                         <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">아카이브</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link open-algolia-search"
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="태그"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">태그</span>
                     </a>
             </li>
             
@@ -308,7 +308,8 @@
 <hr>
 <h2 id="내일-할-일은-무엇인가"><a href="#내일-할-일은-무엇인가" class="headerlink" title="내일 할 일은 무엇인가"></a>내일 할 일은 무엇인가</h2><ol>
 <li>시계열 모형의 추정 부분 나머지 공부</li>
-<li>NLTK, KoNLPY 메소드 정리<br><br></li>
+<li>NLTK, KoNLPY 메소드 정리<br>
+</li>
 </ol>
 <hr>
 <h2 id="무엇을-느꼈는가"><a href="#무엇을-느꼈는가" class="headerlink" title="무엇을 느꼈는가"></a>무엇을 느꼈는가</h2><ul>
@@ -587,7 +588,7 @@
         
             <h4 id="about-card-name">EmjayAhn</h4>
         
-            <div id="about-card-bio"><p>나스미디어</p>
+            <div id="about-card-bio"><p>NasMedia, Data Science Team</p>
 </div>
         
         
@@ -602,7 +603,7 @@
             <div id="about-card-location">
                 <i class="fa fa-map-marker-alt"></i>
                 <br/>
-                서울, 대한민국
+                Seoul, Korea
             </div>
         
     </div>

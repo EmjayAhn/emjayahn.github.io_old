@@ -17,7 +17,7 @@
             <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss2.xml">
         
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"},"articleBody":"Lecture 04: Backpropagation and computation graphsStandford University 의 CS224n 강의를 듣고 정리하는 글입니다.\n\n기본적인 computation graph 와 backpropagation 에 관한 내용은 스킵하도록 하겠습니다. 새롭고, 핵심적인 내용만 간추린 내용입니다.\n1. Word Vector를 Retraining?Quetion: Retraining 에 대한 판단의 시작 예: TV, telly, television 이 pre-trained word vector 에서는 비슷한  공간에 분포되어있다고 가정할 때, training data 에는 TV 와 telly 단어만 존재하고, test data 에 television이 존재 할 때, word vector 는 어떻게 될 것인가?\n\nAnswer: Training data 에 있는 TV 와 telly 에 해당하는 word vector 는 back prop을 진행하면서, 미세하게 업데이트 되며, 같은 방향으로 이동하게 된다. 반면, television에 해당하는 word vector는 weight parameter 업데이트가 일어나지 않으므로, 처음에는 비슷한 공간에 분포 했으나, TV 와 telly 와 멀어지게 된다.\n\n1-1. Word Vector의 Retraining 여부\nWord Vector가 학습 할 때는 매우 큰 데이터셋을 가지고 학습하게 된다. 따라서 매우 다양한 단어들이 Corpus 로 존재한다.\nFine tuning?: 우리가 가지고 있는 training dataset 이 매우 작다면, 위에서 든 예에서 직감할 수 있듯이, pre trained vector 를 fine tuning 하게 되면, training set 에 fitting 되는 효과가 있고, 우리가 의도치 않는 weight 의 업데이트가 되거나 혹은 되지 않을 수 있다.\n\n2. 효율적인 gradient 계산\n사실 당연하게 여김에도, 우리가 손으로 계산하는 (upstream network * local gradient) 과정을 아래 식에서도 확인 할 수 있듯이, ds/dh, dh/dz term 은 중복되는 과정이다.\n\n\\frac{ds}{dW}=\\frac{ds}{dh}\\frac{dh}{dz}\\frac{dz}{dW}\\frac{ds}{db}=\\frac{ds}{dh}\\frac{dh}{dz}\\frac{dz}{db}\n따라서 효율적인 computation을 구현하기 위해서, back propagation에서 upstream network 를 저장하고, 각 parameter 에 대한 local gradient를 구해, 동시에 곱해주어 back prop 을 진행 할 수 있다.\n\n3. Regularization우리가 parameter 가 많아지면 많아질 수록, training error 와  test error 는 낮아지기 마련이다. 하지만, 어느 수준을 넘어가게 되면, training set 에 대해서는 매우 정확해지는 반면, test data(validate data)에 대해서는 generalization에서 실패한 그래프나 수치들을 확인할 수 있다. 따라서, 우리는 반드시 우리가 최적화 하려고 하는 Loss 에 대해 Regularization 을 해주어야만 한다.\n\n다음은 L2 Regularization term 이 추가된 loss function 이다. 지겹도록 바왔음에도, 꼭 식을 보면 해석해야겠기에, Model parameter (weight) theta 가 제곱term 으로 너무 커지는 것을 방지하기 위해 lambda 에 비례하여 penalty term 을 추가한다.\n\n4. Vectorization우리가 forward/backward propagation 을 진행하면서, 각 data의 계산을 looping 하여 계산한다면, 매우 비효율적인 계산 방식이 된다. 우리는 위대한 Vecor/Matrix Multiplication 방법으로, 즉, 모든 data 와 weight을 행렬로 만들어 forward/backward 계산을 진행해야한다. 또한 이렇게 진행했을 때, 가속화 도구인 GPU 활용의 이점을 사용할 수 있다.\n","dateCreated":"2019-08-09T22:26:12+09:00","dateModified":"2019-08-09T22:29:25+09:00","datePublished":"2019-08-09T22:26:12+09:00","description":"Lecture 04: Backpropagation and computation graphsStandford University 의 CS224n 강의를 듣고 정리하는 글입니다.","headline":"[CS224n]Lecture04-BackPropagation","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://emjayahn.github.io/2019/08/09/CS224n-Lecture04-Summary/"},"publisher":{"@type":"Organization","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478","logo":{"@type":"ImageObject","url":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"}},"url":"https://emjayahn.github.io/2019/08/09/CS224n-Lecture04-Summary/","keywords":"CS224n, summary"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"},"articleBody":"Lecture 04: Backpropagation and computation graphsStandford University 의 CS224n 강의를 듣고 정리하는 글입니다.\n\n\n기본적인 computation graph 와 backpropagation 에 관한 내용은 스킵하도록 하겠습니다. 새롭고, 핵심적인 내용만 간추린 내용입니다.\n1. Word Vector를 Retraining?Quetion: Retraining 에 대한 판단의 시작 예: TV, telly, television 이 pre-trained word vector 에서는 비슷한  공간에 분포되어있다고 가정할 때, training data 에는 TV 와 telly 단어만 존재하고, test data 에 television이 존재 할 때, word vector 는 어떻게 될 것인가?\n\nAnswer: Training data 에 있는 TV 와 telly 에 해당하는 word vector 는 back prop을 진행하면서, 미세하게 업데이트 되며, 같은 방향으로 이동하게 된다. 반면, television에 해당하는 word vector는 weight parameter 업데이트가 일어나지 않으므로, 처음에는 비슷한 공간에 분포 했으나, TV 와 telly 와 멀어지게 된다.\n\n1-1. Word Vector의 Retraining 여부\nWord Vector가 학습 할 때는 매우 큰 데이터셋을 가지고 학습하게 된다. 따라서 매우 다양한 단어들이 Corpus 로 존재한다.\nFine tuning?: 우리가 가지고 있는 training dataset 이 매우 작다면, 위에서 든 예에서 직감할 수 있듯이, pre trained vector 를 fine tuning 하게 되면, training set 에 fitting 되는 효과가 있고, 우리가 의도치 않는 weight 의 업데이트가 되거나 혹은 되지 않을 수 있다.\n\n2. 효율적인 gradient 계산\n사실 당연하게 여김에도, 우리가 손으로 계산하는 (upstream network * local gradient) 과정을 아래 식에서도 확인 할 수 있듯이, ds/dh, dh/dz term 은 중복되는 과정이다.\n\n$$\\frac{ds}{dW}=\\frac{ds}{dh}\\frac{dh}{dz}\\frac{dz}{dW}$$\n$$\\frac{ds}{db}=\\frac{ds}{dh}\\frac{dh}{dz}\\frac{dz}{db}$$\n\n따라서 효율적인 computation을 구현하기 위해서, back propagation에서 upstream network 를 저장하고, 각 parameter 에 대한 local gradient를 구해, 동시에 곱해주어 back prop 을 진행 할 수 있다.\n\n3. Regularization우리가 parameter 가 많아지면 많아질 수록, training error 와  test error 는 낮아지기 마련이다. 하지만, 어느 수준을 넘어가게 되면, training set 에 대해서는 매우 정확해지는 반면, test data(validate data)에 대해서는 generalization에서 실패한 그래프나 수치들을 확인할 수 있다. 따라서, 우리는 반드시 우리가 최적화 하려고 하는 Loss 에 대해 Regularization 을 해주어야만 한다.\n\n다음은 L2 Regularization term 이 추가된 loss function 이다. 지겹도록 바왔음에도, 꼭 식을 보면 해석해야겠기에, Model parameter (weight) theta 가 제곱term 으로 너무 커지는 것을 방지하기 위해 lambda 에 비례하여 penalty term 을 추가한다.\n\n4. Vectorization우리가 forward/backward propagation 을 진행하면서, 각 data의 계산을 looping 하여 계산한다면, 매우 비효율적인 계산 방식이 된다. 우리는 위대한 Vecor/Matrix Multiplication 방법으로, 즉, 모든 data 와 weight을 행렬로 만들어 forward/backward 계산을 진행해야한다. 또한 이렇게 진행했을 때, 가속화 도구인 GPU 활용의 이점을 사용할 수 있다.\n","dateCreated":"2019-08-09T22:26:12+09:00","dateModified":"2019-08-09T22:29:25+09:00","datePublished":"2019-08-09T22:26:12+09:00","description":"Lecture 04: Backpropagation and computation graphsStandford University 의 CS224n 강의를 듣고 정리하는 글입니다.","headline":"[CS224n]Lecture04-BackPropagation","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://emjayahn.github.io/2019/08/09/CS224n-Lecture04-Summary/"},"publisher":{"@type":"Organization","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478","logo":{"@type":"ImageObject","url":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"}},"url":"https://emjayahn.github.io/2019/08/09/CS224n-Lecture04-Summary/","keywords":"CS224n, summary"}</script>
     <meta name="description" content="Lecture 04: Backpropagation and computation graphsStandford University 의 CS224n 강의를 듣고 정리하는 글입니다.">
 <meta name="keywords" content="CS224n,summary">
 <meta property="og:type" content="blog">
@@ -151,20 +151,6 @@
                     
                         <a
                             class="sidebar-button-link "
-                            href="/all-tags"
-                            
-                            rel="noopener"
-                            title="태그"
-                        >
-                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">태그</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link open-algolia-search"
                             href="/all-archives"
                             
                             rel="noopener"
@@ -172,6 +158,20 @@
                         >
                         <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">아카이브</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link open-algolia-search"
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="태그"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">태그</span>
                     </a>
             </li>
             
@@ -305,6 +305,7 @@
         <div class="main-content-wrap">
             <h1 id="Lecture-04-Backpropagation-and-computation-graphs"><a href="#Lecture-04-Backpropagation-and-computation-graphs" class="headerlink" title="Lecture 04: Backpropagation and computation graphs"></a>Lecture 04: Backpropagation and computation graphs</h1><p>Standford University 의 CS224n 강의를 듣고 정리하는 글입니다.</p>
 <a id="more"></a>
+
 <p>기본적인 computation graph 와 backpropagation 에 관한 내용은 스킵하도록 하겠습니다. 새롭고, 핵심적인 내용만 간추린 내용입니다.</p>
 <h2 id="1-Word-Vector를-Retraining"><a href="#1-Word-Vector를-Retraining" class="headerlink" title="1. Word Vector를 Retraining?"></a>1. Word Vector를 Retraining?</h2><p>Quetion: Retraining 에 대한 판단의 시작 예: TV, telly, television 이 pre-trained word vector 에서는 비슷한  공간에 분포되어있다고 가정할 때, training data 에는 TV 와 telly 단어만 존재하고, test data 에 television이 존재 할 때, word vector 는 어떻게 될 것인가?</p>
 <ul>
@@ -317,7 +318,9 @@
 <h2 id="2-효율적인-gradient-계산"><a href="#2-효율적인-gradient-계산" class="headerlink" title="2. 효율적인 gradient 계산"></a>2. 효율적인 gradient 계산</h2><ul>
 <li>사실 당연하게 여김에도, 우리가 손으로 계산하는 (upstream network * local gradient) 과정을 아래 식에서도 확인 할 수 있듯이, ds/dh, dh/dz term 은 중복되는 과정이다.</li>
 </ul>
-<script type="math/tex; mode=display">\frac{ds}{dW}=\frac{ds}{dh}\frac{dh}{dz}\frac{dz}{dW}</script><script type="math/tex; mode=display">\frac{ds}{db}=\frac{ds}{dh}\frac{dh}{dz}\frac{dz}{db}</script><ul>
+<p>$$\frac{ds}{dW}=\frac{ds}{dh}\frac{dh}{dz}\frac{dz}{dW}$$</p>
+<p>$$\frac{ds}{db}=\frac{ds}{dh}\frac{dh}{dz}\frac{dz}{db}$$</p>
+<ul>
 <li>따라서 효율적인 computation을 구현하기 위해서, back propagation에서 upstream network 를 저장하고, 각 parameter 에 대한 local gradient를 구해, 동시에 곱해주어 back prop 을 진행 할 수 있다.</li>
 </ul>
 <h2 id="3-Regularization"><a href="#3-Regularization" class="headerlink" title="3. Regularization"></a>3. Regularization</h2><p>우리가 parameter 가 많아지면 많아질 수록, training error 와  test error 는 낮아지기 마련이다. 하지만, 어느 수준을 넘어가게 되면, training set 에 대해서는 매우 정확해지는 반면, test data(validate data)에 대해서는 generalization에서 실패한 그래프나 수치들을 확인할 수 있다. 따라서, 우리는 반드시 우리가 최적화 하려고 하는 Loss 에 대해 Regularization 을 해주어야만 한다.</p>
@@ -602,7 +605,7 @@
         
             <h4 id="about-card-name">EmjayAhn</h4>
         
-            <div id="about-card-bio"><p>나스미디어</p>
+            <div id="about-card-bio"><p>NasMedia, Data Science Team</p>
 </div>
         
         
@@ -617,7 +620,7 @@
             <div id="about-card-location">
                 <i class="fa fa-map-marker-alt"></i>
                 <br/>
-                서울, 대한민국
+                Seoul, Korea
             </div>
         
     </div>

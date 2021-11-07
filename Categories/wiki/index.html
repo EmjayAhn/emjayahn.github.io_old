@@ -145,20 +145,6 @@
                     
                         <a
                             class="sidebar-button-link "
-                            href="/all-tags"
-                            
-                            rel="noopener"
-                            title="태그"
-                        >
-                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">태그</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link open-algolia-search"
                             href="/all-archives"
                             
                             rel="noopener"
@@ -166,6 +152,20 @@
                         >
                         <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">아카이브</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link open-algolia-search"
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="태그"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">태그</span>
                     </a>
             </li>
             
@@ -362,8 +362,10 @@
 <li>일종의 <code>proxy server</code> 역할을 해주는 것이 <code>nginx</code></li>
 </ul>
 <h2 id="1-Install-Nginx"><a href="#1-Install-Nginx" class="headerlink" title="1. Install Nginx"></a>1. Install Nginx</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br><span class="line">$ sudo apt-get install nginx</span><br></pre></td></tr></table></figure>
+
 <h2 id="2-Manage-the-Nginx-Process"><a href="#2-Manage-the-Nginx-Process" class="headerlink" title="2. Manage the Nginx Process"></a>2. Manage the Nginx Process</h2><ul>
 <li>nginx Process<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#start Nginx</span></span><br><span class="line">$ sudo systemctl start nginx</span><br><span class="line"></span><br><span class="line"><span class="comment">#stop nginx</span></span><br><span class="line">$ sudo systemctl stop nginx</span><br><span class="line"></span><br><span class="line"><span class="comment">#restart nginx</span></span><br><span class="line">$ sudo systemctl restart nginx</span><br><span class="line"></span><br><span class="line"><span class="comment">#check status nginx</span></span><br><span class="line">$ sudo systemctl status nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># reload nginx</span></span><br><span class="line">$ sudo systemctl reload nginx</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 <h2 id="3-Structure"><a href="#3-Structure" class="headerlink" title="3. Structure"></a>3. Structure</h2><ul>
@@ -383,13 +385,20 @@
 </ul>
 <h2 id="4-Nginx-Configuration"><a href="#4-Nginx-Configuration" class="headerlink" title="4. Nginx Configuration"></a>4. Nginx Configuration</h2><h3 id="4-1-static-file-serving"><a href="#4-1-static-file-serving" class="headerlink" title="4.1 static file serving"></a>4.1 static file serving</h3><p><code>/etc/nginx/sites-available/default</code> 파일 수정</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">  location / &#123;</span><br><span class="line">    root /path/to/html ;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  location /images/ &#123;</span><br><span class="line">    root /path/to/image;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h3 id="4-2-proxy-server"><a href="#4-2-proxy-server" class="headerlink" title="4.2 proxy server"></a>4.2 proxy server</h3><ul>
 <li><p>port 별로 설정이 가능하다</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">  # default 는 80 port (http default)</span><br><span class="line">  # 8080 port 에 대해서</span><br><span class="line">  listen 8080;</span><br><span class="line">  location / &#123;</span><br><span class="line">    proxy_pass http://localhost:8080;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>여러개의 포트를 연결<br>```<br>server {<br>listen 8080;<br>listen 80;</p>
-<p>location / {<br>  proxy_pass <a href="http://localhost:8080" target="_blank" rel="noopener">http://localhost:8080</a>;<br>}<br>}</p>
-</li>
+<li><p>여러개의 포트를 연결</p>
+<pre><code>server {
+listen 8080;
+listen 80;
+
+location / {
+  proxy_pass http://localhost:8080;
+}
+}</code></pre></li>
 </ul>
 
                     
@@ -521,14 +530,18 @@
 </li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> usr/<span class="built_in">local</span>/mysql/bin</span><br></pre></td></tr></table></figure>
+
 <p>위 경로에서</p>
 <ul>
 <li>MySQL 서버에 접속<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo ./mysql -p</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql &gt;</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>패스워드 변경<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;ALTER USER <span class="string">'root'</span>@<span class="string">'localhost'</span> IDENTIFIED BY <span class="string">'바꾸고싶은 비밀번호'</span>;</span><br><span class="line">mysql&gt;FLUSH PRIVILEGES;</span><br><span class="line">mysql&gt;quit;</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 <h2 id="2-MySQL-Shell-Command"><a href="#2-MySQL-Shell-Command" class="headerlink" title="2. MySQL Shell Command"></a>2. MySQL Shell Command</h2><h3 id="1-DATABASE-생성-접속-삭제"><a href="#1-DATABASE-생성-접속-삭제" class="headerlink" title="(1) DATABASE 생성, 접속, 삭제"></a>(1) DATABASE 생성, 접속, 삭제</h3><ul>
@@ -549,6 +562,7 @@
 </li>
 <li><p>DB 지우기</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; DROP DATABASE DBNAME;</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 <h3 id="2-TABLE-생성-추가-삭제"><a href="#2-TABLE-생성-추가-삭제" class="headerlink" title="(2) TABLE 생성, 추가, 삭제"></a>(2) TABLE 생성, 추가, 삭제</h3><ul>
@@ -564,23 +578,31 @@
 </li>
 <li><p>example2 : constraint가 있을 때,</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; CREATE TABLE user2(</span><br><span class="line">  user_id INT PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">  name VARCHAR(20) NOT NULL,</span><br><span class="line">  email VARCHAR(30) UNIQUE NOT NULL,</span><br><span class="line">  age INT(3) DEFAULT<span class="string">'30'</span>,</span><br><span class="line">  rdate TIMESTAMP</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
-<p><br><br><br></p>
-<h2 id="3-수정"><a href="#3-수정" class="headerlink" title="(3) 수정"></a>(3) 수정</h2><h3 id="3-1-DATABASE-수정"><a href="#3-1-DATABASE-수정" class="headerlink" title="(3)-1. DATABASE 수정"></a>(3)-1. DATABASE 수정</h3><ul>
-<li>DATABASE 의 <strong>encoding</strong> 수정<br><br><br><br></li>
-<li><p>현재 문자열 encoding 확인</p>
+<br>
+<br>
+## (3) 수정
+### (3)-1. DATABASE 수정
+- DATABASE 의 **encoding** 수정
+<br>
+<br>
+- 현재 문자열 encoding 확인
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SHOW VARIABLES LIKE <span class="string">"CHARACTER_SET_DATABASE"</span>;</span><br></pre></td></tr></table></figure>
-</li>
+
+<ul>
 <li><p>mydb 데이터베이스의 문자열 인코딩을 <code>utf8</code> 로 변경</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; ALTER DATABASE mydb CHARACTER_SET = utf8;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>user 데이터베이스의 문자열 인코딩을 <code>ascii</code> 로 변경</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; ALTER DATABASE user CHARACTER_SET=ascii</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 <h3 id="3-2-TABLE-수정"><a href="#3-2-TABLE-수정" class="headerlink" title="(3)-2. TABLE 수정"></a>(3)-2. TABLE 수정</h3><ul>
 <li><code>user</code> 테이블에 <code>tmp</code>라는 컬럼명, <code>TEXT</code> 데이터 타입 컬럼을 추가<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; ALTER TABLE user ADD tmp TEXT;</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 
@@ -648,30 +670,36 @@
 </ul>
 <h2 id="1-Install"><a href="#1-Install" class="headerlink" title="1. Install"></a>1. Install</h2><ul>
 <li>파이썬의 라이브러리 이므로 pip 으로 설치 할 수 있다.<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install scrapy</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 <h2 id="2-실습"><a href="#2-실습" class="headerlink" title="2. 실습"></a>2. 실습</h2><ul>
 <li>실습을 위해 <strong>import</strong> 할 것들</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> scrapy.http <span class="keyword">import</span> TextResponse</span><br></pre></td></tr></table></figure>
+
 <ol>
 <li>requests 를 통해 url 정보를 받아온다.</li>
 <li>TextResponse 를 통해 받아온 html 파일을 encoding 과 text형식으로 return</li>
 </ol>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">req = requests.get(<span class="string">"url_name"</span>)</span><br><span class="line">response = TextResponse(req.url, body=req.text, encoding=<span class="string">"utf-8"</span>)</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a = response.xpath(<span class="string">'xpath'</span>)</span><br><span class="line"><span class="comment"># xpath 로 지정한 엘리먼트를 가져온다.</span></span><br><span class="line">a_text = reponse.xpath(<span class="string">'xpath/text()'</span>)</span><br><span class="line"><span class="comment"># 엘리먼트의 text data 를 가져온다.</span></span><br><span class="line">a_text.extract()</span><br><span class="line"><span class="comment"># 엘리먼트의 text data들을 말그대로 extract 하여, list 형태로 return 해준다</span></span><br></pre></td></tr></table></figure>
+
 <h2 id="3-Scrapy-사용하기"><a href="#3-Scrapy-사용하기" class="headerlink" title="3. Scrapy 사용하기"></a>3. Scrapy 사용하기</h2><h3 id="1-scrapy-프로젝트-생성"><a href="#1-scrapy-프로젝트-생성" class="headerlink" title="(1) scrapy 프로젝트 생성"></a>(1) scrapy 프로젝트 생성</h3><ul>
 <li>shell command<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scrapy startproject crawler</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!scrapy startproject crawler</span><br></pre></td></tr></table></figure>
-<pre><code>New Scrapy project &#39;crawler&#39;, using template directory &#39;/Users/emjayahn/.pyenv/versions/3.7.0/envs/dss/lib/python3.7/site-packages/scrapy/templates/project&#39;, created in:
+
+<pre><code>New Scrapy project &apos;crawler&apos;, using template directory &apos;/Users/emjayahn/.pyenv/versions/3.7.0/envs/dss/lib/python3.7/site-packages/scrapy/templates/project&apos;, created in:
     /Users/emjayahn/Dev/DSS/TIL(markdown)/crawler
 
 You can start your first spider with:
     cd crawler
-    scrapy genspider example example.com
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!tree crawler</span><br></pre></td></tr></table></figure>
+    scrapy genspider example example.com</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!tree crawler</span><br></pre></td></tr></table></figure>
+
 <pre><code>crawler
 ├── crawler
 │   ├── __init__.py
@@ -685,8 +713,7 @@ You can start your first spider with:
 │       └── __pycache__
 └── scrapy.cfg
 
-4 directories, 7 files
-</code></pre><h3 id="2-Scrapy-기본-구조"><a href="#2-Scrapy-기본-구조" class="headerlink" title="(2) Scrapy 기본 구조"></a>(2) Scrapy 기본 구조</h3><ol>
+4 directories, 7 files</code></pre><h3 id="2-Scrapy-기본-구조"><a href="#2-Scrapy-기본-구조" class="headerlink" title="(2) Scrapy 기본 구조"></a>(2) Scrapy 기본 구조</h3><ol>
 <li><p>Spider</p>
 <ul>
 <li>크롤링 절차 정하기</li>
@@ -795,7 +822,7 @@ You can start your first spider with:
 <li><code>.</code> : 현재 엘리먼트</li>
 <li><code>*</code> : 조건에 맞는 전체 하위 엘리먼트를 검색한다(css selector 에서 한칸 띄우는 것 과 같다)</li>
 <li><code>element[조건]</code> : 엘리먼트에 조건에 해당되는 것을 검색한다<ul>
-<li>(예) <code>p[2]</code> : p 엘리먼트 중 두번째 엘리먼트를 선택 <strong>주의:1부터 시작, 0이 아님 </strong></li>
+<li>(예) <code>p[2]</code> : p 엘리먼트 중 두번째 엘리먼트를 선택 *<em>주의:1부터 시작, 0이 아님 *</em></li>
 <li>(예) <code>[@(attribute_key=&quot;attribute_value&quot;)]</code> : 속성값으로 엘리먼트를 선택<br><code>[@id=&quot;main&quot;]</code> : “main” 이라는 id 를 선택<br><code>[@class=&quot;pp&quot;]</code> : “pp” 라는 class 를 선택</li>
 </ul>
 </li>
@@ -871,27 +898,36 @@ You can start your first spider with:
 <li>또한, 다양한 이미지 확장자를 다룰수 있다. (예, jpg, png)</li>
 </ul>
 <h2 id="Pillow-install"><a href="#Pillow-install" class="headerlink" title="Pillow install"></a>Pillow install</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install Pillow</span><br></pre></td></tr></table></figure>
+
 <h3 id="1-Import-Convention"><a href="#1-Import-Convention" class="headerlink" title="1. Import Convention"></a>1. Import Convention</h3><ul>
 <li>Pillow 를 사용하기에 앞서, Import 해야한다.<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 <h3 id="2-Pillow-메소드"><a href="#2-Pillow-메소드" class="headerlink" title="2. Pillow 메소드"></a>2. Pillow 메소드</h3><h4 id="1-open"><a href="#1-open" class="headerlink" title="(1) open()"></a>(1) open()</h4><ul>
 <li><p>이름 그대로, 경로와 파일 이름을 적어주면, 해당 이미지리턴하여 Variable 에 할당한다.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">image = Image.open(<span class="string">"imagefile_name"</span>)</span><br></pre></td></tr></table></figure>
+
 <h4 id="2-crop"><a href="#2-crop" class="headerlink" title="(2) crop()"></a>(2) crop()</h4></li>
-<li>이름 그대로, image 를 잘라준다. 이 때 Parameter 는 box형태로 들어가게 된다.</li>
-<li>box 는 (left, upper, right, lower) 로 들어가게 된든데, pixel 단위로 들어가면 된다</li>
+<li><p>이름 그대로, image 를 잘라준다. 이 때 Parameter 는 box형태로 들어가게 된다.</p>
+</li>
+<li><p>box 는 (left, upper, right, lower) 로 들어가게 된든데, pixel 단위로 들어가면 된다</p>
+</li>
 <li><p>이미지의 가장 왼쪽과 위쪽 라인을 기준으로, <br></p>
 <ul>
 <li>left px 만큼</li>
 <li>upper px 만큼</li>
 <li>(왼쪽을 기준으로) right px 만큼</li>
 <li>(위쪽을 기준으로) bottom px 만큼 <br><br>잘라, box 로 만들어 준다.<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">box = (<span class="number">10</span>, <span class="number">10</span>, <span class="number">110</span>, <span class="number">110</span>)</span><br><span class="line">image.crop(box)</span><br><span class="line"><span class="comment">### 이렇게 되면 가로세로 100px 만큼의 이미지가 만들어진다.</span></span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 <h4 id="3-thumbnail"><a href="#3-thumbnail" class="headerlink" title="(3) thumbnail()"></a>(3) thumbnail()</h4></li>
-<li>썸네일을 만들어준다.</li>
-<li>썸네일의 활용 방안은 한 가지 사진을 어플리케이션 곳곳에서 사용한다고 할 때, 데이터 사이즈가 큰 원본 사진을 계속 해서 들고 다니며 사용하면 어플리케이션에 따라 메모리 낭비, 서버용량 낭비, 트래픽 낭비 등으로 이어질 수 있다. 따라서, 이미지의 데이터 크기와 해상도를 낮춰 사용할 수 있다.<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">image.thumbnail((pixel, pixel))</span><br><span class="line"><span class="comment">#thumbnail 메소드를 사용하여, 원하는 pixel 수로 줄일 수 있다.</span></span><br></pre></td></tr></table></figure>
+<li><p>썸네일을 만들어준다.</p>
+</li>
+<li><p>썸네일의 활용 방안은 한 가지 사진을 어플리케이션 곳곳에서 사용한다고 할 때, 데이터 사이즈가 큰 원본 사진을 계속 해서 들고 다니며 사용하면 어플리케이션에 따라 메모리 낭비, 서버용량 낭비, 트래픽 낭비 등으로 이어질 수 있다. 따라서, 이미지의 데이터 크기와 해상도를 낮춰 사용할 수 있다.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">image.thumbnail((pixel, pixel))</span><br><span class="line"><span class="comment">#thumbnail 메소드를 사용하여, 원하는 pixel 수로 줄일 수 있다.</span></span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 
@@ -953,33 +989,39 @@ You can start your first spider with:
                 <div class="postShorten-content">
                     <h1 id="WEB-CRAWLING-1"><a href="#WEB-CRAWLING-1" class="headerlink" title="WEB CRAWLING 1"></a>WEB CRAWLING 1</h1><blockquote>
 <p>공부한 내용을 스스로 보기 쉽게 정리한 글입니다.</p>
+</blockquote>
 <h2 id="Requests"><a href="#Requests" class="headerlink" title="Requests "></a>Requests <br></h2><ul>
 <li>Requests 패키지는 크롤링 하고자 하는 페이지를 url 값을 통해 가져와 객체로 변환 해주는 기능을 가지고 있다. <br></li>
 </ul>
-</blockquote>
 <h3 id="1-Installation"><a href="#1-Installation" class="headerlink" title="1. Installation"></a>1. Installation</h3><ul>
 <li>Requests 를 이용하기 위해 package 를 설치해준다.<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pip3 install requests</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
-<p><br></p>
-<ul>
-<li>request를 이용하면서, json 형식으로의 크롤링과, html 형식으로 css  selecting 을 위한 크롤링을 실습해 볼 것이므로, BeautifulSoup Package 역시 같이 설치해준다. (BeautifulSoup은 html parser 를 이용해보기 위함이다.)</li>
-<li><p>python-forecastio 는 dark sky 의 api를 활용해 날씨 데이터를 받아올때 사용해보기 위해 설치한다.</p>
+<br>
+- request를 이용하면서, json 형식으로의 크롤링과, html 형식으로 css  selecting 을 위한 크롤링을 실습해 볼 것이므로, BeautifulSoup Package 역시 같이 설치해준다. (BeautifulSoup은 html parser 를 이용해보기 위함이다.)
+- python-forecastio 는 dark sky 의 api를 활용해 날씨 데이터를 받아올때 사용해보기 위해 설치한다.
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ pip3 install bs4</span><br><span class="line">$ pip3 install python-forecastio</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>import 할 것들</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> forecastio</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="keyword">from</span> pandas.io.json <span class="keyword">import</span> json_normalize</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>import 할 것들<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> forecastio</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="keyword">from</span> pandas.io.json <span class="keyword">import</span> json_normalize</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 <h3 id="2-jSON-Dark-Sky-api-활용-날씨정보-가져오기"><a href="#2-jSON-Dark-Sky-api-활용-날씨정보-가져오기" class="headerlink" title="2. [ jSON ] Dark Sky api 활용 날씨정보 가져오기"></a>2. [ jSON ] Dark Sky api 활용 날씨정보 가져오기</h3><ul>
-<li>DarkSky api 는 위도와 경도를 입력하면, 날씨 정보를 주는 api 이다.</li>
+<li><p>DarkSky api 는 위도와 경도를 입력하면, 날씨 정보를 주는 api 이다.</p>
+</li>
 <li><p><a href="https://darsky.net/dev/" target="_blank" rel="noopener">https://darsky.net/dev/</a> 에 가입 후, TOKEN 을 받는다.</p>
 </li>
 <li><p>위에서 받은 개인의 TOKEN 을 활용해 url 을 먼저, formating을 해준다.</p>
 </li>
-<li>requests의 get 메소드를 활용해 url 의 정보를 받아온다.</li>
-<li>받아온 정보를 requests 의 json 메소드로 json 형식으로 변환해준다.</li>
-<li>json 을 확인하고 원하는 정보를 return 해준다.<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">forecast</span><span class="params">(lat, lng)</span>:</span></span><br><span class="line">  url = <span class="string">"https://api.darksky.net/forecast/&#123;&#125;/&#123;&#125;,&#123;&#125;"</span>.format(TOKEN, lat, lng)</span><br><span class="line">      response = requests.get(url)</span><br><span class="line">      json_obj = response.json()</span><br><span class="line">      <span class="keyword">return</span> json_obj[<span class="string">"hourly"</span>][<span class="string">"summary"</span>]</span><br></pre></td></tr></table></figure>
+<li><p>requests의 get 메소드를 활용해 url 의 정보를 받아온다.</p>
+</li>
+<li><p>받아온 정보를 requests 의 json 메소드로 json 형식으로 변환해준다.</p>
+</li>
+<li><p>json 을 확인하고 원하는 정보를 return 해준다.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">forecast</span><span class="params">(lat, lng)</span>:</span></span><br><span class="line">  url = <span class="string">"https://api.darksky.net/forecast/&#123;&#125;/&#123;&#125;,&#123;&#125;"</span>.format(TOKEN, lat, lng)</span><br><span class="line">      response = requests.get(url)</span><br><span class="line">      json_obj = response.json()</span><br><span class="line">      <span class="keyword">return</span> json_obj[<span class="string">"hourly"</span>][<span class="string">"summary"</span>]</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 <h3 id="3-html-BS4-활용-html-selecting-해서-가져오기"><a href="#3-html-BS4-활용-html-selecting-해서-가져오기" class="headerlink" title="3. [ html ] BS4 활용 html selecting 해서 가져오기"></a>3. [ html ] BS4 활용 html selecting 해서 가져오기</h3><ul>
@@ -987,6 +1029,7 @@ You can start your first spider with:
 <li>html 파일을 BS4 를 활용해 받아온뒤, CSS selecting 으로 원하는 text data 를 가져온다.</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">naver</span><span class="params">()</span>:</span></span><br><span class="line">  url = <span class="string">"https://www.naver.com"</span></span><br><span class="line">  df = pd.DataFrame(columns=[<span class="string">"rank"</span>, <span class="string">"keyword"</span>])</span><br><span class="line">  response = requests.get(url)</span><br><span class="line">  dom = BeautifulSoup(response.content, <span class="string">"html.parser"</span>)</span><br><span class="line"></span><br><span class="line">  <span class="comment"># BeautifulSoup(markup, features, builder, parse_only, from_encoding, exclude_encodings)</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> keyword <span class="keyword">in</span> keywords:</span><br><span class="line">        df.loc[len(df)] = &#123;</span><br><span class="line">            <span class="string">"rank"</span>:keyword.select_one(<span class="string">'.ah_r'</span>).text,</span><br><span class="line">            <span class="string">"keyword"</span>:keyword.select_one(<span class="string">'.ah_k'</span>).text</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">return</span> df</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>print(response.content)의 모양을 보자.</li>
 <li>따라서, BeautifulSoup 으로 html 형식으로 parsing 해주고, css 를 활용해 selecting 해준다.</li>
@@ -1062,6 +1105,7 @@ You can start your first spider with:
 </li>
 <li><p>Selenium Python Package 설치</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo pip3 install selenium</span></span><br></pre></td></tr></table></figure>
+
 </li>
 </ol>
 <h2 id="1-셀레니움-사용해보기"><a href="#1-셀레니움-사용해보기" class="headerlink" title="1. 셀레니움 사용해보기"></a>1. 셀레니움 사용해보기</h2><ul>
@@ -1085,6 +1129,7 @@ You can start your first spider with:
 </li>
 <li><p>열려있는 window 탭 중, control 대상 window 로 바꾸기</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">driver.switch_to_window(windows[<span class="number">0</span>])</span><br><span class="line"><span class="comment">#다시 원래 열었던 창으로 돌아가기</span></span><br><span class="line">driver.switch_to_window(main_window)</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 <h2 id="2-Alert-와-Confirm-다루기"><a href="#2-Alert-와-Confirm-다루기" class="headerlink" title="2. Alert 와 Confirm 다루기"></a>2. Alert 와 Confirm 다루기</h2><ul>
@@ -1100,6 +1145,7 @@ You can start your first spider with:
 </li>
 <li><p>Alert 창이 있으면 확인을 누르고, 없으면 없다고 리턴하기 (예외처리)</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">  alert = driver.switch_to.alert</span><br><span class="line">  alert.accept()</span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">  print(<span class="string">"alert 가 없습니다."</span>)</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 <h3 id="2-Confirm"><a href="#2-Confirm" class="headerlink" title="(2) Confirm"></a>(2) Confirm</h3><ul>
@@ -1108,25 +1154,33 @@ You can start your first spider with:
 </li>
 <li><p>Confirm 창 확인 누르기 or 취소 누르기</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">confirm = driver.switch_to.alert</span><br><span class="line"><span class="comment"># 확인</span></span><br><span class="line"><span class="comment"># confirm.accept()</span></span><br><span class="line"><span class="comment"># 취소</span></span><br><span class="line">confirm.dismiss()</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 <h2 id="3-입력창에-글씨-입력하기"><a href="#3-입력창에-글씨-입력하기" class="headerlink" title="3. 입력창에 글씨 입력하기"></a>3. 입력창에 글씨 입력하기</h2><ul>
 <li>이제부터 Selenium을 통해 특정 html 의 element 에 액션을 주려면,<br>각종 Selector 를 사용하여 html 상의 element을 셀렉팅 하고, 해당 element 에게 액션을 주어야한다.</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.find_element_by_css_selector(nameof cssselector).send_keys(<span class="string">"입력할 내용"</span>)</span><br></pre></td></tr></table></figure>
+
 <ul>
-<li>.find_element_by_css_selector 와 <br><br>.find_<b>elements</b>_<br>by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 반면, elements 는 여러가지 element 를 셀렉팅 해서, 리스트 형식으로 Return 한다.</li>
+<li>.find_element_by_css_selector 와 <br><br>.find_<b>elements</b>_
+by_css_selector 는 다르다.element 는 하나의 selector 만 선택하는 반면, elements 는 여러가지 element 를 셀렉팅 해서, 리스트 형식으로 Return 한다.</li>
 <li>따라서 이렇게 리스트 형식으로 Return 이 된 경우, List[0] 등과 같이 그 엘리먼트를 뒤에 지정해줘야된다. 즉,<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">driver.find_element_by_css_selector(nameof cssselector)</span><br><span class="line"><span class="comment">#위는 바로 selecting 이 된것이지만,</span></span><br><span class="line">driver.find_elements_by_css_selector(nameof cssselector)[<span class="number">0</span>]</span><br><span class="line"><span class="comment">#위는 뒤에 selecting 위해 list 의 요소를 선택 해주어야한다.</span></span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 <h2 id="4-버튼-클릭하기"><a href="#4-버튼-클릭하기" class="headerlink" title="4. 버튼 클릭하기"></a>4. 버튼 클릭하기</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 위의 방법처럼, element 를 선택해준다.</span></span><br><span class="line">driver.find_element_by_css_selector(<span class="string">"name of css selector"</span>).click()</span><br></pre></td></tr></table></figure>
+
 <h2 id="5-id-class-그-외의-attribute-값을-selecting-하는-법"><a href="#5-id-class-그-외의-attribute-값을-selecting-하는-법" class="headerlink" title="5. id, class, 그 외의 attribute 값을 selecting 하는 법"></a>5. id, class, 그 외의 attribute 값을 selecting 하는 법</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">driver.find_element_by_css_selector(<span class="string">"name of css selector."</span>).click()</span><br><span class="line"><span class="comment"># id 의 경우 : #idname</span></span><br><span class="line"><span class="comment"># class 의 경우 : .classname</span></span><br><span class="line"><span class="comment"># 다른 attribute 의 경우 : [attribute = 'value']</span></span><br></pre></td></tr></table></figure>
+
 <h2 id="6-selecting-한-element-의-attribute-value-를-얻는-방법"><a href="#6-selecting-한-element-의-attribute-value-를-얻는-방법" class="headerlink" title="6. selecting 한 element 의 attribute value 를 얻는 방법"></a>6. selecting 한 element 의 attribute value 를 얻는 방법</h2><ul>
 <li>CSS로 선택한 element에 html 태그에는 다양한 attribute 들이 있을 수 있다. 이 중<br>attribute의 value에 접근 하고 싶을 때는 .get_attribute()메소드를 사용할 수 있다.<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">driver.find_element_by_css_selector(<span class="string">"name of css selector"</span>).get_attribute(<span class="string">"attribute_name"</span>)</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 <h2 id="7-element-의-위치와-사이즈-구하기"><a href="#7-element-의-위치와-사이즈-구하기" class="headerlink" title="7. element 의 위치와, 사이즈 구하기"></a>7. element 의 위치와, 사이즈 구하기</h2><ul>
 <li>스크롤을 내리거나, 엘리먼트의 위치와 크기를 알고 싶을 때 사용할 수 있다.<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">element = driver.find_element_by_css_selector(<span class="string">"name of css selector"</span>)</span><br><span class="line">element.location</span><br><span class="line"><span class="comment">#element 의 좌측 상단의 위치가 pixel 단위로 x, y 값의 dictionary로 보여준다.</span></span><br><span class="line">element.size</span><br><span class="line"><span class="comment">#element 의 size 를 height, width를 pixel 단위로 dictionary로 보여준다.</span></span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 
@@ -1184,7 +1238,7 @@ You can start your first spider with:
         
             <h4 id="about-card-name">EmjayAhn</h4>
         
-            <div id="about-card-bio"><p>나스미디어</p>
+            <div id="about-card-bio"><p>NasMedia, Data Science Team</p>
 </div>
         
         
@@ -1199,7 +1253,7 @@ You can start your first spider with:
             <div id="about-card-location">
                 <i class="fa fa-map-marker-alt"></i>
                 <br/>
-                서울, 대한민국
+                Seoul, Korea
             </div>
         
     </div>

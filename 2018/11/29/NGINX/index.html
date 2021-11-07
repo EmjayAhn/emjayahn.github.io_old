@@ -17,7 +17,7 @@
             <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss2.xml">
         
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"},"articleBody":"Nginx0. What is nginx?\nclient 가 외부 IP와 그 포트를 통해 server 에 접근하면,\n그 때부터는 request 를 내부 IP 와 port 로 연결을 해주어야 한다.\n일종의 proxy server 역할을 해주는 것이 nginx\n\n1. Install Nginx12$ sudo apt-get update$ sudo apt-get install nginx\n2. Manage the Nginx Process\nnginx Process1234567891011121314#start Nginx$ sudo systemctl start nginx#stop nginx$ sudo systemctl stop nginx#restart nginx$ sudo systemctl restart nginx#check status nginx$ sudo systemctl status nginx# reload nginx$ sudo systemctl reload nginx\n\n\n3. Structure\n/etc/nginx\nNginx의 설정에 관련된 directory\n\n\n/etc/nginx/nginx.conf\nnginx의 기본설정 파일, global설정은 이 파일에서\n\n\n/etc/nginx/sites-available/\n포트 접속시 개별 설정하는 directory\n여기 안에 default 파일 변경\n\n\n\n4. Nginx Configuration4.1 static file serving/etc/nginx/sites-available/default 파일 수정\n123456789server &#123;  location / &#123;    root /path/to/html ;  &#125;  location /images/ &#123;    root /path/to/image;  &#125;&#125;\n4.2 proxy server\nport 별로 설정이 가능하다\n12345678server &#123;  # default 는 80 port (http default)  # 8080 port 에 대해서  listen 8080;  location / &#123;    proxy_pass http://localhost:8080;  &#125;&#125;\n\n여러개의 포트를 연결```server {listen 8080;listen 80;\nlocation / {  proxy_pass http://localhost:8080;}}\n\n\n","dateCreated":"2018-11-29T22:57:28+09:00","dateModified":"2018-11-29T23:00:09+09:00","datePublished":"2018-11-29T22:57:28+09:00","description":"","headline":"NGINX","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://emjayahn.github.io/2018/11/29/NGINX/"},"publisher":{"@type":"Organization","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478","logo":{"@type":"ImageObject","url":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"}},"url":"https://emjayahn.github.io/2018/11/29/NGINX/","keywords":"nginx, proxy"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"},"articleBody":"Nginx0. What is nginx?\nclient 가 외부 IP와 그 포트를 통해 server 에 접근하면,\n그 때부터는 request 를 내부 IP 와 port 로 연결을 해주어야 한다.\n일종의 proxy server 역할을 해주는 것이 nginx\n\n1. Install Nginx12$ sudo apt-get update$ sudo apt-get install nginx\n\n2. Manage the Nginx Process\nnginx Process1234567891011121314#start Nginx$ sudo systemctl start nginx#stop nginx$ sudo systemctl stop nginx#restart nginx$ sudo systemctl restart nginx#check status nginx$ sudo systemctl status nginx# reload nginx$ sudo systemctl reload nginx\n\n\n\n3. Structure\n/etc/nginx\nNginx의 설정에 관련된 directory\n\n\n/etc/nginx/nginx.conf\nnginx의 기본설정 파일, global설정은 이 파일에서\n\n\n/etc/nginx/sites-available/\n포트 접속시 개별 설정하는 directory\n여기 안에 default 파일 변경\n\n\n\n4. Nginx Configuration4.1 static file serving/etc/nginx/sites-available/default 파일 수정\n123456789server &#123;  location / &#123;    root /path/to/html ;  &#125;  location /images/ &#123;    root /path/to/image;  &#125;&#125;\n\n4.2 proxy server\nport 별로 설정이 가능하다\n12345678server &#123;  # default 는 80 port (http default)  # 8080 port 에 대해서  listen 8080;  location / &#123;    proxy_pass http://localhost:8080;  &#125;&#125;\n\n여러개의 포트를 연결\nserver {\nlisten 8080;\nlisten 80;\n\nlocation / {\n  proxy_pass http://localhost:8080;\n}\n}\n\n","dateCreated":"2018-11-29T22:57:28+09:00","dateModified":"2018-11-29T23:00:09+09:00","datePublished":"2018-11-29T22:57:28+09:00","description":"","headline":"NGINX","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"https://emjayahn.github.io/2018/11/29/NGINX/"},"publisher":{"@type":"Organization","name":"EmjayAhn","sameAs":["https://github.com/emjayahn","https://facebook.com/jjminjae","https://instagram.com/emjay.data_science","mailto:emjay.data@gmail.com"],"image":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478","logo":{"@type":"ImageObject","url":"https://www.gravatar.com/avatar/92c0fa2eff5c7c916250c5c23a090478"}},"url":"https://emjayahn.github.io/2018/11/29/NGINX/","keywords":"nginx, proxy"}</script>
     <meta name="description" content="Nginx0. What is nginx? client 가 외부 IP와 그 포트를 통해 server 에 접근하면, 그 때부터는 request 를 내부 IP 와 port 로 연결을 해주어야 한다. 일종의 proxy server 역할을 해주는 것이 nginx  1. Install Nginx12$ sudo apt-get update$ sudo apt-get ins">
 <meta name="keywords" content="nginx, proxy">
 <meta property="og:type" content="blog">
@@ -148,20 +148,6 @@
                     
                         <a
                             class="sidebar-button-link "
-                            href="/all-tags"
-                            
-                            rel="noopener"
-                            title="태그"
-                        >
-                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
-                        <span class="sidebar-button-desc">태그</span>
-                    </a>
-            </li>
-            
-                <li class="sidebar-button">
-                    
-                        <a
-                            class="sidebar-button-link open-algolia-search"
                             href="/all-archives"
                             
                             rel="noopener"
@@ -169,6 +155,20 @@
                         >
                         <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
                         <span class="sidebar-button-desc">아카이브</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a
+                            class="sidebar-button-link open-algolia-search"
+                            href="/all-tags"
+                            
+                            rel="noopener"
+                            title="태그"
+                        >
+                        <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">태그</span>
                     </a>
             </li>
             
@@ -306,8 +306,10 @@
 <li>일종의 <code>proxy server</code> 역할을 해주는 것이 <code>nginx</code></li>
 </ul>
 <h2 id="1-Install-Nginx"><a href="#1-Install-Nginx" class="headerlink" title="1. Install Nginx"></a>1. Install Nginx</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br><span class="line">$ sudo apt-get install nginx</span><br></pre></td></tr></table></figure>
+
 <h2 id="2-Manage-the-Nginx-Process"><a href="#2-Manage-the-Nginx-Process" class="headerlink" title="2. Manage the Nginx Process"></a>2. Manage the Nginx Process</h2><ul>
 <li>nginx Process<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#start Nginx</span></span><br><span class="line">$ sudo systemctl start nginx</span><br><span class="line"></span><br><span class="line"><span class="comment">#stop nginx</span></span><br><span class="line">$ sudo systemctl stop nginx</span><br><span class="line"></span><br><span class="line"><span class="comment">#restart nginx</span></span><br><span class="line">$ sudo systemctl restart nginx</span><br><span class="line"></span><br><span class="line"><span class="comment">#check status nginx</span></span><br><span class="line">$ sudo systemctl status nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># reload nginx</span></span><br><span class="line">$ sudo systemctl reload nginx</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 <h2 id="3-Structure"><a href="#3-Structure" class="headerlink" title="3. Structure"></a>3. Structure</h2><ul>
@@ -327,13 +329,20 @@
 </ul>
 <h2 id="4-Nginx-Configuration"><a href="#4-Nginx-Configuration" class="headerlink" title="4. Nginx Configuration"></a>4. Nginx Configuration</h2><h3 id="4-1-static-file-serving"><a href="#4-1-static-file-serving" class="headerlink" title="4.1 static file serving"></a>4.1 static file serving</h3><p><code>/etc/nginx/sites-available/default</code> 파일 수정</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">  location / &#123;</span><br><span class="line">    root /path/to/html ;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  location /images/ &#123;</span><br><span class="line">    root /path/to/image;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h3 id="4-2-proxy-server"><a href="#4-2-proxy-server" class="headerlink" title="4.2 proxy server"></a>4.2 proxy server</h3><ul>
 <li><p>port 별로 설정이 가능하다</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">  # default 는 80 port (http default)</span><br><span class="line">  # 8080 port 에 대해서</span><br><span class="line">  listen 8080;</span><br><span class="line">  location / &#123;</span><br><span class="line">    proxy_pass http://localhost:8080;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>여러개의 포트를 연결<br>```<br>server {<br>listen 8080;<br>listen 80;</p>
-<p>location / {<br>  proxy_pass <a href="http://localhost:8080" target="_blank" rel="noopener">http://localhost:8080</a>;<br>}<br>}</p>
-</li>
+<li><p>여러개의 포트를 연결</p>
+<pre><code>server {
+listen 8080;
+listen 80;
+
+location / {
+  proxy_pass http://localhost:8080;
+}
+}</code></pre></li>
 </ul>
 
             
@@ -612,7 +621,7 @@
         
             <h4 id="about-card-name">EmjayAhn</h4>
         
-            <div id="about-card-bio"><p>나스미디어</p>
+            <div id="about-card-bio"><p>NasMedia, Data Science Team</p>
 </div>
         
         
@@ -627,7 +636,7 @@
             <div id="about-card-location">
                 <i class="fa fa-map-marker-alt"></i>
                 <br/>
-                서울, 대한민국
+                Seoul, Korea
             </div>
         
     </div>
