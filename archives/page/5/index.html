@@ -277,6 +277,78 @@
                     
                         <a
                             class="link-unstyled"
+                            href="/2018/12/05/Generative-Model/"
+                            aria-label=": Generative Model"
+                        >
+                            Generative Model
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2018-12-05T08:48:55+09:00">
+	
+		    Dec 05, 2018
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/Math/">Math</a>
+
+
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h1 id="확률론적-생성모형-Generative-Model"><a href="#확률론적-생성모형-Generative-Model" class="headerlink" title="확률론적 생성모형 (Generative Model)"></a>확률론적 생성모형 (Generative Model)</h1><h2 id="확률론적-생성모형의-기본-개념"><a href="#확률론적-생성모형의-기본-개념" class="headerlink" title="확률론적 생성모형의 기본 개념"></a>확률론적 생성모형의 기본 개념</h2><ul>
+<li><p>우리가 궁금한 것은 $ x $ (features) 들이 있을 떄, $ y $가 어떤 Class 인지 맞추는 것이다. 맞추기 위해서는 training set 으로 부터 각 Class 마다 $ P(y \mid x) $의 모형을 알아내야 한다.</p>
+</li>
+<li><p>베이즈 정리를 이용하여, $ y=C_k $일 때의 조건부 확률을 구할 수 있다.<br>$$<br>P(y = C_k \mid x) = \dfrac{P(x \mid y = C_k); P(y = C_k)}{P(x)}<br>$$</p>
+</li>
+<li><p>이 때, $ P(x \mid y = C_k) $<br>== <strong>Likelihood</strong><br>== y가 k라는 클래스 일 때, x의 확률을 구하는 것이 관건</p>
+</li>
+</ul>
+<h2 id="Likelihood-추정의-알고리즘"><a href="#Likelihood-추정의-알고리즘" class="headerlink" title="Likelihood 추정의 알고리즘"></a>Likelihood 추정의 알고리즘</h2><ol>
+<li>$ P(x \mid y = C_k) $ 가 ** 어떤 ** 확률분포를 따를 것이다라고 가정<br><br><br></li>
+<li>x의 특성에 따라 우리가 알고 있는 특정 확률분포를 따른다! 라고 가정<br><br><br></li>
+<li>Class k 를 만드는 data들을 통해 이 확률분포의 모수값을 구한다.<br><br><br></li>
+<li>모수값을 안다 == $ P(x \mid y = C_k) $ 의 pdf 를 알고 있다.<br><br><br></li>
+<li>test set x 가 들어오면 $ P(x \mid y = C_k) $ 를 구할 수 있다.</li>
+</ol>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a
+                                href="/2018/12/05/Generative-Model/#post-footer"
+                                class="postShorten-excerpt_link link"
+                                aria-label=""
+                            >
+                                Comment and share
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
+                        <a
+                            class="link-unstyled"
                             href="/2018/12/04/181204-TodayWhatILearned/"
                             aria-label=": 181204-TodayWhatILearned"
                         >
@@ -1016,72 +1088,6 @@ while, if 조건문 등을 쓸때, 띄어쓰기에 예민했고, DO ~ DONE 의 c
                         <p>
                             <a
                                 href="/2018/11/23/math-cheatsheet/#post-footer"
-                                class="postShorten-excerpt_link link"
-                                aria-label=""
-                            >
-                                Comment and share
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom">
-        <div class="postShorten-wrap">
-            
-            <div class="postShorten-header">
-                <h1 class="postShorten-title">
-                    
-                        <a
-                            class="link-unstyled"
-                            href="/2018/11/23/numpy-cheatsheet/"
-                            aria-label=": numpy_cheatsheet"
-                        >
-                            numpy_cheatsheet
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time datetime="2018-11-23T19:33:39+09:00">
-	
-		    Nov 23, 2018
-    	
-    </time>
-    
-        <span>in </span>
-        
-    <a class="category-link" href="/categories/wiki/">wiki</a>
-
-
-    
-</div>
-
-            </div>
-            
-                <div class="postShorten-content">
-                    <h3 id="np-arange-start-end"><a href="#np-arange-start-end" class="headerlink" title="np.arange(start, end)"></a>np.arange(start, end)</h3><ul>
-<li>start 에서 end-1 까지의 행렬(array) return</li>
-</ul>
-<h3 id="np-linspace-start-end-number-of-dots"><a href="#np-linspace-start-end-number-of-dots" class="headerlink" title="np.linspace(start, end, number_of_dots)"></a>np.linspace(start, end, number_of_dots)</h3><ul>
-<li>number_of_dots : 범위 안의 점 갯수</li>
-</ul>
-<h3 id="np-zeros-like-x"><a href="#np-zeros-like-x" class="headerlink" title="np.zeros_like(x)"></a>np.zeros_like(x)</h3><ul>
-<li>0으로 채운 x 와 같은 크기의 행렬</li>
-</ul>
-
-                    
-                        
-
-
-                    
-                    
-                        <p>
-                            <a
-                                href="/2018/11/23/numpy-cheatsheet/#post-footer"
                                 class="postShorten-excerpt_link link"
                                 aria-label=""
                             >
